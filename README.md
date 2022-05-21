@@ -1,4 +1,4 @@
-# device_board_telink
+# device_soc_telink
 
 Damien Ji
 
