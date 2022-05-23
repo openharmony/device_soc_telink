@@ -1,26 +1,27 @@
 /********************************************************************************************************
- * @file     eatt.h 
+ * @file	eatt.h
  *
- * @brief    for TLSR chips
+ * @brief	This is the header file for BLE SDK
  *
- * @author	 BLE Group
- * @date     Sep. 18, 2019
+ * @author	BLE GROUP
+ * @date	2020.06
  *
- * @par      Copyright (c) Telink Semiconductor (Shanghai) Co., Ltd.
- *           All rights reserved.
- *           
- *			 The information contained herein is confidential and proprietary property of Telink 
- * 		     Semiconductor (Shanghai) Co., Ltd. and is available under the terms 
- *			 of Commercial License Agreement between Telink Semiconductor (Shanghai) 
- *			 Co., Ltd. and the licensee in separate contract or the terms described here-in. 
- *           This heading MUST NOT be removed from this file.
+ * @par     Copyright (c) 2020, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
  *
- * 			 Licensees are granted free, non-transferable use of the information in this 
- *			 file under Mutual Non-Disclosure Agreement. NO WARRENTY of ANY KIND is provided. 
- *           
+ *          Licensed under the Apache License, Version 2.0 (the "License");
+ *          you may not use this file except in compliance with the License.
+ *          You may obtain a copy of the License at
+ *
+ *              http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *          Unless required by applicable law or agreed to in writing, software
+ *          distributed under the License is distributed on an "AS IS" BASIS,
+ *          WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *          See the License for the specific language governing permissions and
+ *          limitations under the License.
  *******************************************************************************************************/
-#ifndef GATT_H_
-#define GATT_H_
+#ifndef EATT_H_
+#define EATT_H_
 
 
 #if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
@@ -79,4 +80,4 @@ int blc_eatt_sendExecuteWriteRsp(u16 connHandle, u16 scid);
 
 #endif //#if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
 
-#endif //#ifndef GATT_H_
+#endif //#ifndef EATT_H_
