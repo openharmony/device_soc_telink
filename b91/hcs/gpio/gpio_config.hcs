@@ -1,0 +1,9 @@
+root {
+    platform {
+        gpio_config {
+                match_attr = "telink_b91_gpio";
+                pinMap = [12, 13, 14, 15, 16, 17, 18,19];
+                pinNum = 8;
+        }
+    }
+}
