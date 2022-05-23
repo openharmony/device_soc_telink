@@ -63,6 +63,9 @@
                 <filteritem type="filepath" name="b91/b91m_ble_sdk/.project" desc="desc files"/>
                 <filteritem type="filepath" name="b91/b91m_ble_sdk/.cproject" desc="desc files"/>
             </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+                <filteritem type="filepath" name="End User License Agreement.md" desc="desc files"/>
+            </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
                 <filteritem type="filename" name="*.png|*.exe|*.jpg" desc=""/>
                 <filteritem type="filepath" name="b91/b91m_ble_sdk/proj_lib/liblt_9518.a" desc=""/>        
