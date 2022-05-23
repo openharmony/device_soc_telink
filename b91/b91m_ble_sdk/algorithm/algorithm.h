@@ -31,7 +31,4 @@
 #include "algorithm/ecc/ecc_ll.h"
 #include "algorithm/ecc/hw_ecc.h"
 
-#include "algorithm/lc3/inc/lc3_enc.h"
-#include "algorithm/lc3/inc/lc3_dec.h"
-
 #endif /* ALGORITHM_H_ */
