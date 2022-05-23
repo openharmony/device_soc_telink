@@ -1,0 +1,64 @@
+# Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+# All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//kernel/liteos_m/liteos.gni")
+
+kernel_module("platform_main") {
+    sources = [
+        "src/_stub.c",
+        "src/board_config.c",
+        "src/canary.c",
+        "src/littlefs_hal.c",
+        "src/main.c",
+        "src/riscv_irq.c",
+        "src/system.c",
+        "src/system_b91.c",
+
+        "src/inject_start.S",
+        "src/reset_vector.S",
+    ]
+
+    deps = [
+        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
+        "//base/hiviewdfx/hiview_lite",
+    ]
+
+    include_dirs = [
+        "//base/hiviewdfx/hilog_lite/frameworks/mini",
+        "//third_party/glib/glib/gnulib",
+        "//third_party/littlefs",
+        "//third_party/musl/porting/liteos_m/kernel/include",
+        "//kernel/liteos_m/components/fs",
+        "//kernel/liteos_m/components/fs/littlefs",
+    ]
+
+    configs += [
+        "../:B91_config",
+    ]
+
+    if (!defined(defines)) {
+        defines = []
+    }
+}
+
+config("public") {
+    lib_dirs = [ "$root_out_dir/libs" ]
+
+    ldflags = [
+        "-z","muldefs",
+        "-Wl,--gc-sections",
+        "-Wl,-T" + rebase_path("../liteos.ld"),
+    ]
+}
