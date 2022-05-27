@@ -23,6 +23,8 @@
 #include <B91/clock.h>
 #include <B91/sys.h>
 
+#include <B91/ext_driver/ext_pm.h>
+
 /****************************************************************************
  * Pre-processor Definitions
  ****************************************************************************/
@@ -76,6 +78,8 @@
 
 VOID SystemInit(VOID)
 {
+    blc_pm_select_internal_32k_crystal();
+
     sys_init(POWER_MODE, VBAT_TYPE);
     CLOCK_INIT;
 

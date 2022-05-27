@@ -64,11 +64,7 @@ struct lfs_config *LittlefsConfigGet(void);
 
 VOID HardwareInit(VOID)
 {
-    /* detect if MCU is wake_up from deep retention mode */
-    int deepRetWakeUp = pm_is_MCU_deepRetentionWakeup();  //MCU deep retention wakeUp
-
     SystemInit();
-    gpio_init(!deepRetWakeUp);
 }
 
 STATIC VOID LittlefsInit(VOID)
