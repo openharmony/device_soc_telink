@@ -15,7 +15,11 @@
  * limitations under the License.
  *
  *****************************************************************************/
+
 #pragma once
+
+#ifndef USER_CONFIG_H
+#define USER_CONFIG_H
 
 #if (__PROJECT_B91_BLE_SAMPLE__)
 	#include "../B91_ble_sample/app_config.h"
@@ -29,3 +33,4 @@
 
 #endif
 
+#endif // USER_CONFIG_H

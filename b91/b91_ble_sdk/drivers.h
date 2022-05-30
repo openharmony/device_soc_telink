@@ -17,6 +17,9 @@
  *****************************************************************************/
 #pragma once
 
+#ifndef DRIVERS_H
+#define DRIVERS_H
+
 #include "drivers/B91/driver_b91.h"
 #include "drivers/B91/ext_driver/driver_ext.h"
 #include "types.h"
@@ -25,3 +28,5 @@
 
 
 #define write_log32(err_code)   write_sram32(0x00014, err_code)
+
+#endif // DRIVERS_H

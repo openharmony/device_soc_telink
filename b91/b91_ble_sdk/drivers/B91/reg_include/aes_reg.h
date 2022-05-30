@@ -22,7 +22,7 @@
 
 
 #define reg_aes_mode     			REG_ADDR32(0x1600b0)
-enum{
+enum {
 	FLD_AES_START	=	BIT(0),
 	FLD_AES_MODE	=	BIT(1),   /**< 0-ciher  1-deciher */
 };
@@ -37,12 +37,12 @@ enum{
 /**
  *  @brief  Define AES IRQ
  */
-typedef enum{
+typedef enum {
 	FLD_CRYPT_IRQ		= BIT(7),
 }aes_irq_e;
 
 
-#define reg_aes_key(v)     			REG_ADDR32(0x1600b4+(v*4))
+#define reg_aes_key(v)     			REG_ADDR32(0x1600b4+((v)*4))
 
 #define reg_aes_ptr     			REG_ADDR32(0x1600c4)
 

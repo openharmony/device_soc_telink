@@ -17,12 +17,14 @@
  *****************************************************************************/
 #pragma once
 
+#ifndef DEFAULT_CONFIG_H
+#define DEFAULT_CONFIG_H
 
 #include "config.h"
 
 //////////// product  Infomation  //////////////////////////////
 #ifndef ID_VENDOR
-#define ID_VENDOR			0x248a			// for report 
+#define ID_VENDOR			0x248a // for report 
 #endif
 #ifndef ID_PRODUCT_BASE
 #define ID_PRODUCT_BASE		0x8800
@@ -62,7 +64,7 @@
 	#define MODULE_MIC_ENABLE		0
 	#endif
 	#ifndef MODULE_SPEAKER_ENABLE
-	#define MODULE_SPEAKER_ENABLE	0			// device , not dongle
+	#define MODULE_SPEAKER_ENABLE	0 // device , not dongle
 	#endif
 	#ifndef MODULE_USB_ENABLE
 	#define MODULE_USB_ENABLE		1
@@ -79,7 +81,7 @@
 	#define MODULE_MIC_ENABLE		0
 	#endif
 	#ifndef MODULE_SPEAKER_ENABLE
-	#define MODULE_SPEAKER_ENABLE	0			// device , not dongle
+	#define MODULE_SPEAKER_ENABLE	0 // device , not dongle
 	#endif
 
 	#ifndef MODULE_USB_ENABLE
@@ -140,17 +142,19 @@
 #endif
 
 #define KEYBOARD_RESENT_MAX_CNT			3
-#define KEYBOARD_REPEAT_CHECK_TIME		300000	// in us	
-#define KEYBOARD_REPEAT_INTERVAL		100000	// in us	
-#define KEYBOARD_SCAN_INTERVAL			16000	// in us
-#define MOUSE_SCAN_INTERVAL				8000	// in us	
+#define KEYBOARD_REPEAT_CHECK_TIME		300000 // in us	
+#define KEYBOARD_REPEAT_INTERVAL		100000 // in us	
+#define KEYBOARD_SCAN_INTERVAL			16000 // in us
+#define MOUSE_SCAN_INTERVAL				8000 // in us	
 #define SOMATIC_SCAN_INTERVAL     		8000
 
-#define USB_KEYBOARD_POLL_INTERVAL		10		// in ms	USB_KEYBOARD_POLL_INTERVAL < KEYBOARD_SCAN_INTERVAL to ensure PC no missing key
-#define USB_MOUSE_POLL_INTERVAL			4		// in ms
-#define USB_SOMATIC_POLL_INTERVAL     	8		// in ms
+// USB_KEYBOARD_POLL_INTERVAL < KEYBOARD_SCAN_INTERVAL to ensure PC no missing key
+#define USB_KEYBOARD_POLL_INTERVAL		10 // in ms	
+#define USB_MOUSE_POLL_INTERVAL			4 // in ms
+#define USB_SOMATIC_POLL_INTERVAL     	8 // in ms
 
 #define USB_KEYBOARD_RELEASE_TIMEOUT    (450000) // in us
 #define USB_MOUSE_RELEASE_TIMEOUT       (200000) // in us
 #define USB_SOMATIC_RELEASE_TIMEOUT     (200000) // in us
 
+#endif // DEFAULT_CONFIG_H

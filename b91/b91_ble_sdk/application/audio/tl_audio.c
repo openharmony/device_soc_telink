@@ -16,17 +16,17 @@
  *
  *****************************************************************************/
 
-#include 	"tl_common.h"
-#include 	"drivers.h"
-#include	"tl_audio.h"
-#include	"audio_config.h"
-#include	"adpcm.h"
-#include    "sbc.h"
+#include "audio_config.h"
+#include "adpcm.h"
+#include "drivers.h"
+#include "sbc.h"
+#include "tl_audio.h"
+#include "tl_common.h"
 
 
 
 
-#if (TL_AUDIO_MODE & RCU_PROJECT)				//RCU
+#if (TL_AUDIO_MODE & RCU_PROJECT)				// RCU
 
 #if (TL_AUDIO_MODE & (TL_AUDIO_MASK_SBC_MODE | TL_AUDIO_MASK_MSBC_MODE))
 

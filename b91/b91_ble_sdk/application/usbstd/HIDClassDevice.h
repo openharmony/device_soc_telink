@@ -17,6 +17,9 @@
  *****************************************************************************/
 #pragma once
 
+#ifndef HIDCLASSDEVICE_H
+#define HIDCLASSDEVICE_H
+
 /* Includes: */
 #include "../common/types.h"
 
@@ -25,8 +28,7 @@
 	extern "C" {
 #endif
 
-typedef struct
-{
+typedef struct {
 	u8  InterfaceNumber;
 	u8  ReportINEndpointNumber;
 	u16 ReportINEndpointSize;
@@ -35,8 +37,7 @@ typedef struct
 	u8  PrevReportINBufferSize;
 } usbhid_config_t;
 
-typedef struct
-{
+typedef struct {
 	bool UsingReportProtocol;
 	u16 PrevFrameNum;
 	u16 IdleCount;
@@ -50,4 +51,4 @@ typedef struct
 	}
 #endif
 
-
+#endif // HIDCLASSDEVICE_H

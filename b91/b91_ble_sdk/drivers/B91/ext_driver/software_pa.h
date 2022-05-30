@@ -44,9 +44,8 @@
 
 
 typedef void (*rf_pa_callback_t)(int type);
-extern rf_pa_callback_t  blc_rf_pa_cb;
 
-
+void set_blc_rf_pa_cb(rf_pa_callback_t cb);
 
 void rf_pa_init(void);
 

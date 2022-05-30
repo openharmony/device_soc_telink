@@ -18,6 +18,9 @@
 
 #pragma once
 
+#ifndef USBMOUSE_I_H
+#define USBMOUSE_I_H
+
 #include "usbmouse.h"
 #include "application/usbstd/usb.h"
 #include "vendor/common/default_config.h"
@@ -249,3 +252,4 @@ static inline u16 usbmouse_get_report_desc_size(void) {
 	return sizeof(mouse_report_desc);
 }
 
+#endif // USBMOUSE_I_H

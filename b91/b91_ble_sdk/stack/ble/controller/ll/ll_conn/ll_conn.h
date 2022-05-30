@@ -35,7 +35,7 @@
 
 
 #define 	BLE_INVALID_CONNECTION_HANDLE    					0xffff
-#define 	IS_CONNECTION_HANDLE_VALID(handle)  				( handle != BLE_INVALID_CONNECTION_HANDLE )
+#define 	IS_CONNECTION_HANDLE_VALID(handle)  				( (handle) != BLE_INVALID_CONNECTION_HANDLE )
 
 /**
  * @brief      for user to initialize ACL connection module.

@@ -17,6 +17,9 @@
  *****************************************************************************/
 #pragma once
 
+#ifndef MDEC_REG_H
+#define MDEC_REG_H
+
 #include "../sys.h"
 
 #define mdec_rst_addr                   0x53
@@ -35,7 +38,4 @@ typedef enum{
 
 #define	mdec_ctrl						0x54
 
-
-
-
-
+#endif // MDEC_REG_H

@@ -17,7 +17,8 @@
  *****************************************************************************/
 #pragma once
 
-
+#ifndef DRIVER_B91_H
+#define DRIVER_B91_H
 
 #include "audio.h"
 #include "analog.h"
@@ -53,3 +54,4 @@
 #include "mspi.h"
 #include "adc.h"
 
+#endif // DRIVER_B91_H

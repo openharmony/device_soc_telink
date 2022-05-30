@@ -18,6 +18,9 @@
 
 #pragma once
 
+#ifndef USBMOUSE_H
+#define USBMOUSE_H
+
 
 #include <application/usbstd/HIDClassCommon.h>
 #include <application/usbstd/HIDReportData.h>
@@ -39,3 +42,5 @@ int usbmouse_hid_report(u8 report_id, u8 *data, int cnt);
 #if defined(__cplusplus)
 	}
 #endif
+
+#endif // USBMOUSE_H

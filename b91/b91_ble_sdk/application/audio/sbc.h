@@ -44,6 +44,6 @@ size_t sbc_get_frame_length(int type);
 /* Returns the input block size in bytes */
 size_t sbc_get_codesize(int type);
 
-void msbc_init_ctx();
-void msbc_release_ctx();
+void msbc_init_ctx(void);
+void msbc_release_ctx(void);
 #endif /* SBC_H_ */

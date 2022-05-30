@@ -27,14 +27,14 @@
 #define DMA_RFRX_OFFSET_RFLEN				5   // 826x: 13
 #define DMA_RFRX_OFFSET_DATA				6	// 826x: 14
 
-#define RF_TX_PAKET_DMA_LEN(rf_data_len)		(((rf_data_len)+3)/4)|(((rf_data_len) % 4)<<22)
-#define DMA_RFRX_OFFSET_CRC24(p)			(p[DMA_RFRX_OFFSET_RFLEN]+6)  //data len:3
-#define DMA_RFRX_OFFSET_TIME_STAMP(p)		(p[DMA_RFRX_OFFSET_RFLEN]+9)  //data len:4
-#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)		(p[DMA_RFRX_OFFSET_RFLEN]+13) //data len:2
-#define DMA_RFRX_OFFSET_RSSI(p)				(p[DMA_RFRX_OFFSET_RFLEN]+15) //data len:1, signed
+#define RF_TX_PAKET_DMA_LEN(rf_data_len)		((((rf_data_len)+3)/4)|(((rf_data_len) % 4)<<22))
+#define DMA_RFRX_OFFSET_CRC24(p)			((p)[DMA_RFRX_OFFSET_RFLEN]+6)  //data len:3
+#define DMA_RFRX_OFFSET_TIME_STAMP(p)		((p)[DMA_RFRX_OFFSET_RFLEN]+9)  //data len:4
+#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)		((p)[DMA_RFRX_OFFSET_RFLEN]+13) //data len:2
+#define DMA_RFRX_OFFSET_RSSI(p)				((p)[DMA_RFRX_OFFSET_RFLEN]+15) //data len:1, signed
 
-#define	RF_BLE_RF_PAYLOAD_LENGTH_OK(p)					(p[5] <= reg_rf_rxtmaxlen)
-#define	RF_BLE_RF_PACKET_CRC_OK(p)						((p[p[5]+5+11] & 0x01) == 0x0)
+#define	RF_BLE_RF_PAYLOAD_LENGTH_OK(p)					((p)[5] <= reg_rf_rxtmaxlen)
+#define	RF_BLE_RF_PACKET_CRC_OK(p)						(((p)[(p)[5]+5+11] & 0x01) == 0x0)
 #define	RF_BLE_PACKET_VALIDITY_CHECK(p)					(RF_BLE_RF_PAYLOAD_LENGTH_OK(p) && RF_BLE_RF_PACKET_CRC_OK(p))
 
 typedef enum {
@@ -133,7 +133,7 @@ static inline void rf_trigle_codedPhy_accesscode(void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_on ()
+static inline void rf_ble_tx_on (void)
 {
 	write_reg8  (0x80140a02, 0x45 | BIT(4));	// TX enable
 }
@@ -143,7 +143,7 @@ static inline void rf_ble_tx_on ()
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_done ()
+static inline void rf_ble_tx_done (void)
 {
 	write_reg8  (0x80140a02, 0x45);
 }

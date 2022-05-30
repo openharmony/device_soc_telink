@@ -16,6 +16,10 @@
  *
  *****************************************************************************/
 #pragma once
+
+#ifndef PRINTERCLASSCOMMON_H
+#define PRINTERCLASSCOMMON_H
+
 	/* Includes: */
 #include "tl_common.h"
 	
@@ -48,3 +52,4 @@ enum PRNT_ClassRequests_t
 	}
 #endif
 
+#endif // PRINTERCLASSCOMMON_H

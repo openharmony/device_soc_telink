@@ -15,7 +15,10 @@
  * limitations under the License.
  *
  *****************************************************************************/
- 
+
+#ifndef AUDIO_CONFIG_H
+#define AUDIO_CONFIG_H
+
 #include  "application/audio/audio_common.h"
 #include  "tl_common.h"
 
@@ -24,13 +27,13 @@
 #define		TL_AUDIO_MODE									AUDIO_DISABLE
 #endif
 
-#if (TL_AUDIO_MODE & RCU_PROJECT)						//RCU
+#if (TL_AUDIO_MODE & RCU_PROJECT) //RCU
 	#if (TL_AUDIO_MODE == TL_AUDIO_RCU_ADPCM_GATT_TLEINK)
 		#define	ADPCM_PACKET_LEN				128
 		#define TL_MIC_ADPCM_UNIT_SIZE			248
 		#define	TL_MIC_BUFFER_SIZE				992
 	#elif (TL_AUDIO_MODE == TL_AUDIO_RCU_ADPCM_GATT_GOOGLE)
-		#define	ADPCM_PACKET_LEN				136		//(128+6+2)
+		#define	ADPCM_PACKET_LEN				136 //(128+6+2)
 		#define TL_MIC_ADPCM_UNIT_SIZE			256
 		#define	TL_MIC_BUFFER_SIZE				1024
 	#elif (TL_AUDIO_MODE == TL_AUDIO_RCU_ADPCM_HID_DONGLE_TO_STB)
@@ -57,13 +60,13 @@
 
 	#endif
 
-#elif (TL_AUDIO_MODE & DONGLE_PROJECT)					//Dongle
+#elif (TL_AUDIO_MODE & DONGLE_PROJECT) //Dongle
 
 	#if (TL_AUDIO_MODE == TL_AUDIO_DONGLE_ADPCM_GATT_TELINK)
 		#define	MIC_ADPCM_FRAME_SIZE		128
 		#define	MIC_SHORT_DEC_SIZE			248
 	#elif (TL_AUDIO_MODE == TL_AUDIO_DONGLE_ADPCM_GATT_GOOGLE)
-		#define	MIC_ADPCM_FRAME_SIZE		136 		//128+6+2
+		#define	MIC_ADPCM_FRAME_SIZE		136 // 128+6+2
 		#define	MIC_SHORT_DEC_SIZE			256
 	#elif (TL_AUDIO_MODE == TL_AUDIO_DONGLE_ADPCM_HID_DONGLE_TO_STB)
 		#define	MIC_ADPCM_FRAME_SIZE		120
@@ -85,7 +88,9 @@
 
 	#endif
 
-	#if ((TL_AUDIO_MODE == TL_AUDIO_DONGLE_SBC_HID) || (TL_AUDIO_MODE == TL_AUDIO_DONGLE_SBC_HID_DONGLE_TO_STB) || (TL_AUDIO_MODE == TL_AUDIO_DONGLE_MSBC_HID))
+	#if ((TL_AUDIO_MODE == TL_AUDIO_DONGLE_SBC_HID) || \
+		 (TL_AUDIO_MODE == TL_AUDIO_DONGLE_SBC_HID_DONGLE_TO_STB) || \
+		 (TL_AUDIO_MODE == TL_AUDIO_DONGLE_MSBC_HID))
 		#define 	MIC_OPEN_FROM_RCU		0x31999999
 		#define 	MIC_OPEN_TO_STB			0x32999999
 		#define 	MIC_CLOSE_FROM_RCU		0x34999999
@@ -99,3 +104,5 @@
 #else
 
 #endif
+
+#endif // AUDIO_CONFIG_H

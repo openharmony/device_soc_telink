@@ -16,11 +16,14 @@
  *
  *****************************************************************************/
 #if 1
-#include "tl_common.h"
-#include "drivers.h"
-#include "blt_fw_sign.h"
+
 #include "stack/ble/ble_config.h"
+
+#include "drivers.h"
+#include "tl_common.h"
+
 #include "blt_common.h"
+#include "blt_fw_sign.h"
 #include "proj_lib/firmware_encrypt.h"
 
 /**
@@ -38,14 +41,16 @@ void blt_firmware_signature_check(void)
 		int flag = flash_read_mid_uid_with_check(&flash_mid, flash_uid);
 
 		if(flag==0){  //reading flash UID error
-			while(1);
+			while(1) {
+			}
 		}
 
 		firmware_encrypt_based_on_uid (flash_uid, signature_enc_key);
 
 		flash_read_page(flash_sector_calibration + CALIB_OFFSET_FIRMWARE_SIGNKEY, 16, signature_flash_key);
 		if(memcmp(signature_enc_key, signature_flash_key, 16)){  //signature not match
-			while(1);   //user can change the code here to stop firmware running
+			while(1) { // user can change the code here to stop firmware running
+			}
 		}
 }
 #endif

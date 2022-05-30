@@ -63,3 +63,7 @@ void rf_pa_init(void)
 #endif
 }
 
+void set_blc_rf_pa_cb(rf_pa_callback_t cb)
+{
+    blc_rf_pa_cb = cb;
+}

@@ -17,6 +17,9 @@
  *****************************************************************************/
 #pragma once
 
+#ifndef BLE_CONFIG_H
+#define BLE_CONFIG_H
+
 
 #include "drivers.h"
 #include "tl_common.h"
@@ -231,3 +234,5 @@
 
 
 #define PUYA_FLASH_JUDGE_EN					0
+
+#endif // BLE_CONFIG_H

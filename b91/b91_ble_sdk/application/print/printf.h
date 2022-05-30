@@ -16,11 +16,17 @@
  *
  *****************************************************************************/
 #pragma once
-#include "drivers.h"
+
+#ifndef PRINTF_H
+#define PRINTF_H
+
 #include <stdio.h>
+
+#include "drivers.h"
+
 #define DEBUG_MODE	1
 
-#if(DEBUG_MODE==1)
+#if (DEBUG_MODE==1)
 
 #define  DEBUG_IO		0
 #define  DEBUG_USB		1
@@ -42,5 +48,6 @@
 	#endif
 #endif
 
-#endif
+#endif // (DEBUG_MODE==1)
 
+#endif // PRINTF_H
