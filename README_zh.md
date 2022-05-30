@@ -1,9 +1,5 @@
 # device_soc_telink
 
-Damien Ji
-
-2022.5.21
-
 ## 介绍
 
 系统要求：Ubuntu20.04 64位系统版本。
@@ -83,7 +79,7 @@ sudo apt-get install build-essential gcc g++ make zlib* libffi-dev e2fsprogs pkg
     python3 --version
     ```
 
-    如果不低于3.8，可以忽略下列步骤，跳转到下一小节开始[安装ohos-build](#4-安装hb)。
+    如果不低于3.8，可以忽略下列步骤，跳转到下一节开始[安装ohos-build](#4-安装hb)。
 
 3. 如果低于python3.7版本，不建议直接升级，请按照如下步骤重新安装。
 
@@ -120,7 +116,7 @@ sudo apt-get install build-essential gcc g++ make zlib* libffi-dev e2fsprogs pkg
 
 #### 前提条件
 
-请先安装Python 3.7.4及以上版本，请[安装Python3](#3-检查或安装Python3)。
+请先安装Python 3.7.4及以上版本，请[安装Python3](#3-检查或安装python3)。
 
 #### 安装方法
 
@@ -153,7 +149,8 @@ sudo apt-get install build-essential gcc g++ make zlib* libffi-dev e2fsprogs pkg
 
 1. 编译链工具推荐使用RISC-V GNU compiler toolchain。
 
-    从[Telink官方网站](http://wiki.telink-semi.cn/wiki/IDE-and-Tools/BDT_for_TLSR9_Series_in_Linux/)可以下载该编译链工具，并解压到用户自行指定的位置。[点击下载Toolchain](http://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_riscv_linux_toolchain.zip)或可以使用下列命令中的工具。
+    从[Telink官方网站](http://wiki.telink-semi.cn/wiki/IDE-and-Tools/BDT_for_TLSR9_Series_in_Linux/)可以下载该编译链工具，并解压到用户自行指定的位置。
+    [点击下载Toolchain](http://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_riscv_linux_toolchain.zip)或可以使用下列命令中的工具。
 
     ```bash
     wget http://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_riscv_linux_toolchain.zip
@@ -356,7 +353,8 @@ user:~/openharmony/vendor$ tree -L 3
 
 ### 1. 软件安装
 
-Burning and Debugging Tools(BDT)仅支持在Windows平台下安装使用，其可执行安装程序为Telink BDT.exe。[点击下载BDT](http://wiki.telink-semi.cn/tools_and_sdk/Tools/BDT/BDT.zip)
+Burning and Debugging Tools(BDT)仅支持在Windows平台下安装使用，其可执行安装程序为Telink BDT.exe。
+[点击下载BDT](http://wiki.telink-semi.cn/tools_and_sdk/Tools/BDT/BDT.zip)
 
 ### 2. 硬件连接
 
@@ -374,7 +372,8 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装使用，其�
 
 1. 用USB线连接烧录器到电脑的USB口。
 
-2. 下载BDT烧录软件，解压到本地文件夹，双击可执行文件"Telink BDT.exe"。如果一切正常，可以看到如下的窗口显示，在系统标题栏中可以看到已被连接的烧录器的设备信息（见图中红色框）。
+2. 下载BDT烧录软件，解压到本地文件夹，双击可执行文件"Telink BDT.exe"。
+如果一切正常，可以看到如下的窗口显示，在系统标题栏中可以看到已被连接的烧录器的设备信息（见图中红色框）。
 
     ![BDT正常启动后的界面](images/bdt_connection.png)
 
