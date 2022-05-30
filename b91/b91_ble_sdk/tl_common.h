@@ -36,7 +36,6 @@
 #include <string.h>
 
 
-#include "application/print/printf.h"
 
 #include "vendor/common/blt_common.h"
 #include "vendor/common/blt_fw_sign.h"

@@ -18,5 +18,9 @@
 
 #pragma once
 
+#ifndef COMMON_CONFIG_USER_CONFIG_H
+#define COMMON_CONFIG_USER_CONFIG_H
+
 #include "vendor/common/user_config.h"
 
+#endif // COMMON_CONFIG_USER_CONFIG_H
