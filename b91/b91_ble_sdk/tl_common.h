@@ -31,11 +31,7 @@
 #include "common/assert.h"
 #include "common/static_assert.h"
 
-
-
 #include <string.h>
-
-
 
 #include "vendor/common/blt_common.h"
 #include "vendor/common/blt_fw_sign.h"

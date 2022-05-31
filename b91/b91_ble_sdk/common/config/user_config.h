@@ -16,8 +16,6 @@
  *
  *****************************************************************************/
 
-#pragma once
-
 #ifndef COMMON_CONFIG_USER_CONFIG_H
 #define COMMON_CONFIG_USER_CONFIG_H
 
