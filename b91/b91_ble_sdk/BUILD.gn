@@ -28,7 +28,6 @@ static_library("b91_ble_sdk") {
     ]
 
     sources += [
-        "application/keyboard/keyboard.c",
         #"vendor/common/simple_sdp.c",
         "vendor/common/blt_common.c",
         "vendor/common/custom_pair.c",
