@@ -12,7 +12,7 @@
 ## 简介
 
 本仓库为泰凌微电子（Telink Semi）公司的TLSR9系列芯片相关代码仓库，用于存放与SoC芯片相关的SDK及适配代码。
-使用同一款SoC，开发不同的device或board时，可共用该仓库代码进行开发。
+使用同一系列SoC，开发不同的device或board时，可共用该仓库代码进行开发。
 
 ## 开发环境
 
@@ -36,7 +36,7 @@
 
 本仓库包含的编译构建脚本和打包镜像工具等，需要在Linux环境上执行。
 
-本章节参考了OpenHarmoney文档《搭建轻量与小型系统》，[请点击详情查看详情](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-lite-env-setup.md)。
+本章节参考了OpenHarmoney文档《搭建轻量与小型系统》，[请点击查看详情](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-lite-env-setup.md)。
 
 ### 安装repo
 
@@ -411,9 +411,9 @@ user:~/openharmony/vendor$ tree -L 3
 
 在Windows平台的环境下，烧录固件。
 
-### 安装烧录工具
+### 烧录工具
 
-Burning and Debugging Tools(BDT)仅支持在Windows平台下安装使用，其可执行安装程序为Telink BDT.exe。
+Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，其可执行安装程序为Telink BDT.exe。
 [点击下载BDT](http://wiki.telink-semi.cn/tools_and_sdk/Tools/BDT/BDT.zip)
 
 ### 连接硬件
