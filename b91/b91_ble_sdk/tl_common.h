@@ -34,7 +34,6 @@
 #include <string.h>
 
 #include "vendor/common/blt_common.h"
-#include "vendor/common/blt_fw_sign.h"
 #include "vendor/common/blt_led.h"
 #include "vendor/common/blt_soft_timer.h"
 #include "vendor/common/custom_pair.h"
