@@ -257,7 +257,7 @@ user:~/openharmony/device/soc$ tree -L 3
     │   └── liteos_m                                # liteos_m 各模块实现
     ├── BUILD.gn                                # GN构建脚本
     ├── End User License Agreement.md               # 终端用户证书协议
-    ├── images                                      # README插图文件夹  
+    ├── figures                                      # README插图文件夹  
     .   ├── ...                                     # 插图
     │   └── ...                                     # 插图
     ├── Kconfig.liteos_m.defconfig              # liteos_m Kconfig默认配置
@@ -292,7 +292,7 @@ user:~/openharmony/device/board$ tree -L 3
     ├── hcs                                     # hcs硬件描述配置目录
     │   ├── b91_devkit.hcs                          # B91 Generic Starter Kit hcs硬件描述脚本
     │   └── BUILD.gn                                # GN构建脚本
-    ├── image                                   # README插图文件夹  
+    ├── figures                                   # README插图文件夹  
     .   ├── ...                                     # 插图
     │   └── ...                                     # 插图
     ├── Kconfig.liteos_m.boards                 # Board liteos_m Kconfig配置项
