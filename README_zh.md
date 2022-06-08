@@ -420,13 +420,13 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，�
 
 请按照下面的图示进行硬件连接。图中的紫线表示USB线，其他两根线表示杜邦线。
 
-![硬件连接示意图](images/flahsing_hw_connections_1.jpg)
+![硬件连接示意图](figures/flahsing_hw_connections_1.jpg)
 
 > 注意：务必采用默认的跳帽配置。
 
 下图是完成所有硬件连接后状态：
 
-![硬件连接实例](images/flahsing_hw_connections_2.jpg)
+![硬件连接实例](figures/flahsing_hw_connections_2.jpg)
 
 ### 烧录
 
@@ -435,33 +435,33 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，�
 2. 下载BDT烧录软件，解压到本地文件夹，双击可执行文件"Telink BDT.exe"。
 如果一切正常，可以看到如下的窗口显示，在系统标题栏中可以看到已被连接的烧录器的设备信息（见图中红色框）。
 
-    ![BDT正常启动后的界面](images/bdt_connection.png)
+    ![BDT正常启动后的界面](figures/bdt_connection.png)
 
 3. 点击工具栏中的"SWS"按钮，如果看到下图中的消息，则标明所有的硬件连接都没有问题。
 
-    ![按下SWS按钮后的界面显示](images/bdt_connection_2.png)
+    ![按下SWS按钮后的界面显示](figures/bdt_connection_2.png)
 
 4. 设置Flash擦除的区域大小。点击工具栏中的"Setting"按钮，在弹出的“Setting"窗口中可以看到默认的Flash擦除的区域大小是512kB。
 
-    ![默认的Flash擦除的区域大小](images/bdt_earse_size_512.png)
+    ![默认的Flash擦除的区域大小](figures/bdt_earse_size_512.png)
 
     将Flash擦除的区域大小设置为“2040”，如下图所示：
 
-    ![改写Flash擦除的区域大小](images/bdt_earse_size_2040.png)
+    ![改写Flash擦除的区域大小](figures/bdt_earse_size_2040.png)
 
     > 注意：对于外挂2MB Flash的TLSR9518开发板，Flash最后的8kB空间预留用于保存重要的SoC信息，因此最多可以擦除2040kB的Flash区域。
 
 5. 点击工具栏中的"Erase"按钮，等待Flash擦除操作完成。
 
-    ![Flash擦除操作](images/bdt_earse_done.png)
+    ![Flash擦除操作](figures/bdt_earse_done.png)
 
 6. 选择需要烧录的BIN文件。点击"File"菜单里面的"Open"子菜单，在弹出的文件选择对话框中选中需要烧录的BIN文件。选中后的BIN文件将显示在底部的状态栏中。
 
-    ![加载BIN文件](images/bdt_file_open.png)
+    ![加载BIN文件](figures/bdt_file_open.png)
 
 7. 点击工具栏中"Download"按钮，等待Flash烧录完成。
 
-    ![Flash烧录操作](images/bdt_flash_done.png)
+    ![Flash烧录操作](figures/bdt_flash_done.png)
 
 ### 平台和驱动
 
@@ -475,7 +475,7 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，�
 
 最常见的问题是：在点击工具栏中的"SWS"按钮后，出现下图中的错误信息。
 
-![按下SWS按钮后的错误信息](images/bdt_sws_error.png)
+![按下SWS按钮后的错误信息](figures/bdt_sws_error.png)
 
 有两种主要原因。
 
@@ -492,11 +492,11 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，�
 2. 在弹出的Upgrade EVK窗口中，点击"Read FW Version"按钮。在旁边的"Firmware Version"区域将会显示烧录器的固件版本号，例如下图。
 如果固件版本号低于V3.4，可以确认是由于固件版本太低导致了通讯错误。请继续下面的步骤去完成固件升级。
 
-    ![查看烧录器固件版本](images/bdt_firmware_version.png)
+    ![查看烧录器固件版本](figures/bdt_firmware_version.png)
 
 3. 点击窗口中的"Load..."按钮，在BDT工具所在目录下的config目录下的fw子目录找到最新的烧录器固件，如下图中的Firmware_v3.5.bin文件。
 
-    ![升级烧录器固件](images/bdt_firmware_upgrade.png)
+    ![升级烧录器固件](figures/bdt_firmware_upgrade.png)
 
 4. 点击Upgrade按钮完成烧录器固件升级。
 
