@@ -369,9 +369,9 @@ user:~/openharmony/vendor$ tree -L 3
     # OHOS Which product do you need? (Use arrow keys)
 
     telink
-        >xts_demo
-         ble_demo
-         led_demo
+        >led_demo
+         xts_demo
+         ble_demo         
          ...
     ```
 
@@ -391,12 +391,6 @@ user:~/openharmony/vendor$ tree -L 3
 
     ```bash
     hb build -f
-    ```
-
-    > 注意：若编译XTS项目，请在上述命令行中添加参数如下：
-
-    ```bash
-    hb build --gn-args 'build_xts=true' -f
     ```
 
     生成的固件位于工程根目录下：
