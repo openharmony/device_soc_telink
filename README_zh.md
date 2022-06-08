@@ -312,7 +312,7 @@ user:~/openharmony/device/board$ tree -L 3
 user:~/openharmony/vendor$ tree -L 3
 .
 └── telink
-    ├── b91_devkit_ble_demo                     # BLE应用示例工程
+    ├── ble_demo                                # BLE应用示例工程
     │   ├── b91_gatt_sample                         # BLE示例代码
     │   ├── BUILD.gn                                # GN构建脚本
     │   ├── config.json                             # 子系统裁配置裁剪脚本
@@ -320,7 +320,7 @@ user:~/openharmony/vendor$ tree -L 3
     │   ├── hdf_config                              # HDF硬件描述配置
     │   ├── kernel_configs                          # Kconfig配置输出
     │   └── ohos.build                              # 子系统模块单
-    ├── b91_devkit_led_demo                    # LED测试示例工程
+    ├── led_demo                                # LED测试示例工程
     │   ├── BUILD.gn                                # GN构建脚本
     │   ├── config.json                             # 子系统裁配置裁剪脚本
     │   ├── hals                                    # 产品参数配置
@@ -328,7 +328,7 @@ user:~/openharmony/vendor$ tree -L 3
     │   ├── kernel_configs                          # Kconfig配置输出
     │   ├── led_demo                                # LED示例代码
     │   └── ohos.build                              # 子系统模块单
-    ├── b91_devkit_xts_demo                    # XTS测试示例工程
+    ├── xts_demo                                # XTS测试示例工程
     │   ├── BUILD.gn                                # GN构建脚本
     │   ├── config.json                             # 子系统裁配置裁剪脚本
     │   ├── hals                                    # 产品参数配置
@@ -369,9 +369,9 @@ user:~/openharmony/vendor$ tree -L 3
     # OHOS Which product do you need? (Use arrow keys)
 
     telink
-        >b91_devkit_xts_demo
-         b91_devkit_ble_demo
-         b91_devkit_led_demo
+        >xts_demo
+         ble_demo
+         led_demo
          ...
     ```
 
@@ -383,7 +383,7 @@ user:~/openharmony/vendor$ tree -L 3
     hb set -p {PRODUCT_NAME}
     ```
 
-    `{PRODUCT_NAME}`为产品选择界面中列举出来的样例的名称，如`b91_devkit_xts_demo`。
+    `{PRODUCT_NAME}`为产品选择界面中列举出来的样例的名称，如`xts_demo`。
 
 3. 编译
 
