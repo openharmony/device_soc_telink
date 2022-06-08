@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <hiview_log.h>
 #include "utils_file.h"
 #include "hal_file.h"
 
@@ -118,6 +119,8 @@ static char *GetActualFilePath(const char *path)
     strcpy(file_path, ROOT_PATH);
     strcat(file_path, DIR_SEPARATOR);
     strcat(file_path, path);
+
+    return file_path;
 }
 
 int HalFileOpen(const char *path, int oflag, int mode)
@@ -128,7 +131,7 @@ int HalFileOpen(const char *path, int oflag, int mode)
 
     index = GetAvailableFileHandlerIndex();
     if (index == 0) {
-        printf("no space available!\r\n");
+        HILOG_ERROR(HILOG_MODULE_HIVIEW, "no space available!");
         return HAL_ERROR;
     }
 
@@ -139,7 +142,7 @@ int HalFileOpen(const char *path, int oflag, int mode)
 
     fd = open(file_path, ConvertFlags(oflag));
     if (fd < 0) {
-        printf("failed to open file '%s': %d\r\n", file_path, errno);
+        HILOG_ERROR(HILOG_MODULE_HIVIEW, "failed to open file : %d", errno);
         free(file_path);
         return HAL_ERROR;
     }

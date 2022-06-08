@@ -85,60 +85,8 @@ STATIC VOID LittlefsInit(VOID)
     printf("mkdir = %d\r\n", res);
 }
 
-STATIC VOID LittlefsTest(VOID)
-{
-#define DIR_TEST         "/data"
-#define PAR_TEST         0
-#define TEST_FILE        "/data/rw.sys.version"
-
-    int res;
-    ssize_t fs_ret;
-
-    printf("Littlefs Driver Test\n");
-    struct lfs_config *cfg = LittlefsConfigGet();
-    res = mount(PAR_TEST , DIR_TEST, "littlefs", 0, cfg);
-    printf("mount = %d\n", res);
-
-    res = mkdir(DIR_TEST, 0777);
-    printf("mkdir = %d\n", res);
-
-    uint32_t count = 0;
-    int fd = open(TEST_FILE, O_RDWR | O_CREAT);
-    printf("open = %d\n", fd);
-
-    fs_ret = read(fd, &count, sizeof(count));
-    printf("read = %ld\n", fs_ret);
-    printf("count = %lu\n", count);
-    count += 1;
-
-    fs_ret = lseek(fd, 0, SEEK_SET);
-    printf("lseek = %ld\n", fs_ret);
-
-    fs_ret = write(fd, &count, sizeof(count));
-    printf("write = %ld\n", fs_ret);
-
-    close(fd);
-    printf("close\n");
-}
-
 VOID IoTWatchDogKick(VOID)
 {
-}
-
-STATIC VOID HdfGpioDriverTest(VOID)
-{
-    int32_t ret;
-
-    ret = GpioSetDir(LED_BLUE_HDF, GPIO_DIR_OUT);
-    printf("GpioSetDir = %d\r\n", ret);
-
-    while(1) {
-        GpioWrite(LED_BLUE_HDF, GPIO_VAL_LOW);
-        LOS_TaskDelay(500);
-
-        GpioWrite(LED_BLUE_HDF, GPIO_VAL_HIGH);
-        LOS_TaskDelay(500);
-    }
 }
 
 STATIC VOID B91SystemInit(VOID)
