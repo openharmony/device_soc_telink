@@ -21,7 +21,10 @@ static_library("hal_file_static") {
     include_dirs = [
         "//utils/native/lite/hals/file",
         "//utils/native/lite/include",
+        "//base/hiviewdfx/hilog_lite/frameworks/mini",
     ]
 
-    deps = []
+    deps = [
+        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
+    ]
 }
