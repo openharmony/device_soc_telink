@@ -1,0 +1,28 @@
+import("//build/lite/config/component/lite_component.gni")
+import("//build/lite/ndk/ndk.gni")
+import("//third_party/mbedtls/mbedtls.gni")
+
+config("mbedtls_config") {
+  include_dirs = [ "." ] + MBEDTLS_INLCUDE_DIRS
+  defines += [
+    "__unix__",
+    "MBEDTLS_CONFIG_FILE=<telink_config/config_liteos_m.h>",
+  ]
+}
+
+lite_library("mbedtls_static") {
+  target_type = "static_library"
+  public_configs = [ ":mbedtls_config" ]
+  sources = MBEDTLS_SOURCES
+}
+
+group("mbedtls") {
+  public_deps = [ ":mbedtls_static" ]
+  public_configs = [ ":mbedtls_config" ]
+}
+
+ndk_lib("mbedtls_ndk") {
+  lib_extension = ".a"
+  deps = [ ":mbedtls" ]
+  head_files = [ "include" ]
+}

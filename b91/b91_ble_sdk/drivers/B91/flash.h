@@ -128,6 +128,8 @@ _attribute_text_sec_ void flash_erase_sector(unsigned long addr);
  */
 _attribute_text_sec_ void flash_erase_32kblock(unsigned int addr);
 
+void flash_erase_64kblock_ram(unsigned int addr);
+
 /**
  * @brief 		This function serves to erase a block(64k).
  * @param[in]   addr	- the start address of the block needs to erase.
@@ -141,6 +143,8 @@ _attribute_text_sec_ void flash_erase_64kblock(unsigned int addr);
  */
 _attribute_text_sec_ void flash_erase_chip(void);
 
+void flash_write_page_ram(unsigned long addr, unsigned long len, unsigned char *buf);
+
 /**
  * @brief 		This function writes the buffer's content to a page.
  * @param[in]   addr	- the start address of the page.
@@ -149,6 +153,8 @@ _attribute_text_sec_ void flash_erase_chip(void);
  * @return 		none.
  */
 _attribute_text_sec_ void flash_write_page(unsigned long addr, unsigned long len, unsigned char *buf);
+
+void flash_read_page_ram(unsigned long addr, unsigned long len, unsigned char *buf);
 
 /**
  * @brief 		This function reads the content from a page to the buf.

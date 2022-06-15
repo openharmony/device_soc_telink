@@ -27,7 +27,7 @@
 
 #define LITTLEFS_PATH "/littlefs/"
 
-#define LITTLEFS_PHYS_ADDR 0x60000
+#define LITTLEFS_PHYS_ADDR (1024 * 1024)
 #define LITTLEFS_PHYS_SIZE (16 * 1024)
 
 #define READ_SIZE      16
