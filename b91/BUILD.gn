@@ -16,7 +16,7 @@
 import("//build/lite/config/component/lite_component.gni")
 import("//build/lite/config/subsystem/lite_subsystem.gni")
 import("//kernel/liteos_m/liteos.gni")
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
 
 #driver_sdk_path = "b91m_ble_sdk"
 driver_sdk_path = "b91_ble_sdk"
@@ -36,7 +36,7 @@ config("B91_config") {
     ]
 
     configs = [
-        "//drivers/adapter/khdf/liteos_m:hdf_config",
+        "//drivers/hdf_core/adapter/khdf/liteos_m:hdf_config",
         "$driver_sdk_path:public",
     ]
 }
