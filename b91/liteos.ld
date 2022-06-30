@@ -251,8 +251,8 @@ SECTIONS
   PROVIDE (__los_heap_addr_start__ = .);
   . = ORIGIN(RAM_ILM) + LENGTH(RAM_ILM);
   PROVIDE (__los_heap_addr_end__ = . - 1);
-  PROVIDE (__los_heap_size__ = __los_heap_addr_end__ - __los_heap_addr_start__ + 1);
   } > RAM_ILM
+  PROVIDE (__los_heap_size__ = __los_heap_addr_end__ - __los_heap_addr_start__ + 1);
 
 /*  PROVIDE (__los_heap_addr_start__ = .);
   . = ORIGIN(RAM_DLM) + LENGTH(RAM_DLM);

@@ -228,7 +228,7 @@ STATIC INT32 SafeMain(VOID)
         goto START_FAILED;
     }
 
-    user_sleep_init();
+    B91SuspendSleepInit();
     LOS_Start();
 
 START_FAILED:
