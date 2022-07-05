@@ -98,6 +98,10 @@ static void B91Suspend(VOID)
         }
         UINT32 sleepTick = stimer_get_tick();
         cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER, sleepTick + systicksSleepTimeout);
+        uart_clr_tx_index(UART0);
+        uart_clr_tx_index(UART1);
+        uart_clr_rx_index(UART0);
+        uart_clr_rx_index(UART1);        
         mtick += systicks_to_mticks(stimer_get_tick() - sleepTick + CORR_SLEEP_TIME);
         SetMtime(mtick);
         systicksSleepTimeout = mticks_to_systicks(mcompare - mtick);
@@ -120,8 +124,9 @@ int B91SleepCallback(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeu
     if (timeSleepMs > 1) {
         LOS_Msleep(timeSleepMs - 1);
     }
-    if(pm_get_wakeup_src() & WAKEUP_STATUS_TIMER)
-    ret =  WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
+    if (pm_get_wakeup_src() & WAKEUP_STATUS_TIMER) {
+        ret =  WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
+    }
     return ret;
 }
 

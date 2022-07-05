@@ -51,7 +51,7 @@
 #define DEBUG_UART_PIN_RX      UART0_RX_PB3
 #define DEBUG_UART_PARITY      UART_PARITY_NONE
 #define DEBUG_UART_STOP_BITS   UART_STOP_BIT_ONE
-#define DEBUG_UART_BAUDRATE    921600
+#define DEBUG_UART_BAUDRATE    115200
 
 #define B91_SYSTEM_INIT_TASK_STACKSIZE     (1024 * 32)
 #define B91_SYSTEM_INIT_TASK_PRIO          7
@@ -155,6 +155,7 @@ int _write(int handle, char *data, int size)
         case STDOUT_FILENO:
         case STDERR_FILENO: {
             uart_send(UART0, (unsigned char *)data, size);
+            while(uart_tx_is_busy(UART0)) {}
             ret = size;
             break;
         }
