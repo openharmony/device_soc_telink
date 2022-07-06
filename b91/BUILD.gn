@@ -15,40 +15,36 @@
 
 import("//build/lite/config/component/lite_component.gni")
 import("//build/lite/config/subsystem/lite_subsystem.gni")
-import("//kernel/liteos_m/liteos.gni")
 import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
+import("//kernel/liteos_m/liteos.gni")
 
 #driver_sdk_path = "b91m_ble_sdk"
 driver_sdk_path = "b91_ble_sdk"
 
 config("B91_config") {
-    defines = [
-        "__PROJECT_B91_EXTERNAL=1"
-    ]
+  defines = [ "__PROJECT_B91_EXTERNAL=1" ]
 
-    include_dirs = [
-        "liteos_m/inc",
-        "$driver_sdk_path",
-        "$driver_sdk_path/common",
-        "$driver_sdk_path/drivers",
-        "$driver_sdk_path/drivers/B91",
-        "$driver_sdk_path/vendor/common",
-    ]
+  include_dirs = [
+    "liteos_m/inc",
+    "$driver_sdk_path",
+    "$driver_sdk_path/common",
+    "$driver_sdk_path/drivers",
+    "$driver_sdk_path/drivers/B91",
+    "$driver_sdk_path/vendor/common",
+  ]
 
-    configs = [
-        "//drivers/hdf_core/adapter/khdf/liteos_m:hdf_config",
-        "$driver_sdk_path:public",
-    ]
+  configs = [
+    "//drivers/hdf_core/adapter/khdf/liteos_m:hdf_config",
+    "$driver_sdk_path:public",
+  ]
 }
 
 module_name = get_path_info(rebase_path("."), "name")
 
 module_group(module_name) {
   deps = [
-    driver_sdk_path,
     "hdf",
+    driver_sdk_path,
   ]
-  modules = [
-    "liteos_m",
-  ]
+  modules = [ "liteos_m" ]
 }
