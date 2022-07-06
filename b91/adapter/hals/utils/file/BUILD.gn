@@ -16,15 +16,13 @@
 import("//build/lite/config/component/lite_component.gni")
 
 static_library("hal_file_static") {
-    sources = [ "src/hal_file.c" ]
+  sources = [ "src/hal_file.c" ]
 
-    include_dirs = [
-        "//utils/native/lite/hals/file",
-        "//utils/native/lite/include",
-        "//base/hiviewdfx/hilog_lite/frameworks/mini",
-    ]
+  include_dirs = [
+    "//utils/native/lite/hals/file",
+    "//utils/native/lite/include",
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+  ]
 
-    deps = [
-        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
-    ]
+  deps = [ "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite" ]
 }
