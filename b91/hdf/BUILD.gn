@@ -13,14 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
 
 hdf_driver("b91_hdf") {
-  sources = [ 
-    "gpio_telink.c" 
-  ]
+  sources = [ "gpio_telink.c" ]
 
-  configs += [
-    "../:B91_config",
-  ]
+  configs += [ "../:B91_config" ]
 }

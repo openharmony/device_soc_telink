@@ -16,49 +16,47 @@
 import("//kernel/liteos_m/liteos.gni")
 
 kernel_module("platform_main") {
-    sources = [
-        "src/_stub.c",
-        "src/board_config.c",
-        "src/canary.c",
-        "src/littlefs_hal.c",
-        "src/main.c",
-        "src/riscv_irq.c",
-        "src/system.c",
-        "src/system_b91.c",
+  sources = [
+    "src/_stub.c",
+    "src/board_config.c",
+    "src/canary.c",
+    "src/inject_start.S",
+    "src/littlefs_hal.c",
+    "src/main.c",
+    "src/reset_vector.S",
+    "src/riscv_irq.c",
+    "src/system.c",
+    "src/system_b91.c",
+  ]
 
-        "src/inject_start.S",
-        "src/reset_vector.S",
-    ]
+  deps = [
+    "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
+    "//base/hiviewdfx/hiview_lite",
+  ]
 
-    deps = [
-        "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite",
-        "//base/hiviewdfx/hiview_lite",
-    ]
+  include_dirs = [
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+    "//third_party/glib/glib/gnulib",
+    "//third_party/littlefs",
+    "//third_party/musl/porting/liteos_m/kernel/include",
+    "//kernel/liteos_m/components/fs",
+    "//kernel/liteos_m/components/fs/littlefs",
+  ]
 
-    include_dirs = [
-        "//base/hiviewdfx/hilog_lite/frameworks/mini",
-        "//third_party/glib/glib/gnulib",
-        "//third_party/littlefs",
-        "//third_party/musl/porting/liteos_m/kernel/include",
-        "//kernel/liteos_m/components/fs",
-        "//kernel/liteos_m/components/fs/littlefs",
-    ]
+  configs += [ "../:B91_config" ]
 
-    configs += [
-        "../:B91_config",
-    ]
-
-    if (!defined(defines)) {
-        defines = []
-    }
+  if (!defined(defines)) {
+    defines = []
+  }
 }
 
 config("public") {
-    lib_dirs = [ "$root_out_dir/libs" ]
+  lib_dirs = [ "$root_out_dir/libs" ]
 
-    ldflags = [
-        "-z","muldefs",
-        "-Wl,--gc-sections",
-        "-Wl,-T" + rebase_path("../liteos.ld"),
-    ]
+  ldflags = [
+    "-z",
+    "muldefs",
+    "-Wl,--gc-sections",
+    "-Wl,-T" + rebase_path("../liteos.ld"),
+  ]
 }
