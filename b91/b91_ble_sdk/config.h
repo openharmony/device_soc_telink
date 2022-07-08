@@ -18,29 +18,18 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-
 #pragma once
 
-
-#define	CHIP_TYPE_9518		1
-
+#define CHIP_TYPE_9518 1
 
 #ifndef CHIP_TYPE
-#define	CHIP_TYPE 			1000
+#define CHIP_TYPE 1000
 #endif
 
+#define MCU_CORE_9518 1
 
-
-
-
-
-#define	MCU_CORE_9518 		1
-
-
-#if(CHIP_TYPE == CHIP_TYPE_9518)
-	#define MCU_CORE_TYPE	MCU_CORE_9518
+#if (CHIP_TYPE == CHIP_TYPE_9518)
+#define MCU_CORE_TYPE MCU_CORE_9518
 #endif
-
-
 
 #endif /* CONFIG_H_ */

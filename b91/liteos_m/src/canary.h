@@ -15,43 +15,10 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
 
-#ifndef DRIVER_B91_H
-#define DRIVER_B91_H
+#include <los_compiler.h>
 
-#include "analog.h"
-#include "audio.h"
-#include "dma.h"
-#include "flash.h"
-#include "gpio.h"
-#include "i2c.h"
-#include "mdec.h"
-#include "nds_intrinsic.h"
-#include "pm.h"
-#include "pwm.h"
-#include "s7816.h"
-#include "spi.h"
-#include "timer.h"
-#include "usbhw.h"
-#include "watchdog.h"
+/* stack protector */
+extern UINTPTR __stack_chk_guard;
 
-#include "trng.h"
-
-#include "aes.h"
-#include "pke.h"
-#include "plic.h"
-#include "stimer.h"
-#include "sys.h"
-#include "uart.h"
-
-#include "rf.h"
-
-#include "clock.h"
-#include "emi.h"
-#include "lpc.h"
-
-#include "adc.h"
-#include "mspi.h"
-
-#endif  // DRIVER_B91_H
+LITE_OS_SEC_TEXT_INIT VOID ArchStackGuardInit(VOID);

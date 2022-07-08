@@ -17,70 +17,68 @@
  *****************************************************************************/
 #pragma once
 
-#include "mspi.h"
 #include "compiler.h"
-
+#include "mspi.h"
 
 #define PAGE_SIZE 256
 
 /**
  * @brief     flash command definition
  */
-typedef enum
-{
-	FLASH_WRITE_STATUS_CMD		=	0x01,
-	FLASH_WRITE_CMD				=	0x02,
-	FLASH_READ_CMD				=	0x03,
+typedef enum {
+    FLASH_WRITE_STATUS_CMD = 0x01,
+    FLASH_WRITE_CMD = 0x02,
+    FLASH_READ_CMD = 0x03,
 
-	FLASH_WRITE_DISABLE_CMD 	= 	0x04,
-	FLASH_READ_STATUS_CMD		=	0x05,
-	FLASH_WRITE_ENABLE_CMD 		= 	0x06,
+    FLASH_WRITE_DISABLE_CMD = 0x04,
+    FLASH_READ_STATUS_CMD = 0x05,
+    FLASH_WRITE_ENABLE_CMD = 0x06,
 
-	FLASH_CHIP_ERASE_CMD		=	0x60,   //or 0xc7
+    FLASH_CHIP_ERASE_CMD = 0x60,  //or 0xc7
 
-	FLASH_PES_CMD				=	0x75,
-	FLASH_PER_CMD				=	0x7A,
-	FLASH_QUAD_PAGE_PROGRAM_CMD	=	0x32,
-	FLASH_READ_DEVICE_ID_CMD	=	0x90,
+    FLASH_PES_CMD = 0x75,
+    FLASH_PER_CMD = 0x7A,
+    FLASH_QUAD_PAGE_PROGRAM_CMD = 0x32,
+    FLASH_READ_DEVICE_ID_CMD = 0x90,
 
-	FLASH_FAST_READ_CMD			=	0x0B,
-	FLASH_X2READ_CMD			=	0xBB,
-	FLASH_DREAD_CMD				=	0x3B,
-	FLASH_X4READ_CMD			=	0xEB,
-	FLASH_QREAD_CMD				=	0x6B,
+    FLASH_FAST_READ_CMD = 0x0B,
+    FLASH_X2READ_CMD = 0xBB,
+    FLASH_DREAD_CMD = 0x3B,
+    FLASH_X4READ_CMD = 0xEB,
+    FLASH_QREAD_CMD = 0x6B,
 
-	FLASH_SECT_ERASE_CMD		=	0x20,   //sector size = 4KBytes
-	FLASH_32KBLK_ERASE_CMD		=	0x52,
-	FLASH_64KBLK_ERASE_CMD		=	0xD8,
-	FLASH_GD_PUYA_READ_UID_CMD	=	0x4B,	//Flash Type = GD/PUYA
-	FLASH_XTX_READ_UID_CMD		=	0x5A,	//Flash Type = XTX
-	FLASH_PAGE_ERASE_CMD		=	0x81,   //caution: only P25Q40L support this function
+    FLASH_SECT_ERASE_CMD = 0x20,  //sector size = 4KBytes
+    FLASH_32KBLK_ERASE_CMD = 0x52,
+    FLASH_64KBLK_ERASE_CMD = 0xD8,
+    FLASH_GD_PUYA_READ_UID_CMD = 0x4B,  //Flash Type = GD/PUYA
+    FLASH_XTX_READ_UID_CMD = 0x5A,      //Flash Type = XTX
+    FLASH_PAGE_ERASE_CMD = 0x81,        //caution: only P25Q40L support this function
 
-	FLASH_POWER_DOWN			=	0xB9,
-	FLASH_POWER_DOWN_RELEASE	=	0xAB,
-	FLASH_GET_JEDEC_ID			=	0x9F,
-	FLASH_READ_STATUS_1_CMD		=	0x35,
+    FLASH_POWER_DOWN = 0xB9,
+    FLASH_POWER_DOWN_RELEASE = 0xAB,
+    FLASH_GET_JEDEC_ID = 0x9F,
+    FLASH_READ_STATUS_1_CMD = 0x35,
 
-	FLASH_VOLATILE_SR_WRITE_CMD	=	0x50,
-	FLASH_SET_BURST_WITH_WRAP_CMD	=	0x77,
-	FLASH_ENABLE_SO_TO_OUTPUT_CMD	=	0x70,
-	FLASH_READ_DEVICE_ID_DUAL_CME	=	0x92,
-	RLASH_READ_DEVICE_ID_QUAD_CMD	=	0x94,
-	FLASH_ERASE_SECURITY_REGISTERS_CMD	=	0x44,
-	FLASH_PROGRAM_SECURITY_REGISTERS_CMD	=	0x42,
-	FLASH_READ_SECURITY_REGISTERS_CMD	=	0x48,
-	FLASH_ENABLE_RESET_CMD	=	0x99,
+    FLASH_VOLATILE_SR_WRITE_CMD = 0x50,
+    FLASH_SET_BURST_WITH_WRAP_CMD = 0x77,
+    FLASH_ENABLE_SO_TO_OUTPUT_CMD = 0x70,
+    FLASH_READ_DEVICE_ID_DUAL_CME = 0x92,
+    RLASH_READ_DEVICE_ID_QUAD_CMD = 0x94,
+    FLASH_ERASE_SECURITY_REGISTERS_CMD = 0x44,
+    FLASH_PROGRAM_SECURITY_REGISTERS_CMD = 0x42,
+    FLASH_READ_SECURITY_REGISTERS_CMD = 0x48,
+    FLASH_ENABLE_RESET_CMD = 0x99,
 
-	FLASH_ENABLE_RESET	=	0x66,
-	FLASH_DISABLE_SO_TO_OUTPUT	=	0x80,
-}flash_command_e;
+    FLASH_ENABLE_RESET = 0x66,
+    FLASH_DISABLE_SO_TO_OUTPUT = 0x80,
+} flash_command_e;
 
 /**
  * @brief     flash type definition
  */
-typedef enum{
-	FLASH_TYPE_PUYA	= 0,
-}flash_type_e;
+typedef enum {
+    FLASH_TYPE_PUYA = 0,
+} flash_type_e;
 
 /**
  * @brief   flash capacity definition
@@ -91,23 +89,24 @@ typedef enum{
  * 			The value of temp_buf[2] reflects flash capacity.
  */
 typedef enum {
-    FLASH_SIZE_64K     = 0x10,
-    FLASH_SIZE_128K    = 0x11,
-    FLASH_SIZE_256K    = 0x12,
-    FLASH_SIZE_512K    = 0x13,
-    FLASH_SIZE_1M      = 0x14,
-    FLASH_SIZE_2M      = 0x15,
-    FLASH_SIZE_4M      = 0x16,
-    FLASH_SIZE_8M      = 0x17,
+    FLASH_SIZE_64K = 0x10,
+    FLASH_SIZE_128K = 0x11,
+    FLASH_SIZE_256K = 0x12,
+    FLASH_SIZE_512K = 0x13,
+    FLASH_SIZE_1M = 0x14,
+    FLASH_SIZE_2M = 0x15,
+    FLASH_SIZE_4M = 0x16,
+    FLASH_SIZE_8M = 0x17,
 } flash_capacity_e;
 
-typedef struct{
-	unsigned char  flash_read_cmd;			/**< xip read command */
-	unsigned char  flash_read_dummy:4;		/**< dummy cycle = flash_read_dummy + 1 */
-	unsigned char  flash_read_data_line:2;	/**< 0:single line;  1: dual line;  2:quad line; 3:quad line */
-	unsigned char  flash_read_addr_line:1;	/**< 0:single line;  1:the same to dat_line_h */
-	unsigned char  flash_read_cmd_line:1; 	/**< 0:single line;  1:the same to dat_line_h */
-}flash_xip_config_t;
+typedef struct
+{
+    unsigned char flash_read_cmd;           /**< xip read command */
+    unsigned char flash_read_dummy : 4;     /**< dummy cycle = flash_read_dummy + 1 */
+    unsigned char flash_read_data_line : 2; /**< 0:single line;  1: dual line;  2:quad line; 3:quad line */
+    unsigned char flash_read_addr_line : 1; /**< 0:single line;  1:the same to dat_line_h */
+    unsigned char flash_read_cmd_line : 1;  /**< 0:single line;  1:the same to dat_line_h */
+} flash_xip_config_t;
 /**
  * @brief     	This function serves to erase a page(256 bytes).
  * @param[in] 	addr	- the start address of the page needs to erase.
@@ -217,7 +216,7 @@ _attribute_text_sec_ void flash_read_uid(unsigned char idcmd, unsigned char *buf
  * @param[out]	flash_uid	- Flash Unique ID
  * @return		0: flash no uid or not a known flash model 	 1:the flash model is known and the uid is read.
  */
-_attribute_text_sec_ int flash_read_mid_uid_with_check( unsigned int *flash_mid ,unsigned char *flash_uid);
+_attribute_text_sec_ int flash_read_mid_uid_with_check(unsigned int *flash_mid, unsigned char *flash_uid);
 
 /**
  * @brief 		This function serves to set the protection area of the flash.
@@ -257,4 +256,3 @@ _attribute_text_sec_ void flash_set_xip_config(flash_xip_config_t config);
  * @return		none.
  */
 _attribute_ram_code_sec_noinline_ void flash_send_cmd(unsigned char cmd);
-

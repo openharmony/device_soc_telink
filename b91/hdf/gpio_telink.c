@@ -16,92 +16,94 @@
  *
  *****************************************************************************/
 
-#include "gpio/gpio_core.h"
-#include "osal.h"
 #include "device_resource_if.h"
+#include "gpio/gpio_core.h"
 #include "hdf_device_desc.h"
+#include "osal.h"
 
 #include <B91/gpio.h>
 
 #include <b91_irq.h>
 
-#define GPIO_INDEX_MAX      (sizeof(g_GpioIndexToActualPin) / sizeof(gpio_pin_e))
+#define GPIO_INDEX_MAX ((sizeof(g_GpioIndexToActualPin) / sizeof(gpio_pin_e)))
 
-struct B91GpioCntlr {
+struct B91GpioCntlr
+{
     struct GpioCntlr cntlr;
 
     uint8_t *pinReflectionMap;
 
-    struct {
+    struct
+    {
         bool irq_enabled;
-    } *config;
+    } * config;
 
     uint8_t pinNum;
 };
 
-static struct B91GpioCntlr g_B91GpioCntlr = {
+static struct B91GpioCntlr g_B91GpioCntlr = {};
+
+static const gpio_pin_e g_GpioIndexToActualPin[] = {
+    GPIO_PA0, /* 0  */
+    GPIO_PA1, /* 1  */
+    GPIO_PA2, /* 2  */
+    GPIO_PA3, /* 3  */
+    GPIO_PA4, /* 4  */
+    GPIO_PA5, /* 5  */
+    GPIO_PA6, /* 6  */
+    GPIO_PA7, /* 7  */
+
+    GPIO_PB0, /* 8  */
+    GPIO_PB1, /* 9  */
+    GPIO_PB2, /* 10 */
+    GPIO_PB3, /* 11 */
+    GPIO_PB4, /* 12 */
+    GPIO_PB5, /* 13 */
+    GPIO_PB6, /* 14 */
+    GPIO_PB7, /* 15 */
+
+    GPIO_PC0, /* 16 */
+    GPIO_PC1, /* 17 */
+    GPIO_PC2, /* 18 */
+    GPIO_PC3, /* 19 */
+    GPIO_PC4, /* 20 */
+    GPIO_PC5, /* 21 */
+    GPIO_PC6, /* 22 */
+    GPIO_PC7, /* 23 */
+
+    GPIO_PD0, /* 24 */
+    GPIO_PD1, /* 25 */
+    GPIO_PD2, /* 26 */
+    GPIO_PD3, /* 27 */
+    GPIO_PD4, /* 28 */
+    GPIO_PD5, /* 29 */
+    GPIO_PD6, /* 30 */
+    GPIO_PD7, /* 31 */
+
+    GPIO_PE0, /* 32 */
+    GPIO_PE1, /* 33 */
+    GPIO_PE2, /* 34 */
+    GPIO_PE3, /* 35 */
+    GPIO_PE4, /* 36 */
+    GPIO_PE5, /* 37 */
+    GPIO_PE6, /* 38 */
+    GPIO_PE7, /* 39 */
+
+    GPIO_PF0, /* 40 */
+    GPIO_PF1, /* 41 */
+    GPIO_PF2, /* 42 */
+    GPIO_PF3, /* 43 */
 };
 
-static const gpio_pin_e g_GpioIndexToActualPin[] =
-{
-    GPIO_PA0,   /* 0  */
-    GPIO_PA1,   /* 1  */
-    GPIO_PA2,   /* 2  */
-    GPIO_PA3,   /* 3  */
-    GPIO_PA4,   /* 4  */
-    GPIO_PA5,   /* 5  */
-    GPIO_PA6,   /* 6  */
-    GPIO_PA7,   /* 7  */
-
-    GPIO_PB0,   /* 8  */
-    GPIO_PB1,   /* 9  */
-    GPIO_PB2,   /* 10 */
-    GPIO_PB3,   /* 11 */
-    GPIO_PB4,   /* 12 */
-    GPIO_PB5,   /* 13 */
-    GPIO_PB6,   /* 14 */
-    GPIO_PB7,   /* 15 */
-
-    GPIO_PC0,   /* 16 */
-    GPIO_PC1,   /* 17 */
-    GPIO_PC2,   /* 18 */
-    GPIO_PC3,   /* 19 */
-    GPIO_PC4,   /* 20 */
-    GPIO_PC5,   /* 21 */
-    GPIO_PC6,   /* 22 */
-    GPIO_PC7,   /* 23 */
-
-    GPIO_PD0,   /* 24 */
-    GPIO_PD1,   /* 25 */
-    GPIO_PD2,   /* 26 */
-    GPIO_PD3,   /* 27 */
-    GPIO_PD4,   /* 28 */
-    GPIO_PD5,   /* 29 */
-    GPIO_PD6,   /* 30 */
-    GPIO_PD7,   /* 31 */
-
-    GPIO_PE0,   /* 32 */
-    GPIO_PE1,   /* 33 */
-    GPIO_PE2,   /* 34 */
-    GPIO_PE3,   /* 35 */
-    GPIO_PE4,   /* 36 */
-    GPIO_PE5,   /* 37 */
-    GPIO_PE6,   /* 38 */
-    GPIO_PE7,   /* 39 */
-
-    GPIO_PF0,   /* 40 */
-    GPIO_PF1,   /* 41 */
-    GPIO_PF2,   /* 42 */
-    GPIO_PF3,   /* 43 */
-};
-
-#define RETURN_ERR_IF_OUT_OF_RANGE(gpio)  \
-    if (gpio >= pB91GpioCntlr->pinNum) { \
-        return HDF_ERR_INVALID_PARAM; \
-    } \
-    if (pB91GpioCntlr->pinReflectionMap[gpio] >= GPIO_INDEX_MAX) { \
-        return HDF_ERR_INVALID_PARAM; \
-    }
+#define RETURN_ERR_IF_OUT_OF_RANGE(gpio)                                                                              \
+    do {                                                                                                              \
+        if (gpio >= pB91GpioCntlr->pinNum) {                                                                          \
+            return HDF_ERR_INVALID_PARAM;                                                                             \
+        }                                                                                                             \
+        if (pB91GpioCntlr->pinReflectionMap[gpio] >= GPIO_INDEX_MAX) {                                                \
+            return HDF_ERR_INVALID_PARAM;                                                                             \
+        }                                                                                                             \
+    } while (0)
 
 static int32_t GpioDriverBind(struct HdfDeviceObject *device);
 static int32_t GpioDriverInit(struct HdfDeviceObject *device);
@@ -165,7 +167,7 @@ static int32_t GetGpioDeviceResource(struct B91GpioCntlr *cntlr, const struct De
         HDF_LOGE("DeviceResourceIface is invalid!");
         return HDF_ERR_INVALID_OBJECT;
     }
-    
+
     if (dri->GetUint8(resourceNode, "pinNum", &cntlr->pinNum, 0) != HDF_SUCCESS) {
         HDF_LOGE("Failed to read pinNum!");
         return HDF_FAILURE;
@@ -277,11 +279,9 @@ static int32_t GpioDevWrite(struct GpioCntlr *cntlr, uint16_t gpio, uint16_t val
 
     if (val == GPIO_VAL_HIGH) {
         gpio_set_level(gpioPin, 1);
-    }
-    else if (val == GPIO_VAL_LOW) {
+    } else if (val == GPIO_VAL_LOW) {
         gpio_set_level(gpioPin, 0);
-    }
-    else {
+    } else {
         return HDF_ERR_NOT_SUPPORT;
     }
 
@@ -300,8 +300,7 @@ static int32_t GpioDevRead(struct GpioCntlr *cntlr, uint16_t gpio, uint16_t *val
 
     if (gpio_get_level(gpioPin) == 1) {
         *val = GPIO_VAL_HIGH;
-    }
-    else {
+    } else {
         *val = GPIO_VAL_LOW;
     }
 
@@ -322,13 +321,11 @@ static int32_t GpioDevSetDir(struct GpioCntlr *cntlr, uint16_t gpio, uint16_t di
         gpio_function_en(gpioPin);
         gpio_input_dis(gpioPin);
         gpio_output_en(gpioPin);
-    }
-    else if (dir == GPIO_DIR_IN) {
+    } else if (dir == GPIO_DIR_IN) {
         gpio_function_en(gpioPin);
         gpio_input_en(gpioPin);
         gpio_output_dis(gpioPin);
-    }
-    else {
+    } else {
         return HDF_ERR_NOT_SUPPORT;
     }
 
@@ -347,12 +344,10 @@ static int32_t GpioDevGetDir(struct GpioCntlr *cntlr, uint16_t gpio, uint16_t *d
 
     if (gpio_is_input_en(gpioPin)) {
         *dir = GPIO_DIR_IN;
-    } 
-    else if (gpio_is_output_en(gpioPin)) {
+    } else if (gpio_is_output_en(gpioPin)) {
         *dir = GPIO_DIR_OUT;
-    }
-    else {
-        *dir = GPIO_DIR_ERR; 
+    } else {
+        *dir = GPIO_DIR_ERR;
     }
 
     return HDF_SUCCESS;
@@ -368,8 +363,7 @@ static int32_t GpioDevSetIrq(struct GpioCntlr *cntlr, uint16_t local, uint16_t m
     gpio_pin_e gpioPin = g_GpioIndexToActualPin[pB91GpioCntlr->pinReflectionMap[local]];
     HDF_LOGD("%s: %d", __func__, local);
 
-    switch (mode & 0x0F)
-    {
+    switch (mode & 0x0F) {
         case GPIO_IRQ_TRIGGER_HIGH: {
             gpio_set_irq(gpioPin, INTR_HIGH_LEVEL);
             break;
@@ -386,7 +380,7 @@ static int32_t GpioDevSetIrq(struct GpioCntlr *cntlr, uint16_t local, uint16_t m
             gpio_set_irq(gpioPin, INTR_FALLING_EDGE);
             break;
         }
-      default: {
+        default: {
             return HDF_ERR_BSP_PLT_API_ERR;
         };
     }

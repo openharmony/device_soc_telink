@@ -18,36 +18,30 @@
 #ifndef BLE_CONTROLLER_H_
 #define BLE_CONTROLLER_H_
 
-
 #include "stack/ble/ble_common.h"
 #include "stack/ble/ble_format.h"
 
-
 #include "stack/ble/hci/hci.h"
-#include "stack/ble/hci/hci_const.h"
 #include "stack/ble/hci/hci_cmd.h"
+#include "stack/ble/hci/hci_const.h"
 #include "stack/ble/hci/hci_event.h"
-
 
 #include "stack/ble/controller/ll/ll.h"
 #include "stack/ble/controller/ll/ll_adv.h"
+#include "stack/ble/controller/ll/ll_conn/ll_conn.h"
+#include "stack/ble/controller/ll/ll_conn/ll_conn_csa.h"
+#include "stack/ble/controller/ll/ll_conn/ll_slave.h"
 #include "stack/ble/controller/ll/ll_pm.h"
 #include "stack/ble/controller/ll/ll_scan.h"
 #include "stack/ble/controller/ll/ll_whitelist.h"
-#include "stack/ble/controller/ll/ll_conn/ll_conn.h"
-#include "stack/ble/controller/ll/ll_conn/ll_slave.h"
-#include "stack/ble/controller/ll/ll_conn/ll_conn_csa.h"
 
 #include "stack/ble/controller/ll/ll_ext_adv.h"
-
 
 #include "phy/phy.h"
 #include "phy/phy_test.h"
 
-
-#include "algorithm/ecc/ecc_ll.h"
 #include "algorithm/aes_ccm/aes_ccm.h"
-
+#include "algorithm/ecc/ecc_ll.h"
 
 /*********************************************************/
 //Remove when file merge to SDK //

@@ -21,14 +21,17 @@
 #include <nds_intrinsic.h>
 #include <stdint.h>
 
+#define MCACHE_CTL_ICACHE 1
+#define MCACHE_CTL_DCACHE 2
+
 typedef void (*InitFunc)(void);
 
 extern UINT32 _ITB_BASE_;
 
-extern UINT32 _RETENTION_DATA_LMA_START[], _RETENTION_DATA_VMA_START[], _RETENTION_DATA_VMA_END[];
-extern UINT32 _RAMCODE_LMA_START[], _RAMCODE_VMA_START[], _RAMCODE_VMA_END[];
-extern UINT32 _DATA_LMA_START[], _DATA_VMA_START[], _DATA_VMA_END[];
-extern UINT32 _BSS_VMA_START[], _BSS_VMA_END[];
+extern UINT32 SEG_RETENTION_DATA_LMA_START[], SEG_RETENTION_DATA_VMA_START[], SEG_RETENTION_DATA_VMA_END[];
+extern UINT32 SEG_RAMCODE_LMA_START[], SEG_RAMCODE_VMA_START[], SEG_RAMCODE_VMA_END[];
+extern UINT32 SEG_DATA_LMA_START[], SEG_DATA_VMA_START[], SEG_DATA_VMA_END[];
+extern UINT32 SEG_BSS_VMA_START[], SEG_BSS_VMA_END[];
 extern UINT32 __int_stack_start[], __int_stack_end[];
 
 extern InitFunc __preinit_array_start[] __attribute__((weak));
@@ -43,8 +46,8 @@ extern InitFunc __fini_array_end[] __attribute__((weak));
 STATIC VOID BoardConfigInnerSafe(VOID);
 
 #ifdef __GNUC__
-    #pragma GCC push_options
-    #pragma GCC optimize("-fno-stack-protector")
+#pragma GCC push_options
+#pragma GCC optimize("-fno-stack-protector")
 #endif /* __GNUC__ */
 
 __attribute__((noinline)) STATIC VOID CopyBuf32(UINT32 *dst, const UINT32 *dstEnd, const UINT32 *src)
@@ -58,13 +61,13 @@ __attribute__((noinline)) STATIC VOID CopyBuf32(UINT32 *dst, const UINT32 *dstEn
 
 __attribute__((used)) static void BoardConfigInner(void)
 {
-    for (UINT32 *p = _BSS_VMA_START; p < _BSS_VMA_END; ++p) {
+    for (UINT32 *p = SEG_BSS_VMA_START; p < SEG_BSS_VMA_END; ++p) {
         *p = 0;
     }
 
-    COPY_SEGMENT(_RETENTION_DATA);
-    COPY_SEGMENT(_RAMCODE);
-    COPY_SEGMENT(_DATA);
+    COPY_SEGMENT(SEG_RETENTION_DATA);
+    COPY_SEGMENT(SEG_RAMCODE);
+    COPY_SEGMENT(SEG_DATA);
 
     BoardConfigInnerSafe();
 }
@@ -81,8 +84,8 @@ __attribute__((naked)) void BoardConfig(void)
 
     /* Enable I/D-Cache */
     UINT32 mcacheCtl = __builtin_riscv_csrr(NDS_MCACHE_CTL);
-    mcacheCtl |= 1; /* I-Cache */
-    mcacheCtl |= 2; /* D-Cache */
+    mcacheCtl |= MCACHE_CTL_ICACHE; /* I-Cache */
+    mcacheCtl |= MCACHE_CTL_DCACHE; /* D-Cache */
     __builtin_riscv_csrw(mcacheCtl, NDS_MCACHE_CTL);
     __asm__ volatile("fence.i");
 
@@ -94,7 +97,7 @@ __attribute__((naked)) void BoardConfig(void)
 }
 
 #ifdef __GNUC__
-    #pragma GCC pop_options
+#pragma GCC pop_options
 #endif /* __GNUC__ */
 
 /**

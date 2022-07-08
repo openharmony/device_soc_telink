@@ -18,38 +18,38 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
-#include <hiview_log.h>
-#include "utils_file.h"
 #include "hal_file.h"
+#include "utils_file.h"
+#include <hiview_log.h>
 
-#define RD_WR_FIELD_MASK        0x000f
-#define CREAT_EXCL_FIELD_MASK   0x00f0
-#define TRUNC_FILED_MASK        0x0f00   
+#define RD_WR_FIELD_MASK      0x000f
+#define CREAT_EXCL_FIELD_MASK 0x00f0
+#define TRUNC_FILED_MASK      0x0f00
 
-#define ADDITIONAL_LEN          2
-#define MAX_PATH_LEN            40
-#define MAX_OPEN_FILE_NUM       32
-#define ROOT_PATH               "/data"
-#define DIR_SEPARATOR           "/"
+#define ADDITIONAL_LEN    2
+#define MAX_PATH_LEN      40
+#define MAX_OPEN_FILE_NUM 32
+#define ROOT_PATH         "/data"
+#define DIR_SEPARATOR     "/"
 
-#define SLOT_AVAILABLE          -1
+#define SLOT_AVAILABLE -1
 
-#define HAL_ERROR               -1
+#define HAL_ERROR -1
 
-static int FileHandlerArray[MAX_OPEN_FILE_NUM] = 
-{ 
-    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
-    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
-    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
-    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,        
+static int FileHandlerArray[MAX_OPEN_FILE_NUM] = {
+    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
+    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
+    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
+    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
+    SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE, SLOT_AVAILABLE,
 };
 
 static int GetAvailableFileHandlerIndex(void)
@@ -57,8 +57,9 @@ static int GetAvailableFileHandlerIndex(void)
     int i = MAX_OPEN_FILE_NUM;
 
     for (; i > 0; i--) {
-        if (FileHandlerArray[i - 1] == SLOT_AVAILABLE) 
+        if (FileHandlerArray[i - 1] == SLOT_AVAILABLE) {
             break;
+        }
     }
 
     return i;
@@ -92,7 +93,7 @@ static int ConvertFlags(int oflag)
     }
 
     if ((buffer & O_APPEND_FS) != 0) {
-        ret |= O_APPEND;    
+        ret |= O_APPEND;
     }
 
     return ret;
@@ -233,7 +234,7 @@ int HalFileSeek(int fd, int offset, unsigned int whence)
 
     /* make sure fd is within the allowed range, which is 1 to MAX_OPEN_FILE_NUM */
     if ((fd > MAX_OPEN_FILE_NUM) || (fd <= 0)) {
-		return HAL_ERROR;
+        return HAL_ERROR;
     }
 
     ret = fstat(FileHandlerArray[fd - 1], &f_info);

@@ -22,16 +22,13 @@
  *                                			  local constants                                                       *
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *                                           	local macro                                                        *
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *                                             local data type                                                     *
  *********************************************************************************************************************/
-
 
 /**********************************************************************************************************************
  *                                              global variable                                                       *
@@ -60,18 +57,20 @@ static inline void aes_wait_done(void);
  * @param[in] data - the data which to do encrypt/decrypt.
  * @return    none
  */
-void aes_set_key_data(unsigned char *key, unsigned char* data)
+void aes_set_key_data(unsigned char *key, unsigned char *data)
 {
-	unsigned int temp;
-	reg_embase_addr = aes_base_addr;  //set the embase addr
-	for (unsigned char i = 0; i < 4; i++) {
-		temp = key[16-(4*i)-4]<<24 | key[16-(4*i)-3]<<16 | key[16-(4*i)-2]<<8 | key[16-(4*i)-1];
-		reg_aes_key(i) = temp;
-		temp = data[16-(4*i)-4]<<24 | data[16-(4*i)-3]<<16 | data[16-(4*i)-2]<<8 | data[16-(4*i)-1];
-		aes_data_buff[i] = temp;
-	}
+    unsigned int temp;
+    reg_embase_addr = aes_base_addr;  //set the embase addr
+    for (unsigned char i = 0; i < 4; i++) {
+        temp = key[16 - (4 * i) - 4] << 24 | key[16 - (4 * i) - 3] << 16 | key[16 - (4 * i) - 2] << 8 |
+               key[16 - (4 * i) - 1];
+        reg_aes_key(i) = temp;
+        temp = data[16 - (4 * i) - 4] << 24 | data[16 - (4 * i) - 3] << 16 | data[16 - (4 * i) - 2] << 8 |
+               data[16 - (4 * i) - 1];
+        aes_data_buff[i] = temp;
+    }
 
-	reg_aes_ptr = (unsigned int)aes_data_buff;
+    reg_aes_ptr = (unsigned int)aes_data_buff;
 }
 
 /**
@@ -81,11 +80,11 @@ void aes_set_key_data(unsigned char *key, unsigned char* data)
  */
 void aes_get_result(unsigned char *result)
 {
-	/* read out the result */
-	unsigned char *ptr = (unsigned char *)&aes_data_buff[4];
-	for (unsigned char i=0; i<16; i++) {
-		result[i] = ptr[15 - i];
-	}
+    /* read out the result */
+    unsigned char *ptr = (unsigned char *)&aes_data_buff[4];
+    for (unsigned char i = 0; i < 16; i++) {
+        result[i] = ptr[15 - i];
+    }
 }
 
 /**
@@ -95,13 +94,13 @@ void aes_get_result(unsigned char *result)
  * @param[in] result    - the result of encrypt.
  * @return    none
  */
-int aes_encrypt(unsigned char *key, unsigned char* plaintext, unsigned char *result)
+int aes_encrypt(unsigned char *key, unsigned char *plaintext, unsigned char *result)
 {
 
-	//set the key
-	aes_set_key_data(key, plaintext);
+    //set the key
+    aes_set_key_data(key, plaintext);
 
-    aes_set_mode(AES_ENCRYPT_MODE);      //cipher mode
+    aes_set_mode(AES_ENCRYPT_MODE);  //cipher mode
 
     aes_wait_done();
 
@@ -117,18 +116,18 @@ int aes_encrypt(unsigned char *key, unsigned char* plaintext, unsigned char *res
  * @param[in] result      - the result of decrypt.
  * @return    none.
  */
-int aes_decrypt(unsigned char *key, unsigned char* decrypttext, unsigned char *result)
+int aes_decrypt(unsigned char *key, unsigned char *decrypttext, unsigned char *result)
 {
     //set the key
-	aes_set_key_data(key, decrypttext);
+    aes_set_key_data(key, decrypttext);
 
-    aes_set_mode(AES_DECRYPT_MODE);      //decipher mode
+    aes_set_mode(AES_DECRYPT_MODE);  //decipher mode
 
     aes_wait_done();
 
     aes_get_result(result);
 
-	return 1;
+    return 1;
 }
 /**********************************************************************************************************************
   *                    						local function implementation                                             *
@@ -138,8 +137,9 @@ int aes_decrypt(unsigned char *key, unsigned char* decrypttext, unsigned char *r
  * @param[in] addr - the base addr of CEVA data.
  * @return    none.
  */
-void aes_set_em_base_addr(unsigned int addr){
-	aes_base_addr = addr;   //set the embase addr
+void aes_set_em_base_addr(unsigned int addr)
+{
+    aes_base_addr = addr;  //set the embase addr
 }
 
 /**
@@ -148,6 +148,6 @@ void aes_set_em_base_addr(unsigned int addr){
  */
 static inline void aes_wait_done(void)
 {
-	while(FLD_AES_START == (reg_aes_mode & FLD_AES_START));
+    while (FLD_AES_START == (reg_aes_mode & FLD_AES_START))
+        ;
 }
-

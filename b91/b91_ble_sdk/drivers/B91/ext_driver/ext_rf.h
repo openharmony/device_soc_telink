@@ -22,27 +22,25 @@
 #include "compiler.h"
 #include "types.h"
 
-#define DMA_RFRX_LEN_HW_INFO				0	// 826x: 8
-#define DMA_RFRX_OFFSET_HEADER				4	// 826x: 12
-#define DMA_RFRX_OFFSET_RFLEN				5   // 826x: 13
-#define DMA_RFRX_OFFSET_DATA				6	// 826x: 14
+#define DMA_RFRX_LEN_HW_INFO   0  // 826x: 8
+#define DMA_RFRX_OFFSET_HEADER 4  // 826x: 12
+#define DMA_RFRX_OFFSET_RFLEN  5  // 826x: 13
+#define DMA_RFRX_OFFSET_DATA   6  // 826x: 14
 
-#define RF_TX_PAKET_DMA_LEN(rf_data_len)		((((rf_data_len)+3)/4)|(((rf_data_len) % 4)<<22))
-#define DMA_RFRX_OFFSET_CRC24(p)			((p)[DMA_RFRX_OFFSET_RFLEN]+6)  //data len:3
-#define DMA_RFRX_OFFSET_TIME_STAMP(p)		((p)[DMA_RFRX_OFFSET_RFLEN]+9)  //data len:4
-#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)		((p)[DMA_RFRX_OFFSET_RFLEN]+13) //data len:2
-#define DMA_RFRX_OFFSET_RSSI(p)				((p)[DMA_RFRX_OFFSET_RFLEN]+15) //data len:1, signed
+#define RF_TX_PAKET_DMA_LEN(rf_data_len) ((((rf_data_len) + 3) / 4) | (((rf_data_len) % 4) << 22))
+#define DMA_RFRX_OFFSET_CRC24(p)         ((p)[DMA_RFRX_OFFSET_RFLEN] + 6)   //data len:3
+#define DMA_RFRX_OFFSET_TIME_STAMP(p)    ((p)[DMA_RFRX_OFFSET_RFLEN] + 9)   //data len:4
+#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)   ((p)[DMA_RFRX_OFFSET_RFLEN] + 13)  //data len:2
+#define DMA_RFRX_OFFSET_RSSI(p)          ((p)[DMA_RFRX_OFFSET_RFLEN] + 15)  //data len:1, signed
 
-#define	RF_BLE_RF_PAYLOAD_LENGTH_OK(p)					((p)[5] <= reg_rf_rxtmaxlen)
-#define	RF_BLE_RF_PACKET_CRC_OK(p)						(((p)[(p)[5]+5+11] & 0x01) == 0x0)
-#define	RF_BLE_PACKET_VALIDITY_CHECK(p)					(RF_BLE_RF_PAYLOAD_LENGTH_OK(p) && RF_BLE_RF_PACKET_CRC_OK(p))
+#define RF_BLE_RF_PAYLOAD_LENGTH_OK(p)  ((p)[5] <= reg_rf_rxtmaxlen)
+#define RF_BLE_RF_PACKET_CRC_OK(p)      (((p)[(p)[5] + 5 + 11] & 0x01) == 0x0)
+#define RF_BLE_PACKET_VALIDITY_CHECK(p) (RF_BLE_RF_PAYLOAD_LENGTH_OK(p) && RF_BLE_RF_PACKET_CRC_OK(p))
 
 typedef enum {
-	 RF_ACC_CODE_TRIGGER_AUTO   =    BIT(0),	/**< auto trigger */
-	 RF_ACC_CODE_TRIGGER_MANU   =    BIT(1),	/**< manual trigger */
+    RF_ACC_CODE_TRIGGER_AUTO = BIT(0), /**< auto trigger */
+    RF_ACC_CODE_TRIGGER_MANU = BIT(1), /**< manual trigger */
 } rf_acc_trigger_mode;
-
-
 
 _attribute_ram_code_ void ble_rf_set_rx_dma(unsigned char *buff, unsigned char fifo_byte_size);
 
@@ -60,9 +58,9 @@ void rf_drv_ble_init(void);
  * @param   txstl_us - adjust TX settle time.
  * @return  none
  */
-static inline void 	rf_tx_settle_adjust(unsigned short txstl_us)
+static inline void rf_tx_settle_adjust(unsigned short txstl_us)
 {
-	REG_ADDR16(0x80140a04) = txstl_us;
+    REG_ADDR16(0x80140a04) = txstl_us;
 }
 
 /**
@@ -72,8 +70,8 @@ static inline void 	rf_tx_settle_adjust(unsigned short txstl_us)
 */
 static inline void rf_reset_baseband(void)
 {
-	REG_ADDR8(0x801404e3) = 0;		//rf_reset_baseband,rf reg need re-setting
-	REG_ADDR8(0x801404e3) = BIT(0);			//release reset signal
+    REG_ADDR8(0x801404e3) = 0;       //rf_reset_baseband,rf reg need re-setting
+    REG_ADDR8(0x801404e3) = BIT(0);  //release reset signal
 }
 
 /**
@@ -81,9 +79,9 @@ static inline void rf_reset_baseband(void)
  * @param[in]   ac - the address value.
  * @return  none
  */
-static inline void rf_set_ble_access_code_value (unsigned int ac)
+static inline void rf_set_ble_access_code_value(unsigned int ac)
 {
-	write_reg32 (0x80140808, ac);
+    write_reg32(0x80140808, ac);
 }
 
 /**
@@ -91,9 +89,9 @@ static inline void rf_set_ble_access_code_value (unsigned int ac)
  * @param[in]   p - the address to access.
  * @return  none
  */
-static inline void rf_set_ble_access_code (unsigned char *p)
+static inline void rf_set_ble_access_code(unsigned char *p)
 {
-	write_reg32 (0x80140808, p[3] | (p[2]<<8) | (p[1]<<16) | (p[0]<<24));
+    write_reg32(0x80140808, p[3] | (p[2] << 8) | (p[1] << 16) | (p[0] << 24));
 }
 
 /**
@@ -104,7 +102,7 @@ static inline void rf_set_ble_access_code (unsigned char *p)
  */
 static inline void reset_sn_nesn(void)
 {
-	REG_ADDR8(0x80140a01) =  0x01;
+    REG_ADDR8(0x80140a01) = 0x01;
 }
 
 /**
@@ -112,11 +110,10 @@ static inline void reset_sn_nesn(void)
  * @param   none.
  * @return  none.
  */
-static inline void rf_set_ble_access_code_adv (void)
+static inline void rf_set_ble_access_code_adv(void)
 {
-	write_reg32 (0x0140808, 0xd6be898e);
+    write_reg32(0x0140808, 0xd6be898e);
 }
-
 
 /**
  * @brief   This function serves to triggle accesscode in coded Phy mode.
@@ -125,7 +122,7 @@ static inline void rf_set_ble_access_code_adv (void)
  */
 static inline void rf_trigle_codedPhy_accesscode(void)
 {
-	write_reg8(0x140c25,read_reg8(0x140c25)|0x01);
+    write_reg8(0x140c25, read_reg8(0x140c25) | 0x01);
 }
 
 /**
@@ -133,9 +130,9 @@ static inline void rf_trigle_codedPhy_accesscode(void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_on (void)
+static inline void rf_ble_tx_on(void)
 {
-	write_reg8  (0x80140a02, 0x45 | BIT(4));	// TX enable
+    write_reg8(0x80140a02, 0x45 | BIT(4));  // TX enable
 }
 
 /**
@@ -143,13 +140,12 @@ static inline void rf_ble_tx_on (void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_done (void)
+static inline void rf_ble_tx_done(void)
 {
-	write_reg8  (0x80140a02, 0x45);
+    write_reg8(0x80140a02, 0x45);
 }
 
-#define	rf_set_ble_channel	rf_set_ble_chn
-
+#define rf_set_ble_channel rf_set_ble_chn
 
 /**
  * @brief     This function performs to switch PHY test mode.
@@ -157,7 +153,5 @@ static inline void rf_ble_tx_done (void)
  * @return    none.
  */
 void rf_switchPhyTestMode(rf_mode_e mode);
-
-
 
 #endif /* DRIVERS_B91_DRIVER_EXT_EXT_RF_H_ */
