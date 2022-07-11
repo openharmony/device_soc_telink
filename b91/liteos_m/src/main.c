@@ -160,6 +160,7 @@ int _write(int handle, char *data, int size)
         case STDOUT_FILENO:
         case STDERR_FILENO: {
             uart_send(UART0, (unsigned char *)data, size);
+            while(uart_tx_is_busy(UART0)) {}
             ret = size;
             break;
         }
@@ -231,6 +232,7 @@ STATIC INT32 SafeMain(VOID)
         goto START_FAILED;
     }
 
+    B91SuspendSleepInit();
     LOS_Start();
 
 START_FAILED:
