@@ -41,9 +41,6 @@ static void B91Suspend(VOID);
 
 static LosPmSysctrl g_sysctrl = {
     .normalSuspend = B91Suspend,
-    .normalResume = NULL,
-    .lightSuspend = NULL,
-    .lightResume = NULL,
 };
 
 static inline void SetMtime(UINT64 time)
@@ -105,8 +102,9 @@ static void B91Suspend(VOID)
         mtick += systicks_to_mticks(stimer_get_tick() - sleepTick + CORR_SLEEP_TIME);
         SetMtime(mtick);
         systicksSleepTimeout = mticks_to_systicks(mcompare - mtick);
-        if(systicksSleepTimeout < SYSTICKS_MIN_SLEEP)
-        ArchEnterSleep();
+        if(systicksSleepTimeout < SYSTICKS_MIN_SLEEP) {
+            ArchEnterSleep();
+        }
     } else {
         ArchEnterSleep();
     }
