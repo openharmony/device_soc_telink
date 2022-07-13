@@ -20,37 +20,38 @@
 
 #include <los_compiler.h>
 #include <los_pm.h>
-#include <los_timer.h>
 #include <los_task.h>
+#include <los_timer.h>
 
 #include <B91/clock.h>
-#include <B91/sys.h>
 #include <B91/stimer.h>
+#include <B91/sys.h>
 
 #include <B91/ext_driver/ext_pm.h>
 
 #include <stack/ble/ble.h>
 
-#define mticks_to_systicks(mticks)      (((UINT64)(mticks) * SYSTEM_TIMER_TICK_1S) / OS_SYS_CLOCK)
-#define systicks_to_mticks(sticks)      (((UINT64)(sticks) * OS_SYS_CLOCK) / SYSTEM_TIMER_TICK_1S)
-#define CORR_SLEEP_TIME                 mticks_to_systicks(3)
-#define SYSTICKS_MAX_SLEEP              0xE0000000
-#define SYSTICKS_MIN_SLEEP              (18352 + CORR_SLEEP_TIME)
+#define mticks_to_systicks(mticks) (((UINT64)(mticks)*SYSTEM_TIMER_TICK_1S) / OS_SYS_CLOCK)
+#define systicks_to_mticks(sticks) (((UINT64)(sticks)*OS_SYS_CLOCK) / SYSTEM_TIMER_TICK_1S)
+#define SLEEP_TIME_CORRECTION      mticks_to_systicks(3)
+#define SYSTICKS_MAX_SLEEP         0xE0000000
+#define SYSTICKS_MIN_SLEEP         (18352 + SLEEP_TIME_CORRECTION)
 
 static void B91Suspend(VOID);
 
 static LosPmSysctrl g_sysctrl = {
     .normalSuspend = B91Suspend,
+    .lightSuspend = B91Suspend,    
 };
 
 static inline void SetMtime(UINT64 time)
 {
-	volatile UINT32 *const rl = (volatile UINT32 *const)MTIMER;
-	volatile UINT32 *const rh = (volatile UINT32 *const)(MTIMER + sizeof(UINT32));
+    volatile UINT32 *const rl = (volatile UINT32 *const)MTIMER;
+    volatile UINT32 *const rh = (volatile UINT32 *const)(MTIMER + sizeof(UINT32));
 
-	*rl = 0;
-	*rh = (UINT32)(time >> 32);
-	*rl = (UINT32)time;
+    *rl = 0;
+    *rh = (UINT32)(time >> 32);
+    *rl = (UINT32)time;
 }
 
 static inline UINT64 GetMtimeCompare(void)
@@ -63,10 +64,10 @@ static inline UINT64 GetMtime(void)
     const volatile UINT32 *const rl = (const volatile UINT32 *const)MTIMER;
     const volatile UINT32 *const rh = (const volatile UINT32 *const)(MTIMER + sizeof(UINT32));
     UINT32 mtimeL, mtimeH;
-    do{
+    do {
         mtimeH = *rh;
         mtimeL = *rl;
-    } while(mtimeH != *rh);
+    } while (mtimeH != *rh);
     return (((UINT64)mtimeH) << 32) | mtimeL;
 }
 
@@ -79,30 +80,31 @@ static void B91Suspend(VOID)
 {
     UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
-    while (mtick == GetMtime()) {}
+    while (mtick == GetMtime()) {
+    }
     mtick++;
     if (mtick > mcompare) {
         return;
     }
 
     UINT64 systicksSleepTimeout = mticks_to_systicks(mcompare - mtick);
-    
+
     if (systicksSleepTimeout >= SYSTICKS_MIN_SLEEP) {
         if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
             systicksSleepTimeout = SYSTICKS_MAX_SLEEP;
         } else {
-            systicksSleepTimeout += -CORR_SLEEP_TIME;
+            systicksSleepTimeout -= SLEEP_TIME_CORRECTION;
         }
         UINT32 sleepTick = stimer_get_tick();
         cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER, sleepTick + systicksSleepTimeout);
         uart_clr_tx_index(UART0);
         uart_clr_tx_index(UART1);
         uart_clr_rx_index(UART0);
-        uart_clr_rx_index(UART1);        
-        mtick += systicks_to_mticks(stimer_get_tick() - sleepTick + CORR_SLEEP_TIME);
+        uart_clr_rx_index(UART1);
+        mtick += systicks_to_mticks(stimer_get_tick() - sleepTick + SLEEP_TIME_CORRECTION);
         SetMtime(mtick);
         systicksSleepTimeout = mticks_to_systicks(mcompare - mtick);
-        if(systicksSleepTimeout < SYSTICKS_MIN_SLEEP) {
+        if (systicksSleepTimeout < SYSTICKS_MIN_SLEEP) {
             ArchEnterSleep();
         }
     } else {
@@ -114,7 +116,7 @@ static void B91Suspend(VOID)
  * @brief      	This callback function is used instead of the cpu_sleep_wakeup_32k_rc() sleep function of the BLE stack,
  *              set in the blc_pm_select_internal_32k_crystal() function.
 */
-int B91SleepCallback(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeup_src, unsigned int  wakeup_tick)
+static int B91SleepCallback(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick)
 {
     int ret = 0;
     UINT32 timeSleepMs = (wakeup_tick - stimer_get_tick()) / SYSTEM_TIMER_TICK_1MS;
@@ -123,12 +125,12 @@ int B91SleepCallback(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeu
         LOS_Msleep(timeSleepMs - 1);
     }
     if (pm_get_wakeup_src() & WAKEUP_STATUS_TIMER) {
-        ret =  WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
+        ret = WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
     }
     return ret;
 }
 
-void B91SuspendSleepInit(void) 
+VOID B91SuspendSleepInit(VOID)
 {
     printf("\r\n B91_SLEEP_init \r\n");
     UINT32 ret = LOS_PmRegister(LOS_PM_TYPE_SYSCTRL, &g_sysctrl);

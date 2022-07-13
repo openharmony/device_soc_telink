@@ -37,6 +37,7 @@
 
 #include <b91_irq.h>
 #include <system_b91.h>
+#include <power_b91.h>
 
 #include <B91/clock.h>
 #include <B91/gpio.h>
