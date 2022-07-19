@@ -29,7 +29,6 @@
 #ifndef SYS_H_
 #define SYS_H_
 #include "bit.h"
-#include "reg_include/stimer_reg.h"
 
 /**********************************************************************************************************************
  *                                         global constants                                                           *

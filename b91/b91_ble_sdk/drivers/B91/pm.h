@@ -82,23 +82,23 @@ typedef enum {
  * @brief	suspend power weather to power down definition
  */
 typedef enum {
-    PM_POWERON_BASEBAND = BIT(0),  //weather to power on the BASEBAND before suspend.
-    PM_POWERON_USB = BIT(1),       //weather to power on the USB before suspend.
-    PM_POWERON_NPE = BIT(2),       //weather to power on the NPE before suspend.
+    PM_POWERON_BASEBAND = BIT(0),  // weather to power on the BASEBAND before suspend.
+    PM_POWERON_USB = BIT(1),       // weather to power on the USB before suspend.
+    PM_POWERON_NPE = BIT(2),       // weather to power on the NPE before suspend.
 } pm_suspend_power_cfg_e;
 
 /**
  * @brief	sleep mode.
  */
 typedef enum {
-    //available mode for customer
-    SUSPEND_MODE = 0x00,    //The A0 version of the suspend execution process is abnormal and the program restarts.
-    DEEPSLEEP_MODE = 0x30,  //when use deep mode pad wakeup(low or high level), if the high(low) level always in
-    //the pad, system will not enter sleep and go to below of pm API, will reboot by core_6f = 0x20
-    //deep retention also had this issue, but not to reboot.
-    DEEPSLEEP_MODE_RET_SRAM_LOW32K = 0x21,  //for boot from sram
-    DEEPSLEEP_MODE_RET_SRAM_LOW64K = 0x03,  //for boot from sram
-    //not available mode
+    // available mode for customer
+    SUSPEND_MODE = 0x00,    // The A0 version of the suspend execution process is abnormal and the program restarts.
+    DEEPSLEEP_MODE = 0x30,  // when use deep mode pad wakeup(low or high level), if the high(low) level always in
+    // the pad, system will not enter sleep and go to below of pm API, will reboot by core_6f = 0x20
+    // deep retention also had this issue, but not to reboot.
+    DEEPSLEEP_MODE_RET_SRAM_LOW32K = 0x21,  // for boot from sram
+    DEEPSLEEP_MODE_RET_SRAM_LOW64K = 0x03,  // for boot from sram
+    // not available mode
     DEEPSLEEP_RETENTION_FLAG = 0x0F,
 } pm_sleep_mode_e;
 
@@ -146,12 +146,12 @@ typedef enum {
  */
 typedef struct
 {
-    unsigned short
-        suspend_early_wakeup_time_us; /**< suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time*/
-    unsigned short
-        deep_ret_early_wakeup_time_us;        /**< deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time*/
-    unsigned short deep_early_wakeup_time_us; /**< deep_early_wakeup_time_us = suspend_ret_r_delay_us*/
-    unsigned short sleep_min_time_us;         /**< sleep_min_time_us = suspend_early_wakeup_time_us + 200*/
+    /** suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time*/
+    unsigned short suspend_early_wakeup_time_us; 
+    /** deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time*/
+    unsigned short deep_ret_early_wakeup_time_us;        
+    unsigned short deep_early_wakeup_time_us; /**< deep_early_wakeup_time_us = suspend_ret_r_delay_us */
+    unsigned short sleep_min_time_us;         /**< sleep_min_time_us = suspend_early_wakeup_time_us + 200 */
 } pm_early_wakeup_time_us_s;
 
 /**
@@ -159,10 +159,10 @@ typedef struct
  */
 typedef struct
 {
-    unsigned short deep_r_delay_cycle; /**< hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
-    unsigned short
-        suspend_ret_r_delay_cycle; /**< hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
-
+    /** hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
+    unsigned short deep_r_delay_cycle;
+    /** hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
+    unsigned short suspend_ret_r_delay_cycle;
 } pm_r_delay_cycle_s;
 
 /**
@@ -171,8 +171,8 @@ typedef struct
 typedef struct
 {
     unsigned char is_pad_wakeup;
-    unsigned char
-        wakeup_src;  //The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0.
+    // The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0.
+    unsigned char wakeup_src;
     unsigned char mcu_status;
     unsigned char rsvd;
 } pm_status_info_s;

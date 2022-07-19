@@ -27,30 +27,25 @@ enum {
     AES_FAIL,
 };
 
-typedef struct
-{
+typedef struct {
     u32 pkt;
     u8 dir;
     u8 iv[8];
 } ble_cyrpt_nonce_t;
 
-typedef struct
-{
+typedef struct {
     u32 enc_pno;
     u32 dec_pno;
-    u8 sk[16];  //session key
+    u8 sk[16];  // session key
     ble_cyrpt_nonce_t nonce;
     u8 st;
-    u8 enable;  //1: slave enable; 2: master enable
+    u8 enable;  // 1: slave enable; 2: master enable
     u8 mic_fail;
 } ble_crypt_para_t;
 
-struct CCM_FLAGS_TAG
-{
-    union
-    {
-        struct
-        {
+struct CCM_FLAGS_TAG {
+    union {
+        struct {
             u8 L : 3;
             u8 M : 3;
             u8 aData : 1;
@@ -62,8 +57,7 @@ struct CCM_FLAGS_TAG
 
 typedef struct CCM_FLAGS_TAG ccm_flags_t;
 
-typedef struct
-{
+typedef struct {
     union
     {
         u8 A[AES_BLOCK_SIZE];
@@ -80,29 +74,27 @@ enum {
     CRYPT_NONCE_TYPE_BIS = 2,
 };
 
-typedef union
-{
+typedef union {
     struct
     {
-        u8 enEncFlg : 1;    //enable encryption
-        u8 noneType : 2;    //ACL, CIS, BIS
-        u8 decMicFail : 1;  //Decryption status
-        u8 role : 1;        //ll_ccm_enc: Master role must use 1, Slave role must use 0;
-                            //ll_ccm_dec: Master role must use 0, Slave role must use 1;
-        u8 rsvd : 3;        //Rsvd
+        u8 enEncFlg : 1;    // enable encryption
+        u8 noneType : 2;    // ACL, CIS, BIS
+        u8 decMicFail : 1;  // Decryption status
+        u8 role : 1;        // ll_ccm_enc: Master role must use 1, Slave role must use 0;
+                            // ll_ccm_dec: Master role must use 0, Slave role must use 1;
+        u8 rsvd : 3;        // Rsvd
     };
     u8 cryptBitsInfo;
 } cryptBitsInfo_t;
 
-typedef struct
-{
-    u64 txPayloadCnt;               //Packet counter for Tx
-    u64 rxPayloadCnt;               //Packet counter for Rx
-    u8 sk[16];                      //Session key
-    ble_cyrpt_nonce_t ccmNonce;     //CCM nonce format
-    cryptBitsInfo_t cryptBitsInfo;  //To save Ram
-    u16 rsvd;                       //For align
-    llPhysChnPdu_t *pllPhysChnPdu;  //LL physical channel PDU
+typedef struct {
+    u64 txPayloadCnt;               // Packet counter for Tx
+    u64 rxPayloadCnt;               // Packet counter for Rx
+    u8 sk[16];                      // Session key
+    ble_cyrpt_nonce_t ccmNonce;     // CCM nonce format
+    cryptBitsInfo_t cryptBitsInfo;  // To save Ram
+    u16 rsvd;                       // For align
+    llPhysChnPdu_t *pllPhysChnPdu;  // LL physical channel PDU
 } leCryptCtrl_t;
 
 /**

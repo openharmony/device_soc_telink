@@ -224,8 +224,8 @@ unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned ch
         ;
     if (reg_i2c_mst & FLD_I2C_ACK_IN) {
         reg_i2c_sct1 = (FLD_I2C_LS_STOP);
-        while (i2c_master_busy())
-            ;
+        while (i2c_master_busy()) {
+        }
         return 0;
     }
     reg_i2c_sct1 = (FLD_I2C_LS_DATAR | FLD_I2C_LS_ID_R | g_i2c_stop_en);
@@ -278,15 +278,15 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
             }
         }
     }
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
     //set i2c master read.
     BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               //clear index
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      //i2c rnck enable.
     reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
     reg_i2c_sct1 = (FLD_I2C_LS_DATAR | FLD_I2C_LS_ID_R | FLD_I2C_LS_STOP);
     reg_i2c_len = rd_len;
     cnt = 0;
@@ -296,8 +296,8 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
             cnt++;
         }
     }
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
 
     return 1;
 }

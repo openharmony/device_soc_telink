@@ -287,19 +287,19 @@ void adc_battery_voltage_sample_init(void)
  */
 void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 {
-    /******start adc sample********/
+    /****** start adc sample ********/
     adc_start_sample_dma((unsigned short *)sample_buffer, sample_num << 1);
-    /******wait for adc sample finish********/
+    /****** wait for adc sample finish ********/
     while (!adc_get_sample_status_dma())
         ;
-    /******stop dma smaple********/
+    /****** stop dma smaple ********/
     adc_stop_sample_dma();
-    /******clear adc sample finished status********/
-    adc_clr_sample_status_dma();  //must
-    /******get adc sample data and sort these data ********/
+    /****** clear adc sample finished status ********/
+    adc_clr_sample_status_dma();  // must
+    /****** get adc sample data and sort these data ********/
     for (int i = 0; i < sample_num; i++) {
         if (sample_buffer[i] &
-            BIT(13)) {  //14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
+            BIT(13)) {  // 14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
             sample_buffer[i] = 0;
         } else {
             sample_buffer[i] = (sample_buffer[i] & 0x1fff);  //BIT(12..0) is valid adc code
@@ -315,7 +315,7 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 unsigned short adc_get_code(void)
 {
     unsigned short adc_code;
-    /******Lock ADC code in analog register ********/
+    /****** Lock ADC code in analog register ********/
     analog_write_reg8(areg_adc_data_sample_control,
                       analog_read_reg8(areg_adc_data_sample_control) | FLD_NOT_SAMPLE_ADC_DATA);
     adc_code = analog_read_reg16(areg_adc_misc_l);
@@ -352,6 +352,6 @@ unsigned short adc_calculate_voltage(unsigned short adc_code)
 unsigned short adc_calculate_temperature(unsigned short adc_code)
 {
     //////////////// adc sample data convert to temperature(Celsius) ////////////////
-    //adc_temp_value = 564 - ((adc_code * 819)>>13)
+    // adc_temp_value = 564 - ((adc_code * 819)>>13)
     return 564 - ((adc_code * 819) >> 13);
 }
