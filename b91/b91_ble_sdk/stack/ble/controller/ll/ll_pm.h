@@ -18,84 +18,74 @@
 #ifndef LL_PM_H_
 #define LL_PM_H_
 
-
-
-
 ////////////////// Power Management ///////////////////////
 /**
  * @brief	Telink defined Low power state Type
  */
-#define			SUSPEND_DISABLE				0
-#define			SUSPEND_ADV					BIT(0)
-#define			SUSPEND_CONN				BIT(1)
-#define			DEEPSLEEP_RETENTION_ADV		BIT(2)
-#define			DEEPSLEEP_RETENTION_CONN	BIT(3)
-
-
-
+#define SUSPEND_DISABLE          0
+#define SUSPEND_ADV              BIT(0)
+#define SUSPEND_CONN             BIT(1)
+#define DEEPSLEEP_RETENTION_ADV  BIT(2)
+#define DEEPSLEEP_RETENTION_CONN BIT(3)
 
 /**
  * @brief	Telink defined ble stack low power mode process callback function
  */
-typedef 	void (*ll_module_pm_callback_t)(void);
+typedef void (*ll_module_pm_callback_t)(void);
 
 /**
  * @brief	Telink defined application wake up low power mode process callback function
  */
-typedef 	void (*pm_appWakeupLowPower_callback_t)(int);
-
-
-
-
+typedef void (*pm_appWakeupLowPower_callback_t)(int);
 
 /**
  * @brief	for user to initialize low power mode
  * @param	none
  * @return	none
  */
-void 		blc_ll_initPowerManagement_module(void);
+void blc_ll_initPowerManagement_module(void);
 
 /**
  * @brief	for user to set low power mode mask
  * @param	mask - low power mode mask
  * @return	none
  */
-void		bls_pm_setSuspendMask (u8 mask);
+void bls_pm_setSuspendMask(u8 mask);
 
 /**
  * @brief	for user to get low power mode mask
  * @param	none
  * @return	bltPm.suspend_mask
  */
-u8 			bls_pm_getSuspendMask (void);
+u8 bls_pm_getSuspendMask(void);
 
 /**
  * @brief	for user to set low power mode wake up source
  * @param	source - low power mode wake up source
  * @return	none
  */
-void 		bls_pm_setWakeupSource(u8 source);
+void bls_pm_setWakeupSource(u8 source);
 
 /**
  * @brief	for user to get low power mode wake up time
  * @param	none
  * @return	bltPm.current_wakeup_tick
  */
-u32 		bls_pm_getSystemWakeupTick(void);
+u32 bls_pm_getSystemWakeupTick(void);
 
 /**
  * @brief	for user to get low power mode next connect event wake up time
  * @param	none
  * @return	blt_next_event_tick
  */
-u32 		bls_pm_getNexteventWakeupTick(void);
+u32 bls_pm_getNexteventWakeupTick(void);
 
 /**
  * @brief	for user to set latency manually for save power
  * @param	latency - bltPm.user_latency
  * @return	none
  */
-void 		bls_pm_setManualLatency(u16 latency); //manual set latency to save power
+void bls_pm_setManualLatency(u16 latency);  //manual set latency to save power
 
 /**
  * @brief	for user to set application wake up low power mode
@@ -103,14 +93,14 @@ void 		bls_pm_setManualLatency(u16 latency); //manual set latency to save power
  * @param	enable - low power mode application wake up enable
  * @return	none
  */
-void 		bls_pm_setAppWakeupLowPower(u32 wakeup_tick, u8 enable);
+void bls_pm_setAppWakeupLowPower(u32 wakeup_tick, u8 enable);
 
 /**
  * @brief	for user to register the callback for application wake up low power mode process
  * @param	cb - the pointer of callback function
  * @return  none.
  */
-void 		bls_pm_registerAppWakeupLowPowerCb(pm_appWakeupLowPower_callback_t cb);
+void bls_pm_registerAppWakeupLowPowerCb(pm_appWakeupLowPower_callback_t cb);
 
 /**
  * @brief	for user to set the threshold of sleep tick for entering deep retention mode
@@ -118,25 +108,20 @@ void 		bls_pm_registerAppWakeupLowPowerCb(pm_appWakeupLowPower_callback_t cb);
  * @param	conn_thres_ms - the threshold of sleep tick for connection state
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionThreshold(u32 adv_thres_ms, u32 conn_thres_ms);
+void blc_pm_setDeepsleepRetentionThreshold(u32 adv_thres_ms, u32 conn_thres_ms);
 
 /**
  * @brief	for user to set early wake up tick for deep retention mode
  * @param	earlyWakeup_us - early wake up tick for deep retention mode
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionEarlyWakeupTiming(u32 earlyWakeup_us);
+void blc_pm_setDeepsleepRetentionEarlyWakeupTiming(u32 earlyWakeup_us);
 
 /**
  * @brief	for user to set the type of deep retention mode
  * @param	sleep_type - the type of deep retention mode
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionType(SleepMode_TypeDef sleep_type);
-
-
-
-
-
+void blc_pm_setDeepsleepRetentionType(SleepMode_TypeDef sleep_type);
 
 #endif /* LL_PM_H_ */

@@ -51,15 +51,14 @@
 /**
  * @brief define system clock tick per us/ms/s.
  */
-enum{
-	SYSTEM_TIMER_TICK_1US 		= 16,
-	SYSTEM_TIMER_TICK_1MS 		= 16000,
-	SYSTEM_TIMER_TICK_1S 		= 16000000,
+enum {
+    SYSTEM_TIMER_TICK_1US = 16,
+    SYSTEM_TIMER_TICK_1MS = 16000,
+    SYSTEM_TIMER_TICK_1S = 16000000,
 
-	SYSTEM_TIMER_TICK_625US  	= 10000,  //625*16
-	SYSTEM_TIMER_TICK_1250US 	= 20000,  //1250*16
+    SYSTEM_TIMER_TICK_625US = 10000,   //625*16
+    SYSTEM_TIMER_TICK_1250US = 20000,  //1250*16
 };
-
 
 /**
  * @brief This function servers to set stimer irq mask.
@@ -68,7 +67,7 @@ enum{
  */
 static inline void stimer_set_irq_mask(stimer_irq_e mask)
 {
-	reg_system_irq_mask |= mask;
+    reg_system_irq_mask |= mask;
 }
 
 /**
@@ -78,7 +77,7 @@ static inline void stimer_set_irq_mask(stimer_irq_e mask)
  */
 static inline void stimer_clr_irq_mask(stimer_irq_e mask)
 {
-	reg_system_irq_mask &= (~mask);
+    reg_system_irq_mask &= (~mask);
 }
 
 /**
@@ -88,7 +87,7 @@ static inline void stimer_clr_irq_mask(stimer_irq_e mask)
  */
 static inline void stimer_clr_irq_status(stimer_irq_e status)
 {
-	reg_system_cal_irq = (status);
+    reg_system_cal_irq = (status);
 }
 
 /**
@@ -98,7 +97,7 @@ static inline void stimer_clr_irq_status(stimer_irq_e status)
  */
 static inline unsigned char stimer_get_irq_status(stimer_irq_e status)
 {
-	return (reg_system_cal_irq & status);
+    return (reg_system_cal_irq & status);
 }
 
 /**
@@ -108,7 +107,7 @@ static inline unsigned char stimer_get_irq_status(stimer_irq_e status)
  */
 static inline void stimer_set_irq_capture(unsigned int tick)
 {
-	reg_system_irq_level = (tick);
+    reg_system_irq_level = (tick);
 }
 
 /**
@@ -118,7 +117,7 @@ static inline void stimer_set_irq_capture(unsigned int tick)
  */
 static inline void stimer_set_tick(unsigned int tick)
 {
-	reg_system_tick = (tick);
+    reg_system_tick = (tick);
 }
 
 /**
@@ -127,9 +126,8 @@ static inline void stimer_set_tick(unsigned int tick)
  */
 static inline void stimer_enable(void)
 {
-	reg_system_ctrl |= FLD_SYSTEM_TIMER_EN;
+    reg_system_ctrl |= FLD_SYSTEM_TIMER_EN;
 }
-
 
 /**
  * @brief This function servers to disable stimer.
@@ -137,7 +135,7 @@ static inline void stimer_enable(void)
  */
 static inline void stimer_disable(void)
 {
-	reg_system_ctrl &= ~(FLD_SYSTEM_TIMER_EN);
+    reg_system_ctrl &= ~(FLD_SYSTEM_TIMER_EN);
 }
 
 /*
@@ -147,7 +145,7 @@ static inline void stimer_disable(void)
 static inline unsigned int stimer_get_tick(void)
 {
 
-	return reg_system_tick;
+    return reg_system_tick;
 }
 
 /**
@@ -158,22 +156,20 @@ static inline unsigned int stimer_get_tick(void)
  */
 static inline _Bool clock_time_exceed(unsigned int ref, unsigned int us)
 {
-	return ((unsigned int)(stimer_get_tick() - ref) > us * SYSTEM_TIMER_TICK_1US);
+    return ((unsigned int)(stimer_get_tick() - ref) > us * SYSTEM_TIMER_TICK_1US);
 }
 /**
  * @brief     This function performs to set delay time by us.
  * @param[in] microsec - need to delay.
  * @return    none
  */
-_attribute_ram_code_sec_noinline_   void delay_us(unsigned int microsec);
-
+_attribute_ram_code_sec_noinline_ void delay_us(unsigned int microsec);
 
 /**
  * @brief     This function performs to set delay time by ms.
  * @param[in] millisec - need to delay.
  * @return    none
  */
-_attribute_ram_code_sec_noinline_  void  delay_ms(unsigned int millisec);
-
+_attribute_ram_code_sec_noinline_ void delay_ms(unsigned int millisec);
 
 #endif /* STIMER_H_ */

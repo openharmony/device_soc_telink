@@ -21,11 +21,11 @@
  * @param[in] microsec - need to delay.
  * @return    none
 */
- void delay_us(unsigned int microsec)
+void delay_us(unsigned int microsec)
 {
-	unsigned long t = stimer_get_tick();
-	while(!clock_time_exceed(t, microsec)){
-	}
+    unsigned long t = stimer_get_tick();
+    while (!clock_time_exceed(t, microsec)) {
+    }
 }
 
 /*
@@ -33,9 +33,9 @@
  * @param[in] millisec - need to delay.
  * @return    none
 */
- void delay_ms(unsigned int millisec)
+void delay_ms(unsigned int millisec)
 {
-	unsigned long t = stimer_get_tick();
-	while(!clock_time_exceed(t, millisec*1000)){
-	}
+    unsigned long t = stimer_get_tick();
+    while (!clock_time_exceed(t, millisec * 1000)) {
+    }
 }

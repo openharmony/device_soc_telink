@@ -22,15 +22,15 @@
 #define USER_CONFIG_H
 
 #if (__PROJECT_B91_BLE_SAMPLE__)
-	#include "../B91_ble_sample/app_config.h"
-#elif (__PROJECT_B91_MODULE__ )
-	#include "../B91_module/app_config.h"
+#include "../B91_ble_sample/app_config.h"
+#elif (__PROJECT_B91_MODULE__)
+#include "../B91_module/app_config.h"
 #elif (__PROJECT_B91_FEATURE_TEST__)
-	#include "../B91_feature/app_config.h"
-#elif(__PROJECT_B91_EXTERNAL)
-    #include <app_config.h>
+#include "../B91_feature/app_config.h"
+#elif (__PROJECT_B91_EXTERNAL)
+#include <app_config.h>
 #else
 
 #endif
 
-#endif // USER_CONFIG_H
+#endif  // USER_CONFIG_H

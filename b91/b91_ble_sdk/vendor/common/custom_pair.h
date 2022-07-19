@@ -20,23 +20,22 @@
 
 #include "vendor/common/user_config.h"
 
-
 #ifndef FLASH_ADR_CUSTOM_PAIRING
-#define FLASH_ADR_CUSTOM_PAIRING         		0xF8000
+#define FLASH_ADR_CUSTOM_PAIRING 0xF8000
 #endif
 
 #ifndef FLASH_CUSTOM_PAIRING_MAX_SIZE
-#define FLASH_CUSTOM_PAIRING_MAX_SIZE     		4096
+#define FLASH_CUSTOM_PAIRING_MAX_SIZE 4096
 #endif
 
-
 /*!  Pair parameter manager type */
-typedef struct{
-	u8 manual_pair;
-	u8 mac_type;  //address type
-	u8 mac[6];
-	u32 pair_tick;
-}man_pair_t;
+typedef struct
+{
+    u8 manual_pair;
+    u8 mac_type;  //address type
+    u8 mac[6];
+    u32 pair_tick;
+} man_pair_t;
 
 extern man_pair_t blm_manPair;
 
@@ -58,7 +57,7 @@ void user_master_host_pairing_management_init(void);
  * @return     0:      invalid index
  *             others valid index
  */
-int user_tbl_slave_mac_search(u8 adr_type, u8 * adr);
+int user_tbl_slave_mac_search(u8 adr_type, u8 *adr);
 
 /**
  * @brief     Store bonding info to flash.
@@ -67,7 +66,6 @@ int user_tbl_slave_mac_search(u8 adr_type, u8 * adr);
  * @return    none.
  */
 int user_tbl_slave_mac_add(u8 adr_type, u8 *adr);
-
 
 /**
  * @brief      Delete bonding info.
@@ -85,14 +83,11 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr);
  */
 void user_tbl_slave_mac_delete_all(void);
 
-
 /**
  * @brief      unpair process.
  * @param      none.
  * @return     none.
  */
 void user_tbl_salve_mac_unpair_proc(void);
-
-
 
 #endif /* APP_PAIR_H_ */

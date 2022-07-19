@@ -19,9 +19,6 @@
 #ifndef STACK_BLE_SERVICE_OTA_OTA_SERVER_H_
 #define STACK_BLE_SERVICE_OTA_OTA_SERVER_H_
 
-
-
-
 /**
  * @brief	OTA start command callback declaration
  */
@@ -38,10 +35,6 @@ typedef void (*ota_versionCb_t)(void);
  */
 typedef void (*ota_resIndicateCb_t)(int result);
 
-
-
-
-
 /**
  * @brief      this function is used for user to initialize OTA server module.
  * 			   //attention: this API must called before any other OTA relative settings.
@@ -49,10 +42,6 @@ typedef void (*ota_resIndicateCb_t)(int result);
  * @return     none
  */
 void blc_ota_initOtaServer_module(void);
-
-
-
-
 
 /**
  * @brief      This function is used to set OTA new firmware storage address on Flash.
@@ -62,9 +51,6 @@ void blc_ota_initOtaServer_module(void);
  */
 ble_sts_t blc_ota_setNewFirmwwareStorageAddress(multi_boot_addr_e new_fw_addr);
 
-
-
-
 /**
  * @brief      This function is used to set OTA firmware version number.
  * 			   if user use version compare to decide if OTA update, should use this API to set firmware version.
@@ -72,15 +58,6 @@ ble_sts_t blc_ota_setNewFirmwwareStorageAddress(multi_boot_addr_e new_fw_addr);
  * @return     none
  */
 void blc_ota_setFirmwareVersionNumber(u16 version_number);
-
-
-
-
-
-
-
-
-
 
 /**
  * @brief      This function is used to register OTA start command callback.
@@ -91,11 +68,6 @@ void blc_ota_setFirmwareVersionNumber(u16 version_number);
  */
 void blc_ota_registerOtaStartCmdCb(ota_startCb_t cb);
 
-
-
-
-
-
 /**
  * @brief      This function is used to register OTA version command callback
  * 			   when local device receive OTA command  "CMD_OTA_VERSION", trigger this callback.
@@ -104,19 +76,12 @@ void blc_ota_registerOtaStartCmdCb(ota_startCb_t cb);
  */
 void blc_ota_registerOtaFirmwareVersionReqCb(ota_versionCb_t cb);
 
-
-
-
-
 /**
  * @brief      This function is used to register OTA result indication callback
  * @param[in]  cb - callback function
  * @return     none
  */
 void blc_ota_registerOtaResultIndicationCb(ota_resIndicateCb_t cb);
-
-
-
 
 /**
  * @brief      This function is used to set OTA whole process timeout value
@@ -126,8 +91,6 @@ void blc_ota_registerOtaResultIndicationCb(ota_resIndicateCb_t cb);
  */
 ble_sts_t blc_ota_setOtaProcessTimeout(int timeout_second);
 
-
-
 /**
  * @brief      This function is used to set OTA packet interval timeout value
  * 			   if not set, default value is 5 S
@@ -136,22 +99,8 @@ ble_sts_t blc_ota_setOtaProcessTimeout(int timeout_second);
  */
 ble_sts_t blc_ota_setOtaDataPacketTimeout(int timeout_second);
 
-
-
-
-extern int otaWrite(u16 connHandle, void * p);
-
-
-
-
+extern int otaWrite(u16 connHandle, void *p);
 
 void bls_ota_clearNewFwDataArea(void);
-
-
-
-
-
-
-
 
 #endif /* STACK_BLE_SERVICE_OTA_OTA_SERVER_H_ */

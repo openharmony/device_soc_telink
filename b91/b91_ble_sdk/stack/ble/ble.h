@@ -18,7 +18,6 @@
 #ifndef BLE_H_
 #define BLE_H_
 
-
 #include "ble_common.h"
 #include "ble_format.h"
 
@@ -26,18 +25,14 @@
 #include "host/ble_host.h"
 
 #include "hci/hci.h"
-#include "hci/hci_const.h"
 #include "hci/hci_cmd.h"
+#include "hci/hci_const.h"
 #include "hci/hci_event.h"
 
-#include "service/ota/ota.h"
-#include "service/ota/ota_server.h"
 #include "service/device_information.h"
 #include "service/hids.h"
+#include "service/ota/ota.h"
+#include "service/ota/ota_server.h"
 #include "service/uuid.h"
-
-
-
-
 
 #endif /* BLE_H_ */

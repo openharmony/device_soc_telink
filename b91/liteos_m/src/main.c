@@ -20,10 +20,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <unistd.h>
 #include <fcntl.h>
 #include <sys/mount.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 #include <los_task.h>
 
@@ -35,6 +35,7 @@
 
 #include <board_config.h>
 
+#include "canary.h"
 #include <b91_irq.h>
 #include <system_b91.h>
 
@@ -46,16 +47,18 @@
 
 #include <../vendor/common/blt_common.h>
 
-#define DEBUG_UART_PORT        UART0
-#define DEBUG_UART_PIN_TX      UART0_TX_PB2
-#define DEBUG_UART_PIN_RX      UART0_RX_PB3
-#define DEBUG_UART_PARITY      UART_PARITY_NONE
-#define DEBUG_UART_STOP_BITS   UART_STOP_BIT_ONE
-#define DEBUG_UART_BAUDRATE    921600
+#define HZ_IN_MHZ (1000 * 1000)
 
-#define B91_SYSTEM_INIT_TASK_STACKSIZE     (1024 * 32)
-#define B91_SYSTEM_INIT_TASK_PRIO          7
-#define B91_SYSTEM_INIT_TASK_NAME          "B91SystemInit"
+#define DEBUG_UART_PORT      UART0
+#define DEBUG_UART_PIN_TX    UART0_TX_PB2
+#define DEBUG_UART_PIN_RX    UART0_RX_PB3
+#define DEBUG_UART_PARITY    UART_PARITY_NONE
+#define DEBUG_UART_STOP_BITS UART_STOP_BIT_ONE
+#define DEBUG_UART_BAUDRATE  921600
+
+#define B91_SYSTEM_INIT_TASK_STACKSIZE (1024 * 32)
+#define B91_SYSTEM_INIT_TASK_PRIO      7
+#define B91_SYSTEM_INIT_TASK_NAME      "B91SystemInit"
 
 extern UserErrFunc g_userErrFunc;
 
@@ -69,8 +72,9 @@ VOID HardwareInit(VOID)
 
 STATIC VOID LittlefsInit(VOID)
 {
-#define DIR_DATA         "/data"
-#define PAR_DATA         0
+#define DIR_DATA        "/data"
+#define PAR_DATA        0
+#define DIR_PERMISSIONS 0777
 
     int res;
 
@@ -78,10 +82,10 @@ STATIC VOID LittlefsInit(VOID)
 
     struct lfs_config *cfg = LittlefsConfigGet();
 
-    res = mount(PAR_DATA , DIR_DATA, "littlefs", 0, cfg);
+    res = mount(PAR_DATA, DIR_DATA, "littlefs", 0, cfg);
     printf("mount = %d\r\n", res);
 
-    res = mkdir(DIR_DATA, 0777);
+    res = mkdir(DIR_DATA, DIR_PERMISSIONS);
     printf("mkdir = %d\r\n", res);
 }
 
@@ -103,12 +107,12 @@ UINT32 LosAppInit(VOID)
     B91IrqInit();
 
     unsigned int taskID_ohos;
-    TSK_INIT_PARAM_S task_ohos = { 0 };
+    TSK_INIT_PARAM_S task_ohos = {0};
 
     task_ohos.pfnTaskEntry = (TSK_ENTRY_FUNC)B91SystemInit;
-    task_ohos.uwStackSize  = B91_SYSTEM_INIT_TASK_STACKSIZE;
-    task_ohos.pcName       = B91_SYSTEM_INIT_TASK_NAME;
-    task_ohos.usTaskPrio   = B91_SYSTEM_INIT_TASK_PRIO;
+    task_ohos.uwStackSize = B91_SYSTEM_INIT_TASK_STACKSIZE;
+    task_ohos.pcName = B91_SYSTEM_INIT_TASK_NAME;
+    task_ohos.usTaskPrio = B91_SYSTEM_INIT_TASK_PRIO;
     ret = LOS_TaskCreate(&taskID_ohos, &task_ohos);
     if (ret != LOS_OK) {
         printf("Create Task failed! ERROR: 0x%x\r\n", ret);
@@ -138,7 +142,7 @@ VOID UsartInit(VOID)
 
     uart_set_pin(DEBUG_UART_PIN_TX, DEBUG_UART_PIN_RX);
     uart_reset(DEBUG_UART_PORT);
-    uart_cal_div_and_bwpc(DEBUG_UART_BAUDRATE, sys_clk.pclk * 1000 * 1000, &div, &bwpc);
+    uart_cal_div_and_bwpc(DEBUG_UART_BAUDRATE, sys_clk.pclk * HZ_IN_MHZ, &div, &bwpc);
     telink_b91_uart_init(DEBUG_UART_PORT, div, bwpc, DEBUG_UART_PARITY, DEBUG_UART_STOP_BITS);
     uart_rx_irq_trig_level(DEBUG_UART_PORT, 1);
 }
@@ -175,21 +179,19 @@ static boolean hilog(const HiLogContent *hilogContent, uint32 len)
     return TRUE;
 }
 
-__attribute__((noreturn))
-void __assert_func(const char *file, int line, const char *func, const char *expr)
+__attribute__((noreturn)) void __assert_func(const char *file, int line, const char *func, const char *expr)
 {
-       printf("Assertion failed: %s (%s: %s: %d)\r\n", expr, file, func, line);
-       fflush(NULL);
-       abort();
+    printf("Assertion failed: %s (%s: %s: %d)\r\n", expr, file, func, line);
+    fflush(NULL);
+    abort();
 }
 
-STATIC VOID UserErrFuncImpl(CHAR *fileName, UINT32 lineNo, UINT32 errorNo,
-                            UINT32 paraLen, VOID *para)
+STATIC VOID UserErrFuncImpl(CHAR *fileName, UINT32 lineNo, UINT32 errorNo, UINT32 paraLen, VOID *para)
 {
     printf("ERROR: \"/%s\" <<< line: %x err: %x para[%u]: ", fileName, lineNo, errorNo, paraLen);
 
     const u8 *pc = (const u8 *)para;
-    for (UINT32 i=0; i<paraLen; ++i) {
+    for (UINT32 i = 0; i < paraLen; ++i) {
         printf("%02x", pc[i]);
     }
 
@@ -238,10 +240,8 @@ START_FAILED:
     return 0;
 }
 
-LITE_OS_SEC_TEXT_INIT VOID ArchStackGuardInit(VOID);
-
 #pragma GCC push_options
-#pragma GCC optimize ("-fno-stack-protector")
+#pragma GCC optimize("-fno-stack-protector")
 INT32 main(VOID)
 {
 #ifdef __GNUC__

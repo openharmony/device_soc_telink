@@ -24,4 +24,4 @@
 UINT32 B91IrqRegister(UINT32 irq_num, HWI_PROC_FUNC handler, HWI_ARG_T irqParam);
 VOID B91IrqInit(VOID);
 
-#endif // _B91_IRQ_H
+#endif  // _B91_IRQ_H

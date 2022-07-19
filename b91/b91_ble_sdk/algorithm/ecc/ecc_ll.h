@@ -19,17 +19,15 @@
 #ifndef ECC_LL_H_
 #define ECC_LL_H_
 
-
 const u8 blt_ecc_dbg_priv_key[32];
 const u8 blt_ecc_dbg_pub_key[64];
-
 
 /**
 * @brief		This function is used to register the random number function needed for ECC calculation
 * @param		none
 * @return		none
 */
-void 			blt_ecc_init(void);
+void blt_ecc_init(void);
 
 /**
 * @brief		This function is used to generate an ECDH public-private key pairs
@@ -39,7 +37,7 @@ void 			blt_ecc_init(void);
 * @return		1:  success
 *              0: failure
 */
-int 			blt_ecc_gen_key_pair(unsigned char pub[64], unsigned char priv[32], bool use_dbg_key);
+int blt_ecc_gen_key_pair(unsigned char pub[64], unsigned char priv[32], bool use_dbg_key);
 
 /**
 * @brief		This function is used to calculate DHKEY based on the peer public key and own private key
@@ -49,13 +47,6 @@ int 			blt_ecc_gen_key_pair(unsigned char pub[64], unsigned char priv[32], bool 
 * @return		1:  success
 *              0: failure
 */
-int 			blt_ecc_gen_dhkey(const unsigned char peer_pub[64], const unsigned char own_priv[32], unsigned char out_dhkey[32]);
-
-
-
+int blt_ecc_gen_dhkey(const unsigned char peer_pub[64], const unsigned char own_priv[32], unsigned char out_dhkey[32]);
 
 #endif /* ECC_LL_H_ */
-
-
-
-

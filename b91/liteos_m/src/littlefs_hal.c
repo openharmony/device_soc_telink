@@ -25,38 +25,37 @@
 
 #include <B91/flash.h>
 
-#define LITTLEFS_PATH           "/littlefs/"
+#define LITTLEFS_PATH "/littlefs/"
 
-#define LITTLEFS_PHYS_ADDR      0x60000
-#define LITTLEFS_PHYS_SIZE      (16 * 1024)
+#define LITTLEFS_PHYS_ADDR 0x60000
+#define LITTLEFS_PHYS_SIZE (16 * 1024)
 
-#define READ_SIZE               16
-#define PROG_SIZE               16
-#define BLOCK_SIZE              4096
-#define BLOCK_COUNT             32
-#define CACHE_SIZE              512
-#define LOOKAHEAD_SIZE          64
-#define BLOCK_CYCLES            500
+#define READ_SIZE      16
+#define PROG_SIZE      16
+#define BLOCK_SIZE     4096
+#define BLOCK_COUNT    32
+#define CACHE_SIZE     512
+#define LOOKAHEAD_SIZE 64
+#define BLOCK_CYCLES   500
 
 #if defined(LFS_THREADSAFE)
 static uint32_t g_lfsMutex;
 #endif /* LFS_THREADSAFE */
 
-static int LittlefsRead(const struct lfs_config *cfg, lfs_block_t block,
-                        lfs_off_t off, void *buffer, lfs_size_t size)
+static int LittlefsRead(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, void *buffer, lfs_size_t size)
 {
     uint32_t addr = block * (cfg->block_size) + off;
- 
+
     flash_read_page(LITTLEFS_PHYS_ADDR + addr, size, buffer);
 
     return LFS_ERR_OK;
 }
 
-static int LittlefsProg(const struct lfs_config *cfg, lfs_block_t block, 
-                        lfs_off_t off, const void *buffer, lfs_size_t size)
+static int LittlefsProg(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, const void *buffer,
+                        lfs_size_t size)
 {
     uint32_t addr = block * (cfg->block_size) + off;
-    
+
     flash_write_page(LITTLEFS_PHYS_ADDR + addr, size, (unsigned char *)buffer);
 
     return LFS_ERR_OK;
@@ -66,7 +65,7 @@ static int LittlefsErase(const struct lfs_config *cfg, lfs_block_t block)
 {
     uint32_t addr = block * (cfg->block_size);
 
-	flash_erase_sector(LITTLEFS_PHYS_ADDR + addr);
+    flash_erase_sector(LITTLEFS_PHYS_ADDR + addr);
 
     return LFS_ERR_OK;
 }
@@ -95,10 +94,10 @@ static int LittlefsUnlock(const struct lfs_config *conf)
 static struct lfs_config g_lfsConfig = {
     // block device operations
     .context = NULL,
-    .read  = LittlefsRead,
-    .prog  = LittlefsProg,
+    .read = LittlefsRead,
+    .prog = LittlefsProg,
     .erase = LittlefsErase,
-    .sync  = LittlefsSync,
+    .sync = LittlefsSync,
 #if defined(LFS_THREADSAFE)
     .lock = LittlefsLock,
     .unlock = LittlefsUnlock,

@@ -18,24 +18,20 @@
 #ifndef LL_CONN_H_
 #define LL_CONN_H_
 
-
 /**
  * @brief	LE connection handle for slave & master role
  */
-#define			BLM_CONN_HANDLE									BIT(7)
-#define			BLS_CONN_HANDLE									BIT(6)
-
-
+#define BLM_CONN_HANDLE BIT(7)
+#define BLS_CONN_HANDLE BIT(6)
 
 /**
  * @brief	LE connection role
  */
-#define 		LL_ROLE_MASTER              					0
-#define 		LL_ROLE_SLAVE               					1
+#define LL_ROLE_MASTER 0
+#define LL_ROLE_SLAVE  1
 
-
-#define 	BLE_INVALID_CONNECTION_HANDLE    					0xffff
-#define 	IS_CONNECTION_HANDLE_VALID(handle)  				( (handle) != BLE_INVALID_CONNECTION_HANDLE )
+#define BLE_INVALID_CONNECTION_HANDLE      0xffff
+#define IS_CONNECTION_HANDLE_VALID(handle) ((handle) != BLE_INVALID_CONNECTION_HANDLE)
 
 /**
  * @brief      for user to initialize ACL connection module.
@@ -43,8 +39,7 @@
  * @param	   none
  * @return     none
  */
-void		blc_ll_initConnection_module(void);
-
+void blc_ll_initConnection_module(void);
 
 /**
  * @brief      for user to initialize LinkLayer TX FIFO.
@@ -55,8 +50,7 @@ void		blc_ll_initConnection_module(void);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_initAclConnTxFifo(u8 *pTxbuf, int size, int number);
-
+ble_sts_t blc_ll_initAclConnTxFifo(u8 *pTxbuf, int size, int number);
 
 /**
  * @brief      for user to initialize LinkLayer RX FIFO.
@@ -66,9 +60,7 @@ ble_sts_t 	blc_ll_initAclConnTxFifo(u8 *pTxbuf, int size, int number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_initAclConnRxFifo(u8 *pRxbuf, int size, int number);
-
-
+ble_sts_t blc_ll_initAclConnRxFifo(u8 *pRxbuf, int size, int number);
 
 /**
  * @brief      for user to set connMaxRxOctets and connMaxTxOctets
@@ -77,7 +69,6 @@ ble_sts_t	blc_ll_initAclConnRxFifo(u8 *pRxbuf, int size, int number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_setAclConnMaxOctetsNumber(u8 maxRxOct, u8 maxTxOct);
-
+ble_sts_t blc_ll_setAclConnMaxOctetsNumber(u8 maxRxOct, u8 maxTxOct);
 
 #endif /* LL_CONN_H_ */
