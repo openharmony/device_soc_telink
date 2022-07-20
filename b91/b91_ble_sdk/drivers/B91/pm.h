@@ -30,7 +30,7 @@
  * 				This is currently included in the H file for compatibility with other SDKs.
  *******************************************************************************************************/
 
-//When the watchdog comes back, the Eagle chip does not clear 0x7f[0]. To avoid this problem, this macro definition is added.
+// When the watchdog comes back, the Eagle chip does not clear 0x7f[0]. To avoid this problem, this macro definition is added.
 #ifndef WDT_REBOOT_RESET_ANA7F_WORK_AROUND
 #define WDT_REBOOT_RESET_ANA7F_WORK_AROUND 1
 #endif
@@ -135,10 +135,10 @@ typedef enum {
  */
 typedef enum {
     MCU_STATUS_POWER_ON = BIT(0),
-    MCU_STATUS_REBOOT_BACK = BIT(2),  //the user will not see the reboot status.
+    MCU_STATUS_REBOOT_BACK = BIT(2),  // the user will not see the reboot status.
     MCU_STATUS_DEEPRET_BACK = BIT(3),
     MCU_STATUS_DEEP_BACK = BIT(4),
-    MCU_STATUS_REBOOT_DEEP_BACK = BIT(5),  //reboot + deep
+    MCU_STATUS_REBOOT_DEEP_BACK = BIT(5),  // reboot + deep
 } pm_mcu_status;
 
 /**

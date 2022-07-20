@@ -21,6 +21,8 @@
  *                                			  local constants                                                       *
  *********************************************************************************************************************/
 
+#define UART_HW_FIFO_SIZE 8
+
 /**********************************************************************************************************************
  *                                           	local macro                                                        *
  *********************************************************************************************************************/
@@ -164,7 +166,7 @@ void telink_b91_uart_init(uart_num_e uart_num, unsigned short div, unsigned char
         reg_uart_ctrl1(uart_num) &= (~FLD_UART_PARITY_ENABLE);  // disable parity function
     }
 
-    //stop bit config
+    // stop bit config
     reg_uart_ctrl1(uart_num) &= (~FLD_UART_STOP_SEL);
     reg_uart_ctrl1(uart_num) |= stop_bit;
 }
@@ -265,7 +267,7 @@ unsigned char uart_tx_byte_index[2] = {0};
  */
 void uart_send_byte(uart_num_e uart_num, unsigned char tx_data)
 {
-    while (uart_get_txfifo_num(uart_num) > 7) {
+    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE-sizeof(tx_data))) {
     }
 
     reg_uart_data_buf(uart_num, uart_tx_byte_index[uart_num]) = tx_data;
@@ -308,7 +310,7 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
 {
     static unsigned char uart_tx_hword_index[2] = {0};
 
-    while (uart_get_txfifo_num(uart_num) > 6) {
+    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE - sizeof(data))) {
     }
 
     reg_uart_data_hword_buf(uart_num, uart_tx_hword_index[uart_num]) = data;
@@ -324,8 +326,8 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
  */
 void uart_send_word(uart_num_e uart_num, unsigned int data)
 {
-    while (uart_get_txfifo_num(uart_num) > 4)
-        ;
+    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE - sizeof(data))) {
+    }
     reg_uart_data_word_buf(uart_num) = data;
 }
 
@@ -422,7 +424,7 @@ void uart_set_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
 {
     gpio_set_up_down_res(tx_pin, GPIO_PIN_PULLUP_10K);
     gpio_set_up_down_res(rx_pin, GPIO_PIN_PULLUP_10K);
-    uart_set_fuc_pin(tx_pin, rx_pin);  //set tx and rx pin
+    uart_set_fuc_pin(tx_pin, rx_pin);  // set tx and rx pin
     gpio_input_en(tx_pin);
     gpio_input_en(rx_pin);
 }
@@ -565,7 +567,7 @@ void uart_cts_config(uart_num_e uart_num, uart_cts_pin_e cts_pin, unsigned char 
 {
     uart_set_cts_pin(cts_pin);
 
-    gpio_input_en(cts_pin);  //enable input
+    gpio_input_en(cts_pin);  // enable input
 
     if (cts_parity) {
         reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_POLARITY;
@@ -611,7 +613,7 @@ static unsigned char uart_is_prime(unsigned int n)
 {
     unsigned int i = 5;
     if (n <= 3) {
-        return 1;  //althought n is prime, the bwpc must be larger than 2.
+        return 1;  // althought n is prime, the bwpc must be larger than 2.
     } else if ((n % 2 == 0) || (n % 3 == 0)) {
         return 0;
     } else {
@@ -654,7 +656,6 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
         val = 0;
     } else if (tx_pin == UART1_TX_PE0) {
         mask = (unsigned char)~(BIT(1) | BIT(0));
-        ;
         val = BIT(0);
     }
     reg_gpio_func_mux(tx_pin) = (reg_gpio_func_mux(tx_pin) & mask) | val;
@@ -681,7 +682,7 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
         mask = (unsigned char)~(BIT(5) | BIT(4));
         val = BIT(4);
     }
-    //note:  setting pad the function  must before  setting no_gpio function, cause it will lead to uart transmit extra one byte data at begin.(confirmed by minghai&sunpeng)
+    // note:  setting pad the function  must before  setting no_gpio function, cause it will lead to uart transmit extra one byte data at begin.(confirmed by minghai&sunpeng)
     reg_gpio_func_mux(rx_pin) = (reg_gpio_func_mux(rx_pin) & mask) | val;
 
     gpio_function_dis(tx_pin);

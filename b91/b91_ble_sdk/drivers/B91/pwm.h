@@ -341,7 +341,7 @@ static inline void pwm_clr_irq_status(pwm_irq_e status)
  */
 static inline void pwm_set_pwm0_mode(pwm_mode_e mode)
 {
-    reg_pwm0_mode = mode;  //only PWM0 has count/IR/fifo IR mode
+    reg_pwm0_mode = mode;  // only PWM0 has count/IR/fifo IR mode
 }
 
 /**

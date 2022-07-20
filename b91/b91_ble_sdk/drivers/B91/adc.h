@@ -133,9 +133,9 @@ typedef enum {
 
 typedef enum {
     ADC_PRESCALE_1 = 0x00,  // Only for internal testing and temperature sensor sampling
-                            //	ADC_PRESCALE_1F2 = 0x01,//Only for internal testing
+                            //	ADC_PRESCALE_1F2 = 0x01,// Only for internal testing
     ADC_PRESCALE_1F4 = 0x02,
-    // ADC_PRESCALE_1F8 = 0x03, //Only for internal testing
+    // ADC_PRESCALE_1F8 = 0x03, // Only for internal testing
 } adc_pre_scale_e;
 enum {
     ADC_MAX_STATE_NUM = 0x02,

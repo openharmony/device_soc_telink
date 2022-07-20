@@ -37,19 +37,19 @@ enum {
     FLD_RST0_UART0 = BIT(2),
     FLD_RST0_USB = BIT(3),
     FLD_RST0_PWM = BIT(4),
-    //RSVD
+    // RSVD
     FLD_RST0_UART1 = BIT(6),
     FLD_RST0_SWIRE = BIT(7),
 };
 
 #define reg_rst1 REG_ADDR8(0x1401e1)
 enum {
-    //RSVD
+    // RSVD
     FLD_RST1_SYS_STIMER = BIT(1),
     FLD_RST1_DMA = BIT(2),
     FLD_RST1_ALGM = BIT(3),
     FLD_RST1_PKE = BIT(4),
-    //RSVD
+    // RSVD
     FLD_RST1_PSPI = BIT(6),
     FLD_RST1_SPISLV = BIT(7),
 };
@@ -59,11 +59,11 @@ enum {
     FLD_RST2_TIMER = BIT(0),
     FLD_RST2_AUD = BIT(1),
     FLD_RST2_TRNG = BIT(2),
-    //RSVD
+    // RSVD
     FLD_RST2_MCU = BIT(4),
     FLD_RST2_LM = BIT(5),
     FLD_RST2_NPE = BIT(6),
-    //RSVD
+    // RSVD
 };
 
 #define reg_rst3 REG_ADDR8(0x1401e3)

@@ -28,10 +28,10 @@
 #define DMA_RFRX_OFFSET_DATA   6  // 826x: 14
 
 #define RF_TX_PAKET_DMA_LEN(rf_data_len) ((((rf_data_len) + 3) / 4) | (((rf_data_len) % 4) << 22))
-#define DMA_RFRX_OFFSET_CRC24(p)         ((p)[DMA_RFRX_OFFSET_RFLEN] + 6)   //data len:3
-#define DMA_RFRX_OFFSET_TIME_STAMP(p)    ((p)[DMA_RFRX_OFFSET_RFLEN] + 9)   //data len:4
-#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)   ((p)[DMA_RFRX_OFFSET_RFLEN] + 13)  //data len:2
-#define DMA_RFRX_OFFSET_RSSI(p)          ((p)[DMA_RFRX_OFFSET_RFLEN] + 15)  //data len:1, signed
+#define DMA_RFRX_OFFSET_CRC24(p)         ((p)[DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
+#define DMA_RFRX_OFFSET_TIME_STAMP(p)    ((p)[DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
+#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)   ((p)[DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
+#define DMA_RFRX_OFFSET_RSSI(p)          ((p)[DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
 
 #define RF_BLE_RF_PAYLOAD_LENGTH_OK(p)  ((p)[5] <= reg_rf_rxtmaxlen)
 #define RF_BLE_RF_PACKET_CRC_OK(p)      (((p)[(p)[5] + 5 + 11] & 0x01) == 0x0)
@@ -70,8 +70,8 @@ static inline void rf_tx_settle_adjust(unsigned short txstl_us)
 */
 static inline void rf_reset_baseband(void)
 {
-    REG_ADDR8(0x801404e3) = 0;       //rf_reset_baseband,rf reg need re-setting
-    REG_ADDR8(0x801404e3) = BIT(0);  //release reset signal
+    REG_ADDR8(0x801404e3) = 0;       // rf_reset_baseband,rf reg need re-setting
+    REG_ADDR8(0x801404e3) = BIT(0);  // release reset signal
 }
 
 /**

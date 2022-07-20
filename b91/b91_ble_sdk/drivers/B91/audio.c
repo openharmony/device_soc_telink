@@ -1019,7 +1019,7 @@ void audio_i2s_init(pwm_pin_e pwm0_pin, i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl
  */
 void audio_pause_out_path(void)
 {
-    BM_SET(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  //dac mute
+    BM_SET(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // dac mute
     audio_tx_dma_dis();
 }
 
@@ -1029,7 +1029,7 @@ void audio_pause_out_path(void)
   */
 void audio_resume_out_path(void)
 {
-    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  //dac unmute
+    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // dac unmute
     audio_tx_dma_en();
 }
 /**
@@ -1074,7 +1074,7 @@ void audio_codec_dac_power_on(void)
     BM_CLR(reg_audio_codec_dac_itf_ctr, FLD_AUDIO_CODEC_DAC_ITF_SB);
     reg_audio_codec_vic_ctr = MASK_VAL(FLD_AUDIO_CODEC_SB, CODEC_ITF_AC, FLD_AUDIO_CODEC_SB_ANALOG, CODEC_ITF_AC,
                                        FLD_AUDIO_CODEC_SLEEP_ANALOG, CODEC_ITF_AC);
-    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  //un mute
+    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // un mute
     audio_tx_dma_en();
 }
 

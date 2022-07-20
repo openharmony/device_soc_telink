@@ -34,7 +34,7 @@ typedef enum {
     FLASH_READ_STATUS_CMD = 0x05,
     FLASH_WRITE_ENABLE_CMD = 0x06,
 
-    FLASH_CHIP_ERASE_CMD = 0x60,  //or 0xc7
+    FLASH_CHIP_ERASE_CMD = 0x60,  // or 0xc7
 
     FLASH_PES_CMD = 0x75,
     FLASH_PER_CMD = 0x7A,
@@ -47,12 +47,12 @@ typedef enum {
     FLASH_X4READ_CMD = 0xEB,
     FLASH_QREAD_CMD = 0x6B,
 
-    FLASH_SECT_ERASE_CMD = 0x20,  //sector size = 4KBytes
+    FLASH_SECT_ERASE_CMD = 0x20,  // sector size = 4KBytes
     FLASH_32KBLK_ERASE_CMD = 0x52,
     FLASH_64KBLK_ERASE_CMD = 0xD8,
-    FLASH_GD_PUYA_READ_UID_CMD = 0x4B,  //Flash Type = GD/PUYA
-    FLASH_XTX_READ_UID_CMD = 0x5A,      //Flash Type = XTX
-    FLASH_PAGE_ERASE_CMD = 0x81,        //caution: only P25Q40L support this function
+    FLASH_GD_PUYA_READ_UID_CMD = 0x4B,  // Flash Type = GD/PUYA
+    FLASH_XTX_READ_UID_CMD = 0x5A,      // Flash Type = XTX
+    FLASH_PAGE_ERASE_CMD = 0x81,        // caution: only P25Q40L support this function
 
     FLASH_POWER_DOWN = 0xB9,
     FLASH_POWER_DOWN_RELEASE = 0xAB,

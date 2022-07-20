@@ -42,9 +42,9 @@ typedef enum {
 } i2s_pin_e;
 
 typedef enum {
-    DMIC_B2_DAT_B3_CLK,  //mono B3 clk1
-    DMIC_C1_DAT_C2_CLK,  //mono C2 clk1
-    DMIC_D4_DAT_D5_CLK,  //mono D5 clk1
+    DMIC_B2_DAT_B3_CLK,  // mono B3 clk1
+    DMIC_C1_DAT_C2_CLK,  // mono C2 clk1
+    DMIC_D4_DAT_D5_CLK,  // mono D5 clk1
     DMIC_GROUPB_B2_DAT_B3_B4_CLK,
     DMIC_GROUPC_C1_DAT_C2_C3_CLK,
     DMIC_GROUPD_D4_DAT_D5_D6_CLK,
@@ -351,7 +351,7 @@ typedef enum {
 
 typedef enum {
     INNER_CODEC,
-    EXT_CODEC,  //wm8731
+    EXT_CODEC,  // wm8731
 } codec_type_e;
 
 typedef enum {
@@ -380,7 +380,7 @@ static inline void audio_set_i2s_clk(unsigned char step, unsigned char mod)
  */
 static inline void audio_set_codec_clk(unsigned char step, unsigned char mod)
 {
-    BM_CLR(reg_dmic_clk_set, BIT(0));  //set dmic_div
+    BM_CLR(reg_dmic_clk_set, BIT(0));  // set dmic_div
     reg_dmic_step = (step & FLD_DMIC_STEP) | FLD_DMIC_SEL;
     reg_dmic_mod = mod;
 }
