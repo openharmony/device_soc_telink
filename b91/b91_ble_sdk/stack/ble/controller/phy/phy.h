@@ -18,24 +18,14 @@
 #ifndef PHY_H_
 #define PHY_H_
 
-
-
 #include "stack/ble/hci/hci_cmd.h"
-
-
 
 /**
  * @brief      this function is used to initialize 2M/Coded PHY  feature
  * @param	   none
  * @return     none
  */
-void		blc_ll_init2MPhyCodedPhy_feature(void);
-
-
-
-
-
-
+void blc_ll_init2MPhyCodedPhy_feature(void);
 
 /**
  * @brief       this function is used to set PHY type for connection
@@ -46,12 +36,7 @@ void		blc_ll_init2MPhyCodedPhy_feature(void);
  * @param[in]	phy_options - LE coding indication prefer
  * @return      none
  */
-ble_sts_t  	blc_ll_setPhy(	u16 connHandle,					le_phy_prefer_mask_t all_phys,
-							le_phy_prefer_type_t tx_phys, 	le_phy_prefer_type_t rx_phys,
-							le_ci_prefer_t phy_options);
-
-
-
-
+ble_sts_t blc_ll_setPhy(u16 connHandle, le_phy_prefer_mask_t all_phys, le_phy_prefer_type_t tx_phys,
+                        le_phy_prefer_type_t rx_phys, le_ci_prefer_t phy_options);
 
 #endif /* PHY_H_ */

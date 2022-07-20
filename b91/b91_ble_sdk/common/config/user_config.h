@@ -21,4 +21,4 @@
 
 #include "vendor/common/user_config.h"
 
-#endif // COMMON_CONFIG_USER_CONFIG_H
+#endif  // COMMON_CONFIG_USER_CONFIG_H

@@ -27,8 +27,8 @@
  */
 static inline void mdec_reset(void)
 {
-	analog_write_reg8(mdec_rst_addr,analog_read_reg8(mdec_rst_addr) | FLD_MDEC_RST);
-	analog_write_reg8(mdec_rst_addr,analog_read_reg8(mdec_rst_addr) & (~FLD_MDEC_RST));
+    analog_write_reg8(mdec_rst_addr, analog_read_reg8(mdec_rst_addr) | FLD_MDEC_RST);
+    analog_write_reg8(mdec_rst_addr, analog_read_reg8(mdec_rst_addr) & (~FLD_MDEC_RST));
 }
 
 /**
@@ -38,7 +38,7 @@ static inline void mdec_reset(void)
  */
 static inline unsigned char mdec_get_irq_status(wakeup_status_e status)
 {
-	return (analog_read_reg8(reg_wakeup_status) & status);
+    return (analog_read_reg8(reg_wakeup_status) & status);
 }
 
 /**
@@ -50,7 +50,7 @@ static inline unsigned char mdec_get_irq_status(wakeup_status_e status)
  */
 static inline void mdec_clr_irq_status(wakeup_status_e status)
 {
-	analog_write_reg8(reg_wakeup_status, (analog_read_reg8(reg_wakeup_status) | status));
+    analog_write_reg8(reg_wakeup_status, (analog_read_reg8(reg_wakeup_status) | status));
 }
 
 /**
@@ -67,6 +67,3 @@ void mdec_init(mdec_pin_e pin);
  * @return		1 decode success,  0 decode failure.
  */
 unsigned char mdec_read_dat(unsigned char *dat);
-
-
-

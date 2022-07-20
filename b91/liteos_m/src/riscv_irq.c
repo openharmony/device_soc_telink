@@ -18,11 +18,11 @@
 
 #include <stdio.h>
 
-#include <target_config.h>
 #include <soc.h>
+#include <target_config.h>
 
-#include <los_interrupt.h>
 #include <los_arch_interrupt.h>
+#include <los_interrupt.h>
 
 #include <riscv_hal.h>
 
@@ -35,8 +35,7 @@ typedef VOID (*HwiProcFunc)(VOID *arg);
 VOID default_irq_handler(VOID);
 
 STATIC HWI_HANDLE_FORM_S irq_handlers[PLIC_IRQ_LIMIT] = {
-    [0 ... (PLIC_IRQ_LIMIT-1)] = {(HWI_PROC_FUNC)default_irq_handler, NULL, 0}
-};
+    [0 ...(PLIC_IRQ_LIMIT - 1)] = {(HWI_PROC_FUNC)default_irq_handler, NULL, 0}};
 
 STATIC UINT32 EnableIrq(UINT32 hwiNum)
 {
@@ -60,7 +59,7 @@ STATIC UINT32 EnableIrq(UINT32 hwiNum)
 
 VOID HalIrqEnable(UINT32 vector)
 {
-    (VOID)EnableIrq(vector);
+    (VOID) EnableIrq(vector);
 }
 
 STATIC UINT32 DisableIrq(UINT32 hwiNum)
@@ -84,7 +83,7 @@ STATIC UINT32 DisableIrq(UINT32 hwiNum)
 
 VOID HalIrqDisable(UINT32 vector)
 {
-    (VOID)DisableIrq(vector);
+    (VOID) DisableIrq(vector);
 }
 
 VOID HalSetLocalInterPri(UINT32 interPriNum, UINT16 prior)

@@ -18,20 +18,12 @@
 #ifndef LL_SLAVE_H_
 #define LL_SLAVE_H_
 
-
-
-
-
-
-
-
 /**
  * @brief      for user to initialize ACL connection slave role.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initSlaveRole_module(void);
-
+void blc_ll_initSlaveRole_module(void);
 
 /**
  * @brief      for user to terminate an existing connection slave role.
@@ -39,8 +31,7 @@ void 		blc_ll_initSlaveRole_module(void);
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t  	bls_ll_terminateConnection (u8 reason);
-
+ble_sts_t bls_ll_terminateConnection(u8 reason);
 
 /**
  * @brief      for user to read current slave connection  interval
@@ -48,8 +39,7 @@ ble_sts_t  	bls_ll_terminateConnection (u8 reason);
  * @return     0    :  LinkLayer not in connection state
  * 			   other:  connection interval, unit: 1.25mS
  */
-u16			bls_ll_getConnectionInterval(void);
-
+u16 bls_ll_getConnectionInterval(void);
 
 /**
  * @brief      for user to read current slave connection latency
@@ -57,8 +47,7 @@ u16			bls_ll_getConnectionInterval(void);
  * @return     0    :  LinkLayer not in connection state
  * 			   other:  connection latency
  */
-u16			bls_ll_getConnectionLatency(void);
-
+u16 bls_ll_getConnectionLatency(void);
 
 /**
  * @brief      for user to read current slave connection supervision timeout
@@ -66,9 +55,7 @@ u16			bls_ll_getConnectionLatency(void);
  * @return     0    :  LinkLayer not in connection state
  * 			   other:  connection supervision timeout, unit: 10 mS
  */
-u16			bls_ll_getConnectionTimeout(void);
-
-
+u16 bls_ll_getConnectionTimeout(void);
 
 /**
  * @brief      used to set telink defined event mask for BLE module only.
@@ -76,14 +63,8 @@ u16			bls_ll_getConnectionTimeout(void);
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t 	bls_hci_mod_setEventMask_cmd(u32 evtMask);
+ble_sts_t bls_hci_mod_setEventMask_cmd(u32 evtMask);
 
-
-
-
-
-#define blc_ll_disconnect(conn, reason)     	bls_ll_terminateConnection(reason)
-
-
+#define blc_ll_disconnect(conn, reason) bls_ll_terminateConnection(reason)
 
 #endif /* LL_SLAVE_H_ */

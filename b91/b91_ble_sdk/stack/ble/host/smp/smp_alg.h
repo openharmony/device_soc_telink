@@ -19,9 +19,6 @@
 #ifndef SMP_ALG_H_
 #define SMP_ALG_H_
 
-
-
-
 /**
  * @brief   	This function is used to generate the confirm values
  * @param[out]  c1: the confirm value, 	little--endian.
@@ -36,7 +33,9 @@
  * @return  	none.
  * @Note		Input data requires strict Word alignment
  */
-void 			blt_smp_alg_c1(unsigned char *c1, unsigned char key[16], unsigned char r[16], unsigned char pres[7], unsigned char preq[7], unsigned char iat, unsigned char ia[6], unsigned char rat, unsigned char ra[6]);
+void blt_smp_alg_c1(unsigned char *c1, unsigned char key[16], unsigned char r[16], unsigned char pres[7],
+                    unsigned char preq[7], unsigned char iat, unsigned char ia[6], unsigned char rat,
+                    unsigned char ra[6]);
 
 /**
  * @brief   	This function is used to generate the STK during the LE legacy pairing process.
@@ -47,7 +46,7 @@ void 			blt_smp_alg_c1(unsigned char *c1, unsigned char key[16], unsigned char r
  * @return  	none.
  * @Note		Input data requires strict Word alignment
  */
-void			blt_smp_alg_s1(unsigned char *stk, unsigned char key[16], unsigned char r1[16], unsigned char r2[16]);
+void blt_smp_alg_s1(unsigned char *stk, unsigned char key[16], unsigned char r1[16], unsigned char r2[16]);
 
 /**
  * @brief		This function is used to compute confirm value by function f4
@@ -59,7 +58,7 @@ void			blt_smp_alg_s1(unsigned char *stk, unsigned char key[16], unsigned char r
  * @param[in]   z:  is the 8-bits
  * @return	none.
  */
-void			blt_smp_alg_f4 (unsigned char *r, unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char z);
+void blt_smp_alg_f4(unsigned char *r, unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char z);
 
 /**
  * @brief	This function is used to generate the numeric comparison values during authentication
@@ -70,7 +69,7 @@ void			blt_smp_alg_f4 (unsigned char *r, unsigned char u[32], unsigned char v[32
  * @param[in]   y:  is the 128-bits, 	big--endian.
  * @return	pincode value: 32-bits.
  */
-unsigned int	blt_smp_alg_g2 (unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char y[16]);
+unsigned int blt_smp_alg_g2(unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char y[16]);
 
 /**
  * @brief	This function is used to generate derived keying material in order to create the LTK
@@ -84,8 +83,8 @@ unsigned int	blt_smp_alg_g2 (unsigned char u[32], unsigned char v[32], unsigned 
  * @param[in]   a2:	is the 56-bits, 	big--endian.
  * @return	none.
  */
-void 			blt_smp_alg_f5 (unsigned char *mac, unsigned char *ltk, unsigned char w[32], unsigned char n1[16], unsigned char n2[16],
-								unsigned char a1[7], unsigned char a2[7]);
+void blt_smp_alg_f5(unsigned char *mac, unsigned char *ltk, unsigned char w[32], unsigned char n1[16],
+                    unsigned char n2[16], unsigned char a1[7], unsigned char a2[7]);
 
 /**
  * @brief	This function is used to generate check values during authentication stage 2 of the
@@ -98,8 +97,8 @@ void 			blt_smp_alg_f5 (unsigned char *mac, unsigned char *ltk, unsigned char w[
  * @param[in]   a2:	is the 56-bits, 	big--endian.
  * @return	none.
  */
-void 			blt_smp_alg_f6 (unsigned char *e, unsigned char w[16], unsigned char n1[16], unsigned char n2[16],
-								unsigned char r[16], unsigned char iocap[3], unsigned char a1[7], unsigned char a2[7]);
+void blt_smp_alg_f6(unsigned char *e, unsigned char w[16], unsigned char n1[16], unsigned char n2[16],
+                    unsigned char r[16], unsigned char iocap[3], unsigned char a1[7], unsigned char a2[7]);
 
 /**
  * @brief	This function is used to convert keys of a given size from one key type to another
@@ -109,8 +108,7 @@ void 			blt_smp_alg_f6 (unsigned char *e, unsigned char w[16], unsigned char n1[
  * @param[in]   keyid:	is the 32-bits, 		big--endian.
  * @return	none.
  */
-void 			blt_smp_alg_h6 (unsigned char *r, unsigned char w[16], unsigned char keyid[4]);
-
+void blt_smp_alg_h6(unsigned char *r, unsigned char w[16], unsigned char keyid[4]);
 
 /**
  * @brief	This function is used to convert keys of a given size from one key type to another
@@ -121,8 +119,7 @@ void 			blt_smp_alg_h6 (unsigned char *r, unsigned char w[16], unsigned char key
  * @param[in]   w:	is the 128-bits, 			big--endian.
  * @return	none.
  */
-void 			blt_smp_alg_h7 (unsigned char *r, unsigned char salt[16], unsigned char w[16]);
-
+void blt_smp_alg_h7(unsigned char *r, unsigned char salt[16], unsigned char w[16]);
 
 /**
  * @brief	This function is used to generate the Group Session Key (GSK) for encrypting or
@@ -134,11 +131,6 @@ void 			blt_smp_alg_h7 (unsigned char *r, unsigned char salt[16], unsigned char 
  * @param[in]   keyid: is the 32-bits, 			big--endian.
  * @return	none.
  */
-void 			blt_smp_alg_h8 (unsigned char *r, unsigned char k[16], unsigned char s[16], unsigned char keyId[4]);
-
+void blt_smp_alg_h8(unsigned char *r, unsigned char k[16], unsigned char s[16], unsigned char keyId[4]);
 
 #endif /* SMP_ALG_H_ */
-
-
-
-

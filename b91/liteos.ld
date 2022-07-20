@@ -47,9 +47,9 @@ SECTIONS
     . = .;
   } > RAM_ILM AT > FLASH
 
-  PROVIDE (_RETENTION_DATA_VMA_START = ADDR(.retention_data));
-  PROVIDE (_RETENTION_DATA_LMA_START = LOADADDR(.retention_data));
-  PROVIDE (_RETENTION_DATA_VMA_END = .);
+  PROVIDE (SEG_RETENTION_DATA_VMA_START = ADDR(.retention_data));
+  PROVIDE (SEG_RETENTION_DATA_LMA_START = LOADADDR(.retention_data));
+  PROVIDE (SEG_RETENTION_DATA_VMA_END = .);
 
   .ram_code : ALIGN(8)
   {
@@ -57,9 +57,9 @@ SECTIONS
     . = .;
   } > RAM_ILM AT > FLASH
 
-  PROVIDE (_RAMCODE_VMA_START = ADDR(.ram_code));
-  PROVIDE (_RAMCODE_LMA_START = LOADADDR(.ram_code));
-  PROVIDE (_RAMCODE_VMA_END = .);
+  PROVIDE (SEG_RAMCODE_VMA_START = ADDR(.ram_code));
+  PROVIDE (SEG_RAMCODE_LMA_START = LOADADDR(.ram_code));
+  PROVIDE (SEG_RAMCODE_VMA_END = .);
 
   .text : ALIGN(8)
   {
@@ -208,11 +208,11 @@ SECTIONS
     *(.sdata2 .sdata2.* .gnu.linkonce.s.* )
   } > RAM_DLM AT > FLASH
 
-  PROVIDE(_DATA_VMA_START = ADDR(.data));
-  PROVIDE(_DATA_LMA_START = LOADADDR(.data));
-  PROVIDE(_DATA_VMA_END = .);
-  PROVIDE(__ram_data_start = _DATA_VMA_START);
-  PROVIDE(__ram_data_end = _DATA_VMA_END);
+  PROVIDE(SEG_DATA_VMA_START = ADDR(.data));
+  PROVIDE(SEG_DATA_LMA_START = LOADADDR(.data));
+  PROVIDE(SEG_DATA_VMA_END = .);
+  PROVIDE(__ram_data_start = SEG_DATA_VMA_START);
+  PROVIDE(__ram_data_end = SEG_DATA_VMA_END);
 
   .bss (NOLOAD) : ALIGN(8)
   {
@@ -224,10 +224,10 @@ SECTIONS
     *(COMMON )
   } > RAM_DLM
 
-  PROVIDE (_BSS_VMA_START = ADDR(.bss));
-  PROVIDE (_BSS_VMA_END = .);
-  PROVIDE(__bss_start = _BSS_VMA_START);
-  PROVIDE(__bss_end = _BSS_VMA_END);
+  PROVIDE(SEG_BSS_VMA_START = ADDR(.bss));
+  PROVIDE(SEG_BSS_VMA_END = .);
+  PROVIDE(__bss_start = SEG_BSS_VMA_START);
+  PROVIDE(__bss_end = SEG_BSS_VMA_END);
 
   .noinit (NOLOAD) : ALIGN(16)
   {

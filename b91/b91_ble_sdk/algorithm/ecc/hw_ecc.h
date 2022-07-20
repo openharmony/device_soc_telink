@@ -21,11 +21,7 @@
 
 #include "algorithm/ecc/hw_ecc.h"
 
-
-#define			hECC_BYTES			32
-
-
-
+#define hECC_BYTES 32
 
 /* hECC_RNG_Function type
 The RNG function should fill 'size' random bytes into 'dest'. It should return 1 if
@@ -36,14 +32,12 @@ hECC_make_key(). */
 
 typedef int (*hECC_rng_func)(unsigned char *dest, unsigned size);
 
-
 /**
  * @brief		The function that will be used to generate random bytes.
  * @param[in]	resister predefined TRNG function
  * @return		none
  */
-void			hwECC_set_rng(hECC_rng_func rng_func);
-
+void hwECC_set_rng(hECC_rng_func rng_func);
 
 /**
  * @brief		get ECCP key pair(the key pair could be used in ECDH).
@@ -51,8 +45,7 @@ void			hwECC_set_rng(hECC_rng_func rng_func);
  * @param[out]	private_key	- private key, big--endian.
  * @return		PKE_SUCCESS(success), other(error).
  */
-unsigned char 	hwECC_make_key(unsigned char public_key[hECC_BYTES*2], unsigned char private_key[hECC_BYTES]);
-
+unsigned char hwECC_make_key(unsigned char public_key[hECC_BYTES * 2], unsigned char private_key[hECC_BYTES]);
 
 /**
  * @brief		ECDH compute key.
@@ -61,15 +54,7 @@ unsigned char 	hwECC_make_key(unsigned char public_key[hECC_BYTES*2], unsigned c
  * @param[out]	dhkey			- output dhkey, big--endian.
  * @Return		0(success); other(error).
  */
-unsigned char hwECC_shared_secret(const unsigned char public_key[hECC_BYTES*2],
-								  const unsigned char private_key[hECC_BYTES],
-		                          unsigned char secret[hECC_BYTES]);
-
-
-
+unsigned char hwECC_shared_secret(const unsigned char public_key[hECC_BYTES * 2],
+                                  const unsigned char private_key[hECC_BYTES], unsigned char secret[hECC_BYTES]);
 
 #endif /* HW_ECC_H_ */
-
-
-
-

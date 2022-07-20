@@ -28,7 +28,6 @@
  *                                           global macro                                                             *
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *                                         global data type                                                           *
  *********************************************************************************************************************/
@@ -41,7 +40,6 @@
  *                                      global function prototype                                                     *
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *                                     gpio  compatibility                                                  		  *
  *********************************************************************************************************************/
@@ -53,8 +51,7 @@
  * @author	  BLE group .
  * @return    none
  */
-#define gpio_write(pin,value)       gpio_set_level(pin,value)
-
+#define gpio_write(pin, value) gpio_set_level(pin, value)
 
 /**
  * @brief      This function enable the output function of a pin.
@@ -62,8 +59,7 @@
  * @author	   BLE group .
  * @return     none
  */
-#define gpio_set_output_en(pin,value)  gpio_set_output(pin,value)
-
+#define gpio_set_output_en(pin, value) gpio_set_output(pin, value)
 
 /**
  * @brief     This function read the pin's input/output level.
@@ -71,8 +67,7 @@
  * @author	  BLE group .
  * @return    the pin's level(1: high 0: low)
  */
-#define  gpio_read(pin)   gpio_get_level(pin)
-
+#define gpio_read(pin) gpio_get_level(pin)
 
 /**
  * @brief      This function servers to enable gpio function.
@@ -80,7 +75,7 @@
  * @author	   BLE group .
  * @return     none
  */
-#define  gpio_set_gpio_en(pin)   gpio_function_en(pin)
+#define gpio_set_gpio_en(pin) gpio_function_en(pin)
 
 /**
  * @brief      This function set the input function of a pin.
@@ -89,8 +84,7 @@
  * @author	   BLE group .
  * @return     none
  */
-#define  gpio_set_input_en(pin,value)  gpio_set_input (pin,value)
-
+#define gpio_set_input_en(pin, value) gpio_set_input(pin, value)
 
 /**********************************************************************************************************************
  *                                     stimer  compatibility                                                  		  *
@@ -101,7 +95,6 @@
  * @return    system timer tick value.
  * @author	  BLE group .
  */
-#define  clock_time  stimer_get_tick
-
+#define clock_time stimer_get_tick
 
 #endif

@@ -22,6 +22,8 @@
 
 #include <soc.h>
 
+#include "canary.h"
+
 #ifdef __cplusplus
 #if __cplusplus
 extern "C" {
@@ -29,10 +31,6 @@ extern "C" {
 #endif /* __cplusplus */
 
 #ifdef __GNUC__
-/* stack protector */
-// UINTPTR __stack_chk_guard = 0x000a0dff;
-extern UINTPTR __stack_chk_guard;
-
 STATIC UINT32 ArchGetTimerCnt(VOID)
 {
     UINT32 cntpct;
@@ -46,7 +44,7 @@ STATIC UINT32 ArchGetTimerCnt(VOID)
  * value to replace the function implementation template shown as below.
  */
 #pragma GCC push_options
-#pragma GCC optimize ("-fno-stack-protector")
+#pragma GCC optimize("-fno-stack-protector")
 LITE_OS_SEC_TEXT_INIT WEAK VOID ArchStackGuardInit(VOID)
 {
     int rnd;

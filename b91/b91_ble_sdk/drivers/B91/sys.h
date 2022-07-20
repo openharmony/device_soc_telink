@@ -31,7 +31,6 @@
 #include "bit.h"
 #include "reg_include/stimer_reg.h"
 
-
 /**********************************************************************************************************************
  *                                         global constants                                                           *
  *********************************************************************************************************************/
@@ -43,49 +42,103 @@
  * brief instruction delay
  */
 
-#define	_ASM_NOP_					__asm__("nop")
+#define _ASM_NOP_ __asm__("nop")
 
-#define	CLOCK_DLY_1_CYC				_ASM_NOP_
-#define	CLOCK_DLY_2_CYC				_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_3_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_4_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_5_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_6_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_7_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_8_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_9_CYC				_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
-#define	CLOCK_DLY_10_CYC			_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_;_ASM_NOP_
+#define CLOCK_DLY_1_CYC _ASM_NOP_
+#define CLOCK_DLY_2_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_3_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_4_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_5_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_6_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_7_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_8_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_9_CYC                                                                                               \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
+#define CLOCK_DLY_10_CYC                                                                                              \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_;                                                                                                        \
+    _ASM_NOP_
 
-#define FLASH_R_BASE_ADDR   		0x20000000
-#define REG_RW_BASE_ADDR  			0x80000000
-#define REG_ADDR8(a)				(*(volatile unsigned char*)(REG_RW_BASE_ADDR | (a)))
-#define REG_ADDR16(a)				(*(volatile unsigned short*)(REG_RW_BASE_ADDR | (a)))
-#define REG_ADDR32(a)				(*(volatile unsigned long*)(REG_RW_BASE_ADDR | (a)))
+#define FLASH_R_BASE_ADDR 0x20000000
+#define REG_RW_BASE_ADDR  0x80000000
+#define REG_ADDR8(a)      (*(volatile unsigned char *)(REG_RW_BASE_ADDR | (a)))
+#define REG_ADDR16(a)     (*(volatile unsigned short *)(REG_RW_BASE_ADDR | (a)))
+#define REG_ADDR32(a)     (*(volatile unsigned long *)(REG_RW_BASE_ADDR | (a)))
 
-#define write_reg8(addr,v)			(*(volatile unsigned char*)(REG_RW_BASE_ADDR | (addr)) = (unsigned char)(v))
-#define write_reg16(addr,v)			(*(volatile unsigned short*)(REG_RW_BASE_ADDR | (addr)) = (unsigned short)(v))
-#define write_reg32(addr,v)			(*(volatile unsigned long*)(REG_RW_BASE_ADDR | (addr)) = (unsigned long)(v))
+#define write_reg8(addr, v)  (*(volatile unsigned char *)(REG_RW_BASE_ADDR | (addr)) = (unsigned char)(v))
+#define write_reg16(addr, v) (*(volatile unsigned short *)(REG_RW_BASE_ADDR | (addr)) = (unsigned short)(v))
+#define write_reg32(addr, v) (*(volatile unsigned long *)(REG_RW_BASE_ADDR | (addr)) = (unsigned long)(v))
 
-#define read_reg8(addr)				(*(volatile unsigned char*)(REG_RW_BASE_ADDR | (addr)))
-#define read_reg16(addr)            (*(volatile unsigned short*)(REG_RW_BASE_ADDR | (addr)))
-#define read_reg32(addr)            (*(volatile unsigned long*)(REG_RW_BASE_ADDR | (addr)))
+#define read_reg8(addr)  (*(volatile unsigned char *)(REG_RW_BASE_ADDR | (addr)))
+#define read_reg16(addr) (*(volatile unsigned short *)(REG_RW_BASE_ADDR | (addr)))
+#define read_reg32(addr) (*(volatile unsigned long *)(REG_RW_BASE_ADDR | (addr)))
 
-#define write_sram8(addr,v)			(*(volatile unsigned char*)( (addr)) = (unsigned char)(v))
-#define write_sram16(addr,v)		(*(volatile unsigned short*)( (addr)) = (unsigned short)(v))
-#define write_sram32(addr,v)		(*(volatile unsigned long*)( (addr)) = (unsigned long)(v))
+#define write_sram8(addr, v)  (*(volatile unsigned char *)((addr)) = (unsigned char)(v))
+#define write_sram16(addr, v) (*(volatile unsigned short *)((addr)) = (unsigned short)(v))
+#define write_sram32(addr, v) (*(volatile unsigned long *)((addr)) = (unsigned long)(v))
 
-#define read_sram8(addr)			(*(volatile unsigned char*)((addr)))
-#define read_sram16(addr)           (*(volatile unsigned short*)((addr)))
-#define read_sram32(addr)           (*(volatile unsigned long*)((addr)))
-#define TCMD_UNDER_BOTH				0xc0
-#define TCMD_UNDER_RD				0x80
-#define TCMD_UNDER_WR				0x40
+#define read_sram8(addr)  (*(volatile unsigned char *)((addr)))
+#define read_sram16(addr) (*(volatile unsigned short *)((addr)))
+#define read_sram32(addr) (*(volatile unsigned long *)((addr)))
+#define TCMD_UNDER_BOTH   0xc0
+#define TCMD_UNDER_RD     0x80
+#define TCMD_UNDER_WR     0x40
 
-#define TCMD_MASK					0x3f
+#define TCMD_MASK 0x3f
 
-#define TCMD_WRITE					0x3
-#define TCMD_WAIT					0x7
-#define TCMD_WAREG					0x8
+#define TCMD_WRITE 0x3
+#define TCMD_WAIT  0x7
+#define TCMD_WAREG 0x8
 //#if 1 //optimize
 /*
  * IRAM area:0x00000~0x1FFFF BIT(19) is 0,BIT(16~0) 128K is address offset
@@ -100,12 +153,14 @@
  *  to simplify
  *  #define convert(addr) ((addr)+0xc0180000)
  * */
-#define convert_ram_addr_cpu2bus(addr)  ((unsigned int)(addr)+0xc0180000)
+#define convert_ram_addr_cpu2bus(addr) ((unsigned int)(addr) + 0xc0180000)
 //#else  //no optimize
 //#define  convert_ram_addr_cpu2bus  (((((unsigned int)(addr)) >=0x80000)?(((unsigned int)(addr))-0x80000+0xc0200000) : (((unsigned int)(addr)) + 0xc0000000)))
 //#endif
 
-#define convert_ram_addr_bus2cpu(addr)  (((((unsigned int)(addr)) >=0xc0200000)?(((unsigned int)(addr)) + 0x80000-0xc0200000) : (((unsigned int)(addr)) - 0xc0000000)))
+#define convert_ram_addr_bus2cpu(addr)                                                                                \
+    (((((unsigned int)(addr)) >= 0xc0200000) ? (((unsigned int)(addr)) + 0x80000 - 0xc0200000)                        \
+                                             : (((unsigned int)(addr)) - 0xc0000000)))
 
 /**********************************************************************************************************************
  *                                         global data type                                                           *
@@ -114,11 +169,11 @@
 /**
  * @brief 	Power type for different application
  */
-typedef enum{
-	LDO_1P4_LDO_1P8 	= 0x00,	/**< 1.4V-LDO & 1.8V-LDO mode */
-	DCDC_1P4_LDO_1P8	= 0x01,	/**< 1.4V-DCDC & 1.8V-LDO mode */
-	DCDC_1P4_DCDC_1P8	= 0x03,	/**< 1.4V-DCDC & 1.8V-DCDC mode */
-}power_mode_e;
+typedef enum {
+    LDO_1P4_LDO_1P8 = 0x00,   /**< 1.4V-LDO & 1.8V-LDO mode */
+    DCDC_1P4_LDO_1P8 = 0x01,  /**< 1.4V-DCDC & 1.8V-LDO mode */
+    DCDC_1P4_DCDC_1P8 = 0x03, /**< 1.4V-DCDC & 1.8V-DCDC mode */
+} power_mode_e;
 
 /**
  * @brief 	The maximum voltage that the chip can withstand is 3.6V.
@@ -127,20 +182,20 @@ typedef enum{
  * 			When the vbat power supply voltage may be higher than 3.6V, it is configured as VBAT_MAX_VALUE_GREATER_THAN_3V6 mode,
  * 			the bypass is closed, and the vbat voltage passes through an LDO to supply power to the chip.
  */
-typedef enum{
-	VBAT_MAX_VALUE_GREATER_THAN_3V6	= 0x00,	/*VBAT may be greater than 3.6V. */
-	VBAT_MAX_VALUE_LESS_THAN_3V6	= BIT(3),	/*VBAT must be below 3.6V. */
-}vbat_type_e;
+typedef enum {
+    VBAT_MAX_VALUE_GREATER_THAN_3V6 = 0x00, /*VBAT may be greater than 3.6V. */
+    VBAT_MAX_VALUE_LESS_THAN_3V6 = BIT(3),  /*VBAT must be below 3.6V. */
+} vbat_type_e;
 
 /**
  * @brief command table for special registers
  */
-typedef struct tbl_cmd_set_t {
-	unsigned int  	adr;
-	unsigned char	dat;
-	unsigned char	cmd;
+typedef struct tbl_cmd_set_t
+{
+    unsigned int adr;
+    unsigned char dat;
+    unsigned char cmd;
 } tbl_cmd_set_t;
-
 
 /**********************************************************************************************************************
  *                                     global variable declaration                                                    *
@@ -157,7 +212,7 @@ extern unsigned int g_chip_version;
  */
 static inline void sys_reboot(void)
 {
-	write_reg8(0x1401ef, 0x20);
+    write_reg8(0x1401ef, 0x20);
 }
 /**
  * @brief   	This function serves to initialize system.
@@ -175,6 +230,6 @@ void sys_init(power_mode_e power_mode, vbat_type_e vbat_v);
  * @return     number of commands are carried out
  */
 
-int write_reg_table(const tbl_cmd_set_t * pt, int size);
+int write_reg_table(const tbl_cmd_set_t *pt, int size);
 
 #endif
