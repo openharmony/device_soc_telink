@@ -509,16 +509,19 @@ unsigned char uart_send_dma(uart_num_e uart_num, unsigned char *addr, unsigned i
 }
 
 /**
- * @brief     	This function serves to receive data function by DMA, this  function tell the DMA to get data from the uart data fifo.
+ * @brief     	This function serves to receive data function by DMA, this  function tell the DMA to get data from
+ *                  the uart data fifo.
  * @param[in]  	uart_num - UART0 or UART1.
  * @param[in] 	addr     - pointer to the buffer  receive data.
- * @param[in]   rev_size - the receive length of DMA,The maximum transmission length of DMA is 0xFFFFFC bytes, so dont'n over this length.
+ * @param[in]   rev_size - the receive length of DMA,The maximum transmission length of DMA is 0xFFFFFC bytes,
+ *                  so dont'n over this length.
  * @note        The DMA version of A0 has some limitians.
  *              0:We should know the real receive length-len.
  *              1:If the data length we receive isn't the multiple of 4(the DMA carry 4-byte one time),
  *                  like 5, it will carry 8 byte, while the last 3-byte data is random.
- *              2:The receive buff length sholud be equal to rec_size.The relation of the receive buff length and rec_size and
- *                the real receive data length-len : REC_BUFF_LEN=rec_size= ((len%4)==0 ? len : ((len/4)+1)*4).
+ *              2:The receive buff length sholud be equal to rec_size.The relation of the receive buff length and
+ *                  rec_size and the real receive data length-len :
+ *                  REC_BUFF_LEN=rec_size= ((len%4)==0 ? len : ((len/4)+1)*4).
  *              The DMA version of A1 can receive any length of data,the rev_size is useless.
  * @return    	none
  */

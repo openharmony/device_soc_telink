@@ -159,7 +159,10 @@
  * */
 #define convert_ram_addr_cpu2bus(addr) ((unsigned int)(addr) + 0xc0180000)
 #else  // no optimize
-#define  convert_ram_addr_cpu2bus  (((((unsigned int)(addr)) >=0x80000)?(((unsigned int)(addr))-0x80000+0xc0200000) : (((unsigned int)(addr)) + 0xc0000000)))
+#define  convert_ram_addr_cpu2bus  (( \
+    (((unsigned int)(addr)) >=0x80000) ? \
+    (((unsigned int)(addr))-0x80000+0xc0200000) : \
+    (((unsigned int)(addr)) + 0xc0000000)))
 #endif
 
 #define convert_ram_addr_bus2cpu(addr)                                                                                \
