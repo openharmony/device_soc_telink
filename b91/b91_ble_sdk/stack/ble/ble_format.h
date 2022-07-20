@@ -293,7 +293,7 @@ typedef struct {
     u16 connEventCnt;
 } rf_packet_ll_cis_rsp_t;
 
-typedef struct{
+typedef struct {
     u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
     u8 rf_len;  // LEN(6)_RFU(2)
     u8 opcode;

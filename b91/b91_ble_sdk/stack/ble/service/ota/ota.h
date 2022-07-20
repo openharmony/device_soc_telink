@@ -46,7 +46,7 @@ enum {
     OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command; 2. addr_index out of range; 3.not standard OTA PDU length
     OTA_DATA_CRC_ERR,  // packet PDU CRC err
 
-    //0x04
+    // 0x04
     OTA_WRITE_FLASH_ERR,  // write OTA data to flash ERR
     OTA_DATA_UNCOMPLETE,  // lost last one or more OTA PDU
     OTA_FLOW_ERR,         // peer device send OTA command or OTA data not in correct flow
