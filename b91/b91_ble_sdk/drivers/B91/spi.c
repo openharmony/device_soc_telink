@@ -373,7 +373,7 @@ void hspi_set_quad_mode()
  */
 void spi_set_3line_mode(spi_sel_e spi_sel)
 {
-    /*must disable dual and quad*/
+    /* must disable dual and quad */
     spi_3line_mode_en(spi_sel);
     spi_dual_mode_dis(spi_sel);
     if (HSPI_MODULE == spi_sel) {

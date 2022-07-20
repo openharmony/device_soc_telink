@@ -133,7 +133,8 @@
 #define reg_gpio_irq_risc0_en(i) REG_ADDR8(0x140338 + ((i) >> 8))         // reg_irq_mask: FLD_IRQ_GPIO_RISC0_EN
 #define reg_gpio_irq_risc1_en(i) REG_ADDR8(0x140340 + ((i) >> 8))         // reg_irq_mask: FLD_IRQ_GPIO_RISC1_EN
 
-#define reg_gpio_func_mux(i) REG_ADDR8(0x140330 + ((((i) >> 8) > 3) ? 0x20 : (((i) >> 8) << 1)) + (((i) & 0x0f0) ? 1 : 0))
+#define reg_gpio_func_mux(i) \
+    REG_ADDR8(0x140330 + ((((i) >> 8) > 3) ? 0x20 : (((i) >> 8) << 1)) + (((i) & 0x0f0) ? 1 : 0))
 
 #define reg_gpio_irq_risc_mask REG_ADDR8(0x140352)
 enum {

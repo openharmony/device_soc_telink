@@ -217,19 +217,6 @@ void clock_set_32k_tick(unsigned int tick)
  * @brief  This function serves to get the 32k tick.
  * @return none.
  */
-#if 0
-unsigned int clock_get_32k_tick(void)
-{
-    unsigned int timer_32k_tick;
-    reg_system_st = FLD_SYSTEM_CLR_RD_DONE; // clr rd_done
-    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) != 0); // wait rd_done = 0;
-    reg_system_ctrl &= ~FLD_SYSTEM_32K_WR_EN; // 1:32k write mode; 0:32k read mode
-    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) == 0); // wait rd_done = 1;
-    timer_32k_tick = reg_system_timer_read_32k;
-    reg_system_ctrl |= FLD_SYSTEM_32K_WR_EN; // 1:32k write mode; 0:32k read mode
-    return timer_32k_tick;
-}
-#else
 /*
  * modify by yi.bao,confirmed by guangjun at 20210105
  * Use digital register way to get 32k tick may read error tick,cause the wakeup time is
@@ -256,7 +243,6 @@ unsigned int clock_get_32k_tick(void)
     }
     return t1;
 }
-#endif
 
 /**
  * @brief       This function use to select the system clock source.
