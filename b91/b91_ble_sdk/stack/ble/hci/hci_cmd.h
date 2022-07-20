@@ -103,14 +103,14 @@ typedef enum {
 typedef enum {
     ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY = 0x00,  // Process scan and connection requests from all devices
     ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_ANY =
-        0x01,  // Process connection requests from all devices and only scan requests from devices that are in the White List.
+        0x01,  // Process connection requests from all devices and only scan requests from devices in the White List.
     ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_WL =
-        0x02,  // Process scan requests from all devices and only connection requests from devices that are in the White List..
+        0x02,  // Process scan requests from all devices and only connection requests from devices in the White List.
     ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_WL =
         0x03,  // Process scan and connection requests only from devices in the White List.
 
-    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  //adv filter policy set to zero, not use whitelist
-} adv_fp_type_t;                                         //adv_filterPolicy_type_t
+    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  // adv filter policy set to zero, not use whitelist
+} adv_fp_type_t;                                         // adv_filterPolicy_type_t
 
 #define ALLOW_SCAN_WL BIT(0)
 #define ALLOW_CONN_WL BIT(1)
@@ -189,10 +189,10 @@ typedef enum {
 
 /* Scanning_Filter_Policy */
 typedef enum {
-    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  //except direct adv address not match
-    SCAN_FP_ALLOW_ADV_WL = 0x01,                   //except direct adv address not match
-    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             //and direct adv address match initiator's resolvable private MAC
-    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  //and direct adv address match initiator's resolvable private MAC
+    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  // except direct adv address not match
+    SCAN_FP_ALLOW_ADV_WL = 0x01,                   // except direct adv address not match
+    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             // and direct adv address match initiator's resolvable private MAC
+    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  // and direct adv address match initiator's resolvable private MAC
 
 } scan_fp_type_t;
 
@@ -217,8 +217,8 @@ typedef enum {
 
 /* Initiator_Filter_Policy */
 typedef enum {
-    INITIATE_FP_ADV_SPECIFY = 0x00,  //connect ADV specified by host
-    INITIATE_FP_ADV_WL = 0x01,       //connect ADV in whiteList
+    INITIATE_FP_ADV_SPECIFY = 0x00,  // connect ADV specified by host
+    INITIATE_FP_ADV_WL = 0x01,       // connect ADV in whiteList
 } init_fp_t;
 
 /* Connection_Interval, Time = N * 1.25 ms,
@@ -355,17 +355,17 @@ typedef enum {
 } le_phy_prefer_type_t;
 
 typedef enum {
-    PHY_TRX_PREFER = 0,                     //has 	 preference among TX & RX PHYs
-    PHY_TX_NO_PREFER = BIT(0),              //has no preference among TX PHYs
-    PHY_RX_NO_PREFER = BIT(1),              //has no preference among RX PHYs
-    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  //has no preference among TX & RX PHYs
+    PHY_TRX_PREFER = 0,                     // has 	 preference among TX & RX PHYs
+    PHY_TX_NO_PREFER = BIT(0),              // has no preference among TX PHYs
+    PHY_RX_NO_PREFER = BIT(1),              // has no preference among RX PHYs
+    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  // has no preference among TX & RX PHYs
 } le_phy_prefer_mask_t;
 
 typedef enum {
     CODED_PHY_PREFER_NONE = 0,
     CODED_PHY_PREFER_S2 = 1,
     CODED_PHY_PREFER_S8 = 2,
-} le_ci_prefer_t;  //LE coding indication prefer
+} le_ci_prefer_t;  // LE coding indication prefer
 
 /**
  *  @brief  Command Parameters for "7.8.53 LE Set Extended Advertising Parameters command"
@@ -432,9 +432,9 @@ typedef enum {
     ADV_EVT_PROP_EXTENDED_SCANNABLE_DIRECTED = 0x0006,    //  0000 0110'b		ADV_EXT_IND + AUX_ADV_IND/AUX_CHAIN_IND
 
     ADV_EVT_PROP_EXTENDED_MASK_ANONYMOUS_ADV =
-        0x0020,  //if this mask on(only extended ADV event can mask it), anonymous advertising
+        0x0020,  // if this mask on(only extended ADV event can mask it), anonymous advertising
     ADV_EVT_PROP_EXTENDED_MASK_TX_POWER_INCLUDE =
-        0x0040,  //if this mask on(only extended ADV event can mask it), TX power include
+        0x0040,  // if this mask on(only extended ADV event can mask it), TX power include
 
 } advEvtProp_type_t;
 
@@ -524,7 +524,7 @@ typedef struct
     u8 ownAddress_type;
     u8 scan_filter_policy;
     u8 scan_PHYs;
-    ext_scan_cfg_t scanCfg[2];  //at most 2 kind of PHY: 1M and Coded
+    ext_scan_cfg_t scanCfg[2];  // at most 2 kind of PHY: 1M and Coded
 } hci_le_setExtScan_cmdParam_t;
 
 /* Scanning_PHYs */
@@ -685,8 +685,8 @@ typedef struct
     u8 sca;
     u8 packing;
     u8 framing;
-    u8 cis_count;                     //15 B above
-    cigParamTest_cisCfg_t cisCfg[1];  //14 B for one CIS configuration
+    u8 cis_count;                     // 15 B above
+    cigParamTest_cisCfg_t cisCfg[1];  // 14 B for one CIS configuration
 } hci_le_setCigParamTest_cmdParam_t;
 
 /**
@@ -697,7 +697,7 @@ typedef struct
     u8 status;
     u8 cig_id;
     u8 cis_count;
-    u16 cis_connHandle[LL_CIS_IN_CIG_NUM_MAX];  //not 4 byte aligned, but no problem
+    u16 cis_connHandle[LL_CIS_IN_CIG_NUM_MAX];  // not 4 byte aligned, but no problem
 } hci_le_setCigParam_retParam_t;
 
 /* ISO_Interval, Time = N * 1.25 ms,
@@ -763,8 +763,8 @@ typedef struct
     u16 max_trans_lat;       /* Maximum time, in milliseconds, for transmitting an SDU */
     u8 rtn;                  /* The maximum number of times that every BIS Data PDU should be retransmitted */
     u8 phy;                  /* The transmitter PHY of packets */
-    packing_type_t packing;  //type same as u8
-    framing_t framing;       //type same as u8
+    packing_type_t packing;  /* type same as u8 */
+    framing_t framing;       /* type same as u8 */
     u8 enc;                  /* Encryption flag */
     u8 broadcast_code
         [16]; /* The code used to derive the session key that is used to encrypt and decrypt BIS payloads */
@@ -784,10 +784,10 @@ typedef struct
     u16 max_sdu;             /* Maximum size of an SDU, in octets */
     u16 max_pdu;             /* Maximum size, in octets, of payload */
     u8 phy;                  /* The transmitter PHY of packets */
-    packing_type_t packing;  //type same as u8
-    framing_t framing;       //type same as u8
+    packing_type_t packing;  /* type same as u8 */
+    framing_t framing;       /* type same as u8 */
     u8 bn;                   /* The number of new payloads in each interval for each BIS */
-    u8 irc;                  /* The number of times the scheduled payload(s) are transmitted in a given event*/
+    u8 irc;                  /* The number of times the scheduled payload(s) are transmitted in a given event */
     u8 pto;                  /* Offset used for pre-transmissions */
     u8 enc;                  /* Encryption flag */
     u8 broadcast_code
