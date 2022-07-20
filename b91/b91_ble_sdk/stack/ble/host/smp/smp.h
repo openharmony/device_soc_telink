@@ -36,7 +36,7 @@
 #define PAIRING_FAIL_REASON_CONFIRM_FAILED           0x04
 #define PAIRING_FAIL_REASON_PAIRING_NOT_SUPPORTED    0x05
 #define PAIRING_FAIL_REASON_ENCRYPT_KEY_SIZE         0x06
-#define PAIRING_FAIL_REASON_CMD_NOT_SUPPORT          0x07  //-- core 4.2
+#define PAIRING_FAIL_REASON_CMD_NOT_SUPPORT          0x07  // -- core 4.2
 #define PAIRING_FAIL_REASON_UNSPECIFIED_REASON       0x08
 #define PAIRING_FAIL_REASON_REPEATED_ATTEMPT         0x09
 #define PAIRING_FAIL_REASON_INVAILD_PARAMETER        0x0A
@@ -44,21 +44,22 @@
 #define PAIRING_FAIL_REASON_NUMUERIC_FAILED          0x0C
 #define PAIRING_FAIL_REASON_BREDR_PAIRING            0x0D
 #define PAIRING_FAIL_REASON_CROSS_TRANSKEY_NOT_ALLOW 0x0E
-#define PAIRING_FAIL_REASON_PAIRING_TIEMOUT          0x80  //TLK defined
-#define PAIRING_FAIL_REASON_CONN_DISCONNECT          0x81  //TLK defined
-#define PAIRING_FAIL_REASON_SUPPORT_NC_ONLY          0x82  //TLK defined
+#define PAIRING_FAIL_REASON_PAIRING_TIEMOUT          0x80  // TLK defined
+#define PAIRING_FAIL_REASON_CONN_DISCONNECT          0x81  // TLK defined
+#define PAIRING_FAIL_REASON_SUPPORT_NC_ONLY          0x82  // TLK defined
 /** @} end of group SMP pairing fail reasone */
 
 // "SecReq" refer to "security request"
 typedef enum {
     SecReq_NOT_SEND = 0,  // do not send "security request" after link layer connection established
     SecReq_IMM_SEND = BIT(
-        0),  //"IMM" refer to immediate, send "security request" immediately after link layer connection established
+        0),  // "IMM" refer to immediate, send "security request" immediately after link layer connection established
     SecReq_PEND_SEND = BIT(
-        1),  //"PEND" refer to pending,  pending "security request" for some time after link layer connection established, when pending time arrived. send it
+        1),  // "PEND" refer to pending, pending "security request"
+             //  for some time after link layer connection established, when pending time arrived. send it
 } secReq_cfg;
 
-//See the Core_v5.0(Vol 3/Part C/10.2, Page 2067) for more information.
+// See the Core_v5.0(Vol 3/Part C/10.2, Page 2067) for more information.
 typedef enum {
     LE_Security_Mode_1_Level_1 = BIT(0),
     No_Authentication_No_Encryption = BIT(0),
@@ -89,8 +90,8 @@ typedef enum {
     Bondable_Mode = 1,
 } bonding_mode_t;
 
-//Paring Methods select
-//See the Core_v5.0(Vol 3/Part H/2.3) for more information.
+// Paring Methods select
+// See the Core_v5.0(Vol 3/Part H/2.3) for more information.
 typedef enum {
     LE_Legacy_Paring = 0,      // BLE 4.0/4.2
     LE_Secure_Connection = 1,  // BLE 4.2/5.0/5.1
@@ -134,7 +135,7 @@ void blc_smp_preMakeEcdhKeysEnable(u8 enable);
  *                      1: LE secure connection
  * @return     none.
  */
-void blc_smp_setParingMethods(paring_methods_t method);  //select paring methods
+void blc_smp_setParingMethods(paring_methods_t method);  // select paring methods
 
 /**
  * @brief      This function is used to set whether the device uses the ECDH DEBUG key.
@@ -152,7 +153,7 @@ void blc_smp_setEcdhDebugMode(ecdh_keys_mode_t mode);
  *                    1: bondable mode.
  * @return     none.
  */
-void blc_smp_setBondingMode(bonding_mode_t mode);  //set bonding_mode
+void blc_smp_setBondingMode(bonding_mode_t mode);  // set bonding_mode
 
 /**
  * @brief      This function is used to set if enable authentication MITM protection.
@@ -168,7 +169,7 @@ void blc_smp_enableAuthMITM(int MITM_en);
  *                      1: Enable OOB authentication.
  * @return     none.
  */
-void blc_smp_enableOobAuthentication(int OOB_en);  //enable OOB authentication
+void blc_smp_enableOobAuthentication(int OOB_en);  // enable OOB authentication
 
 /**
  * @brief      This function is used to set device's IO capability.

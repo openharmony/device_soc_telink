@@ -221,12 +221,12 @@ void clock_set_32k_tick(unsigned int tick)
 unsigned int clock_get_32k_tick(void)
 {
     unsigned int timer_32k_tick;
-    reg_system_st = FLD_SYSTEM_CLR_RD_DONE;// clr rd_done
-    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) != 0);// wait rd_done = 0;
-    reg_system_ctrl &= ~FLD_SYSTEM_32K_WR_EN;	// 1:32k write mode; 0:32k read mode
-    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) == 0);// wait rd_done = 1;
+    reg_system_st = FLD_SYSTEM_CLR_RD_DONE; // clr rd_done
+    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) != 0); // wait rd_done = 0;
+    reg_system_ctrl &= ~FLD_SYSTEM_32K_WR_EN; // 1:32k write mode; 0:32k read mode
+    while((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) == 0); // wait rd_done = 1;
     timer_32k_tick = reg_system_timer_read_32k;
-    reg_system_ctrl |= FLD_SYSTEM_32K_WR_EN;	// 1:32k write mode; 0:32k read mode
+    reg_system_ctrl |= FLD_SYSTEM_32K_WR_EN; // 1:32k write mode; 0:32k read mode
     return timer_32k_tick;
 }
 #else

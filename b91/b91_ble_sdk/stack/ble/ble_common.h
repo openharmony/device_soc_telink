@@ -224,9 +224,9 @@ typedef enum {
     ATT_OP_HANDLE_VALUE_IND = 0x1D,
     ATT_OP_HANDLE_VALUE_CFM = 0x1E,
 
-    ATT_OP_READ_MULTIPLE_VARIABLE_REQ = 0x20,  //core_5.2
-    ATT_OP_READ_MULTIPLE_VARIABLE_RSP = 0x21,  //core_5.2
-    ATT_OP_MULTIPLE_HANDLE_VALUE_NTF = 0x23,   //core_5.2
+    ATT_OP_READ_MULTIPLE_VARIABLE_REQ = 0x20,  // core_5.2
+    ATT_OP_READ_MULTIPLE_VARIABLE_RSP = 0x21,  // core_5.2
+    ATT_OP_MULTIPLE_HANDLE_VALUE_NTF = 0x23,   // core_5.2
 
     ATT_OP_WRITE_CMD = 0x52,
     ATT_OP_SIGNED_WRITE_CMD = 0xD2,
@@ -272,10 +272,10 @@ typedef enum {
     L2CAP_LE_CREDIT_BASED_CONNECTION_REQ = 0x14,
     L2CAP_LE_CREDIT_BASED_CONNECTION_RSP = 0x15,
     L2CAP_FLOW_CONTROL_CREDIT_IND = 0x16,
-    L2CAP_CREDIT_BASED_CONNECTION_REQ = 0x17,   //core_5.2
-    L2CAP_CREDIT_BASED_CONNECTION_RSP = 0x18,   //core_5.2
-    L2CAP_CREDIT_BASED_RECONFIGURE_REQ = 0x19,  //core_5.2
-    L2CAP_CREDIT_BASED_RECONFIGURE_RSP = 0x1A,  //core_5.2
+    L2CAP_CREDIT_BASED_CONNECTION_REQ = 0x17,   // core_5.2
+    L2CAP_CREDIT_BASED_CONNECTION_RSP = 0x18,   // core_5.2
+    L2CAP_CREDIT_BASED_RECONFIGURE_REQ = 0x19,  // core_5.2
+    L2CAP_CREDIT_BASED_RECONFIGURE_RSP = 0x1A,  // core_5.2
 } l2cap_sig_pkt_format;
 
 /******************************************** LINKLAYER ***************************************************************/
@@ -301,32 +301,32 @@ typedef enum {
 
 #define LL_VERSION_IND          0x0C  //	6
 #define LL_REJECT_IND           0x0D  //	2
-#define LL_SLAVE_FEATURE_REQ    0x0E  //core_4.1				//	9
-#define LL_CONNECTION_PARAM_REQ 0x0F  //core_4.1				// 24
-#define LL_CONNECTION_PARAM_RSP 0x10  //core_4.1				// 24
-#define LL_REJECT_IND_EXT       0x11  //core_4.1				//	3
-#define LL_PING_REQ             0x12  //core_4.1				//	1
-#define LL_PING_RSP             0x13  //core_4.1				//	1
-#define LL_LENGTH_REQ           0x14  //core_4.2				//	9
-#define LL_LENGTH_RSP           0x15  //core_4.2				//	9
-#define LL_PHY_REQ              0x16  //core_5.0				//	3
-#define LL_PHY_RSP              0x17  //core_5.0				//	3
-#define LL_PHY_UPDATE_IND       0x18  //core_5.0				//	5
-#define LL_MIN_USED_CHN_IND     0x19  //core_5.0				//	3
+#define LL_SLAVE_FEATURE_REQ    0x0E  // core_4.1				//	9
+#define LL_CONNECTION_PARAM_REQ 0x0F  // core_4.1				// 24
+#define LL_CONNECTION_PARAM_RSP 0x10  // core_4.1				// 24
+#define LL_REJECT_IND_EXT       0x11  // core_4.1				//	3
+#define LL_PING_REQ             0x12  // core_4.1				//	1
+#define LL_PING_RSP             0x13  // core_4.1				//	1
+#define LL_LENGTH_REQ           0x14  // core_4.2				//	9
+#define LL_LENGTH_RSP           0x15  // core_4.2				//	9
+#define LL_PHY_REQ              0x16  // core_5.0				//	3
+#define LL_PHY_RSP              0x17  // core_5.0				//	3
+#define LL_PHY_UPDATE_IND       0x18  // core_5.0				//	5
+#define LL_MIN_USED_CHN_IND     0x19  // core_5.0				//	3
 
-#define LL_CTE_REQ            0x1A  //core_5.1				//	2
-#define LL_CTE_RSP            0x1B  //core_5.1				//	2
-#define LL_PERIODIC_SYNC_IND  0x1C  //core_5.1				// 35
-#define LL_CLOCK_ACCURACY_REQ 0x1D  //core_5.1				//	2
-#define LL_CLOCK_ACCURACY_RSP 0x1E  //core_5.1				//	2
+#define LL_CTE_REQ            0x1A  // core_5.1				//	2
+#define LL_CTE_RSP            0x1B  // core_5.1				//	2
+#define LL_PERIODIC_SYNC_IND  0x1C  // core_5.1				// 35
+#define LL_CLOCK_ACCURACY_REQ 0x1D  // core_5.1				//	2
+#define LL_CLOCK_ACCURACY_RSP 0x1E  // core_5.1				//	2
 
-#define LL_CIS_REQ           0x1F  //core_5.2				//	36
-#define LL_CIS_RSP           0x20  //core_5.2				//	9
-#define LL_CIS_IND           0x21  //core_5.2				//  16
-#define LL_CIS_TERMINATE_IND 0x22  //core_5.2				//	4
-#define LL_POWER_CONTROL_REQ 0x23  //core_5.2				//	4
-#define LL_POWER_CONTROL_RSP 0x24  //core_5.2				//	5
-#define LL_POWER_CHANGE_IND  0x25  //core_5.2				//	5
+#define LL_CIS_REQ           0x1F  // core_5.2				//	36
+#define LL_CIS_RSP           0x20  // core_5.2				//	9
+#define LL_CIS_IND           0x21  // core_5.2				//  16
+#define LL_CIS_TERMINATE_IND 0x22  // core_5.2				//	4
+#define LL_POWER_CONTROL_REQ 0x23  // core_5.2				//	4
+#define LL_POWER_CONTROL_RSP 0x24  // core_5.2				//	5
+#define LL_POWER_CHANGE_IND  0x25  // core_5.2				//	5
 
 /******************************************** GAP ***************************************************************/
 

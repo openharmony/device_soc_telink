@@ -326,13 +326,12 @@ void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char l
 /**
  * @brief      This function serves to read a packet of data from the specified address of slave device.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
- * @param[in]  rx_data - Store the read data
+ * @param[in]  data - Store the read data
  * @param[in]  len - The total length of the data read back.
  * @return     none.
  */
-void i2c_master_read_dma(unsigned char id, unsigned char *rx_data, unsigned char len)
+void i2c_master_read_dma(unsigned char id, unsigned char *data, unsigned char len)
 {
-
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;  // i2c rnck enable
 
     // set i2c master read.

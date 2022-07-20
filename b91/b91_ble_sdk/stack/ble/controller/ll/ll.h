@@ -62,8 +62,7 @@ typedef int (*blc_main_loop_phyTest_callback_t)(void);
 #define BLT_EV_FLAG_SUSPEND_ENTER        14
 #define BLT_EV_FLAG_SUSPEND_EXIT         15
 
-typedef struct
-{
+typedef struct {
     u16 connEffectiveMaxRxOctets;
     u16 connEffectiveMaxTxOctets;
     u16 connMaxRxOctets;
@@ -73,7 +72,7 @@ typedef struct
     u16 supportedMaxRxOctets;
     u16 supportedMaxTxOctets;
 
-    u8 connInitialMaxTxOctets;  //u8 is enough
+    u8 connInitialMaxTxOctets;  // u8 is enough
     u8 connMaxTxRxOctets_req;
     u8 connRxDiff100;
     u8 connTxDiff100;

@@ -21,8 +21,8 @@
 #include "stack/ble/ble.h"
 #include "tl_common.h"
 
-_attribute_data_retention_ u32 flash_sector_mac_address = CFG_ADR_MAC_1M_FLASH;          //default flash is 1M
-_attribute_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M_FLASH;  //default flash is 1M
+_attribute_data_retention_ u32 flash_sector_mac_address = CFG_ADR_MAC_1M_FLASH;          // default flash is 1M
+_attribute_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M_FLASH;  // default flash is 1M
 
 /**
  * @brief		This function can automatically recognize the flash size,
@@ -31,8 +31,7 @@ _attribute_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M
  * @param[in]	none
  * @return      none
  */
-_attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
-{
+_attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void) {
     u8 temp_buf[4];
     flash_read_mid(temp_buf);
     u8 flash_cap = temp_buf[2];
@@ -47,8 +46,8 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
         flash_sector_mac_address = CFG_ADR_MAC_2M_FLASH;
         flash_sector_calibration = CFG_ADR_CALIBRATION_2M_FLASH;
     } else {
-        //This SDK do not support flash size other than 1M/2M
-        //If code stop here, please check your Flash
+        // This SDK do not support flash size other than 1M/2M
+        // If code stop here, please check your Flash
         while (1) {
         }
     }
@@ -57,9 +56,9 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
 }
 
 /*
- *Kite: 	VVWWXX38C1A4YYZZ
- *Vulture:  VVWWXXD119C4YYZZ
- *Eagle:  	VVWWXX
+ * Kite: 	VVWWXX38C1A4YYZZ
+ * Vulture:  VVWWXXD119C4YYZZ
+ * Eagle:  	VVWWXX
  * public_mac:
  * 				Kite 	: VVWWXX 38C1A4
  * 				Vulture : VVWWXX D119C4
@@ -73,8 +72,7 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
  * @param[in]	mac_random_static - random static MAC address
  * @return      none
  */
-void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
-{
+void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static) {
     if (flash_sector_mac_address == 0) {
         return;
     }
@@ -87,15 +85,15 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
 
     u8 ff_six_byte[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
     if (memcmp(mac_read, ff_six_byte, 6)) {
-        memcpy(mac_public, mac_read, 6);  //copy public address from flash
-    } else {                              //no public address on flash
+        memcpy(mac_public, mac_read, 6);  // copy public address from flash
+    } else {                              // no public address on flash
         mac_public[0] = value_rand[0];
         mac_public[1] = value_rand[1];
         mac_public[2] = value_rand[2];
 
-        //TODO
-        //company id:
-        mac_public[3] = 0xD1;  //company id: 0xC119D1
+        // TODO
+        // company id:
+        mac_public[3] = 0xD1;  // company id: 0xC119D1
         mac_public[4] = 0x19;
         mac_public[5] = 0xC4;
 
@@ -105,7 +103,7 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
     mac_random_static[0] = mac_public[0];
     mac_random_static[1] = mac_public[1];
     mac_random_static[2] = mac_public[2];
-    mac_random_static[5] = 0xC0;  //for random static
+    mac_random_static[5] = 0xC0;  // for random static
 
     u16 high_2_byte = (mac_read[6] | mac_read[7] << 8);
     if (high_2_byte != 0xFFFF) {

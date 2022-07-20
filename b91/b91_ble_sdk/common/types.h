@@ -42,7 +42,7 @@ typedef unsigned long long u64;
 
 #ifndef __cplusplus
 
-//typedef u8 bool;
+// typedef u8 bool;
 
 #ifndef FALSE
 #define FALSE 0
@@ -51,15 +51,15 @@ typedef unsigned long long u64;
 #define TRUE (!FALSE)
 #endif
 
-//#define false 	FALSE
-//#define true 	TRUE
+// #define false 	FALSE
+// #define true 	TRUE
 
 #endif
 
 // There is no way to directly recognise whether a typedef is defined
 // http://stackoverflow.com/questions/3517174/how-to-check-if-a-datatype-is-defined-with-typedef
 #ifdef __GNUC__
-//typedef	u16	wchar_t;
+// typedef	u16	wchar_t;
 #endif
 
 #ifndef WIN32
