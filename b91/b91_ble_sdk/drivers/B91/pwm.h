@@ -21,63 +21,37 @@
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
-#define get_pwmid(gpio)                                                                                                                                           \
-    ((gpio == PWM_PWM0_PB4)                                                                                                                                       \
-         ? 0                                                                                                                                                      \
-         : ((gpio == PWM_PWM0_PC0)                                                                                                                                \
-                ? 0                                                                                                                                               \
-                : ((gpio == PWM_PWM0_PE3)                                                                                                                         \
-                       ? 0                                                                                                                                        \
-                       : ((gpio == PWM_PWM0_N_PD0)                                                                                                                \
-                              ? 0                                                                                                                                 \
-                              : ((gpio == PWM_PWM1_PB5)                                                                                                           \
-                                     ? 1                                                                                                                          \
-                                     : ((gpio == PWM_PWM1_PE1)                                                                                                    \
-                                            ? 1                                                                                                                   \
-                                            : ((gpio == PWM_PWM1_N_PD1)                                                                                           \
-                                                   ? 1                                                                                                            \
-                                                   : ((gpio == PWM_PWM2_PB7)                                                                                      \
-                                                          ? 2                                                                                                     \
-                                                          : ((gpio == PWM_PWM2_PE2)                                                                               \
-                                                                 ? 2                                                                                              \
-                                                                 : ((gpio == PWM_PWM2_N_PD2)                                                                      \
-                                                                        ? 2                                                                                       \
-                                                                        : ((gpio == PWM_PWM2_N_PE6)                                                               \
-                                                                               ? 2                                                                                \
-                                                                               : ((gpio == PWM_PWM3_PB1)                                                          \
-                                                                                      ? 3                                                                         \
-                                                                                      : ((gpio == PWM_PWM3_PE0)                                                   \
-                                                                                             ? 3                                                                  \
-                                                                                             : ((gpio ==                                                          \
-                                                                                                 PWM_PWM3_N_PD3)                                                  \
-                                                                                                    ? 3                                                           \
-                                                                                                    : ((gpio ==                                                   \
-                                                                                                        PWM_PWM3_N_PE7)                                           \
-                                                                                                           ? 3                                                    \
-                                                                                                           : ((gpio ==                                            \
-                                                                                                               PWM_PWM4_PD7)                                      \
-                                                                                                                  ? 4                                             \
-                                                                                                                  : ((gpio ==                                     \
-                                                                                                                      PWM_PWM4_PE4)                               \
-                                                                                                                         ? 4                                      \
-                                                                                                                         : ((gpio ==                              \
-                                                                                                                             PWM_PWM4_N_PD4)                      \
-                                                                                                                                ? 4                               \
-                                                                                                                                : ((gpio ==                       \
-                                                                                                                                    PWM_PWM5_PB0)                 \
-                                                                                                                                       ? 5                        \
-                                                                                                                                       : ((gpio ==                \
-                                                                                                                                           PWM_PWM5_PE5)          \
-                                                                                                                                              ? 5                 \
-                                                                                                                                              : ((gpio ==         \
-                                                                                                                                                  PWM_PWM5_N_PD5) \
-                                                                                                                                                     ? 5          \
-                                                                                                                                                     : 0)))))))))))))))))))))
+#define get_pwmid(gpio)     ((gpio==PWM_PWM0_PB4) ? 0 : (  \
+                     (gpio==PWM_PWM0_PC0)   ? 0 : (  \
+                     (gpio==PWM_PWM0_PE3)   ? 0 : (  \
+                     (gpio==PWM_PWM0_N_PD0) ? 0 : (  \
+                     (gpio==PWM_PWM1_PB5)   ? 1 : (  \
+                     (gpio==PWM_PWM1_PE1)   ? 1 : (  \
+                     (gpio==PWM_PWM1_N_PD1) ? 1 : (  \
+                     (gpio==PWM_PWM2_PB7)   ? 2 : (  \
+                     (gpio==PWM_PWM2_PE2)   ? 2 : (  \
+                     (gpio==PWM_PWM2_N_PD2) ? 2 : (  \
+                     (gpio==PWM_PWM2_N_PE6) ? 2 : (  \
+                     (gpio==PWM_PWM3_PB1)   ? 3 : (  \
+                     (gpio==PWM_PWM3_PE0)   ? 3 : (  \
+                     (gpio==PWM_PWM3_N_PD3) ? 3 : (  \
+                     (gpio==PWM_PWM3_N_PE7) ? 3 : (  \
+                     (gpio==PWM_PWM4_PD7)   ? 4 : (  \
+                     (gpio==PWM_PWM4_PE4)   ? 4 : (  \
+                     (gpio==PWM_PWM4_N_PD4) ? 4 : (  \
+                     (gpio==PWM_PWM5_PB0)   ? 5 : (  \
+                     (gpio==PWM_PWM5_PE5)   ? 5 : (  \
+                     (gpio==PWM_PWM5_N_PD5) ? 5 : 0  \
+                             )))))))))))))))))))))
 
-#define get_pwm_invert_val(gpio)                                                                                      \
-    ((gpio == PWM_PWM0_N_PD0) || (gpio == PWM_PWM1_N_PD1) || (gpio == PWM_PWM2_N_PD2) || (gpio == PWM_PWM2_N_PE6) ||  \
-     (gpio == PWM_PWM3_N_PD3) || (gpio == PWM_PWM3_N_PE7) || (gpio == PWM_PWM4_N_PD4) || (gpio == PWM_PWM5_N_PD5))
-
+#define get_pwm_invert_val(gpio)     ((gpio==PWM_PWM0_N_PD0) ||    \
+                     (gpio==PWM_PWM1_N_PD1) ||        \
+                     (gpio==PWM_PWM2_N_PD2) ||        \
+                     (gpio==PWM_PWM2_N_PE6) ||        \
+                     (gpio==PWM_PWM3_N_PD3) ||        \
+                     (gpio==PWM_PWM3_N_PE7) ||        \
+                     (gpio==PWM_PWM4_N_PD4) ||        \
+                     (gpio==PWM_PWM5_N_PD5))
 /**
  * @brief  enum variable, the number of PWM channels supported
  */
@@ -367,7 +341,7 @@ static inline void pwm_clr_irq_status(pwm_irq_e status)
  */
 static inline void pwm_set_pwm0_mode(pwm_mode_e mode)
 {
-    reg_pwm0_mode = mode;  //only PWM0 has count/IR/fifo IR mode
+    reg_pwm0_mode = mode;  // only PWM0 has count/IR/fifo IR mode
 }
 
 /**

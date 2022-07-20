@@ -51,7 +51,7 @@ dma_config_t analog_tx_dma_config = {
     .auto_en = 0, /* < must 0 */
 };
 dma_config_t analog_rx_dma_config = {
-    .dst_req_sel = 0,  //tx req
+    .dst_req_sel = 0,  // tx req
     .src_req_sel = DMA_REQ_ALGM_RX,
     .dst_addr_ctrl = DMA_ADDR_INCREMENT,
     .src_addr_ctrl = DMA_ADDR_FIX,
@@ -63,7 +63,7 @@ dma_config_t analog_rx_dma_config = {
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 /**********************************************************************************************************************
  *                                              local variable                                                     *
@@ -259,12 +259,12 @@ _attribute_ram_code_sec_noinline_ void analog_write_buff(unsigned char addr, uns
             reg_ana_data(wr_idx++) = *(buff++);
             if (wr_idx == 4) {
                 wr_idx = 0;
-                while ((reg_ana_irq_sta & FLD_ANA_TXBUFF_IRQ) == 0)
-                    ;  //tx_buf_irq
+                while ((reg_ana_irq_sta & FLD_ANA_TXBUFF_IRQ) == 0) {
+                }  // tx_buf_irq
             }
         }
     }
-    analog_wait();  //busy
+    analog_wait();  // busy
     reg_ana_ctrl = 0x00;
     core_restore_interrupt(r);
 }
@@ -285,8 +285,8 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
     reg_ana_addr = addr;
     reg_ana_ctrl = FLD_ANA_CYC;
     if (len_t > 4) {
-        while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0)
-            ;  //rx_buf_irq
+        while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0) {
+        }  // rx_buf_irq
         while (len_t--) {
             (*buff++) = reg_ana_data(rd_idx++);
             if (rd_idx == 4) {
@@ -294,8 +294,8 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
                 if (len_t <= 4)
                     break;
                 else
-                    while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0)
-                        ;  //rx_buf_irq
+                    while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0) {
+                    }  // rx_buf_irq
             }
         }
     }
@@ -395,8 +395,8 @@ void analog_write_addr_data_dma(dma_chn_e chn, void *pdat, int len)
     reg_ana_ctrl = FLD_ANA_RW;
     reg_ana_dma_ctl = FLD_ANA_CYC1 | FLD_ANA_DMA_EN;
     delay_us(1);
-    while (!(reg_ana_sta & BIT(3)))
-        ;
+    while (!(reg_ana_sta & BIT(3))) {
+    }
     reg_ana_ctrl = 0x00;
     reg_ana_dma_ctl = 0;
     core_restore_interrupt(r);

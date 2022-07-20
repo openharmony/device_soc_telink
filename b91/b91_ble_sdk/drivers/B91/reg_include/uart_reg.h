@@ -21,12 +21,12 @@
 
 /*******************************      uart0 registers: 0x140080   *******************************/
 /*******************************      uart1 registers: 0x1400c0      ******************************/
-#define reg_uart_data_buf_adr(i) (0x140080 + (i)*0x40)  //uart(i)
+#define reg_uart_data_buf_adr(i) (0x140080 + (i)*0x40)  // uart(i)
 
-#define reg_uart_data_buf(i, j)       REG_ADDR8(reg_uart_data_buf_adr(i) + (j))  //uart(i)_buf(j)
+#define reg_uart_data_buf(i, j)       REG_ADDR8(reg_uart_data_buf_adr(i) + (j))  // uart(i)_buf(j)
 #define reg_uart_data_hword_buf(i, j) REG_ADDR16(reg_uart_data_buf_adr(i) + (j)*2)
 
-#define reg_uart_data_word_buf(i) REG_ADDR32(reg_uart_data_buf_adr(i))  //uart(i)
+#define reg_uart_data_word_buf(i) REG_ADDR32(reg_uart_data_buf_adr(i))  // uart(i)
 
 #define reg_uart_clk_div(i) REG_ADDR16(0x140084 + (i)*0x40)
 
@@ -42,7 +42,7 @@ enum {
     FLD_UART_TX_CTS_POLARITY = BIT(0),
     FLD_UART_TX_CTS_ENABLE = BIT(1),
     FLD_UART_PARITY_ENABLE = BIT(2),
-    FLD_UART_PARITY_POLARITY = BIT(3),  //1:odd parity   0:even parity
+    FLD_UART_PARITY_POLARITY = BIT(3),  // 1:odd parity   0:even parity
     FLD_UART_STOP_SEL = BIT_RNG(4, 5),
     FLD_UART_TTL_ENABLE = BIT(6),
     FLD_UART_LOOPBACK_O = BIT(7),
@@ -76,7 +76,7 @@ enum {
 enum {
     FLD_UART_TIMEOUT_MUL = BIT_RNG(0, 1),
     FLD_UART_MARK_RXDONE = BIT(2),
-    //rsvd BIT(4)
+    // rsvd BIT(4)
     FLD_UART_P7816_EN = BIT(5),
     FLD_UART_MASK_TXDONE = BIT(6),
     FLD_UART_MASK_ERR_IRQ = BIT(7),
@@ -92,24 +92,24 @@ enum {
 enum {
     FLD_UART_RBCNT = BIT_RNG(0, 2),
     FLD_UART_IRQ_O = BIT(3),
-    FLD_UART_WBCNT = BIT_RNG(4, 6),  //R
-    FLD_UART_CLEAR_RX = BIT(6),      //Write 1 clear RX
-    FLD_UART_RX_ERR = BIT(7),        //R
-    FLD_UART_CLEAR_TX = BIT(7),      //Write 1 clear TX
+    FLD_UART_WBCNT = BIT_RNG(4, 6),  // R
+    FLD_UART_CLEAR_RX = BIT(6),      // Write 1 clear RX
+    FLD_UART_RX_ERR = BIT(7),        // R
+    FLD_UART_CLEAR_TX = BIT(7),      // Write 1 clear TX
 };
 
 #define reg_uart_status2(i) REG_ADDR8((0x14008e) + (0x40 * (i)))
 enum {
-    FLD_UART_TX_DONE = BIT(0),  //only for dma default 1.
+    FLD_UART_TX_DONE = BIT(0),  // only for dma default 1.
     FLD_UART_TX_BUF_IRQ = BIT(1),
     FLD_UART_RX_DONE = BIT(2),
     FLD_UART_RX_BUF_IRQ = BIT(3),
 };
 
-//state machine use for IC debug
+// state machine use for IC debug
 #define reg_uart_state(i) REG_ADDR8(0x14008f + 0x40 * (i))
 enum {
-    FLD_UART_TSTATE_i = BIT_RNG(0, 2),  //only for dma default 1.
+    FLD_UART_TSTATE_i = BIT_RNG(0, 2),  // only for dma default 1.
     FLD_UART_RSTATE_i = BIT_RNG(4, 7),
 };
 

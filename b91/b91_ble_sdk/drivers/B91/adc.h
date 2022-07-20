@@ -132,10 +132,10 @@ typedef enum {
 } adc_chn_e;
 
 typedef enum {
-    ADC_PRESCALE_1 = 0x00,  //Only for internal testing and temperature sensor sampling
-                            //	ADC_PRESCALE_1F2 = 0x01,//Only for internal testing
+    ADC_PRESCALE_1 = 0x00,  // Only for internal testing and temperature sensor sampling
+                            //	ADC_PRESCALE_1F2 = 0x01,// Only for internal testing
     ADC_PRESCALE_1F4 = 0x02,
-    //	ADC_PRESCALE_1F8 = 0x03,//Only for internal testing
+    // ADC_PRESCALE_1F8 = 0x03, // Only for internal testing
 } adc_pre_scale_e;
 enum {
     ADC_MAX_STATE_NUM = 0x02,
@@ -232,8 +232,8 @@ static inline void adc_set_resolution(adc_res_e res)
  */
 static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
 {
-    //ana_ee<7:4> is reserved, so no need care its value
-    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  //optimize, <7:4> not cared
+    // ana_ee<7:4> is reserved, so no need care its value
+    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  // optimize, <7:4> not cared
 }
 /**
  * @brief      This function open temperature sensor power.

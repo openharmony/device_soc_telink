@@ -149,11 +149,11 @@ typedef enum {
  *  @brief  Define UART IRQ MASK.The enumeration variable is just a index, and actually needs to be operated registers behind.
  */
 typedef enum {
-    UART_RX_IRQ_MASK = BIT(0),   //reg_uart_ctrl0(uart_num)       BIT(6)
-    UART_TX_IRQ_MASK = BIT(1),   //reg_uart_ctrl0(uart_num)       BIT(7)
-    UART_RXDONE_MASK = BIT(2),   //reg_uart_rx_timeout1(uart_num) BIT(2)
-    UART_TXDONE_MASK = BIT(3),   //reg_uart_rx_timeout1(uart_num) BIT(6)
-    UART_ERR_IRQ_MASK = BIT(4),  //reg_uart_rx_timeout1(uart_num) BIT(7)
+    UART_RX_IRQ_MASK = BIT(0),   // reg_uart_ctrl0(uart_num)       BIT(6)
+    UART_TX_IRQ_MASK = BIT(1),   // reg_uart_ctrl0(uart_num)       BIT(7)
+    UART_RXDONE_MASK = BIT(2),   // reg_uart_rx_timeout1(uart_num) BIT(2)
+    UART_TXDONE_MASK = BIT(3),   // reg_uart_rx_timeout1(uart_num) BIT(6)
+    UART_ERR_IRQ_MASK = BIT(4),  // reg_uart_rx_timeout1(uart_num) BIT(7)
 } uart_irq_mask_e;
 
 /**
@@ -495,7 +495,7 @@ static inline void uart_clr_irq_status(uart_num_e uart_num, uart_irq_status_clr_
  */
 static inline void uart_set_rts_en(uart_num_e uart_num)
 {
-    reg_uart_ctrl2(uart_num) |= FLD_UART_RTS_EN;  //enable RTS function
+    reg_uart_ctrl2(uart_num) |= FLD_UART_RTS_EN;  // enable RTS function
 }
 
 /**
@@ -505,7 +505,7 @@ static inline void uart_set_rts_en(uart_num_e uart_num)
  */
 static inline void uart_set_rts_dis(uart_num_e uart_num)
 {
-    reg_uart_ctrl2(uart_num) &= (~FLD_UART_RTS_EN);  //disable RTS function
+    reg_uart_ctrl2(uart_num) &= (~FLD_UART_RTS_EN);  // disable RTS function
 }
 
 /**
@@ -515,7 +515,7 @@ static inline void uart_set_rts_dis(uart_num_e uart_num)
  */
 static inline void uart_set_cts_en(uart_num_e uart_num)
 {
-    reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_ENABLE;  //enable CTS function
+    reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_ENABLE;  // enable CTS function
 }
 
 /**
@@ -525,7 +525,7 @@ static inline void uart_set_cts_en(uart_num_e uart_num)
  */
 static inline void uart_set_cts_dis(uart_num_e uart_num)
 {
-    reg_uart_ctrl1(uart_num) &= (~FLD_UART_TX_CTS_ENABLE);  //disable CTS function
+    reg_uart_ctrl1(uart_num) &= (~FLD_UART_TX_CTS_ENABLE);  // disable CTS function
 }
 
 /**

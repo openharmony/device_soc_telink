@@ -83,50 +83,50 @@ typedef enum { HSPI_SINGLE = 0, HSPI_DUAL = 1, HSPI_QUAD = 2, HSPI_3LINE = 3 } h
  * @brief  Define the SPI command & translate mode.
  */
 typedef enum {
-    SPI_MODE_WRITE_AND_READ = 0,  //write and read at the same.must enbale CmdEn
-    SPI_MODE_WRITE_ONLY,          //write
+    SPI_MODE_WRITE_AND_READ = 0,  // write and read at the same.must enbale CmdEn
+    SPI_MODE_WRITE_ONLY,          // write
     SPI_MODE_READ_ONLY,           // read must enbale CmdEn
-    SPI_MODE_WRITE_READ,          //write_ read
-    SPI_MODE_READ_WRITE,          //read_write
-    SPI_MODE_WRITE_DUMMY_READ,    //write_dummy_read
-    SPI_MODE_READ_DUMMY_WRITE,    //read_ dummy_write must enbale CmdEn
-    SPI_MODE_NONE_DATA,           //must enbale CmdEn
-    SPI_MODE_DUMMY_WRITE,         //dummy_write
-    SPI_MODE_DUMMY_READ,          //dummy_read
+    SPI_MODE_WRITE_READ,          // write_ read
+    SPI_MODE_READ_WRITE,          // read_write
+    SPI_MODE_WRITE_DUMMY_READ,    // write_dummy_read
+    SPI_MODE_READ_DUMMY_WRITE,    // read_ dummy_write must enbale CmdEn
+    SPI_MODE_NONE_DATA,           // must enbale CmdEn
+    SPI_MODE_DUMMY_WRITE,         // dummy_write
+    SPI_MODE_DUMMY_READ,          // dummy_read
     SPI_MODE_RESERVED,
 } spi_tans_mode_e;
 
 typedef enum {
-    SPI_MODE_WR_WRITE_ONLY = 1,   //write
-    SPI_MODE_WR_DUMMY_WRITE = 8,  //dummy_write
+    SPI_MODE_WR_WRITE_ONLY = 1,   // write
+    SPI_MODE_WR_DUMMY_WRITE = 8,  // dummy_write
 } spi_wr_tans_mode_e;
 
 typedef enum {
-    SPI_MODE_RD_READ_ONLY = 2,   //must enbale CmdEn
-    SPI_MODE_RD_DUMMY_READ = 9,  //dummy_read
+    SPI_MODE_RD_READ_ONLY = 2,   // must enbale CmdEn
+    SPI_MODE_RD_DUMMY_READ = 9,  // dummy_read
 } spi_rd_tans_mode_e;
 
 typedef enum {
-    SPI_MODE_WR_RD = 3,        //must enbale CmdEn
-    SPI_MODE_WR_DUMMY_RD = 5,  //write_dummy_read
+    SPI_MODE_WR_RD = 3,        // must enbale CmdEn
+    SPI_MODE_WR_DUMMY_RD = 5,  // write_dummy_read
 } spi_wr_rd_tans_mode_e;
 
 typedef struct
 {
-    hspi_single_dual_quad_mode_e hspi_io_mode;  //set spi interface mode
-    unsigned char hspi_dummy_cnt;               //set dummy cnt if tans_mode have dummy .
-    unsigned char hspi_cmd_en;                  //enable cmd phase
-    unsigned char hspi_addr_en;                 //enable address phase
-    unsigned char hspi_addr_len;                //enable address phase
-    unsigned char hspi_cmd_fmt_en;              //if cmd_en enable cmd fmt will follow the interface (dual/quad)
-    unsigned char hspi_addr_fmt_en;             //if addr_en enable addr fmt will follow the interface (dual/quad)
+    hspi_single_dual_quad_mode_e hspi_io_mode;  // set spi interface mode
+    unsigned char hspi_dummy_cnt;               // set dummy cnt if tans_mode have dummy .
+    unsigned char hspi_cmd_en;                  // enable cmd phase
+    unsigned char hspi_addr_en;                 // enable address phase
+    unsigned char hspi_addr_len;                // enable address phase
+    unsigned char hspi_cmd_fmt_en;              // if cmd_en enable cmd fmt will follow the interface (dual/quad)
+    unsigned char hspi_addr_fmt_en;             // if addr_en enable addr fmt will follow the interface (dual/quad)
 } hspi_config_t;
 
 typedef struct
 {
-    pspi_single_dual_mode_e pspi_io_mode;  //set spi interface mode
-    unsigned char pspi_dummy_cnt;          //set dummy cnt if tans_mode have dummy .
-    _Bool pspi_cmd_en;                     //enable cmd phase
+    pspi_single_dual_mode_e pspi_io_mode;  // set spi interface mode
+    unsigned char pspi_dummy_cnt;          // set dummy cnt if tans_mode have dummy .
+    _Bool pspi_cmd_en;                     // enable cmd phase
 } pspi_config_t;
 
 typedef enum {

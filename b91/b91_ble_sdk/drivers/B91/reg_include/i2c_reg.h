@@ -122,7 +122,7 @@ enum {
     FLD_I2C_TX_IRQ_TRIG_LEV = BIT_RNG(4, 7),
 };
 
-//As a master, you need to configure this length for both sending and receiving, and the hardware needs to know what the length is.
+// As a master, you need to configure this length for both sending and receiving, and the hardware needs to know what the length is.
 #define reg_i2c_len REG_ADDR8(REG_I2C_BASE + 0x06)
 
 /**
@@ -223,7 +223,7 @@ enum {
     FLD_I2C_TX_EN = BIT(4),
 };
 
-//reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo, it is an accumulated value, and fifo clear will clear.
+// reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo, it is an accumulated value, and fifo clear will clear.
 #define reg_i2c_rx_fifo_len REG_ADDR8(REG_I2C_BASE + 0x0f)
 enum {
     FLD_I2C_RX_FIFO_LEN = BIT_RNG(0, 7),

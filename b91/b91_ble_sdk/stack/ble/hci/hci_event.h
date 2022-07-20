@@ -18,8 +18,8 @@
 #ifndef HCI_EVENT_H_
 #define HCI_EVENT_H_
 
-#include "stack/ble/ble_common.h"
-#include "stack/ble/ble_config.h"
+#include <stack/ble/ble_common.h>
+#include <stack/ble/ble_config.h>
 #include <stack/ble/hci/hci.h>
 
 /**

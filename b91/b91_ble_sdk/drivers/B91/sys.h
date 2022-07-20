@@ -29,7 +29,6 @@
 #ifndef SYS_H_
 #define SYS_H_
 #include "bit.h"
-#include "reg_include/stimer_reg.h"
 
 /**********************************************************************************************************************
  *                                         global constants                                                           *
@@ -139,7 +138,7 @@
 #define TCMD_WRITE 0x3
 #define TCMD_WAIT  0x7
 #define TCMD_WAREG 0x8
-//#if 1 //optimize
+//#if 1 // optimize
 /*
  * IRAM area:0x00000~0x1FFFF BIT(19) is 0,BIT(16~0) 128K is address offset
  * DRAM area:0x80000~0x9FFFF BIT(19) is 1,BIT(16~0) 128K is address offset
@@ -154,7 +153,7 @@
  *  #define convert(addr) ((addr)+0xc0180000)
  * */
 #define convert_ram_addr_cpu2bus(addr) ((unsigned int)(addr) + 0xc0180000)
-//#else  //no optimize
+//#else  // no optimize
 //#define  convert_ram_addr_cpu2bus  (((((unsigned int)(addr)) >=0x80000)?(((unsigned int)(addr))-0x80000+0xc0200000) : (((unsigned int)(addr)) + 0xc0000000)))
 //#endif
 

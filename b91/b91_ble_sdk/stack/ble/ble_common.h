@@ -97,7 +97,7 @@ typedef enum {
 
     ///////////////////////// TELINK define status /////////////////////////////
 
-    //LL status
+    // LL status
     LL_ERR_CONNECTION_NOT_ESTABLISH = 0x80,
     LL_ERR_TX_FIFO_NOT_ENOUGH,
     LL_ERR_ENCRYPTION_BUSY,
@@ -108,7 +108,7 @@ typedef enum {
     LL_ERR_CIS_SYNC_FAIL,
     LL_ERR_CIS_DISCONNECT,
 
-    //L2CAP status
+    // L2CAP status
     L2CAP_ERR_INVALID_PARAMETER = 0x90,
     L2CAP_ERR_INVALID_HANDLE,
     L2CAP_ERR_INSUFFICIENT_RESOURCES,
@@ -116,11 +116,11 @@ typedef enum {
     L2CAP_ERR_CONTROL_NOT_READY,
     L2CAP_ERR_PSM_HAVE_ESTABLISH,
 
-    //SMP status
+    // SMP status
     SMP_ERR_INVALID_PARAMETER = 0xA0,
     SMP_ERR_PAIRING_BUSY,
 
-    //GATT status
+    // GATT status
     GATT_ERR_INVALID_PARAMETER = 0xB0,
     GATT_ERR_PREVIOUS_INDICATE_DATA_HAS_NOT_CONFIRMED,
     GATT_ERR_SERVICE_DISCOVERY_TIEMOUT,
@@ -128,18 +128,18 @@ typedef enum {
     GATT_ERR_DATA_PENDING_DUE_TO_SERVICE_DISCOVERY_BUSY,
     GATT_ERR_DATA_LENGTH_EXCEED_MTU_SIZE,
 
-    //GAP status
+    // GAP status
     GAP_ERR_INVALID_PARAMETER = 0xC0,
-    //IAL
+    // IAL
     IAL_ERR_SDU_LEN_EXCEED_SDU_MAX,
     IAL_ERR_LOSS_SDU_INTRVEL,
     IAL_ERR_ISO_TX_FIFO_NOT_ENOUGH,
     IAL_ERR_SDU_BUFF_INVALID,
 
-    //Service status
+    // Service status
     SERVICE_ERR_INVALID_PARAMETER = 0xD0,
 
-    //Application buffer check error code
+    // Application buffer check error code
     LL_ACL_RX_BUF_NO_INIT = 0xE0,
     LL_ACL_RX_BUF_PARAM_INVALID,
     LL_ACL_RX_BUF_SIZE_NOT_MEET_MAX_RX_OCT,
@@ -156,7 +156,7 @@ typedef enum {
 #define BLE_ADDR_INVALID 0xff
 #define BLE_ADDR_LEN     6
 
-//Definition for BLE Common Address Type
+// Definition for BLE Common Address Type
 /*
  *
  *				  |--public  ..................................................... BLE_DEVICE_ADDRESS_PUBLIC

@@ -16,9 +16,14 @@
  *
  *****************************************************************************/
 
+#ifndef B91_CANARY_H
+#define B91_CANARY_H
+
 #include <los_compiler.h>
 
 /* stack protector */
 extern UINTPTR __stack_chk_guard;
 
 LITE_OS_SEC_TEXT_INIT VOID ArchStackGuardInit(VOID);
+
+#endif /* B91_CANARY_H */

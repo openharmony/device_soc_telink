@@ -128,7 +128,6 @@ typedef enum {
     AS_TDO,
     AS_TMS,
     AS_TCK,
-
 } gpio_fuc_e;
 
 /**

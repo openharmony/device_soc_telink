@@ -138,8 +138,8 @@ enum {
 #define reg_spi_trans1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x06 + (i)*BASE_ADDR_DIFF)
 enum {
     FLD_SPI_CMD_RESERVED = BIT(0),
-    FLD_SPI_CMD_TRANS_HWORD = BIT(1),         //1 apb hword transfer
-    FLD_SPI_CMD_TRANS_WORD = BIT(2),          //1 apb word transfer
+    FLD_SPI_CMD_TRANS_HWORD = BIT(1),         // 1 apb hword transfer
+    FLD_SPI_CMD_TRANS_WORD = BIT(2),          // 1 apb word transfer
     FLD_SPI_CMD_RD_DUMMY_4CYCLE = BIT(3),     // 0 8cycle 1 4cycle
     FLD_SPI_CMD_ADDR_AUTO_INCREASE = BIT(4),  // 0 AUTO incease
     FLD_SPI_CMD_DATA_DUAL = BIT(5),           // 0 Single 1 DuaL

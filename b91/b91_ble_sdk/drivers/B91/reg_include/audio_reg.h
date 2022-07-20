@@ -110,17 +110,17 @@ enum {
 
 #define reg_rx_max REG_ADDR16(REG_AUDIO_APB_BASE + 0x2e)
 
-#define reg_th0_h1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x30)  //tx
-#define reg_th0_l1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x32)  //tx
+#define reg_th0_h1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x30)  // tx
+#define reg_th0_l1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x32)  // tx
 
-#define reg_th0_h2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x38)  //tx
-#define reg_th0_l2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x3a)  //tx
+#define reg_th0_h2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x38)  // tx
+#define reg_th0_l2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x3a)  // tx
 
-#define reg_th1_h1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x40)  //rx
-#define reg_th1_l1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x42)  //rx
+#define reg_th1_h1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x40)  // rx
+#define reg_th1_l1 REG_ADDR16(REG_AUDIO_APB_BASE + 0x42)  // rx
 
-#define reg_th1_h2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x48)  //rx
-#define reg_th1_l2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x4a)  //rx
+#define reg_th1_h2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x48)  // rx
+#define reg_th1_l2 REG_ADDR16(REG_AUDIO_APB_BASE + 0x4a)  // rx
 
 #define reg_irq_fifo_state REG_ADDR8(REG_AUDIO_APB_BASE + 0x5c)
 typedef enum {

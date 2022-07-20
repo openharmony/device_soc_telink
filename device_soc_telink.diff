@@ -1,0 +1,35 @@
+diff --git a/b91/BUILD.gn b/b91/BUILD.gn
+index 1b80fb9..83f65d6 100755
+--- a/b91/BUILD.gn
++++ b/b91/BUILD.gn
+@@ -16,7 +16,7 @@
+ import("//build/lite/config/component/lite_component.gni")
+ import("//build/lite/config/subsystem/lite_subsystem.gni")
+ import("//kernel/liteos_m/liteos.gni")
+-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
++import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
+ 
+ #driver_sdk_path = "b91m_ble_sdk"
+ driver_sdk_path = "b91_ble_sdk"
+@@ -36,7 +36,7 @@ config("B91_config") {
+     ]
+ 
+     configs = [
+-        "//drivers/adapter/khdf/liteos_m:hdf_config",
++        "//drivers/hdf_core/adapter/khdf/liteos_m:hdf_config",
+         "$driver_sdk_path:public",
+     ]
+ }
+diff --git a/b91/hdf/BUILD.gn b/b91/hdf/BUILD.gn
+index dd0c85d..6860fdd 100755
+--- a/b91/hdf/BUILD.gn
++++ b/b91/hdf/BUILD.gn
+@@ -13,7 +13,7 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
++import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
+ 
+ hdf_driver("b91_hdf") {
+   sources = [ 
