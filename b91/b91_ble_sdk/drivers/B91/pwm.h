@@ -145,7 +145,6 @@ static inline void pwm_set_clk(unsigned char pwm_clk_div)
 
 static inline void pwm_32k_chn_en(pwm_clk_32k_en_chn_e pwm_32K_en_chn)
 {
-
     reg_pwm_mode32k |= pwm_32K_en_chn;
 }
 
