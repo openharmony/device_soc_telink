@@ -49,7 +49,7 @@ enum {
 
     OTA_DATA_CRC_ERR,  // packet PDU CRC err
 
-    //0x04
+    // 0x04
     OTA_WRITE_FLASH_ERR,  // write OTA data to flash ERR
     OTA_DATA_UNCOMPLETE,  // lost last one or more OTA PDU
     OTA_FLOW_ERR,         // peer device send OTA command or OTA data not in correct flow
