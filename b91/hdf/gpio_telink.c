@@ -27,14 +27,12 @@
 
 #define GPIO_INDEX_MAX ((sizeof(g_GpioIndexToActualPin) / sizeof(gpio_pin_e)))
 
-struct B91GpioCntlr
-{
+struct B91GpioCntlr {
     struct GpioCntlr cntlr;
 
     uint8_t *pinReflectionMap;
 
-    struct
-    {
+    struct {
         bool irq_enabled;
     } * config;
 
@@ -382,7 +380,7 @@ static int32_t GpioDevSetIrq(struct GpioCntlr *cntlr, uint16_t local, uint16_t m
         }
         default: {
             return HDF_ERR_BSP_PLT_API_ERR;
-        };
+        }
     }
 
     return HDF_SUCCESS;

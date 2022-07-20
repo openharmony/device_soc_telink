@@ -43,7 +43,6 @@ u32 fw_crc_init = 0xFFFFFFFF;
  */
 bool flash_fw_check(u32 crc_init_value)
 {
-
     if (!crc_init_value) {
         fw_crc_init = 0xFFFFFFFF;
     } else {
@@ -70,10 +69,9 @@ bool flash_fw_check(u32 crc_init_value)
     u8 fw_tmpdata[FW_READ_SIZE];  ///
     u8 ota_dat[FW_READ_SIZE << 1];
     for (i = 0; i < fw_Block; i++) {  ///Telink bin must align 16 bytes.
-
         flash_read_page((fw_flashAddr + i * FW_READ_SIZE), FW_READ_SIZE, fw_tmpdata);
 
-        //FW_READ_SIZE byte OTA data32  half byteCRC
+        // FW_READ_SIZE byte OTA data32  half byteCRC
         for (int i = 0; i < FW_READ_SIZE; i++) {
             ota_dat[i * 2] = fw_tmpdata[i] & 0x0f;
             ota_dat[i * 2 + 1] = fw_tmpdata[i] >> 4;
@@ -105,10 +103,10 @@ bool flash_fw_check(u32 crc_init_value)
 
 void blt_firmware_completeness_check(void)
 {
-    //user can use flash_fw_check() to check whether firmware in flash is modified.
-    //Advice user to do it only when power on.
-    if (flash_fw_check(0xffffffff)) {  //if retrun 0, flash fw crc check ok. if retrun 1, flash fw crc check fail
-        while (1) {                    //Users can process according to the actual application.
+    // user can use flash_fw_check() to check whether firmware in flash is modified.
+    // Advice user to do it only when power on.
+    if (flash_fw_check(0xffffffff)) {  // if retrun 0, flash fw crc check ok. if retrun 1, flash fw crc check fail
+        while (1) {                    // Users can process according to the actual application.
         }
     }
 }

@@ -110,7 +110,7 @@ UINT32 B91IrqRegister(UINT32 irq_num, HWI_PROC_FUNC handler, HWI_ARG_T irqParam)
 
     UINT32 intSave = LOS_IntLock();
 
-    if (NULL != handler) {
+    if (handler != NULL) {
         irq_handlers[irq_num].pfnHook = handler;
         irq_handlers[irq_num].uwParam = (VOID *)irqParam;
     } else {
