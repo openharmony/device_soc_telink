@@ -112,7 +112,7 @@ void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d)
  * @param[in]  	trx_pin     - the trx pin of s7816.
  * @return     	none.
  */
-void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_pin, s7816_rtx_pin_e rtx_pin)
+void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_pin, s7816_rtx_pin_e trx_pin)
 {
     s7816_set_rst_pin(rst_pin);
     s7816_rst_pin = rst_pin;
@@ -124,7 +124,7 @@ void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_p
     gpio_function_dis(clk_pin);
 
     s7816_rtx_pin =
-        rtx_pin;  // if the trx function set to early,it may trigger interrupt by accident.so we set the function in coldreset.
+        trx_pin;  // if the trx function set to early,it may trigger interrupt by accident.so we set the function in coldreset.
 }
 
 /**

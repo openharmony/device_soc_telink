@@ -30,7 +30,8 @@
  * 				This is currently included in the H file for compatibility with other SDKs.
  *******************************************************************************************************/
 
-// When the watchdog comes back, the Eagle chip does not clear 0x7f[0]. To avoid this problem, this macro definition is added.
+// When the watchdog comes back, the Eagle chip does not clear 0x7f[0].
+// To avoid this problem, this macro definition is added.
 #ifndef WDT_REBOOT_RESET_ANA7F_WORK_AROUND
 #define WDT_REBOOT_RESET_ANA7F_WORK_AROUND 1
 #endif
@@ -146,10 +147,10 @@ typedef enum {
  */
 typedef struct
 {
-    /** suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time*/
-    unsigned short suspend_early_wakeup_time_us; 
-    /** deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time*/
-    unsigned short deep_ret_early_wakeup_time_us;        
+    /** suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time */
+    unsigned short suspend_early_wakeup_time_us;
+    /** deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time */
+    unsigned short deep_ret_early_wakeup_time_us;
     unsigned short deep_early_wakeup_time_us; /**< deep_early_wakeup_time_us = suspend_ret_r_delay_us */
     unsigned short sleep_min_time_us;         /**< sleep_min_time_us = suspend_early_wakeup_time_us + 200 */
 } pm_early_wakeup_time_us_s;

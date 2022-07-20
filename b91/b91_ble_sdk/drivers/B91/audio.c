@@ -847,26 +847,25 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 while (tx_rptr_old == reg_tx_rptr) {
                 }
             }
-            if (match == AUDIO_RATE_EQUAL)  // 48000
-            {
+            if (match == AUDIO_RATE_EQUAL) { // 48000
                 audio_set_i2s_clk(2, 125);  // i2s clk 3.072 M
                 audio_set_i2s_bclk(0);      // 3.072/1 = 3.072M bclk
                 audio_set_lrclk(64, 64);    // bclk/64=48k
             }
 
-            else if (match == AUDIO_RATE_GT_L0)  // 48004
-            {
+            else if (match == AUDIO_RATE_GT_L0) } // 48004
                 audio_set_i2s_clk(3, 169);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(71, 71);
             }
 
-            else if (match == AUDIO_RATE_GT_L1)  // 48012.0
-            {
+            else if (match == AUDIO_RATE_GT_L1) } // 48012.0
                 audio_set_i2s_clk(4, 129);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(124, 124);
-            } else if (match == AUDIO_RATE_LT_L0) {
+            }
+
+            else if (match == AUDIO_RATE_LT_L0) {
                 audio_set_i2s_clk(2, 63);  // 47994.0
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(127, 127);

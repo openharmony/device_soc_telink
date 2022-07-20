@@ -16,9 +16,9 @@
  *
  *****************************************************************************/
 #include <limits.h>
+#include "string.h"
 
 #include "pke.h"
-#include "string.h"
 
 /**
  * @brief       get real bit length of big number a of wordLen words.
