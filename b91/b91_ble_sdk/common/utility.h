@@ -176,17 +176,17 @@ u8 * my_fifo_get (my_fifo_t *f);
 #define		MYFIFO_INIT(name,size,n)			u8 name##_b[size * n]={0};my_fifo_t name = {size,n,0,0, name##_b}
 
 
-#if (1) //DEBUG_USB_LOG_EN
-#define		MYFIFO_INIT_IRAM(name,size,n)		/*__attribute__ ((aligned (4)))*/ __attribute__((section(".retention_data"))) u8 name##_b[size * n]__attribute__((aligned(4)))/*={0}*/;\
+#if (1) // DEBUG_USB_LOG_EN
+#define		MYFIFO_INIT_IRAM(name,size,n)		/* __attribute__ ((aligned (4))) */ __attribute__((section(".retention_data"))) u8 name##_b[size * n]__attribute__((aligned(4))) /* ={0} */;\
 												__attribute__((section(".retention_data"))) my_fifo_t name = {size,n,0,0, name##_b}
 #endif
 
 
-/*LL ACL RX buffer len = maxRxOct + 21, then 16 Byte align*/
+/* LL ACL RX buffer len = maxRxOct + 21, then 16 Byte align */
 #define 	CAL_LL_ACL_RX_FIFO_SIZE(maxRxOct)	(((maxRxOct+21) + 15) / 16 *16)
 
 
-/*LL ACL TX buffer len = maxTxOct + 10, then 16 Byte align*/
+/* LL ACL TX buffer len = maxTxOct + 10, then 16 Byte align */
 #define 	CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct)	(((maxTxOct+10) + 15) / 16 *16)
 
 
