@@ -358,14 +358,14 @@ void audio_rx_dma_config(dma_chn_e chn, unsigned short *dst_addr, unsigned int d
  * @param[in] data_len  -the length of dma size by byte.
  * @return    none
  */
-void audio_rx_dma_add_list_element(dma_chain_config_t *config_addr, dma_chain_config_t *llpointer,
+void audio_rx_dma_add_list_element(dma_chain_config_t *rx_config, dma_chain_config_t *llpointer,
                                    unsigned short *dst_addr, unsigned int data_len)
 {
-    config_addr->dma_chain_ctl = reg_dma_ctrl(audio_rx_dma_chn) | BIT(0);
-    config_addr->dma_chain_src_addr = REG_AUDIO_AHB_BASE;
-    config_addr->dma_chain_dst_addr = (unsigned int)convert_ram_addr_cpu2bus(dst_addr);
-    config_addr->dma_chain_data_len = dma_cal_size(data_len, 4);
-    config_addr->dma_chain_llp_ptr = (unsigned int)convert_ram_addr_cpu2bus(llpointer);
+    rx_config->dma_chain_ctl = reg_dma_ctrl(audio_rx_dma_chn) | BIT(0);
+    rx_config->dma_chain_src_addr = REG_AUDIO_AHB_BASE;
+    rx_config->dma_chain_dst_addr = (unsigned int)convert_ram_addr_cpu2bus(dst_addr);
+    rx_config->dma_chain_data_len = dma_cal_size(data_len, 4);
+    rx_config->dma_chain_llp_ptr = (unsigned int)convert_ram_addr_cpu2bus(llpointer);
 }
 
 /**
@@ -852,25 +852,21 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 audio_set_i2s_bclk(0);      // 3.072/1 = 3.072M bclk
                 audio_set_lrclk(64, 64);    // bclk/64=48k
             }
-
-            else if (match == AUDIO_RATE_GT_L0) } // 48004
+            else if (match == AUDIO_RATE_GT_L0) { // 48004
                 audio_set_i2s_clk(3, 169);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(71, 71);
             }
-
-            else if (match == AUDIO_RATE_GT_L1) } // 48012.0
+            else if (match == AUDIO_RATE_GT_L1) { // 48012.0
                 audio_set_i2s_clk(4, 129);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(124, 124);
             }
-
             else if (match == AUDIO_RATE_LT_L0) {
                 audio_set_i2s_clk(2, 63);  // 47994.0
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(127, 127);
             }
-
             else if (match == AUDIO_RATE_LT_L1) {
                 audio_set_i2s_clk(4, 165);  // 47985.0
                 audio_set_i2s_bclk(0);
@@ -906,6 +902,9 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(160, 160);
             }
+            break;
+
+        default:
             break;
     }
 }
