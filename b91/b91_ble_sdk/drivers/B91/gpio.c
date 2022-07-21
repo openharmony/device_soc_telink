@@ -57,13 +57,9 @@ void gpio_input_en(gpio_pin_e pin)
 
     if (group == GPIO_GROUPA || group == GPIO_GROUPB || group == GPIO_GROUPE) {
         BM_SET(reg_gpio_ie(pin), bit);
-    }
-
-    else if (group == GPIO_GROUPC) {
+    } else if (group == GPIO_GROUPC) {
         analog_write_reg8(areg_gpio_pc_ie, analog_read_reg8(areg_gpio_pc_ie) | bit);
-    }
-
-    else if (group == GPIO_GROUPD) {
+    } else if (group == GPIO_GROUPD) {
         analog_write_reg8(areg_gpio_pd_ie, analog_read_reg8(areg_gpio_pd_ie) | bit);
     }
 }
@@ -80,13 +76,9 @@ void gpio_input_dis(gpio_pin_e pin)
 
     if (group == GPIO_GROUPA || group == GPIO_GROUPB || group == GPIO_GROUPE) {
         BM_CLR(reg_gpio_ie(pin), bit);
-    }
-
-    else if (group == GPIO_GROUPC) {
+    } else if (group == GPIO_GROUPC) {
         analog_write_reg8(areg_gpio_pc_ie, analog_read_reg8(areg_gpio_pc_ie) & (~bit));
-    }
-
-    else if (group == GPIO_GROUPD) {
+    } else if (group == GPIO_GROUPD) {
         analog_write_reg8(areg_gpio_pd_ie, analog_read_reg8(areg_gpio_pd_ie) & (~bit));
     }
 }
@@ -207,6 +199,11 @@ void gpio_shutdown(gpio_pin_e pin)
             analog_write_reg8(areg_gpio_pc_ie, 0);
             analog_write_reg8(areg_gpio_pd_ie, 0);
             reg_gpio_pe_ie = 0x00;
+            break;
+        }
+
+        default: {
+            break;
         }
     }
 }
@@ -254,7 +251,6 @@ void gpio_set_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_type)
  */
 void gpio_set_gpio2risc0_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_type)
 {
-
     switch (trigger_type) {
         case INTR_RISING_EDGE:
             BM_CLR(reg_gpio_pol(pin), pin & 0xff);

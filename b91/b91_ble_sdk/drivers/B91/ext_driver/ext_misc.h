@@ -62,7 +62,6 @@ typedef enum {
 static inline void systimer_irq_enable(void)
 {
     reg_irq_src0 |= BIT(IRQ1_SYSTIMER);
-    // plic_interrupt_enable(IRQ1_SYSTIMER);
 }
 
 /**
@@ -72,7 +71,6 @@ static inline void systimer_irq_enable(void)
 static inline void systimer_irq_disable(void)
 {
     reg_irq_src0 &= ~BIT(IRQ1_SYSTIMER);
-    // plic_interrupt_disable(IRQ1_SYSTIMER);
 }
 
 static inline void systimer_set_irq_mask(void)
@@ -136,7 +134,7 @@ typedef enum {
     SYSCLK_64M = 64,
 } sys_clk_fre_t;
 
-static inline unsigned char clock_get_system_clk()
+static inline unsigned char clock_get_system_clk(void)
 {
     return sys_clk.cclk;
 }
@@ -225,7 +223,6 @@ enum {  // todo
     FLD_IRQ_NPE_COMB_EN,
     FLD_IRQ_PM_TM_EN,
     FLD_IRQ_EOC_EN,
-
 };
 
 /******************************* plic_end ********************************************************************/

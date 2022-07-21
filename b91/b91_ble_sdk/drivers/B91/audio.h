@@ -97,7 +97,6 @@ typedef enum {
     BIT_20_OR_24_MONO_FIFO1,
     BIT_16_STEREO_FIFO0_AND_FIFO1,
     BIT_20_OR_24STEREO_FIFO0_AND_FIFO1,
-
 } audio_out_mode_e;
 
 typedef enum {
@@ -147,8 +146,7 @@ typedef enum {
     I2S_DATA_INVERT_EN,
 } audio_data_invert_e;
 
-typedef struct
-{
+typedef struct {
     unsigned char audio_in_mode;
     unsigned char audio_out_mode;
     unsigned char i2s_data_select;
@@ -301,7 +299,6 @@ typedef enum {
 } codec_out_path_digital_gain_e;
 
 typedef enum {
-
     CODEC_OUT_A_GAIN_12_DB,
     CODEC_OUT_A_GAIN_11_DB,
     CODEC_OUT_A_GAIN_10_DB,

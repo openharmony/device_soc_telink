@@ -72,12 +72,10 @@ typedef enum {
 } i2c_buff_clr_e;
 
 typedef enum {
-
     I2C_TXDONE_STATUS = BIT(0),
     I2C_TX_BUF_STATUS = BIT(1),
     I2C_RXDONE_STATUS = BIT(2),
     I2C_RX_BUF_STATUS = BIT(3),
-
 } i2c_irq_status_e;
 
 typedef enum {

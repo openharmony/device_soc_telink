@@ -71,7 +71,6 @@ typedef enum {
     DMA_REQ_AUDIO0_RX,
     DMA_REQ_AUDIO1_TX,
     DMA_REQ_AUDIO1_RX,
-
 } dma_req_sel_e;
 
 typedef enum {
@@ -245,7 +244,7 @@ static inline void dma_clr_abt_irq_status(dma_irq_chn_e abt_chn)
  * @param[in] chn - DMA channel
  * @param[in] size_byte  - the address of dma tx/rx size .The maximum transmission length of DMA is 0xFFFFFC bytes  and cannot exceed this length.
  * @param[in] byte_width -  dma   tx/rx  width
- * @return    none 
+ * @return    none
  */
 static inline void dma_set_size(dma_chn_e chn, unsigned int size_byte, dma_transfer_width_e byte_width)
 {

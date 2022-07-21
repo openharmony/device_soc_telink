@@ -159,7 +159,7 @@ typedef enum {
  */
 typedef enum {
     CCLK_DIV1_TO_HCLK = 1,
-    CCLK_DIV2_TO_HCLK = 2, /*< can not use in A0. if use reboot when hclk = 1/2cclk will cause problem */
+    CCLK_DIV2_TO_HCLK = 2, /* can not use in A0. if use reboot when hclk = 1/2cclk will cause problem */
 } sys_cclk_div_to_hclk_e;
 
 /**
@@ -168,7 +168,6 @@ typedef enum {
 typedef enum {
     RC_24M_CAL_DISABLE = 0,
     RC_24M_CAL_ENABLE,
-
 } rc_24M_cal_e;
 
 /**********************************************************************************************************************

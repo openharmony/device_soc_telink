@@ -86,7 +86,6 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
         if (0xff == g_chip_version) {
             delay_ms(1000);
         } else  // **Note that the clock is 24M crystal oscillator. PCLK is 24MHZ
-        {
             // 2.set PD0 as pwm output
             unsigned char pwm_clk = read_reg8(0x1401d8);      // **condition: PCLK is 24MHZ,PCLK = HCLK
             write_reg8(0x1401d8, ((pwm_clk & 0xfc) | 0x01));  // PCLK = 12M
@@ -111,7 +110,7 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
             delay_ms(10);
 
             // 4.Xtal 32k output
-            analog_write_reg8(0x03, 0x4f);  //<7:6>current select
+            analog_write_reg8(0x03, 0x4f);  // <7:6>current select
 
             // 5.Recover PD0 as Xtal pin
             write_reg8(0x1401d8, pwm_clk);
@@ -258,7 +257,6 @@ void clock_init(sys_pll_clk_e pll, sys_clock_src_e src, sys_pll_div_to_cclk_e cc
                 sys_cclk_div_to_hclk_e hclk_div, sys_hclk_div_to_pclk_e pclk_div,
                 sys_pll_div_to_mspi_clk_e mspi_clk_div)
 {
-
     // pll clk
     analog_write_reg8(0x80, (analog_read_reg8(0x80) & 0xe0) | ((pll >> 2) & 0x1f));
     analog_write_reg8(0x09, (analog_read_reg8(0x09) & 0xf3) | ((pll & 0x03) << 2));

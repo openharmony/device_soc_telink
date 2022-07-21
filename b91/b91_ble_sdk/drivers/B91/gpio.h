@@ -108,7 +108,6 @@ typedef enum {
     GPIO_PF1 = GPIO_GROUPF | BIT(1),
     GPIO_PF2 = GPIO_GROUPF | BIT(2),
     GPIO_PF3 = GPIO_GROUPF | BIT(3),
-
 } gpio_pin_e;
 
 /**

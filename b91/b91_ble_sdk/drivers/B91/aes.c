@@ -96,7 +96,6 @@ void aes_get_result(unsigned char *result)
  */
 int aes_encrypt(unsigned char *key, unsigned char *plaintext, unsigned char *result)
 {
-
     // set the key
     aes_set_key_data(key, plaintext);
 
