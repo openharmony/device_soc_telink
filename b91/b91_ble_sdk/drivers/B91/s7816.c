@@ -133,7 +133,7 @@ void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_p
  * @return     	none.
  * @note        extra time is needed for initial-atr after the function.
  */
-void s7816_coldreset()
+void s7816_coldreset(void)
 {
     gpio_set_high_level(s7816_vcc_pin);
     delay_us(20);                // wait for the vcc  stable.
@@ -148,7 +148,7 @@ void s7816_coldreset()
  * @param[in]  	none.
  * @return     	none.
  */
-void s7816_release_trig()
+void s7816_release_trig(void)
 {
     gpio_set_low_level(s7816_rst_pin);
     reg_7816_clk_div &= (BIT(7) - 1);
@@ -161,7 +161,7 @@ void s7816_release_trig()
  * @return     	none.
  * @note        the warmreset is required after the IC-CARD active,extra time is needed for initial-atr after the function.
  */
-void s7816_warmreset()
+void s7816_warmreset(void)
 {
     gpio_set_low_level(s7816_rst_pin);
     delay_us(s7816_rst_time);

@@ -111,8 +111,7 @@ typedef enum {
     SPI_MODE_WR_DUMMY_RD = 5,  // write_dummy_read
 } spi_wr_rd_tans_mode_e;
 
-typedef struct
-{
+typedef struct {
     hspi_single_dual_quad_mode_e hspi_io_mode;  // set spi interface mode
     unsigned char hspi_dummy_cnt;               // set dummy cnt if tans_mode have dummy .
     unsigned char hspi_cmd_en;                  // enable cmd phase
@@ -122,8 +121,7 @@ typedef struct
     unsigned char hspi_addr_fmt_en;             // if addr_en enable addr fmt will follow the interface (dual/quad)
 } hspi_config_t;
 
-typedef struct
-{
+typedef struct {
     pspi_single_dual_mode_e pspi_io_mode;  // set spi interface mode
     unsigned char pspi_dummy_cnt;          // set dummy cnt if tans_mode have dummy .
     _Bool pspi_cmd_en;                     // enable cmd phase
@@ -150,8 +148,7 @@ typedef enum {
 
     SPI_SLAVE_READ_DATA_AND_ADDR_DUL_4CYC_CMD =
         FLD_SPI_CMD_RD_EN | FLD_SPI_CMD_ADDR_DUAL | FLD_SPI_CMD_DATA_DUAL | FLD_SPI_CMD_RD_DUMMY_4CYCLE,
-
-} spi_slave_read_cmd_e;
+ spi_slave_read_cmd_e;
 
 typedef enum {
     SPI_READ_STATUS_SINGLE_CMD = 0x05,
@@ -187,7 +184,6 @@ typedef enum {
     PSRAM_REST_CMD = 0x99,
     PSRAM_BURST_LENGTH_TOGGLE_CMD = 0xC0,
     PSRAM_READ_ID_CMD = 0x95,
-
 } spi_xip_cmd_e;
 
 /**
@@ -249,8 +245,7 @@ typedef enum {
     HSPI_NONE_PIN = 0xfff,
 } hspi_pin_def_e;
 
-typedef struct
-{
+typedef struct {
     hspi_clk_pin_def_e hspi_clk_pin;
     hspi_csn_pin_def_e hspi_csn_pin;
     hspi_mosi_io0_pin_def_e hspi_mosi_io0_pin;
@@ -302,8 +297,7 @@ typedef enum {
     PSPI_NONE_PIN = 0xfff,
 } pspi_pin_def_e;
 
-typedef struct
-{
+typedef struct {
     pspi_clk_pin_def_e pspi_clk_pin;
     pspi_csn_pin_def_e pspi_csn_pin;
     pspi_mosi_io0_pin_def_e pspi_mosi_io0_pin;
@@ -423,7 +417,6 @@ static inline void spi_cmd_en(spi_sel_e spi_sel)
  */
 static inline void spi_cmd_dis(spi_sel_e spi_sel)
 {
-
     BM_CLR(reg_spi_mode2(spi_sel), FLD_SPI_CMD_EN);
 }
 
@@ -431,7 +424,7 @@ static inline void spi_cmd_dis(spi_sel_e spi_sel)
  * @brief 	This function servers enable cmd  format,the format of cmd phase is the same as the data phase(Dual/Quad).
  * @return 	none
  */
-static inline void hspi_cmd_fmt_en()
+static inline void hspi_cmd_fmt_en(void)
 {
     BM_SET(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_CMD_FMT);
 }
@@ -440,7 +433,7 @@ static inline void hspi_cmd_fmt_en()
  * @brief 	This function servers disable cmd  format.
  * @return 	none
  */
-static inline void hspi_cmd_fmt_dis()
+static inline void hspi_cmd_fmt_dis(void)
 {
     BM_CLR(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_CMD_FMT);
 }
@@ -449,7 +442,7 @@ static inline void hspi_cmd_fmt_dis()
  * @brief 	This function servers to enable hspi quad mode.
  * @return 	none
  */
-static inline void hspi_quad_mode_en()
+static inline void hspi_quad_mode_en(void)
 {
     BM_SET(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_QUAD);
 }
@@ -1001,7 +994,7 @@ void spi_set_dual_mode(spi_sel_e spi_sel);
  * @brief	This function servers to set quad mode.
  * @return	none
  */
-void hspi_set_quad_mode();
+void hspi_set_quad_mode(void);
 
 /**
  * @brief     	This function servers to set 3line mode.

@@ -43,17 +43,8 @@ enum {
     // 0x00
     OTA_SUCCESS = 0,          // success
     OTA_DATA_PACKET_SEQ_ERR,  // OTA data packet sequence number error: repeated OTA PDU or lost some OTA PDU
-<<<<<<< HEAD
-
-    // invalid OTA packet: 1. invalid OTA command; 2. addr_index out of range; 3.not standard OTA PDU length
-    OTA_PACKET_INVALID,
-
-||||||| f822a35
-    OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command; 2. addr_index out of range; 3.not standard OTA PDU length
-=======
     OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command;
                          //2. addr_index out of range; 3.not standard OTA PDU length
->>>>>>> dmytro-kashkarov/my_upstream/feature/OPENH-102
     OTA_DATA_CRC_ERR,  // packet PDU CRC err
 
     // 0x04
