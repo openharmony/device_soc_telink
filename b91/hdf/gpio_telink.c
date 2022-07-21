@@ -34,7 +34,7 @@ struct B91GpioCntlr {
 
     struct {
         bool irq_enabled;
-    } * config;
+    }* config;
 
     uint8_t pinNum;
 };
@@ -147,7 +147,6 @@ _attribute_ram_code_ static void GpioIrqHandler(void)
 
     for (size_t i = 0; i < pB91GpioCntlr->pinNum; ++i) {
         if (pB91GpioCntlr->config[i].irq_enabled) {
-            // TODO: Implement finding GPIO number which triggered IRQ
             GpioCntlrIrqCallback(&pB91GpioCntlr->cntlr, i);
         }
     }

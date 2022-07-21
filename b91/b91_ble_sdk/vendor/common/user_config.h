@@ -21,6 +21,9 @@
 #ifndef USER_CONFIG_H
 #define USER_CONFIG_H
 
+#ifndef B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H
+#define B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H
+
 #if (__PROJECT_B91_BLE_SAMPLE__)
 #include "../B91_ble_sample/app_config.h"
 #elif (__PROJECT_B91_MODULE__)
@@ -32,5 +35,7 @@
 #else
 
 #endif
+
+#endif  // B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H
 
 #endif  // USER_CONFIG_H

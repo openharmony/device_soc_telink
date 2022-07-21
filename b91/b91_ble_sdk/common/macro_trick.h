@@ -39,21 +39,6 @@
 
 #define MACRO_GLUE(x, y)  x y
 #define VARARG(base, ...) MACRO_GLUE(MACRO_CHOOSE_HELPER(base, COUNT_ARGS(__VA_ARGS__)), (__VA_ARGS__))
-// usage
-/*
-	#define  fun1(a)		xxxx
-	#define  fun2(a, b)		xxxx
-	#define  fun3(a, b, c)	xxxx
-
-	#define fun(...)		VARARG(fun,  __VA_ARGS__)
-
-	int main(){
-		fun(1);			// calls fun1(1)
-		fun(1, 2);			// calls fun2(1,2)
-		fun(1, 2, 3);		// calls fun3(1,2,3)
-	}
-
-*/
 
 #else
 // a concise version that only works with GCC
@@ -67,7 +52,6 @@
 #define VARARG(base, ...)                                              VARARG_IMPL(base, VA_NARGS(__VA_ARGS__), __VA_ARGS__)
 
 #endif
-// #define NUMARGS(...)  (sizeof((int[]){__VA_ARGS__})/sizeof(int))
 
 /////////////////  end of variadic macro  //////////////////////
 

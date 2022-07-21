@@ -38,19 +38,19 @@ int blt_soft_timer_sort(void)
 {
     if (blt_timer.currentNum < 1 || blt_timer.currentNum > MAX_TIMER_NUM) {
         return 0;
-    } else {
-        // BubbleSort
-        int n = blt_timer.currentNum;
-        u8 temp[sizeof(blt_time_event_t)];
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (TIME_COMPARE_BIG(blt_timer.timer[j].t, blt_timer.timer[j + 1].t)) {
-                    // swap
-                    memcpy(temp, &blt_timer.timer[j], sizeof(blt_time_event_t));
-                    memcpy(&blt_timer.timer[j], &blt_timer.timer[j + 1], sizeof(blt_time_event_t));
-                    memcpy(&blt_timer.timer[j + 1], temp, sizeof(blt_time_event_t));
-                }
+    }
+    
+    // BubbleSort
+    int n = blt_timer.currentNum;
+    u8 temp[sizeof(blt_time_event_t)];
+    
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (TIME_COMPARE_BIG(blt_timer.timer[j].t, blt_timer.timer[j + 1].t)) {
+                // swap
+                memcpy(temp, &blt_timer.timer[j], sizeof(blt_time_event_t));
+                memcpy(&blt_timer.timer[j], &blt_timer.timer[j + 1], sizeof(blt_time_event_t));
+                memcpy(&blt_timer.timer[j + 1], temp, sizeof(blt_time_event_t));
             }
         }
     }

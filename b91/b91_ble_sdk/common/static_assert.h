@@ -18,11 +18,8 @@
 
 #pragma once
 
-// static assertion. evaluate at compile time. It is very useful like,  STATIC_ASSERT(sizeof(a) == 5);
-
-// #define STATIC_ASSERT(expr)   			{ char static_assertion[(expr) ? 1 : -1]; ((void) static_assertion); }	
-
-// (void) array;  to remove compiler unused variable warning
+#ifndef B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
+#define B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
 
 // more complicated version canbe used anywhere in the source
 #define STATIC_ASSERT_M(COND, MSG) typedef char static_assertion_##MSG[(!!(COND)) * 2 - 1]
@@ -36,3 +33,5 @@
 #define STATIC_ASSERT_EVEN(expr)    STATIC_ASSERT(!((expr)&1))
 #define STATIC_ASSERT_ODD(expr)     STATIC_ASSERT(((expr)&1))
 #define STATIC_ASSERT_INT_DIV(a, b) STATIC_ASSERT((a) / (b) * (b) == (a))
+
+#endif  // B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
