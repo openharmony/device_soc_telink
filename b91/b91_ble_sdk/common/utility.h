@@ -88,15 +88,17 @@
 #define COMPARE(x, y) 			(((x) > (y)) - ((x) < (y)))
 #define SIGN(x) 				COMPARE(x, 0)
 
-// better than xor swap:  http://stackoverflow.com/questions/3912699/why-swap-with-xor-works-fine-in-c-but-in-java-doesnt-some-puzzle
+// better than xor swap:
+// http://stackoverflow.com/questions/3912699/why-swap-with-xor-works-fine-in-c-but-in-java-doesnt-some-puzzle
 #define SWAP(x, y, T) 			do { T tmp = (x); (x) = (y); (y) = tmp; } while (0)
 #define SORT2(a, b, T) 			do { if ((a) > (b)) SWAP((a), (b), T); } while (0)
 
 #define foreach(i, n) 			for (int (i) = 0; (i) < ((n)); ++(i))
 #define foreach_range(i, s, e) 	for (int (i) = (s); (i) < (e); ++(i))
 #define foreach_arr(i, arr) 	for (int (i) = 0; (i) < ARRAY_SIZE(arr); ++(i))
-//  round robbin foreach,   ´ÓÉÏÒ»¸öÖ¸¶¨µÄµã¿ªÊ¼£¬±éÀú,  h ÊÇÒ»¸ö¾²Ì¬±äÁ¿»òÈ«¾Ö±äÁ¿£¬Òª¼Ç×¡ÉÏÒ»´ÎµÄÎ»ÖÃ¡£h ³õÊ¼ÖµÊÇn !!!
-#define foreach_hint(i, n, h) 	for (int (i) = 0, ++(h), (h) = (h) < (n) ? (h) : 0; (i) < (n); ++(h), (h) = (h) < (n) ? (h) : 0)
+//  round robbin foreach
+#define foreach_hint(i, n, h)                                                                       \
+    for (int(i) = 0, ++(h), (h) = (h) < (n) ? (h) : 0; (i) < (n); ++(h), (h) = (h) < (n) ? (h) : 0)
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(a) 			(sizeof(a) / sizeof(*(a)))
@@ -171,10 +173,10 @@ u8* my_fifo_get (my_fifo_t *f);
 
 #define		MYFIFO_INIT(name, size, n)			u8 name##_b[(size) * (n)] = {0}; my_fifo_t (name) = {(size), (n), 0, 0, name##_b}
 
-
 #if (1) // DEBUG_USB_LOG_EN
-#define		MYFIFO_INIT_IRAM(name, size, n)		/* __attribute__ ((aligned (4))) */ __attribute__((section(".retention_data"))) u8 name##_b[(size) * (n)]__attribute__((aligned(4))) /* = {0} */; \
-                                                __attribute__((section(".retention_data"))) my_fifo_t name = {size, n, 0, 0, name##_b}
+#define		MYFIFO_INIT_IRAM(name, size, n)                                                             \
+    __attribute__((section(".retention_data"))) u8 name##_b[(size) * (n)]__attribute__((aligned(4)));   \
+    __attribute__((section(".retention_data"))) my_fifo_t name = { size, n, 0, 0, name##_b }
 #endif
 
 

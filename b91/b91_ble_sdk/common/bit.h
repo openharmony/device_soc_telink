@@ -39,7 +39,7 @@
 #define BIT_RNG(s, e)  					(BIT_MASK_LEN((e)-(s)+1) << (s))
 
 #define BM_MASK_V(x, mask)        ((x) | (mask))
-#define BM_CLR_MASK_V(x, mask)    ( (x) & ~(mask) )
+#define BM_CLR_MASK_V(x, mask)    ((x) & ~(mask))
 
 #define BM_SET(x, mask)         ((x) |= (mask))
 #define BM_CLR(x, mask)       	((x) &= ~(mask))
@@ -150,8 +150,6 @@ MV(m3, v3) | MV(m4, v4) | MV(m5, v5) | MV(m6, v6) | MV(m7, v7) | MV(m8, v8))
 
 #define SET_FLD_V(...) 					VARARG(SET_FLD_V, __VA_ARGS__)
 
-
-// ¸úÉÏÒ»¸öºê²»Ò»Ñù£¬Õâ¸ö±íÊ¾Ö±½Ó¸³Öµ
 #define SET_FLD_FULL_V3(x, m, v)											((x) = MASK_VAL2(m, v))
 #define SET_FLD_FULL_V5(x, m1, v1, m2, v2)  								((x) = MASK_VAL4(m1, v1, m2, v2))
 #define SET_FLD_FULL_V7(x, m1, v1, m2, v2, m3, v3)  						((x) = MASK_VAL6(m1, v1, m2, v2, m3, v3))
@@ -164,7 +162,7 @@ v3, m4, v4, m5, v5, m6, v6))
 #define SET_FLD_FULL_V(...) 			VARARG(SET_FLD_FULL_V, __VA_ARGS__)
 
 ////////////////////////////////////////////////////////////////////////
-#define BIT8_IFY(y)      (\
+#define BIT8_IFY(y)      (                                                                      \
 							(((y) & 0x0000000FLU) ? 1 : 0) + (((y) & 0x000000F0LU) ? 2 : 0) +   \
 							(((y) & 0x00000F00LU) ? 4 : 0) + (((y) & 0x0000F000LU) ? 8 : 0) +   \
 							(((y) & 0x000F0000LU) ? 16 : 0) + (((y) & 0x00F00000LU) ? 32 : 0) + \

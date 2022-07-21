@@ -44,8 +44,7 @@ int blt_soft_timer_sort(void)
     int n = blt_timer.currentNum;
     u8 temp[sizeof(blt_time_event_t)];
     
-    for (int i = 0; i < n - 1; i++)
-    {
+    for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (TIME_COMPARE_BIG(blt_timer.timer[j].t, blt_timer.timer[j + 1].t)) {
                 // swap
