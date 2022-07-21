@@ -20,7 +20,7 @@
 
 // static assertion. evaluate at compile time. It is very useful like,  STATIC_ASSERT(sizeof(a) == 5);
 
-// #define STATIC_ASSERT(expr)   			{ char static_assertion[(expr) ? 1 : -1]; ((void) static_assertion); }	
+// #define STATIC_ASSERT(expr)   			{ char static_assertion[(expr) ? 1 : -1]; ((void) static_assertion); }
 
 // (void) array;  to remove compiler unused variable warning
 

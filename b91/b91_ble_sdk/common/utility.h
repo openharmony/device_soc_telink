@@ -20,27 +20,27 @@
 
 #define abs(a)   (((a)>0)?((a)):(-(a)))
 
-#define cat2(i,j)       i##j
-#define cat3(i,j,k)     i##j##k
+#define cat2(i, j)       i##j
+#define cat3(i, j, k)     i##j##k
 
 #ifndef min
-#define min(a,b)	((a) < (b) ? (a) : (b))
+#define min(a, b)	((a) < (b) ? (a) : (b))
 #endif
 
 #ifndef min2
-#define min2(a,b)	((a) < (b) ? (a) : (b))
+#define min2(a, b)	((a) < (b) ? (a) : (b))
 #endif
 
 #ifndef min3
-#define min3(a,b,c)	min2(min2(a, b), c)
+#define min3(a, b, c)	min2(min2(a, b), c)
 #endif
 
 #ifndef max2
-#define max2(a,b)	((a) > (b) ? (a): (b))
+#define max2(a, b)	((a) > (b) ? (a): (b))
 #endif
 
 #ifndef max3
-#define max3(a,b,c)	max2(max2(a, b), c)
+#define max3(a, b, c)	max2(max2(a, b), c)
 #endif
 
 #define OFFSETOF(s, m) 			((unsigned int) &((s *)0)->m)
@@ -64,20 +64,20 @@
 #define U16_DEC(addr)			U16_GET(addr) -= 1
 #define U32_DEC(addr)			U32_GET(addr) -= 1
 
-#define U8_CPY(addr1,addr2)		U8_SET(addr1, U8_GET(addr2))
-#define U16_CPY(addr1,addr2)	U16_SET(addr1, U16_GET(addr2))
-#define U32_CPY(addr1,addr2)	U32_SET(addr1, U32_GET(addr2))
+#define U8_CPY(addr1, addr2)		U8_SET(addr1, U8_GET(addr2))
+#define U16_CPY(addr1, addr2)	U16_SET(addr1, U16_GET(addr2))
+#define U32_CPY(addr1, addr2)	U32_SET(addr1, U32_GET(addr2))
 
-#define MAKE_U16(h,l) 			((unsigned short)(((h) << 8) | (l)))
-#define MAKE_U24(a,b,c)			((unsigned int)(((a) << 16) | ((b) << 8) | (c)))
-#define MAKE_U32(a,b,c,d)		((unsigned int)(((a) << 24) | ((b) << 16) | ((c) << 8) | (d)))
+#define MAKE_U16(h, l) 			((unsigned short)(((h) << 8) | (l)))
+#define MAKE_U24(a, b, c)			((unsigned int)(((a) << 16) | ((b) << 8) | (c)))
+#define MAKE_U32(a, b, c, d)		((unsigned int)(((a) << 24) | ((b) << 16) | ((c) << 8) | (d)))
 
 #define BOUND(x, l, m)			((x) < (l) ? (l) : ((x) > (m) ? (m) : (x)))
 #define SET_BOUND(x, l, m)		((x) = BOUND(x, l, m))
-#define BOUND_INC(x, m)			do{++(x); (x) = (x) < (m) ? (x) :0;} while(0)
+#define BOUND_INC(x, m)			do{++(x); (x) = (x) < (m) ? (x) :0;} while (0)
 #define BOUND_INC_POW2(x, m)	do{								\
-									(x) = ((x)+1) & (m-1);		\
-								}while(0)
+                                    (x) = ((x)+1) & (m-1);		\
+								} while (0)
 
 #define IS_POWER_OF_2(x)		(!(x & (x-1)))
 #define IS_LITTLE_ENDIAN 		(*(unsigned short*)"\0\xff" > 0x100)
@@ -89,20 +89,20 @@
 #define SIGN(x) 				COMPARE(x, 0)
 
 // better than xor swap:  http://stackoverflow.com/questions/3912699/why-swap-with-xor-works-fine-in-c-but-in-java-doesnt-some-puzzle
-#define SWAP(x, y, T) 			do { T tmp = (x); (x) = (y); (y) = tmp; } while(0)
+#define SWAP(x, y, T) 			do { T tmp = (x); (x) = (y); (y) = tmp; } while (0)
 #define SORT2(a, b, T) 			do { if ((a) > (b)) SWAP((a), (b), T); } while (0)
 
-#define foreach(i, n) 			for(int i = 0; i < (n); ++i)
-#define foreach_range(i, s, e) 	for(int i = (s); i < (e); ++i)
-#define foreach_arr(i, arr) 	for(int i = 0; i < ARRAY_SIZE(arr); ++i)
+#define foreach(i, n) 			for (int i = 0; i < (n); ++i)
+#define foreach_range(i, s, e) 	for (int i = (s); i < (e); ++i)
+#define foreach_arr(i, arr) 	for (int i = 0; i < ARRAY_SIZE(arr); ++i)
 //  round robbin foreach,   ´ÓÉÏÒ»¸öÖ¸¶¨µÄµã¿ªÊ¼£¬±éÀú,  h ÊÇÒ»¸ö¾²Ì¬±äÁ¿»òÈ«¾Ö±äÁ¿£¬Òª¼Ç×¡ÉÏÒ»´ÎµÄÎ»ÖÃ¡£h ³õÊ¼ÖµÊÇn !!!
-#define foreach_hint(i, n, h) 	for(int i = 0, ++h, h=h<n?h:0; i < n; ++h, h=h<n?h:0)
+#define foreach_hint(i, n, h) 	for (int i = 0, ++h, h = h < n ? h : 0; i < n; ++h, h = h < n ? h : 0)
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(a) 			(sizeof(a) / sizeof(*a))
 #endif // ARRAY_SIZE
 
-#define everyN(i, n) 			++(i); (i)=((i) < N ? (i) : 0); if(0 == (i))
+#define everyN(i, n) 			++(i); (i)=((i) < N ? (i) : 0); if (0 == (i))
 
 #define U16_HI(a)    (((a) >> 8) & 0xFF)
 #define U16_LO(a)    ((a) & 0xFF)
@@ -130,7 +130,7 @@ void flip_addr(u8 *dest, u8 *src);
 
 static inline u64 mul64_32x32(u32 u, u32 v)
 {
-#if 0 //Eagle HW support this process
+#if 0 // Eagle HW support this process
     u32  u0,   v0,   w0;
     u32  u1,   v1,   w1,   w2,   t;
     u32  x, y;
@@ -145,11 +145,10 @@ static inline u64 mul64_32x32(u32 u, u32 v)
     w2   =   t >> 16;
     w1   =   u0 * v1 + w1;
 
-    //x is high 32 bits, y is low 32 bits
+    // x is high 32 bits, y is low 32 bits
 
     x = u1 * v1 + w2 + (w1 >> 16);
     y = u * v;
-
 
     return(((u64)x << 32) | y);
 #else
@@ -158,11 +157,11 @@ static inline u64 mul64_32x32(u32 u, u32 v)
 }
 
 typedef	struct {
-	u32		size;
-	u16		num;
-	u8		wptr;
-	u8		rptr;
-	u8*		p;
+    u32		size;
+    u16		num;
+    u8		wptr;
+    u8		rptr;
+    u8*		p;
 }	my_fifo_t;
 
 void my_fifo_init (my_fifo_t *f, int s, u8 n, u8 *p);
@@ -173,12 +172,12 @@ int my_fifo_push (my_fifo_t *f, u8 *p, int n);
 void my_fifo_pop (my_fifo_t *f);
 u8 * my_fifo_get (my_fifo_t *f);
 
-#define		MYFIFO_INIT(name,size,n)			u8 name##_b[size * n]={0};my_fifo_t name = {size,n,0,0, name##_b}
+#define		MYFIFO_INIT(name, size, n)			u8 name##_b[size * n] = {0}; my_fifo_t name = {size, n, 0, 0, name##_b}
 
 
 #if (1) // DEBUG_USB_LOG_EN
-#define		MYFIFO_INIT_IRAM(name,size,n)		/* __attribute__ ((aligned (4))) */ __attribute__((section(".retention_data"))) u8 name##_b[size * n]__attribute__((aligned(4))) /* ={0} */;\
-												__attribute__((section(".retention_data"))) my_fifo_t name = {size,n,0,0, name##_b}
+#define		MYFIFO_INIT_IRAM(name,size,n)		/* __attribute__ ((aligned (4))) */ __attribute__((section(".retention_data"))) u8 name##_b[size * n]__attribute__((aligned(4))) /* ={0} */; \
+												__attribute__((section(".retention_data"))) my_fifo_t name = {size, n, 0, 0, name##_b}
 #endif
 
 
