@@ -72,9 +72,9 @@ typedef struct {
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  // LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
-    u8 advA[6];  // address
+    u8 advA[6];         // address
     u8 data[31];
 } rf_packet_adv_t;
 
@@ -87,7 +87,7 @@ typedef struct {
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  // LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
     u8 scanA[6];
     u8 advA[6];
@@ -102,10 +102,10 @@ typedef struct {
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  // LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
-    u8 advA[6];   // address
-    u8 data[31];  // 0-31 byte
+    u8 advA[6];         // address
+    u8 data[31];        // 0-31 byte
 } rf_packet_scan_rsp_t;
 
 typedef struct {
@@ -117,10 +117,10 @@ typedef struct {
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;         // LEN(6)_RFU(2)
-    u8 initA[6];       // scanA
+    u8 rf_len;          // LEN(6)_RFU(2)
+    u8 initA[6];        // scanA
     u8 advA[6];
-    u8 accessCode[4];  // access code
+    u8 accessCode[4];   // access code
     u8 crcinit[3];
     u8 winSize;
     u16 winOffset;
@@ -128,7 +128,7 @@ typedef struct {
     u16 latency;
     u16 timeout;
     u8 chm[5];
-    u8 hop;  // sca(3)_hop(5)
+    u8 hop;             // sca(3)_hop(5)
 } rf_packet_connect_t;
 
 typedef struct {
@@ -140,10 +140,10 @@ typedef struct {
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;    // LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
     u8 scanA[6];
     u8 advA[6];
-    u8 aa[4];     // access code
+    u8 aa[4];           // access code
     u8 crcinit[3];
     u8 wsize;
     u16 woffset;
@@ -151,7 +151,7 @@ typedef struct {
     u16 latency;
     u16 timeout;
     u8 chm[5];
-    u8 hop;  // sca(3)_hop(5)
+    u8 hop;             // sca(3)_hop(5)
 } rf_packet_ll_init_t;
 
 typedef struct {
@@ -270,23 +270,22 @@ typedef struct {
     u16 maxPduM2S;
     u16 maxPduS2M;
     u8 nse;
-    u8 subIntvl[3];  // unit: uS
+    u8 subIntvl[3];     // unit: uS
 
     u8 bnM2S : 4;
     u8 bnS2M : 4;
     u8 ftM2S;
     u8 ftS2M;
-    u16 isoIntvl;  // unit: 1.25 mS
+    u16 isoIntvl;       // unit: 1.25 mS
 
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
-    u16 connEventCnt;  // similar to instant
-
+    u16 connEventCnt;   // similar to instant
 } rf_packet_ll_cis_req_t;
 
 typedef struct {
-    u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  // LEN(6)_RFU(2)
+    u8 type;            // RA(1)_TA(1)_RFU(2)_TYPE(4)
+    u8 rf_len;          // LEN(6)_RFU(2)
     u8 opcode;
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
@@ -294,8 +293,8 @@ typedef struct {
 } rf_packet_ll_cis_rsp_t;
 
 typedef struct {
-    u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  // LEN(6)_RFU(2)
+    u8 type;            // RA(1)_TA(1)_RFU(2)_TYPE(4)
+    u8 rf_len;          // LEN(6)_RFU(2)
     u8 opcode;
     u32 cisAccessAddr;  // Access Address of the CIS
     u8 cisOffset[3];
@@ -521,7 +520,6 @@ typedef struct {
     u8 hh;
 
     u8 dat[20];
-
 } rf_packet_att_data_t;
 
 typedef struct {

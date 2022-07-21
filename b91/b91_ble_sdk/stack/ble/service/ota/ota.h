@@ -43,7 +43,8 @@ enum {
     // 0x00
     OTA_SUCCESS = 0,          // success
     OTA_DATA_PACKET_SEQ_ERR,  // OTA data packet sequence number error: repeated OTA PDU or lost some OTA PDU
-    OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command; 2. addr_index out of range; 3.not standard OTA PDU length
+    OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command;
+                         //2. addr_index out of range; 3.not standard OTA PDU length
     OTA_DATA_CRC_ERR,  // packet PDU CRC err
 
     // 0x04
@@ -61,7 +62,8 @@ enum {
     // 0x0C
     OTA_DATA_PACKET_TIMEOUT,  // time interval between two consequent packet exceed a value(user can adjust this value)
     OTA_TIMEOUT,              // OTA flow total timeout
-    OTA_FAIL_DUE_TO_CONNECTION_TERMIANTE,  // OTA fail due to current connection terminate(maybe connection timeout or local/peer device terminate connection)
+    OTA_FAIL_DUE_TO_CONNECTION_TERMIANTE,  // OTA fail due to current connection terminate
+                                           //(maybe connection timeout or local/peer device terminate connection)
 };
 
 /**
@@ -112,7 +114,8 @@ typedef struct {
 typedef struct {
     u16 ota_cmd;
     u16 version_num;
-    u8 version_accept;  // 1: accept firmware update; 0: reject firmware update(version compare enable, and compare result: fail)
+    u8 version_accept;  // 1: accept firmware update;
+                        // 0: reject firmware update(version compare enable, and compare result: fail)
 } ota_versionRsp_t;
 
 typedef struct {

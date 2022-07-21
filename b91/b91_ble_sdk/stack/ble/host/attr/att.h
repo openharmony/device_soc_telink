@@ -30,7 +30,7 @@
 #define ATT_PERMISSIONS_SECURITY                                                                                      \
     (ATT_PERMISSIONS_AUTHOR | ATT_PERMISSIONS_ENCRYPT | ATT_PERMISSIONS_AUTHEN | ATT_PERMISSIONS_SECURE_CONN)
 
-//user can choose permission below
+// user can choose permission below
 #define ATT_PERMISSIONS_READ  0x01                                            // !< Attribute is Readable
 #define ATT_PERMISSIONS_WRITE 0x02                                            // !< Attribute is Writable
 #define ATT_PERMISSIONS_RDWR  (ATT_PERMISSIONS_READ | ATT_PERMISSIONS_WRITE)  // !< Attribute is Readable & Writable
@@ -83,8 +83,7 @@
 // typedef int (*att_readwrite_callback_t)(void* p);
 typedef int (*att_readwrite_callback_t)(u16 connHandle, void *p);
 
-typedef struct attribute
-{
+typedef struct attribute {
     u16 attNum;
     u8 perm;
     u8 uuidLen;
@@ -112,7 +111,7 @@ typedef int (*att_handleValueConfirm_callback_t)(void);
  */
 void bls_att_setAttributeTable(u8 *p);
 
-//mtu size
+// mtu size
 /**
  * @brief	This function is used to set RX MTU size
  * @param	mtu_size - ATT MTU size
