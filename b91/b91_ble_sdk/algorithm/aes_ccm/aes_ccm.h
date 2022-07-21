@@ -58,8 +58,7 @@ struct CCM_FLAGS_TAG {
 typedef struct CCM_FLAGS_TAG ccm_flags_t;
 
 typedef struct {
-    union
-    {
+    union {
         u8 A[AES_BLOCK_SIZE];
         u8 B[AES_BLOCK_SIZE];
     } bf;
@@ -75,8 +74,7 @@ enum {
 };
 
 typedef union {
-    struct
-    {
+    struct {
         u8 enEncFlg : 1;    // enable encryption
         u8 noneType : 2;    // ACL, CIS, BIS
         u8 decMicFail : 1;  // Decryption status
