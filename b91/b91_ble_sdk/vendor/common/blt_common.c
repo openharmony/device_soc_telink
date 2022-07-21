@@ -31,8 +31,7 @@ _attribute_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M
  * @param[in]	none
  * @return      none
  */
-_attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
-{
+_attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void) {
     u8 temp_buf[4];
     flash_read_mid(temp_buf);
     u8 flash_cap = temp_buf[2];
@@ -73,8 +72,7 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
  * @param[in]	mac_random_static - random static MAC address
  * @return      none
  */
-void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
-{
+void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static) {
     if (flash_sector_mac_address == 0) {
         return;
     }
@@ -92,9 +90,6 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
         mac_public[0] = value_rand[0];
         mac_public[1] = value_rand[1];
         mac_public[2] = value_rand[2];
-
-        // TODO
-        // company id:
         mac_public[3] = 0xD1;  // company id: 0xC119D1
         mac_public[4] = 0x19;
         mac_public[5] = 0xC4;

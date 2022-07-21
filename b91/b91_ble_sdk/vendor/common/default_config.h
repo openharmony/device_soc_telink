@@ -20,6 +20,9 @@
 #ifndef DEFAULT_CONFIG_H
 #define DEFAULT_CONFIG_H
 
+#ifndef B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
+#define B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
+
 #include "config.h"
 
 //////////// product  Infomation  //////////////////////////////
@@ -139,5 +142,7 @@
 #define USB_KEYBOARD_RELEASE_TIMEOUT (450000)  // in us
 #define USB_MOUSE_RELEASE_TIMEOUT    (200000)  // in us
 #define USB_SOMATIC_RELEASE_TIMEOUT  (200000)  // in us
+
+#endif  // B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
 
 #endif  // DEFAULT_CONFIG_H

@@ -103,7 +103,6 @@ int user_tbl_slave_mac_add(u8 adr_type, u8 *adr)  // add new mac address to tabl
     }
 
     if (add_new) {
-
         user_bond_slave_flash_cfg_idx += 8;  // inc flash idx to get the new 8 bytes area
 
         if (user_bond_slave_flash_cfg_idx >=
@@ -143,7 +142,6 @@ int user_tbl_slave_mac_search(u8 adr_type, u8 *adr)
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
         if (user_tbl_slaveMac.bond_device[i].adr_type == adr_type &&
             !memcmp(user_tbl_slaveMac.bond_device[i].address, adr, 6)) {  // match
-
             return (i + 1);  // return index+1( 1 - USER_PAIR_SLAVE_MAX_NUM)
         }
     }
@@ -163,7 +161,6 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr)  // remove adr from s
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
         if (user_tbl_slaveMac.bond_device[i].adr_type == adr_type &&
             !memcmp(user_tbl_slaveMac.bond_device[i].address, adr, 6)) {  // match
-
             // erase the match adr
             u8 delete_mark = ADR_ERASE_MARK;
             flash_write_page(FLASH_ADR_CUSTOM_PAIRING + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
@@ -240,8 +237,6 @@ void user_bond_slave_flash_clean(void)
 
     // rewrite bond table at the beginning of 0x11000
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
-        // u8 add_mark = ADR_BOND_MARK;
-
         user_bond_slave_flash_cfg_idx += 8;  // inc flash idx to get the new 8 bytes area
         flash_write_page(FLASH_ADR_CUSTOM_PAIRING + user_bond_slave_flash_cfg_idx, 8,
                          (u8 *)&user_tbl_slaveMac.bond_device[i]);
@@ -255,8 +250,7 @@ void user_bond_slave_flash_clean(void)
  * @param      none.
  * @return     none.
  */
-void user_master_host_pairing_flash_init(void)
-{
+void user_master_host_pairing_flash_init(void) {
     u8 flag;
     for (user_bond_slave_flash_cfg_idx = 0; user_bond_slave_flash_cfg_idx < 4096;
          user_bond_slave_flash_cfg_idx +=
@@ -270,11 +264,9 @@ void user_master_host_pairing_flash_init(void)
                 user_tbl_slaveMac.curNum++;
             } else {  // slave mac in flash more than max, we think it's code bug
                 irq_disable();
-                while (1) {
-                }
+                while (1);
             }
-        } else if (flag == 0xff)  // end
-        {
+        } else if (flag == 0xff) { // end
             break;
         }
     }
