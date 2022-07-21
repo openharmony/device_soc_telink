@@ -147,7 +147,6 @@ typedef enum {
     LL_ACL_TX_BUF_PARAM_INVALID,
     LL_ACL_TX_BUF_SIZE_MUL_NUM_EXCEED_4K,
     LL_ACL_TX_BUF_SIZE_NOT_MEET_MAX_TX_OCT,
-
 } ble_sts_t;
 
 /////////////////////////////// BLE  MAC ADDRESS //////////////////////////////////////////////
@@ -175,7 +174,7 @@ typedef enum {
 #define BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE 3
 #define BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE     4
 
-#define IS_PUBLIC_ADDR(Type, Addr)  					( (Type)==BLE_ADDR_PUBLIC) )
+#define IS_PUBLIC_ADDR(Type, Addr)  					((Type)==BLE_ADDR_PUBLIC)
 #define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0xC0)
 #define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x00)
 #define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x40)
@@ -284,8 +283,8 @@ typedef enum {
  *  @brief  Definition for LL Control PDU Opcode
  */																		// rf_len without MIC
 #define LL_CONNECTION_UPDATE_REQ 0x00  // 12
-#define LL_CHANNEL_MAP_REQ       0x01  //	8
-#define LL_TERMINATE_IND         0x02  //	2
+#define LL_CHANNEL_MAP_REQ       0x01  // 8
+#define LL_TERMINATE_IND         0x02  // 2
 
 #define LL_ENC_REQ       0x03  // encryption			// 23
 #define LL_ENC_RSP       0x04  // encryption			// 13
@@ -334,26 +333,26 @@ typedef enum {
 // EIR Data Type, Advertising Data Type (AD Type) and OOB Data Type Definitions
 
 typedef enum {
-    DT_FLAGS = 0x01,                              //	Flag
-    DT_INCOMPLT_LIST_16BIT_SERVICE_UUID = 0x02,   //	Incomplete List of 16-bit Service Class UUIDs
-    DT_COMPLETE_LIST_16BIT_SERVICE_UUID = 0x03,   //	Complete List of 16-bit Service Class UUIDs
-    DT_INCOMPLT_LIST_32BIT_SERVICE_UUID = 0x04,   //	Incomplete List of 32-bit Service Class UUIDs
-    DT_COMPLETE_LIST_32BIT_SERVICE_UUID = 0x05,   //	Complete List of 32-bit Service Class UUIDs
-    DT_INCOMPLT_LIST_128BIT_SERVICE_UUID = 0x06,  //	Incomplete List of 128-bit Service Class UUIDs
-    DT_COMPLETE_LIST_128BIT_SERVICE_UUID = 0x07,  //	Complete List of 128-bit Service Class UUIDs
-    DT_SHORTENED_LOCAL_NAME = 0x08,               //	Shortened Local Name
-    DT_COMPLETE_LOCAL_NAME = 0x09,                //	Complete Local Name
-    DT_TX_POWER_LEVEL = 0x0A,                     //	Tx Power Level
+    DT_FLAGS = 0x01,                              // Flag
+    DT_INCOMPLT_LIST_16BIT_SERVICE_UUID = 0x02,   // Incomplete List of 16-bit Service Class UUIDs
+    DT_COMPLETE_LIST_16BIT_SERVICE_UUID = 0x03,   // Complete List of 16-bit Service Class UUIDs
+    DT_INCOMPLT_LIST_32BIT_SERVICE_UUID = 0x04,   // Incomplete List of 32-bit Service Class UUIDs
+    DT_COMPLETE_LIST_32BIT_SERVICE_UUID = 0x05,   // Complete List of 32-bit Service Class UUIDs
+    DT_INCOMPLT_LIST_128BIT_SERVICE_UUID = 0x06,  // Incomplete List of 128-bit Service Class UUIDs
+    DT_COMPLETE_LIST_128BIT_SERVICE_UUID = 0x07,  // Complete List of 128-bit Service Class UUIDs
+    DT_SHORTENED_LOCAL_NAME = 0x08,               // Shortened Local Name
+    DT_COMPLETE_LOCAL_NAME = 0x09,                // Complete Local Name
+    DT_TX_POWER_LEVEL = 0x0A,                     // Tx Power Level
 
-    DT_CLASS_OF_DEVICE = 0x0D,  //	Class of Device
+    DT_CLASS_OF_DEVICE = 0x0D,  // Class of Device
 
-    DT_APPEARANCE = 0x19,  //	Appearance
+    DT_APPEARANCE = 0x19,  // Appearance
 
     DT_BIGINFO = 0x2C,              //	BIGInfo
     DT_BROADCAST_CODE = 0x2D,       // 	Broadcast_Code
     DT_3D_INFORMATION_DATA = 0x3D,  //	3D Information Data
 
-    DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF,  //	Manufacturer Specific Data
+    DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF,  // Manufacturer Specific Data
 } data_type_t;
 
 #endif

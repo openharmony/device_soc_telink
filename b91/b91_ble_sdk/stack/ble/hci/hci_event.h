@@ -53,7 +53,7 @@ typedef struct {
 
 typedef struct {
     u8 numHandles;
-    numCmpPktParamRet_t retParams[1];  // TODO
+    numCmpPktParamRet_t retParams[1];
 } hci_numOfCmpPktEvt_t;
 
 typedef struct {
@@ -217,7 +217,7 @@ typedef struct {
  */
 typedef struct {
     u8 subEventCode;
-    u16 connHandle;  //no aligned, can not be used as pointer
+    u16 connHandle;  // no aligned, can not be used as pointer
     u16 maxTxOct;
     u16 maxTxtime;
     u16 maxRxOct;
@@ -245,8 +245,7 @@ typedef struct {
 /**
  *  @brief  Event Parameters for "7.7.65.10 LE Enhanced Connection Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -277,7 +276,6 @@ typedef struct {
  */
 
 typedef struct {
-    // TODO
 } hci_le_extAdvReportEvt_t;
 
 /* Extended Advertising Report Event Event_Type mask */
@@ -304,7 +302,6 @@ typedef enum {
  *  @brief  Event Parameters for "7.7.65.14 LE Periodic Advertising Sync Established event"
  */
 typedef struct {
-    // TODO
 } hci_le_PeriodicAdvSyncEstablishedEvt_t;
 
 /**
@@ -315,18 +312,15 @@ typedef struct {
  *  @brief  Event Parameters for "7.7.65.15 LE Periodic Advertising Report event"
  */
 typedef struct {
-    // TODO
 } hci_le_periodicAdvReportEvt_t;
 
 /**
  *  @brief  Event Parameters for "7.7.65.16 LE Periodic Advertising Sync Lost event"
  */
 typedef struct {
-    // TODO
 } hci_le_periodicAdvSyncLostEvt_t;
 
 typedef struct {
-    // TODO
 } hci_le_scanTimeoutEvt_t;
 
 /**
@@ -344,7 +338,6 @@ typedef struct {
  *  @brief  Event Parameters for "7.7.65.19 LE Scan Request Received event"
  */
 typedef struct {
-    // TODO
 } hci_le_scanReqRcvdEvt_t;
 
 /**
