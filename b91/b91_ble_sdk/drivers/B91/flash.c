@@ -517,7 +517,6 @@ _attribute_text_sec_ void flash_release_deep_powerdown(void)
  */
 _attribute_ram_code_sec_noinline_ void flash_read_mid_ram(unsigned char *buf)
 {
-
     unsigned char j = 0;
 #if SUPPORT_PFT_ARCH
     reg_irq_threshold = 1;
@@ -548,7 +547,6 @@ _attribute_ram_code_sec_noinline_ void flash_read_mid_ram(unsigned char *buf)
 }
 _attribute_text_sec_ void flash_read_mid(unsigned char *buf)
 {
-
     __asm__("csrci 	mmisc_ctl,8");  // disable BTB
     flash_read_mid_ram(buf);
     __asm__("csrsi 	mmisc_ctl,8");  // enable BTB
@@ -571,13 +569,11 @@ _attribute_ram_code_sec_noinline_ void flash_read_uid_ram(unsigned char idcmd, u
 
     mspi_stop_xip();
     flash_send_cmd(idcmd);
-    if (idcmd == FLASH_GD_PUYA_READ_UID_CMD)  // GD/puya
-    {
+    if (idcmd == FLASH_GD_PUYA_READ_UID_CMD) { // GD/puya
         flash_send_addr(0x00);
         mspi_write(0x00); /* dummy,  to issue clock */
         mspi_wait();
-    } else if (idcmd == FLASH_XTX_READ_UID_CMD)  // XTX
-    {
+    } else if (idcmd == FLASH_XTX_READ_UID_CMD) { // XTX
         flash_send_addr(0x80);
         mspi_write(0x00); /* dummy,  to issue clock */
         mspi_wait();
@@ -723,7 +719,6 @@ _attribute_text_sec_ void flash_set_xip_config(flash_xip_config_t config)
  */
 _attribute_text_sec_ int flash_read_mid_uid_with_check(unsigned int *flash_mid, unsigned char *flash_uid)
 {
-
     unsigned char no_uid[16] = {0x51, 0x01, 0x51, 0x01, 0x51, 0x01, 0x51, 0x01,
                                 0x51, 0x01, 0x51, 0x01, 0x51, 0x01, 0x51, 0x01};
     int i, f_cnt = 0;

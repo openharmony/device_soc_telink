@@ -22,7 +22,7 @@
 #define REG_AUDIO_AHB_BASE  0x120000
 #define REG_CODEC_BASE_ADDR 0x120200
 #define REG_AUDIO_APB_BASE  0x140500
-#define reg_fifo_buf_adr(i) REG_AUDIO_AHB_BASE + (i)*0x40
+#define reg_fifo_buf_adr(i) (REG_AUDIO_AHB_BASE + (i)*0x40)
 #define reg_audio_en        REG_ADDR8(REG_AUDIO_APB_BASE + 0x00)
 enum {
     FLD_AUDIO_I2S_CLK_EN = BIT(0),
@@ -85,7 +85,6 @@ enum {
     FLD_AUDIO_TX_RPTR_PTR_EN = BIT(1),
     FLD_AUDIO_RX_WPTR_PTR_EN = BIT(2),
     FLD_AUDIO_RX_RPTR_PTR_EN = BIT(3),
-
 };
 
 enum {
@@ -133,7 +132,6 @@ typedef enum {
     FLD_AUDIO_IRQ_RXFIFO_H_L1 = BIT(5),
     FLD_AUDIO_IRQ_RXFIFO_L_L2 = BIT(6),
     FLD_AUDIO_IRQ_RXFIFO_H_L2 = BIT(7),
-
 } audio_fifo_irq_status_type_e;
 
 #define reg_irq_fifo_mask REG_ADDR8(REG_AUDIO_APB_BASE + 0x5d)
@@ -148,7 +146,6 @@ typedef enum {
     FLD_AUDIO_IRQ_RXFIFO_H_L1_EN = BIT(5),
     FLD_AUDIO_IRQ_RXFIFO_L_L2_EN = BIT(6),
     FLD_AUDIO_IRQ_RXFIFO_H_L2_EN = BIT(7),
-
 } audio_fifo_irq_mask_type_e;
 
 #define reg_irq_manual_en REG_ADDR8(REG_AUDIO_APB_BASE + 0x5e)
@@ -162,7 +159,6 @@ enum {
     FLD_AUDIO_IRQ_RXFIFO_H_L1_MAN_EN = BIT(5),
     FLD_AUDIO_IRQ_RXFIFO_L_L2_MAN_EN = BIT(6),
     FLD_AUDIO_IRQ_RXFIFO_H_L2_MAN_EN = BIT(7)
-
 };
 
 #define reg_int_pcm_num REG_ADDR16(REG_AUDIO_APB_BASE + 0x50)
@@ -309,7 +305,6 @@ enum {
 #define reg_audio_adc2_gain REG_ADDR8(REG_CODEC_BASE_ADDR + (0x2d << 2))
 enum {
     FLD_AUDIO_CODEC_ADC_GID2 = BIT_RNG(0, 5),
-
 };
 
 #endif

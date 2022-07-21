@@ -62,8 +62,7 @@ typedef enum {
 /**
  * @brief   deepsleep wakeup by external xtal
  */
-typedef struct
-{
+typedef struct {
     unsigned char ext_cap_en;  // 24xtal  cap
     unsigned char pad32k_en;
     unsigned char pm_enter_en;

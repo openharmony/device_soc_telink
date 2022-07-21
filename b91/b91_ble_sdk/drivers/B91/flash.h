@@ -99,8 +99,7 @@ typedef enum {
     FLASH_SIZE_8M = 0x17,
 } flash_capacity_e;
 
-typedef struct
-{
+typedef struct {
     unsigned char flash_read_cmd;           /**< xip read command */
     unsigned char flash_read_dummy : 4;     /**< dummy cycle = flash_read_dummy + 1 */
     unsigned char flash_read_data_line : 2; /**< 0:single line;  1: dual line;  2:quad line; 3:quad line */

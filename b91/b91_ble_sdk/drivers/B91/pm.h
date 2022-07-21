@@ -145,8 +145,7 @@ typedef enum {
 /**
  * @brief	early wakeup time
  */
-typedef struct
-{
+typedef struct {
     /** suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time */
     unsigned short suspend_early_wakeup_time_us;
     /** deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time */
@@ -158,8 +157,7 @@ typedef struct
 /**
  * @brief	hardware delay time
  */
-typedef struct
-{
+typedef struct {
     /** hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
     unsigned short deep_r_delay_cycle;
     /** hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
@@ -169,8 +167,7 @@ typedef struct
 /**
  * @brief   deepsleep wakeup status
  */
-typedef struct
-{
+typedef struct {
     unsigned char is_pad_wakeup;
     // The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0.
     unsigned char wakeup_src;
@@ -181,8 +178,7 @@ typedef struct
 /**
  * @brief   pm 32k rc calibration algorithm.
  */
-typedef struct pm_clock_drift
-{
+typedef struct pm_clock_drift {
     unsigned int ref_tick;
     unsigned int ref_tick_32k;
     int offset;

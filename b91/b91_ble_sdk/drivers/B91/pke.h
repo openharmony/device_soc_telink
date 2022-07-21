@@ -19,8 +19,8 @@
 
 #include "reg_include/register_b91.h"
 
-#define GET_WORD_LEN(bitLen) ((bitLen + 31) / 32)
-#define GET_BYTE_LEN(bitLen) ((bitLen + 7) / 8)
+#define GET_WORD_LEN(bitLen) (((bitLen) + 31) / 32)
+#define GET_BYTE_LEN(bitLen) (((bitLen) + 7) / 8)
 
 #define PKE_BASE         (0X80110000)
 #define reg_pke_a_ram(a) ((volatile unsigned long *)(PKE_BASE + 0x0400 + (a) * (0x24)))
@@ -39,8 +39,7 @@
 /**
  * eccp curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int eccp_p_bitLen;  // bit length of prime p
     unsigned int eccp_n_bitLen;  // bit length of order n
     unsigned int *eccp_p;
@@ -58,8 +57,7 @@ typedef struct
 /**
  * mont curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int mont_p_bitLen;  // bit length of prime p
     unsigned int *mont_p;
     unsigned int *mont_p_h;
@@ -76,8 +74,7 @@ typedef struct
 /**
  * edward curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int edward_p_bitLen;  // bit length of prime p
     unsigned int *edward_p;
     unsigned int *edward_p_h;
@@ -89,7 +86,6 @@ typedef struct
     unsigned int *edward_n_h;
     unsigned int *edward_n_n1;
     unsigned int *edward_h;
-
 } edward_curve_t;
 
 /**
@@ -129,7 +125,6 @@ typedef enum {
     PKE_MICROCODE_C25519_PMUL = 0x34,
     PKE_MICROCODE_Ed25519_PMUL = 0x38,
     PKE_MICROCODE_Ed25519_PADD = 0x3C,
-
 } pke_microcode_e;
 
 /**

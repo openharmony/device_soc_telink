@@ -80,7 +80,6 @@ void i2c_master_send_stop(unsigned char en)
  */
 void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
 {
-
     unsigned char val = 0;
     unsigned char mask = 0xff;
 
@@ -146,7 +145,6 @@ void i2c_master_init(void)
  */
 void i2c_set_master_clk(unsigned char clock)
 {
-
     // i2c frequency = system_clock/(4*clock)
     reg_i2c_sp = clock;
 
@@ -311,7 +309,6 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
  */
 void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char len)
 {
-
     // set id.
     reg_i2c_id = (id & (~FLD_I2C_WRITE_READ_BIT));  // BIT(0):R:High  W:Low
 

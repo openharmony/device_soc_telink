@@ -180,7 +180,7 @@ void telink_b91_uart_init(
 /***********************************************************
  * @brief  		This function serves to calculate the best bwpc(bit width) .i.e reg0x96.
  * @param[in]	baudrate - baut rate of UART.
- * @param[in]	pclk   - system clock.
+ * @param[in]	sysclk   - system clock.
  * @param[out]	div      - uart clock divider.
  * @param[out]	bwpc     - bitwidth, should be set to larger than 2.
  * @return 		none
@@ -188,7 +188,7 @@ void telink_b91_uart_init(
  *  		    simplify the expression: div*bwpc =  constant(z)
  * 		        bwpc range from 3 to 15.so loop and get the minimum one decimal point
  */
-void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int pclk, unsigned short *div, unsigned char *bwpc)
+void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int sysclk, unsigned short *div, unsigned char *bwpc)
 {
     unsigned char i = 0, j = 0;
     unsigned int primeInt = 0;
@@ -196,8 +196,8 @@ void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int pclk, unsigned sh
     unsigned int D_intdec[13], D_int[13];
     unsigned char D_dec[13];
 
-    primeInt = pclk / baudrate;
-    primeDec = 10 * pclk / baudrate - 10 * primeInt;
+    primeInt = sysclk / baudrate;
+    primeDec = 10 * sysclk / baudrate - 10 * primeInt;
 
     if (uart_is_prime(primeInt)) {  // primeInt is prime
         primeInt += 1;              // +1 must be not prime. and primeInt must be larger than 2.

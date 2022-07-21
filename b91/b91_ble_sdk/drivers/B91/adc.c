@@ -233,7 +233,7 @@ void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e 
  * @param[in]  pre_scale - enum variable of ADC pre_scaling factor.
  * @param[in]  sample_freq - enum variable of ADC sample frequency.
  * @return none
- * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4. 
+ * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4.
  *			changed by chaofan.20201230.
  */
 void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
