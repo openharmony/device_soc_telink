@@ -212,7 +212,7 @@ typedef enum {
     AUDIO_RATE_LT_L1,
 } audio_rate_match_e;
 
-/*[0,+43], 1 dB steps*/
+/* [0,+43], 1 dB steps */
 typedef enum {
     CODEC_IN_D_GAIN_0_DB = 0,
     CODEC_IN_D_GAIN_4_DB = 4,
@@ -336,7 +336,7 @@ typedef enum {
     CODEC_OUT_A_GAIN_m19_DB,
 } codec_out_path_analog_gain_e;
 
-/*The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
+/* The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
 The wind noise filter is a 1st order filter.
                    Mode1  -3dB   59Hz
 corner frequency   Mode2  -3dB   117Hz

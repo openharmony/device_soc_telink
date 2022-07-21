@@ -63,6 +63,6 @@ void trng_init(void);
  * @brief     This function performs to get one random number.
  * @return    the value of one random number
  **/
-/*unsigned*/ int trng_rand(void);
+/* unsigned */ int trng_rand(void);
 
 #endif

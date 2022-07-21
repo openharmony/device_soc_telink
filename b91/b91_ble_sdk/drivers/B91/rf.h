@@ -133,14 +133,14 @@ typedef enum {
  *  @brief  Define power list of RF.
  */
 typedef enum {
-    /*VBAT*/
+    /* VBAT */
     RF_POWER_P9p11dBm = 63, /**<  9.1 dbm */
     RF_POWER_P8p57dBm = 45, /**<  8.6 dbm */
     RF_POWER_P8p05dBm = 35, /**<  8.1 dbm */
     RF_POWER_P7p45dBm = 27, /**<  7.5 dbm */
     RF_POWER_P6p98dBm = 23, /**<  7.0 dbm */
     RF_POWER_P5p68dBm = 18, /**<  6.0 dbm */
-    /*VANT*/
+    /* VANT */
     RF_POWER_P4p35dBm = BIT(7) | 63, /**<   4.4 dbm */
     RF_POWER_P3p83dBm = BIT(7) | 50, /**<   3.8 dbm */
     RF_POWER_P3p25dBm = BIT(7) | 41, /**<   3.3 dbm */
@@ -169,14 +169,14 @@ typedef enum {
  *  @brief  Define power index list of RF.
  */
 typedef enum {
-    /*VBAT*/
+    /* VBAT */
     RF_POWER_INDEX_P9p11dBm, /**< power index of 9.1 dbm */
     RF_POWER_INDEX_P8p57dBm, /**< power index of 8.6 dbm */
     RF_POWER_INDEX_P8p05dBm, /**< power index of 8.1 dbm */
     RF_POWER_INDEX_P7p45dBm, /**< power index of 7.5 dbm */
     RF_POWER_INDEX_P6p98dBm, /**< power index of 7.0 dbm */
     RF_POWER_INDEX_P5p68dBm, /**< power index of 6.0 dbm */
-    /*VANT*/
+    /* VANT */
     RF_POWER_INDEX_P4p35dBm,  /**< power index of 4.4 dbm */
     RF_POWER_INDEX_P3p83dBm,  /**< power index of 3.8 dbm */
     RF_POWER_INDEX_P3p25dBm,  /**< power index of 3.3 dbm */
@@ -228,7 +228,7 @@ typedef enum {
     RF_CHANNEL_3 = BIT(3),  /**< RF channel 3 */
     RF_CHANNEL_4 = BIT(4),  /**< RF channel 4 */
     RF_CHANNEL_5 = BIT(5),  /**< RF channel 5 */
-    RF_CHANNEL_NONE = 0x00, /**< none RF channel*/
+    RF_CHANNEL_NONE = 0x00, /**< none RF channel */
     RF_CHANNEL_ALL = 0x0f,  /**< all RF channel */
 } rf_channel_e;
 
@@ -248,7 +248,8 @@ extern const rf_power_level_e rf_power_Level_list[30];
  */
 static inline unsigned char rf_receiving_flag(void)
 {
-    // if the value of [2:0] of the reg_0x140840 isn't 0 , it means that the RF is in the receiving packet phase.(confirmed by junwen).
+    // if the value of [2:0] of the reg_0x140840 isn't 0 ,
+    //     it means that the RF is in the receiving packet phase.(confirmed by junwen).
     return ((read_reg8(0x140840) & 0x07) > 1);
 }
 
@@ -424,8 +425,9 @@ static inline void rf_set_rx_dma_fifo_size(unsigned short fifo_byte_size)
  */
 static inline void rf_set_rx_dma_fifo_num(unsigned char fifo_num)
 {
-    reg_rf_rx_wptr_mask =
-        fifo_num;  // rx_wptr_real=rx_wptr & mask:After receiving 4 packets,the address returns to original address.mask value must in (0x01,0x03,0x07,0x0f).
+    // rx_wptr_real=rx_wptr & mask:After receiving 4 packets,the address returns to original address.
+    //     mask value must in (0x01,0x03,0x07,0x0f).
+    reg_rf_rx_wptr_mask = fifo_num;
 }
 
 /**
@@ -458,9 +460,10 @@ static inline void rf_set_tx_dma_fifo_num(unsigned char fifo_num)
  */
 static inline void rf_set_tx_dma_fifo_size(unsigned short fifo_byte_size)
 {
-    reg_rf_bb_tx_size =
-        fifo_byte_size >>
-        4;  // tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}// in this setting the max data in one dma buffer is 0x20<<4.And the The product of fifo_dep and bytesize cannot exceed 0xfff.
+    // tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}
+    // in this setting the max data in one dma buffer is 0x20<<4.
+    // And the The product of fifo_dep and bytesize cannot exceed 0xfff.
+    reg_rf_bb_tx_size = fifo_byte_size >> 4;
 }
 /**
  * @brief   This function serves to set RF tx settle time.

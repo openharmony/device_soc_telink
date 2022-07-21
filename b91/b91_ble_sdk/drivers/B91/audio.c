@@ -710,7 +710,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
         reg_audio_codec_adc_freq_ctr = MASK_VAL(FLD_AUDIO_CODEC_ADC12_HPF_EN, 1, FLD_AUDIO_CODEC_ADC_FREQ,
                                                 rate == AUDIO_ADC_16K_DAC_48K ? AUDIO_16K : rate);
 
-        BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /*adc unmute*/
+        BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /* adc unmute */
     }
 
     else if (wreg_mode == I2C_WREG) {
@@ -851,23 +851,19 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 audio_set_i2s_clk(2, 125);  // i2s clk 3.072 M
                 audio_set_i2s_bclk(0);      // 3.072/1 = 3.072M bclk
                 audio_set_lrclk(64, 64);    // bclk/64=48k
-            }
-            else if (match == AUDIO_RATE_GT_L0) { // 48004
+            } else if (match == AUDIO_RATE_GT_L0) { // 48004
                 audio_set_i2s_clk(3, 169);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(71, 71);
-            }
-            else if (match == AUDIO_RATE_GT_L1) { // 48012.0
+            } else if (match == AUDIO_RATE_GT_L1) { // 48012.0
                 audio_set_i2s_clk(4, 129);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(124, 124);
-            }
-            else if (match == AUDIO_RATE_LT_L0) {
+            } else if (match == AUDIO_RATE_LT_L0) {
                 audio_set_i2s_clk(2, 63);  // 47994.0
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(127, 127);
-            }
-            else if (match == AUDIO_RATE_LT_L1) {
+            } else if (match == AUDIO_RATE_LT_L1) {
                 audio_set_i2s_clk(4, 165);  // 47985.0
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(97, 97);
