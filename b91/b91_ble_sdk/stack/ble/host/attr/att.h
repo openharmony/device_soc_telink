@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
+#ifndef B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H
+#define B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H
 #include "tl_common.h"
 
 /** @defgroup ATT_PERMISSIONS_BITMAPS GAP ATT Attribute Access Permissions Bit Fields
@@ -80,7 +80,6 @@
 #define CHAR_PROP_EXTENDED          0x80  // !< additional characteristic properties are defined
 /** @} end of group GATT_Characteristic_Property */
 
-// typedef int (*att_readwrite_callback_t)(void* p);
 typedef int (*att_readwrite_callback_t)(u16 connHandle, void *p);
 
 typedef struct attribute {
@@ -144,3 +143,5 @@ ble_sts_t blc_att_responseMtuSizeExchange(u16 connHandle, u16 mtu_size);
  * @return	none.
  */
 void blc_att_setPrepareWriteBuffer(u8 *p, u16 len);
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H

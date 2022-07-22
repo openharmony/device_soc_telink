@@ -15,9 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-
-#pragma once
-
 #ifndef B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
 #define B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
 

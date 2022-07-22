@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_STACK_BLE_SERVICE_HIDS_H
+#define B91_B91_BLE_SDK_STACK_BLE_SERVICE_HIDS_H
 
 /**
  * @brief	hids_uuid Hids Characteristic UUID
@@ -41,8 +42,8 @@
 
 #define HID_REPORT_ID_CTRL_VOICE 9
 
-#define HID_REPORT_ID_AUDIO_FIRST_INPUT 10  //250
-#define HID_REPORT_ID_AUDIO_SECND_INPUT 11  //251
+#define HID_REPORT_ID_AUDIO_FIRST_INPUT 10  // 250
+#define HID_REPORT_ID_AUDIO_SECND_INPUT 11  // 251
 #define HID_REPORT_ID_AUDIO_THIRD_INPUT 12  //247
 
 /**
@@ -65,3 +66,5 @@
  */
 #define HID_FLAGS_REMOTE_WAKE          0x01  // RemoteWake
 #define HID_FLAGS_NORMALLY_CONNECTABLE 0x02  // NormallyConnectable
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_SERVICE_HIDS_H

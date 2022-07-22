@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef MSPI_REG_H
 #define MSPI_REG_H
 

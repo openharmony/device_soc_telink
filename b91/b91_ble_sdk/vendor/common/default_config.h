@@ -15,11 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
-#ifndef DEFAULT_CONFIG_H
-#define DEFAULT_CONFIG_H
-
 #ifndef B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
 #define B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
 
@@ -144,5 +139,3 @@
 #define USB_SOMATIC_RELEASE_TIMEOUT  (200000)  // in us
 
 #endif  // B91_B91_BLE_SDK_VENDOR_COMMON_DEFAULT_CONFIG_H
-
-#endif  // DEFAULT_CONFIG_H

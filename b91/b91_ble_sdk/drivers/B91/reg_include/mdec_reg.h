@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef MDEC_REG_H
 #define MDEC_REG_H
 

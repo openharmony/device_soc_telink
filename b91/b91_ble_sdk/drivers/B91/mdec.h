@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H
 
 #include "analog.h"
 #include "reg_include/mdec_reg.h"
@@ -67,3 +68,5 @@ void mdec_init(mdec_pin_e pin);
  * @return		1 decode success,  0 decode failure.
  */
 unsigned char mdec_read_dat(unsigned char *dat);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H

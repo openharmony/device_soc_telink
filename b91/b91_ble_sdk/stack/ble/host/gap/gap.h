@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H
+#define B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H
 
 #define GAP_ADTYPE_FLAGS                    0x01  //!< Discovery Mode: @ref GAP_ADTYPE_FLAGS_MODES
 #define GAP_ADTYPE_16BIT_INCOMPLETE         0x02  //!< Incomplete List of 16-bit Service Class UUIDs
@@ -66,3 +67,5 @@
  * @return     none
  */
 void blc_gap_peripheral_init(void);
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H

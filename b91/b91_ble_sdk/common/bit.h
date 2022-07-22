@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
+#ifndef B91_B91_BLE_SDK_COMMON_BIT_H
+#define B91_B91_BLE_SDK_COMMON_BIT_H
 
 #include "macro_trick.h"
 
@@ -233,3 +233,5 @@ v3, m4, v4, m5, v5, m6, v6))
 		MV(m5, v5) | MV(m6, v6))	\
         __pragma(warning(pop))
 #endif
+
+#endif // B91_B91_BLE_SDK_COMMON_BIT_H

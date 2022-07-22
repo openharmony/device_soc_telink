@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-
-#pragma once
+#ifndef B91_B91_BLE_SDK_COMMON_TYPES_H
+#define B91_B91_BLE_SDK_COMMON_TYPES_H
 
 #include <stdbool.h>
 
@@ -84,3 +84,5 @@ typedef u32 size_t;
 typedef u32 UTCTime;
 typedef u32 arg_t;
 typedef u32 status_t;
+
+#endif // B91_B91_BLE_SDK_COMMON_TYPES_H

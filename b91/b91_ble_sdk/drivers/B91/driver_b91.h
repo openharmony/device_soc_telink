@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef DRIVER_B91_H
 #define DRIVER_B91_H
 

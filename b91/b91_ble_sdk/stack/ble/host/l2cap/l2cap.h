@@ -18,9 +18,9 @@
 #ifndef STACK_BLE_L2CAP_L2CAP_H_
 #define STACK_BLE_L2CAP_L2CAP_H_
 
-//header(2)+l2cap_len(2)+cid(2)+Attribute_data[ATT_MTU]
-#define ATT_RX_MTU_SIZE_MAX (250)  //dft ATT_MTU_MAX: 250
-//l2cap buffer max: header(2)+l2cap_len(2)+cid(2)+ATT_MTU_MAX(250).
+// header(2)+l2cap_len(2)+cid(2)+Attribute_data[ATT_MTU]
+#define ATT_RX_MTU_SIZE_MAX (250)  // dft ATT_MTU_MAX: 250
+// l2cap buffer max: header(2)+l2cap_len(2)+cid(2)+ATT_MTU_MAX(250).
 #define L2CAP_RX_BUFF_LEN_MAX (256)
 
 /**
@@ -41,7 +41,7 @@ typedef enum {
  * @param	timeout - connect timeout
  * @return	none.
  */
-void bls_l2cap_requestConnParamUpdate(u16 min_interval, u16 max_interval, u16 latency, u16 timeout);  //Slave
+void bls_l2cap_requestConnParamUpdate(u16 min_interval, u16 max_interval, u16 latency, u16 timeout);  // Slave
 
 /**
  * @brief	This function is used to set the minimal time for send connect parameter update request after connect created
@@ -70,7 +70,7 @@ int blc_l2cap_packet_receive(u16 connHandle, u8 *p);
  * @param	*p - the pointer of l2cap data
  * @return	none.
  */
-void blc_l2cap_reg_att_sig_hander(void *p);  //signaling pkt proc
+void blc_l2cap_reg_att_sig_hander(void *p);  // signaling pkt proc
 
 /**
  * @brief	This function is used to register the function to process L2CAP ATTRIBUTE PROCTOCOL packet

@@ -25,8 +25,8 @@
  *	===============
  *	Header File: usbhw.h
  */
-
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_USBHW_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_USBHW_H
 
 #include "analog.h"
 #include "gpio.h"
@@ -414,3 +414,5 @@ static inline void usb_set_pin_en(void)
     gpio_input_en(GPIO_PA5 | GPIO_PA6);  // DP/DM must set input enable
     usb_dp_pullup_en(1);
 }
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_USBHW_H
