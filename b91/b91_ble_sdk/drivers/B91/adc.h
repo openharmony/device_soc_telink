@@ -25,7 +25,8 @@
  *	===============
  *	Header File: adc.h
  */
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
 
 #include "compiler.h"
 #include "dma.h"
@@ -398,3 +399,5 @@ unsigned short adc_calculate_voltage(unsigned short adc_code);
  * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */
 unsigned short adc_calculate_temperature(unsigned short adc_code);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_ADC_H

@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef DRIVERS_H
 #define DRIVERS_H
 

@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
 
 #include "reg_include/register_b91.h"
 
@@ -419,3 +420,5 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
  */
 unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x,
                                     unsigned int *P2y, unsigned int *Qx, unsigned int *Qy);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_PKE_H

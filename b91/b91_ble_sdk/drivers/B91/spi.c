@@ -166,8 +166,8 @@ void pspi_set_pin_mux(pspi_pin_def_e pin)
             (pin == PSPI_MISO_IO1_PC6_PIN)) {
             val = 0;  // function 0
         } else if ((pin == PSPI_CLK_PB5_PIN) || (pin == PSPI_CLK_PD1_PIN) || (pin == PSPI_CSN_PC0_PIN) ||
-                 (pin == PSPI_CSN_PD0_PIN) || (pin == PSPI_MOSI_IO0_PB7_PIN) || (pin == PSPI_MOSI_IO0_PD3_PIN) ||
-                 (pin == PSPI_MISO_IO1_PB6_PIN) || (pin == PSPI_MISO_IO1_PD2_PIN)) {
+                (pin == PSPI_CSN_PD0_PIN) || (pin == PSPI_MOSI_IO0_PB7_PIN) || (pin == PSPI_MOSI_IO0_PD3_PIN) ||
+                (pin == PSPI_MISO_IO1_PB6_PIN) || (pin == PSPI_MISO_IO1_PD2_PIN)) {
             val = 1 << (start_bit);  // function 1
         }
 

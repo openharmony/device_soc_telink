@@ -174,15 +174,15 @@ typedef enum {
 #define BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE 3
 #define BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE     4
 
-#define IS_PUBLIC_ADDR(Type, Addr)  					((Type)==BLE_ADDR_PUBLIC)
-#define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0xC0)
-#define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x00)
-#define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x40)
+#define IS_PUBLIC_ADDR(Type, Addr)  					((Type) == BLE_ADDR_PUBLIC)
+#define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0xC0)
+#define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0x00)
+#define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0x40)
 
 #define MAC_MATCH8(md, ms)                                                                                            \
-    (md[0] == ms[0] && md[1] == ms[1] && md[2] == ms[2] && md[3] == ms[3] && md[4] == ms[4] && md[5] == ms[5])
-#define MAC_MATCH16(md, ms) (md[0] == ms[0] && md[1] == ms[1] && md[2] == ms[2])
-#define MAC_MATCH32(md, ms) (md[0] == ms[0] && md[1] == ms[1])
+    ((md)[0] == (ms)[0] && (md)[1] == (ms)[1] && (md)[2] == (ms)[2] && (md)[3] == (ms)[3] && (md)[4] == (ms)[4] && (md)[5] == (ms)[5])
+#define MAC_MATCH16(md, ms) ((md)[0] == (ms)[0] && (md)[1] == (ms)[1] && (md)[2] == (ms)[2])
+#define MAC_MATCH32(md, ms) ((md)[0] == (ms)[0] && (md)[1] == (ms)[1])
 /////////////////////////////////////////////////////////////////////////////
 
 /******************************************** ATT ***************************************************************/
@@ -281,7 +281,7 @@ typedef enum {
 
 /**
  *  @brief  Definition for LL Control PDU Opcode
- */																		// rf_len without MIC
+ */ // rf_len without MIC
 #define LL_CONNECTION_UPDATE_REQ 0x00  // 12
 #define LL_CHANNEL_MAP_REQ       0x01  // 8
 #define LL_TERMINATE_IND         0x02  // 2

@@ -27,7 +27,7 @@
 //	FLD_DMA_REQ_NUM			= BIT_RNG(10,14),
 //	FLD_DMA_REQ_SYNC		= BIT(30),
 //	FLD_DMA_CHANINXFR		= BIT(31),
-//};
+// };
 // in C99, FLD_DMA_CHANINXFR = BIT(31) is error
 #define FLD_DMA_CHANNEL_NUM = BIT_RNG(0, 3),
 #define FLD_DMA_FIFO_DEPTH  = BIT_RNG(4, 9),

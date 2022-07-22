@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_PM_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_PM_H
 
 #include "clock.h"
 #include "compiler.h"
@@ -190,7 +191,6 @@ typedef struct pm_clock_drift {
     int rc32_rt;
     int s0;
     unsigned char calib;
-
 } pm_clock_drift_t;
 
 extern pm_clock_drift_t pmcd;
@@ -295,3 +295,5 @@ _attribute_ram_code_sec_noinline_ void pm_cal_32k_rc_offset(int offset_tick);
  * @return		none.
  */
 _attribute_ram_code_sec_noinline_ void pm_32k_rc_offset_init(void);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_PM_H

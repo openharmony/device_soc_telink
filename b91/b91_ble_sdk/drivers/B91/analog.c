@@ -292,7 +292,7 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
             (*buff++) = reg_ana_data(rd_idx++);
             if (rd_idx == 4) {
                 rd_idx = 0;
-                if (len_t <= 4){
+                if (len_t <= 4) {
                     break;
                 } else {
                     while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0) {

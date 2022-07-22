@@ -577,7 +577,6 @@ enum {
     FLD_RF_RX_DATA_CLK_DBG = BIT(5),
     FLD_RF_LR_TRIG_MODE = BIT(6),
     FLD_RF_FDC_DBG_SEL = BIT(7),
-
 };
 #define reg_rf_modem_mode_ctrl_tx1_0 REG_ADDR8(REG_TL_MODEM_BASE_ADDR + 0x22)
 enum {

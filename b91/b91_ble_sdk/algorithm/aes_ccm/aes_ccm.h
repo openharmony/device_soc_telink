@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_ALGORITHM_AES_CCM_AES_CCM_H
+#define B91_B91_BLE_SDK_ALGORITHM_AES_CCM_AES_CCM_H
 
 #include "stack/ble/ble_format.h"
 
@@ -150,3 +151,5 @@ int aes_ll_ccm_decryption(u8 *pkt, int master, ble_crypt_para_t *pd);
  * @return  	0: decryption succeeded; 1: decryption failed
  */
 int aes_ll_ccm_decryption_v2(leCryptCtrl_t *pd);
+
+#endif // B91_B91_BLE_SDK_ALGORITHM_AES_CCM_AES_CCM_H

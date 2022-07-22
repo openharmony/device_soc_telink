@@ -15,10 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
-#ifndef DEVICE_INFORMATION_H
-#define DEVICE_INFORMATION_H
+#ifndef B91_B91_BLE_SDK_STACK_BLE_SERVICE_DEVICE_INFORMATION_H
+#define B91_B91_BLE_SDK_STACK_BLE_SERVICE_DEVICE_INFORMATION_H
 
 /**
  * @brief	device_char_uuid Device Information Characteristic UUID
@@ -33,4 +31,4 @@
 #define CHARACTERISTIC_UUID_IEEE_11073_CERT_LIST 0x2A2A
 #define CHARACTERISTIC_UUID_PNP_ID               0x2A50
 
-#endif  // DEVICE_INFORMATION_H
+#endif  // B91_B91_BLE_SDK_STACK_BLE_SERVICE_DEVICE_INFORMATION_H

@@ -38,9 +38,7 @@
 /*********************************************************/
 // Remove when file merge to SDK //
 #include "stack/ble/ble_config.h"
-// #include "stack/ble/debug.h"
 
-// #include "stack/ble/host/gap/gap_stack.h"
 /*********************************************************/
 
 #endif /* STACK_BLE_HOST_BLE_HOST_H_ */

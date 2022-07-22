@@ -250,7 +250,8 @@ void user_bond_slave_flash_clean(void)
  * @param      none.
  * @return     none.
  */
-void user_master_host_pairing_flash_init(void) {
+void user_master_host_pairing_flash_init(void)
+{
     u8 flag;
     for (user_bond_slave_flash_cfg_idx = 0; user_bond_slave_flash_cfg_idx < 4096;
          user_bond_slave_flash_cfg_idx +=

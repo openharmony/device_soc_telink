@@ -15,7 +15,9 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_COMMON_UTILITY_H
+#define B91_B91_BLE_SDK_COMMON_UTILITY_H
+
 #include "types.h"
 
 #define abs(a)   (((a)>0)?((a)):(-(a)))
@@ -190,3 +192,4 @@ u8* my_fifo_get (my_fifo_t *f);
 
 #define		ATT_ALLIGN4_DMA_BUFF(n)				((((n) + 10) + 3) / 4 * 4)
 
+#endif // B91_B91_BLE_SDK_COMMON_UTILITY_H

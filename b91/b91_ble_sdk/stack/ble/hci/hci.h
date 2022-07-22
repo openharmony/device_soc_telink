@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
+#define B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
 
 #include <stack/ble/ble_common.h>
 
@@ -224,3 +225,5 @@ int blc_hci_sendACLData2Host(u16 handle, u8 *p);
  */
 int blc_hci_send_data(u32 h, u8 *para, int n);
 /******************************* User Interface  End  ******************************************************************/
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H

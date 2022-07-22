@@ -41,12 +41,12 @@
 /**
  *  @brief According to the packet format find the information of packet through offset.
  */
-#define rf_ble_dma_rx_offset_crc24(p)       (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
-#define rf_ble_dma_rx_offset_time_stamp(p)  (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
-#define rf_ble_dma_rx_offset_freq_offset(p) (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
-#define rf_ble_dma_rx_offset_rssi(p)        (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
-#define rf_ble_packet_length_ok(p)          (p[5] <= reg_rf_rxtmaxlen)              // dma_len must 4 byte aligned
-#define rf_ble_packet_crc_ok(p)             ((p[(p[5] + 5 + 11)] & 0x01) == 0x0)
+#define rf_ble_dma_rx_offset_crc24(p)       ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
+#define rf_ble_dma_rx_offset_time_stamp(p)  ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
+#define rf_ble_dma_rx_offset_freq_offset(p) ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
+#define rf_ble_dma_rx_offset_rssi(p)        ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
+#define rf_ble_packet_length_ok(p)          ((p)[5] <= reg_rf_rxtmaxlen)              // dma_len must 4 byte aligned
+#define rf_ble_packet_crc_ok(p)             (((p)[((p)[5] + 5 + 11)] & 0x01) == 0x0)
 
 /**
  * @brief		This define for ble debug the effect of rx_dly.
@@ -65,11 +65,11 @@
  *  @brief According to the packet format find the information of packet through offset.
  */
 
-#define rf_pri_esb_dma_rx_offset_crc(p)         (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:2
-#define rf_pri_esb_dma_rx_offset_time_stamp(p)  (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 7)   // data len:4
-#define rf_pri_esb_dma_rx_offset_freq_offset(p) (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:2
-#define rf_pri_esb_dma_rx_offset_rssi(p)        (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:1, signed
-#define rf_pri_esb_packet_crc_ok(p)             ((p[((p[4] & 0x3f) + 11 + 3)] & 0x01) == 0x00)
+#define rf_pri_esb_dma_rx_offset_crc(p)         ((p)[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:2
+#define rf_pri_esb_dma_rx_offset_time_stamp(p)  ((p)[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 7)   // data len:4
+#define rf_pri_esb_dma_rx_offset_freq_offset(p) ((p)[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:2
+#define rf_pri_esb_dma_rx_offset_rssi(p)        ((p)[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:1, signed
+#define rf_pri_esb_packet_crc_ok(p)             (((p)[(((p)[4] & 0x3f) + 11 + 3)] & 0x01) == 0x00)
 
 /******************************************************FOR ZIGBEE************************************************************/
 

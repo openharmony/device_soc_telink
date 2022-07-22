@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_FLASH_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_FLASH_H
 
 #include "compiler.h"
 #include "mspi.h"
@@ -255,3 +256,5 @@ _attribute_text_sec_ void flash_set_xip_config(flash_xip_config_t config);
  * @return		none.
  */
 _attribute_ram_code_sec_noinline_ void flash_send_cmd(unsigned char cmd);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_FLASH_H
