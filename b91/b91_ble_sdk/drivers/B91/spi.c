@@ -165,9 +165,7 @@ void pspi_set_pin_mux(pspi_pin_def_e pin)
         if ((pin == PSPI_CLK_PC5_PIN) || (pin == PSPI_CSN_PC4_PIN) || (pin == PSPI_MOSI_IO0_PC7_PIN) ||
             (pin == PSPI_MISO_IO1_PC6_PIN)) {
             val = 0;  // function 0
-        }
-
-        else if ((pin == PSPI_CLK_PB5_PIN) || (pin == PSPI_CLK_PD1_PIN) || (pin == PSPI_CSN_PC0_PIN) ||
+        } else if ((pin == PSPI_CLK_PB5_PIN) || (pin == PSPI_CLK_PD1_PIN) || (pin == PSPI_CSN_PC0_PIN) ||
                  (pin == PSPI_CSN_PD0_PIN) || (pin == PSPI_MOSI_IO0_PB7_PIN) || (pin == PSPI_MOSI_IO0_PD3_PIN) ||
                  (pin == PSPI_MISO_IO1_PB6_PIN) || (pin == PSPI_MISO_IO1_PD2_PIN)) {
             val = 1 << (start_bit);  // function 1
@@ -359,7 +357,7 @@ void spi_set_dual_mode(spi_sel_e spi_sel)
  * @brief	This function servers to set quad mode.
  * @return	none
  */
-void hspi_set_quad_mode()
+void hspi_set_quad_mode(void)
 {
     hspi_quad_mode_en();
     spi_dual_mode_dis(HSPI_MODULE);

@@ -44,7 +44,7 @@
 #include "algorithm/ecc/ecc_ll.h"
 
 /*********************************************************/
-//Remove when file merge to SDK //
+// Remove when file merge to SDK //
 
 /*********************************************************/
 

@@ -83,20 +83,20 @@
  *  @brief According to the packet format find the information of packet through offset.
  */
 
-#define rf_zigbee_dma_rx_offset_crc(p)         (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 3)   // data len:2
-#define rf_zigbee_dma_rx_offset_time_stamp(p)  (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:4
-#define rf_zigbee_dma_rx_offset_freq_offset(p) (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:2
-#define rf_zigbee_dma_rx_offset_rssi(p)        (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:1, signed
-#define rf_zigbee_packet_crc_ok(p)             ((p[(p[4] + 9 + 3)] & 0x51) == 0x0)
-#define rf_zigbee_get_payload_len(p)           (p[4])
+#define rf_zigbee_dma_rx_offset_crc(p)         ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 3)   // data len:2
+#define rf_zigbee_dma_rx_offset_time_stamp(p)  ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:4
+#define rf_zigbee_dma_rx_offset_freq_offset(p) ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:2
+#define rf_zigbee_dma_rx_offset_rssi(p)        ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:1, signed
+#define rf_zigbee_packet_crc_ok(p)             (((p)[((p)[4] + 9 + 3)] & 0x51) == 0x0)
+#define rf_zigbee_get_payload_len(p)           ((p)[4])
 #define rf_zigbee_packet_length_ok(p)          (1)
 /**
  *  @brief According to different packet format find the crc check digit.
  */
-#define rf_pri_sb_packet_crc_ok(p) ((p[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
-#define rf_hybee_packet_crc_ok(p)  ((p[(p[4] + 9 + 3)] & 0x51) == 0x0)
+#define rf_pri_sb_packet_crc_ok(p) (((p)[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
+#define rf_hybee_packet_crc_ok(p)  (((p)[(p[4] + 9 + 3)] & 0x51) == 0x0)
 
-#define rf_ant_packet_crc_ok(p) ((p[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
+#define rf_ant_packet_crc_ok(p) (((p)[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
 
 /**********************************************************************************************************************
  *                                       RF global data type                                                          *
@@ -162,7 +162,6 @@ typedef enum {
 
     RF_POWER_N30dBm = 0xff,       /**<  -30 dbm */
     RF_POWER_N50dBm = BIT(7) | 0, /**<  -50 dbm */
-
 } rf_power_level_e;
 
 /**
@@ -294,12 +293,12 @@ static inline unsigned short rf_get_irq_status(rf_irq_e status)
 }
 
 /**
- *@brief	This function serves to clear the Tx/Rx finish flag bit.
+ * @brief	This function serves to clear the Tx/Rx finish flag bit.
  *			After all packet data are sent, corresponding Tx finish flag bit
  *			will be set as 1.By reading this flag bit, it can check whether
  *			packet transmission is finished. After the check, it is needed to
  *			manually clear this flag bit so as to avoid misjudgment.
- *@return	none.
+ * @return	none.
  */
 static inline void rf_clr_irq_status(rf_irq_e status)
 {

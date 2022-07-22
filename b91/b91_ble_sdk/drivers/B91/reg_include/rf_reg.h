@@ -46,8 +46,8 @@ enum {
 #define reg_rf_dma_rx_wptr REG_ADDR8(0x001004f4)
 #define reg_rf_dma_rx_rptr REG_ADDR8(0x001004f5)
 
-#define reg_rf_dma_tx_rptr(i) REG_ADDR8(0x00100501 + (i << 1))
-#define reg_rf_dma_tx_wptr(i) REG_ADDR8(0x00100500 + (i << 1))
+#define reg_rf_dma_tx_rptr(i) REG_ADDR8(0x00100501 + ((i) << 1))
+#define reg_rf_dma_tx_wptr(i) REG_ADDR8(0x00100500 + ((i) << 1))
 
 #define reg_rf_bb_rx_size REG_ADDR8(CHNADDR + 0xf6)
 
@@ -104,7 +104,6 @@ enum {
     FLD_RF_PN_AUTO = BIT(7),
 };
 
-//#define    reg_rf_acclen			    REG_ADDR8(REG_BASEBAND_BASE_ADDR+0x05)
 #define reg_rf_acc_len REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x05)
 enum {
     FLD_RF_ACC_LEN = BIT_RNG(0, 2),
@@ -287,50 +286,6 @@ enum {
     FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
     FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
-
-#if 0
-#define reg_rf_ant_lut_1 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x69)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_2 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6a)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_3 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6b)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_4 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6c)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_5 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6d)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_6 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6e)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-
-#define reg_rf_ant_lut_7 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6f)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
-};
-#endif
 
 #define reg_rf_rxdma_adr   0x140880
 #define reg_rf_rxdma_fifo0 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x80)
@@ -646,7 +601,6 @@ enum {
     FLD_RF_TX_IQ_EN = BIT(1),
     FLD_RF_TX_MPSK_EN = BIT(2),
     FLD_RF_TX_TP_ALIGN = BIT(3),
-
 };
 
 #define reg_rf_mode_cfg_rx1_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x20)
@@ -660,7 +614,6 @@ enum {
     FLD_RF_MODE_VANT_RX = BIT(1),
     FLD_RF_FE_RTRIM_RX = BIT_RNG(2, 4),
     FLD_RF_IF_FREQ = BIT_RNG(5, 6),
-
 };
 
 #define reg_rf_mode_cfg_tx1_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x22)
@@ -674,7 +627,6 @@ enum {
 enum {
     FLD_RF_HPMC_EXP_DIFF_COUNT_H = BIT_RNG(0, 4),
     FLD_RF_DAC_TRIM_CFBK = BIT_RNG(5, 6),
-
 };
 
 #define reg_rf_mode_cfg_txrx_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x26)
@@ -721,7 +673,6 @@ enum {
     FLD_RF_BT_BLE_SEL_EN = BIT(3),
     FLD_RF_TXC_PWR_SRL = BIT(4),
     FLD_RF_BW_CODE_BLE = BIT_RNG(5, 7),
-
 };
 
 #define reg_rf_txrx_dbg3_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x44)

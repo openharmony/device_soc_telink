@@ -80,7 +80,7 @@ extern void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d);
  * @return     	none.
  * @note        extra time is needed for initial-atr after the function.
  */
-extern void s7816_coldreset();
+extern void s7816_coldreset(void);
 
 /**
  * @brief      	This function is used to set all the pin of s7816 module.
@@ -97,7 +97,7 @@ extern void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_
  * @param[in]  	none.
  * @return     	none.
  */
-extern void s7816_release_trig();
+extern void s7816_release_trig(void);
 
 /**
  * @brief      	This function is used to set the RST pin of s7816.
@@ -119,7 +119,7 @@ extern void s7816_set_vcc_pin(gpio_pin_e pin_7816_vcc);
  * @return     	none.
  * @note        the warmreset is required after the IC-CARD active,extra time is needed for initial-atr after the function.
  */
-extern void s7816_warmreset();
+extern void s7816_warmreset(void);
 
 /**
  * @brief      	This function is used to set the rst-wait time of the s7816 module.

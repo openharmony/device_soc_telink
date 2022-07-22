@@ -85,7 +85,7 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
     for (unsigned char i = 0; i < xtal_times; i++) {
         if (0xff == g_chip_version) {
             delay_ms(1000);
-        } else  // **Note that the clock is 24M crystal oscillator. PCLK is 24MHZ
+        } else { // **Note that the clock is 24M crystal oscillator. PCLK is 24MHZ
             // 2.set PD0 as pwm output
             unsigned char pwm_clk = read_reg8(0x1401d8);      // **condition: PCLK is 24MHZ,PCLK = HCLK
             write_reg8(0x1401d8, ((pwm_clk & 0xfc) | 0x01));  // PCLK = 12M
