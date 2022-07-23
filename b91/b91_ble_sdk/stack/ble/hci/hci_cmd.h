@@ -591,7 +591,6 @@ typedef enum {
  */
 /* Options */
 typedef enum {
-
     /* BIT(0)
 	 * 0: Use the adv_sid, adv_addr_type, and adv_address parameters to determine which advertiser to listen to.
 	 * 1: Use the Periodic Advertiser List to determine which advertiser to listen to. */
