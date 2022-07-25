@@ -85,7 +85,7 @@ u32 bls_pm_getNexteventWakeupTick(void);
  * @param	latency - bltPm.user_latency
  * @return	none
  */
-void bls_pm_setManualLatency(u16 latency);  //manual set latency to save power
+void bls_pm_setManualLatency(u16 latency);
 
 /**
  * @brief	for user to set application wake up low power mode

@@ -582,7 +582,6 @@ static inline void hspi_xip_set_wr_cmd(unsigned char wr_cmd)
  */
 static inline void hspi_xip_set_rd_cmd(unsigned char rd_cmd)
 {
-
     reg_hspi_xip_rd_cmd = rd_cmd;
 }
 

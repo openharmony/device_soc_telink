@@ -20,55 +20,54 @@
 
 #include "macro_trick.h"
 
-#define BIT(n)                  		(1 << (n))
+#define BIT(n)                                  (1 << (n))
 
 // BITSx  are internal used macro, please use BITS instead
-#define BITS1(a)                 		BIT(a)
-#define BITS2(a, b)              		(BIT(a) | BIT(b))
-#define BITS3(a, b, c)          		(BIT(a) | BIT(b) | BIT(c))
-#define BITS4(a, b, c, d)        		(BIT(a) | BIT(b) | BIT(c) | BIT(d))
-#define BITS5(a, b, c, d, e)     		(BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e))
-#define BITS6(a, b, c, d, e, f)  		(BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f))
-#define BITS7(a, b, c, d, e, f, g)  	(BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f) | BIT(g))
-#define BITS8(a, b, c, d, e, f, g, h)  	(BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f) | BIT(g) | BIT(h))
+#define BITS1(a)                                BIT(a)
+#define BITS2(a, b)                             (BIT(a) | BIT(b))
+#define BITS3(a, b, c)                          (BIT(a) | BIT(b) | BIT(c))
+#define BITS4(a, b, c, d)                       (BIT(a) | BIT(b) | BIT(c) | BIT(d))
+#define BITS5(a, b, c, d, e)                    (BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e))
+#define BITS6(a, b, c, d, e, f)                 (BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f))
+#define BITS7(a, b, c, d, e, f, g)              (BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f) | BIT(g))
+#define BITS8(a, b, c, d, e, f, g, h)           (BIT(a) | BIT(b) | BIT(c) | BIT(d) | BIT(e) | BIT(f) | BIT(g) | BIT(h))
 
-#define BITS(...) 						VARARG(BITS, __VA_ARGS__)
-
+#define BITS(...)                               VARARG(BITS, __VA_ARGS__)
 
 // bits range: BITS_RNG(4, 5)  0b000111110000,  start from 4, length = 5
-#define BIT_RNG(s, e)  					(BIT_MASK_LEN((e)-(s)+1) << (s))
+#define BIT_RNG(s, e)                           (BIT_MASK_LEN((e)-(s)+1) << (s))
 
-#define BM_MASK_V(x, mask)        ((x) | (mask))
-#define BM_CLR_MASK_V(x, mask)    ((x) & ~(mask))
+#define BM_MASK_V(x, mask)                      ((x) | (mask))
+#define BM_CLR_MASK_V(x, mask)                  ((x) & ~(mask))
 
-#define BM_SET(x, mask)         ((x) |= (mask))
-#define BM_CLR(x, mask)       	((x) &= ~(mask))
-#define BM_IS_SET(x, mask)   	((x) & (mask))
-#define BM_IS_CLR(x, mask)   	((~(x)) & (mask))
-#define BM_FLIP(x, mask)      	((x) ^= (mask))
+#define BM_SET(x, mask)                         ((x) |= (mask))
+#define BM_CLR(x, mask)                         ((x) &= ~(mask))
+#define BM_IS_SET(x, mask)                      ((x) & (mask))
+#define BM_IS_CLR(x, mask)                      ((~(x)) & (mask))
+#define BM_FLIP(x, mask)                        ((x) ^= (mask))
 
 // !!!!   v is already a masked value,  no need to shift
-#define BM_MASK_VAL(x, mask, v)  	(((x) & ~(mask)) | (v))
-#define BM_SET_MASK_VAL(x, mask, v)  ((x) = BM_MASK_VAL(x, mask, v))
+#define BM_MASK_VAL(x, mask, v)                 (((x) & ~(mask)) | (v))
+#define BM_SET_MASK_VAL(x, mask, v)             ((x) = BM_MASK_VAL(x, mask, v))
 
 
-#define BIT_SET(x, n)         	((x) |=  BIT(n))
-#define BIT_CLR(x, n)       	((x) &= ~ BIT(n))
-#define BIT_IS_SET(x, n)   		((x) & BIT(n))
-#define BIT_FLIP(x, n)   		((x) ^= BIT(n))
-#define BIT_SET_HIGH(x) 		((x) |=  BIT((sizeof((x))*8-1)))				// set the highest bit
-#define BIT_CLR_HIGH(x) 		((x) &= ~ BIT((sizeof((x))*8-1)))				// clr the highest bit
-#define BIT_IS_SET_HIGH(x) 		((x) & BIT((sizeof((x))*8-1)))				// check the higest bit
+#define BIT_SET(x, n)                           ((x) |=  BIT(n))
+#define BIT_CLR(x, n)                           ((x) &= ~ BIT(n))
+#define BIT_IS_SET(x, n)                        ((x) & BIT(n))
+#define BIT_FLIP(x, n)                          ((x) ^= BIT(n))
+#define BIT_SET_HIGH(x)                         ((x) |=  BIT((sizeof((x))*8-1)))           // set the highest bit
+#define BIT_CLR_HIGH(x)                         ((x) &= ~ BIT((sizeof((x))*8-1)))          // clr the highest bit
+#define BIT_IS_SET_HIGH(x)                      ((x) & BIT((sizeof((x))*8-1)))             // check the higest bit
 
-#define BIT_MASK_LEN(len)       (BIT(len)-1)
-#define BIT_MASK(start, len)    (BIT_MASK_LEN(len) << (start))
+#define BIT_MASK_LEN(len)                       (BIT(len)-1)
+#define BIT_MASK(start, len)                    (BIT_MASK_LEN(len) << (start))
 
 //! Prepare a bitmask for insertion or combining.
-#define BIT_PREP(x, start, len) ((x) & BIT_MASK(start, len))
+#define BIT_PREP(x, start, len)                 ((x) & BIT_MASK(start, len))
 
 //! Extract a bitfield of length \a len starting at bit \a start from \a y.
-#define BIT_GET(x, start, len)  (((x) >> (start)) & BIT_MASK_LEN(len))
-#define BIT_GET_LOW(x, len)   	((x) & BIT_MASK_LEN(len))
+#define BIT_GET(x, start, len)                  (((x) >> (start)) & BIT_MASK_LEN(len))
+#define BIT_GET_LOW(x, len)                     ((x) & BIT_MASK_LEN(len))
 
 //! Insert a new bitfield value \a x into \a y.
 #define BIT_MERGE(y, x, start, len)    \
@@ -82,11 +81,11 @@
 #define BIT_PROPAGATE_1(x) ((x) |= ((x)-1))
 #define BIT_ISOLATE_0(x)   ((x) = ~(x) & ((x)+1))
 #define BIT_TURNON_0(x)    ((x) |= ((x)+1))
-#define CLAMP_TO_ONE(x)    (!!(x))				// compiler defined, not stardard.    0 --> 0,   1 --> 0xffffffff
+#define CLAMP_TO_ONE(x)    (!!(x))   // compiler defined, not stardard.    0 --> 0,   1 --> 0xffffffff
 
-#define ONES(x)				BIT_MASK_LEN(x)
-#define ONES_32				0xffffffff
-#define ALL_SET				0xffffffff
+#define ONES(x)            BIT_MASK_LEN(x)
+#define ONES_32            0xffffffff
+#define ALL_SET            0xffffffff
 
 
 // Return the bit index of the lowest 1 in y.   ex:  0b00110111000  --> 3
@@ -117,11 +116,10 @@
 						(((y) & BIT(1)) ? 1 : (((y) & BIT(0)) ? 0 : 32				\
 						))))))))))))))))))))))))))))))))
 
-#define BM_MASK_FLD(x, mask)    		(((x) & (mask)) >> BIT_LOW_BIT(mask))
-#define BM_SET_MASK_FLD(x, mask, v)    	((x) = BM_MASK_VAL(x, mask, v))
+#define BM_MASK_FLD(x, mask)                    (((x) & (mask)) >> BIT_LOW_BIT(mask))
+#define BM_SET_MASK_FLD(x, mask, v)             ((x) = BM_MASK_VAL(x, mask, v))
 
-//////////////////////
-#define MV(m, v)											(((v) << BIT_LOW_BIT(m)) & (m))
+#define MV(m, v)                                (((v) << BIT_LOW_BIT(m)) & (m))
 
 // warning MASK_VALn  are internal used macro, please use MASK_VAL instead
 #define MASK_VAL2(m, v)    											(MV(m, v))
