@@ -36,12 +36,12 @@
 #define SLEEP_TIME_CORRECTION      mticks_to_systicks(3)
 #define SYSTICKS_MAX_SLEEP         0xE0000000
 #define SYSTICKS_MIN_SLEEP         (18352 + SLEEP_TIME_CORRECTION)
+#define RESERVE_WAKEUP_TIME        1
 
 static void B91Suspend(VOID);
 
 static LosPmSysctrl g_sysctrl = {
     .normalSuspend = B91Suspend,
-    .lightSuspend = B91Suspend,    
 };
 
 static inline void SetMtime(UINT64 time)
@@ -113,16 +113,16 @@ static void B91Suspend(VOID)
 }
 
 /**
- * @brief      	This callback function is used instead of the cpu_sleep_wakeup_32k_rc() sleep function of the BLE stack,
- *              set in the blc_pm_select_internal_32k_crystal() function.
+ * @brief   This callback function is used instead of the cpu_sleep_wakeup_32k_rc() sleep function of the BLE stack,
+ *          set in the blc_pm_select_internal_32k_crystal() function.
 */
 static int B91SleepCallback(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick)
 {
     int ret = 0;
     UINT32 timeSleepMs = (wakeup_tick - stimer_get_tick()) / SYSTEM_TIMER_TICK_1MS;
     systimer_irq_enable();
-    if (timeSleepMs > 1) {
-        LOS_Msleep(timeSleepMs - 1);
+    if (timeSleepMs > RESERVE_WAKEUP_TIME) {
+        LOS_Msleep(timeSleepMs - RESERVE_WAKEUP_TIME);
     }
     if (pm_get_wakeup_src() & WAKEUP_STATUS_TIMER) {
         ret = WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
@@ -132,15 +132,11 @@ static int B91SleepCallback(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef
 
 VOID B91SuspendSleepInit(VOID)
 {
-    printf("\r\n B91_SLEEP_init \r\n");
     UINT32 ret = LOS_PmRegister(LOS_PM_TYPE_SYSCTRL, &g_sysctrl);
     if (ret != LOS_OK) {
         printf("Ret of PMRegister = %#x\r\n", ret);
-    }
-
-    ret = LOS_PmModeSet(LOS_SYS_LIGHT_SLEEP);
-    if (ret != LOS_OK) {
-        printf("Ret of PMModeSet = %#x\r\n", ret);
+    } else {
+        printf("\r\n B91_SLEEP_init\r\n");
     }
 
     cpu_sleep_wakeup = B91SleepCallback;
