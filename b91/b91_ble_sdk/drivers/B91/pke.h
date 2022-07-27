@@ -15,12 +15,13 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
 
 #include "reg_include/register_b91.h"
 
-#define GET_WORD_LEN(bitLen) ((bitLen + 31) / 32)
-#define GET_BYTE_LEN(bitLen) ((bitLen + 7) / 8)
+#define GET_WORD_LEN(bitLen) (((bitLen) + 31) / 32)
+#define GET_BYTE_LEN(bitLen) (((bitLen) + 7) / 8)
 
 #define PKE_BASE         (0X80110000)
 #define reg_pke_a_ram(a) ((volatile unsigned long *)(PKE_BASE + 0x0400 + (a) * (0x24)))
@@ -39,10 +40,9 @@
 /**
  * eccp curve
  */
-typedef struct
-{
-    unsigned int eccp_p_bitLen;  //bit length of prime p
-    unsigned int eccp_n_bitLen;  //bit length of order n
+typedef struct {
+    unsigned int eccp_p_bitLen;  // bit length of prime p
+    unsigned int eccp_n_bitLen;  // bit length of order n
     unsigned int *eccp_p;
     unsigned int *eccp_p_h;
     unsigned int *eccp_p_n1;
@@ -58,9 +58,8 @@ typedef struct
 /**
  * mont curve
  */
-typedef struct
-{
-    unsigned int mont_p_bitLen;  //bit length of prime p
+typedef struct {
+    unsigned int mont_p_bitLen;  // bit length of prime p
     unsigned int *mont_p;
     unsigned int *mont_p_h;
     unsigned int *mont_p_n1;
@@ -76,9 +75,8 @@ typedef struct
 /**
  * edward curve
  */
-typedef struct
-{
-    unsigned int edward_p_bitLen;  //bit length of prime p
+typedef struct {
+    unsigned int edward_p_bitLen;  // bit length of prime p
     unsigned int *edward_p;
     unsigned int *edward_p_h;
     unsigned int *edward_p_n1;
@@ -89,7 +87,6 @@ typedef struct
     unsigned int *edward_n_h;
     unsigned int *edward_n_n1;
     unsigned int *edward_h;
-
 } edward_curve_t;
 
 /**
@@ -129,7 +126,6 @@ typedef enum {
     PKE_MICROCODE_C25519_PMUL = 0x34,
     PKE_MICROCODE_Ed25519_PMUL = 0x38,
     PKE_MICROCODE_Ed25519_PADD = 0x3C,
-
 } pke_microcode_e;
 
 /**
@@ -424,3 +420,5 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
  */
 unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x,
                                     unsigned int *P2y, unsigned int *Qx, unsigned int *Qy);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_PKE_H

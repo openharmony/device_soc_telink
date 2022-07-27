@@ -35,7 +35,6 @@
 
 #include <board_config.h>
 
-#include "canary.h"
 #include <b91_irq.h>
 #include <system_b91.h>
 
@@ -46,6 +45,8 @@
 #include <B91/gpio_default.h>
 
 #include <../vendor/common/blt_common.h>
+
+#include "canary.h"
 
 #define HZ_IN_MHZ (1000 * 1000)
 

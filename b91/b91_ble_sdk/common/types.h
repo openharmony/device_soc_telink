@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-
-#pragma once
+#ifndef B91_B91_BLE_SDK_COMMON_TYPES_H
+#define B91_B91_BLE_SDK_COMMON_TYPES_H
 
 #include <stdbool.h>
 
@@ -37,12 +37,10 @@ typedef long long s64;
 typedef unsigned long long u64;
 
 // #ifndef NULL
-// #define NULL 	0
+
 // #endif
 
 #ifndef __cplusplus
-
-//typedef u8 bool;
 
 #ifndef FALSE
 #define FALSE 0
@@ -51,15 +49,12 @@ typedef unsigned long long u64;
 #define TRUE (!FALSE)
 #endif
 
-//#define false 	FALSE
-//#define true 	TRUE
-
 #endif
 
 // There is no way to directly recognise whether a typedef is defined
 // http://stackoverflow.com/questions/3517174/how-to-check-if-a-datatype-is-defined-with-typedef
 #ifdef __GNUC__
-//typedef	u16	wchar_t;
+
 #endif
 
 #ifndef WIN32
@@ -89,3 +84,5 @@ typedef u32 size_t;
 typedef u32 UTCTime;
 typedef u32 arg_t;
 typedef u32 status_t;
+
+#endif // B91_B91_BLE_SDK_COMMON_TYPES_H

@@ -28,7 +28,7 @@
 
 #define reg_hspi_data_buf_adr   0x1FFFFC8
 #define reg_hspi_xip_base_adr   0x1000000
-#define reg_spi_data_buf_adr(i) 0x140048 + (i)*BASE_ADDR_DIFF
+#define reg_spi_data_buf_adr(i) (0x140048 + (i)*BASE_ADDR_DIFF)
 /**
  * BIT[0:1] the minimum time between the edge of SPI_CS and  the edges of SPI_CLK.the actual duration is (SPI_CLK_OUT/2)*(cs2sclk+1).master only
  * BIT[2]  set 3line mode ,MOSI is bi-directional signal in regular mode.master only
@@ -52,11 +52,10 @@ enum {
     FLD_SPI_MASTER_MODE = BIT(7),
 };
 
-/*the clock freq ratio between the source_clock and spi_clock.master only
+/* the clock freq ratio between the source_clock and spi_clock.master only
  * spi_clock=source_clock/((spi_clk_div+1)*2)
  * spi_clk_div=reg_hspi_mode1[7:0]. max_value=0xff,spi_clock==source_clock
  */
-//#define reg_hspi_mode1			REG_ADDR8(HSPI_BASE_ADDR+0x01)
 #define reg_spi_mode1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x01 + (i)*BASE_ADDR_DIFF)
 
 /**
@@ -85,7 +84,6 @@ enum {
  */
 
 #define reg_spi_tx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x12 + (i) * (BASE_ADDR_DIFF - 0x12 + 0x20))
-//#define reg_hspi_tx_cnt1		   REG_ADDR8(HSPI_BASE_ADDR+0x20)
 /**
  * BIT[0:7]   transfer count2 for write data.master only
  */
@@ -138,8 +136,8 @@ enum {
 #define reg_spi_trans1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x06 + (i)*BASE_ADDR_DIFF)
 enum {
     FLD_SPI_CMD_RESERVED = BIT(0),
-    FLD_SPI_CMD_TRANS_HWORD = BIT(1),         //1 apb hword transfer
-    FLD_SPI_CMD_TRANS_WORD = BIT(2),          //1 apb word transfer
+    FLD_SPI_CMD_TRANS_HWORD = BIT(1),         // 1 apb hword transfer
+    FLD_SPI_CMD_TRANS_WORD = BIT(2),          // 1 apb word transfer
     FLD_SPI_CMD_RD_DUMMY_4CYCLE = BIT(3),     // 0 8cycle 1 4cycle
     FLD_SPI_CMD_ADDR_AUTO_INCREASE = BIT(4),  // 0 AUTO incease
     FLD_SPI_CMD_DATA_DUAL = BIT(5),           // 0 Single 1 DuaL
@@ -279,7 +277,7 @@ enum {
  */
 #define reg_hspi_addr3 REG_ADDR8(HSPI_BASE_ADDR + 0x13)
 
-#define reg_hspi_addr(i) REG_ADDR8(HSPI_BASE_ADDR + 0x10 + i)
+#define reg_hspi_addr(i) REG_ADDR8(HSPI_BASE_ADDR + 0x10 + (i))
 
 /**   hspi_addr0~ hspi_addr3.
  */

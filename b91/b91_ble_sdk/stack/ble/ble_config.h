@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef BLE_CONFIG_H
 #define BLE_CONFIG_H
 
@@ -47,7 +45,7 @@
 
 #define BLS_BLE_RF_IRQ_TIMING_EXTREMELY_SHORT_EN 0
 
-//conn param update/map update
+// conn param update/map update
 #ifndef BLS_PROC_MASTER_UPDATE_REQ_IN_IRQ_ENABLE
 #define BLS_PROC_MASTER_UPDATE_REQ_IN_IRQ_ENABLE 1
 #endif
@@ -60,7 +58,7 @@
 #define HOST_CONTROLLER_DATA_FLOW_IMPROVE_EN 1
 #endif
 
-//Link layer feature enable flag default setting
+// Link layer feature enable flag default setting
 #ifndef BLE_CORE42_DATA_LENGTH_EXTENSION_ENABLE
 #define BLE_CORE42_DATA_LENGTH_EXTENSION_ENABLE 1
 #endif

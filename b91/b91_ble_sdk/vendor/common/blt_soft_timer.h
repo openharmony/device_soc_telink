@@ -20,23 +20,23 @@
 
 #include "vendor/common/user_config.h"
 
-//user define
+// user define
 #ifndef BLT_SOFTWARE_TIMER_ENABLE
-#define BLT_SOFTWARE_TIMER_ENABLE 0  //enable or disable
+#define BLT_SOFTWARE_TIMER_ENABLE 0  // enable or disable
 #endif
 
-#define MAX_TIMER_NUM 4  //timer max number
+#define MAX_TIMER_NUM 4  // timer max number
 
 #define MAINLOOP_ENTRY 0
 #define CALLBACK_ENTRY 1
 
-//if t1 < t2  return 1
+// if t1 < t2  return 1
 #define TIME_COMPARE_SMALL(t1, t2) ((u32)((t2) - (t1)) < BIT(30))
 
 // if t1 > t2 return 1
 #define TIME_COMPARE_BIG(t1, t2) ((u32)((t1) - (t2)) < BIT(30))
 
-#define BLT_TIMER_SAFE_MARGIN_PRE  (SYSTEM_TIMER_TICK_1US << 7)  //128 us
+#define BLT_TIMER_SAFE_MARGIN_PRE  (SYSTEM_TIMER_TICK_1US << 7)  // 128 us
 #define BLT_TIMER_SAFE_MARGIN_POST (SYSTEM_TIMER_TICK_1S << 2)   // 4S
 
 /**
@@ -56,22 +56,20 @@ static int inline blt_is_timer_expired(u32 t, u32 now)
  */
 typedef int (*blt_timer_callback_t)(void);
 
-typedef struct blt_time_event_t
-{
+typedef struct blt_time_event_t {
     blt_timer_callback_t cb;
     u32 t;
     u32 interval;
 } blt_time_event_t;
 
 // timer table managemnt
-typedef struct blt_soft_timer_t
-{
-    blt_time_event_t timer[MAX_TIMER_NUM];  //timer0 - timer3
-    u8 currentNum;                          //total valid timer num
+typedef struct blt_soft_timer_t {
+    blt_time_event_t timer[MAX_TIMER_NUM];  // timer0 - timer3
+    u8 currentNum;                          // total valid timer num
 } blt_soft_timer_t;
 
 //////////////////////// USER  INTERFACE ///////////////////////////////////
-//return 0 means Fail, others OK
+// return 0 means Fail, others OK
 /**
  * @brief		This function is used to add new software timer task
  * @param[in]	func - callback function for software timer task

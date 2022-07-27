@@ -19,11 +19,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-int access(const char *pathname, int mode)
+int access(const char *__name, int __type)
 {
     struct stat f_info;
 
-    if (stat(pathname, &f_info) == 0) {
+    if (stat(__name, &f_info) == 0) {
         if (f_info.st_mode & S_IFDIR) {
             return 0;
         } else if (f_info.st_mode & S_IFREG) {

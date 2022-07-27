@@ -113,8 +113,10 @@ enum {
 
 /**
  * This is the register that configures the i2c trigger interrupt
- * BIT_RNG[0,3] to configure the interrupt trigger level of rx_status, for example BIT_RNG[0:3]=0x04,when rx 4bytes,will trigger interrupt.
- * BIT_RNG[4,7] to configure the interrupt trigger level of tx_status, for example BIT_RNG[0:3]=0x04,when tx 4bytes,will trigger interrupt.
+ * BIT_RNG[0,3] to configure the interrupt trigger level of rx_status,
+ *     for example BIT_RNG[0:3]=0x04,when rx 4bytes,will trigger interrupt.
+ * BIT_RNG[4,7] to configure the interrupt trigger level of tx_status,
+ *     for example BIT_RNG[0:3]=0x04,when tx 4bytes,will trigger interrupt.
  */
 #define reg_i2c_trig REG_ADDR8(REG_I2C_BASE + 0x05)
 enum {
@@ -122,16 +124,21 @@ enum {
     FLD_I2C_TX_IRQ_TRIG_LEV = BIT_RNG(4, 7),
 };
 
-//As a master, you need to configure this length for both sending and receiving, and the hardware needs to know what the length is.
+// As a master, you need to configure this length for both sending and receiving,
+//     and the hardware needs to know what the length is.
 #define reg_i2c_len REG_ADDR8(REG_I2C_BASE + 0x06)
 
 /**
  * This register is to configure the slave stretch function.
- * BIT[0] slave auto stretch clk eanble,open this function, use slave to receive data,when data buffer is full, scl bus will be low to stop receive data.
- * BIT[1] slave manul stretch clk enable,open this function, use slave to receive data,when data buffer is full, scl bus will be low to stop receive data.
+ * BIT[0] slave auto stretch clk eanble,open this function, use slave to receive data,
+ *     when data buffer is full, scl bus will be low to stop receive data.
+ * BIT[1] slave manul stretch clk enable,open this function, use slave to receive data,
+ *     when data buffer is full, scl bus will be low to stop receive data.
  * BIT[2] clear slave stretch.
- * BIT[6] in high speed mode,when open slave auto stretch clk function,Suddenly data came over, to meet the requirements of time setting.
- * BIT[7] in fast speed mode,when open slave auto stretch clk function,Suddenly data came over, to meet the requirements of time setting.
+ * BIT[6] in high speed mode,when open slave auto stretch clk function,
+ *     Suddenly data came over, to meet the requirements of time setting.
+ * BIT[7] in fast speed mode,when open slave auto stretch clk function,
+ *     Suddenly data came over, to meet the requirements of time setting.
  */
 #define reg_i2c_slave_strech_en REG_ADDR8(REG_I2C_BASE + 0x07)
 enum {
@@ -223,7 +230,8 @@ enum {
     FLD_I2C_TX_EN = BIT(4),
 };
 
-//reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo, it is an accumulated value, and fifo clear will clear.
+// reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo,
+//     it is an accumulated value, and fifo clear will clear.
 #define reg_i2c_rx_fifo_len REG_ADDR8(REG_I2C_BASE + 0x0f)
 enum {
     FLD_I2C_RX_FIFO_LEN = BIT_RNG(0, 7),

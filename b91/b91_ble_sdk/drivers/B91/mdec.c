@@ -29,7 +29,7 @@
  */
 void mdec_init(mdec_pin_e pin)
 {
-    analog_write_reg8(mdec_rst_addr, (analog_read_reg8(mdec_rst_addr) & (~FLD_CLS_MDEC)) | pin);  //A0/B7/C4/D0/E0
+    analog_write_reg8(mdec_rst_addr, (analog_read_reg8(mdec_rst_addr) & (~FLD_CLS_MDEC)) | pin);  // A0/B7/C4/D0/E0
 }
 
 /**

@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_COMMON_ASSERT_H
+#define B91_B91_BLE_SDK_COMMON_ASSERT_H
 
 #include "config/user_config.h"  //   for  __DEBUG__
 
@@ -78,3 +79,5 @@
 #else
 #define NOTE(x)
 #endif
+
+#endif // B91_B91_BLE_SDK_COMMON_ASSERT_H

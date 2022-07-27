@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_MSPI_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_MSPI_H
 
 #include "compiler.h"
 #include "gpio.h"
@@ -113,8 +114,10 @@ _attribute_ram_code_sec_ static inline unsigned char mspi_read(void)
  */
 _attribute_ram_code_sec_ static inline void mspi_stop_xip(void)
 {
-    mspi_wait();                             //wait xip busy=0
-    mspi_high();                             //mspi_cn=1, stop xip read
-    while (gpio_get_level(GPIO_PF3) == 0) {  //wait cn=1
+    mspi_wait();                             // wait xip busy=0
+    mspi_high();                             // mspi_cn=1, stop xip read
+    while (gpio_get_level(GPIO_PF3) == 0) {  // wait cn=1
     }
 }
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_MSPI_H

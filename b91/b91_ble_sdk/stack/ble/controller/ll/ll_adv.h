@@ -84,10 +84,12 @@ ble_sts_t bls_ll_setAdvDuration(u32 duration_us, u8 duration_en);
  */
 void blc_ll_setAdvCustomedChannel(u8 chn0, u8 chn1, u8 chn2);
 
-extern u8
-    blc_continue_adv_en;  //default stop sending legacy advertising packets when receiving scan request in the current adv interval.
+/* default stop sending legacy advertising packets when receiving scan request in the current adv interval. */
+extern u8 blc_continue_adv_en;
+
 /**
- * @brief      this function is used to set whether to continue sending legacy advertising packets when receiving scan request in the current adv interval.
+ * @brief      this function is used to set whether to continue sending legacy advertising packets .
+ *             when receiving scan request in the current adv interval
  * @param[in]  enable - enable:continue sending broadcast packets when receiving scan request.
  * @return     none.
  */

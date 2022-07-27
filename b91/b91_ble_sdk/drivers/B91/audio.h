@@ -42,9 +42,9 @@ typedef enum {
 } i2s_pin_e;
 
 typedef enum {
-    DMIC_B2_DAT_B3_CLK,  //mono B3 clk1
-    DMIC_C1_DAT_C2_CLK,  //mono C2 clk1
-    DMIC_D4_DAT_D5_CLK,  //mono D5 clk1
+    DMIC_B2_DAT_B3_CLK,  // mono B3 clk1
+    DMIC_C1_DAT_C2_CLK,  // mono C2 clk1
+    DMIC_D4_DAT_D5_CLK,  // mono D5 clk1
     DMIC_GROUPB_B2_DAT_B3_B4_CLK,
     DMIC_GROUPC_C1_DAT_C2_C3_CLK,
     DMIC_GROUPD_D4_DAT_D5_D6_CLK,
@@ -97,7 +97,6 @@ typedef enum {
     BIT_20_OR_24_MONO_FIFO1,
     BIT_16_STEREO_FIFO0_AND_FIFO1,
     BIT_20_OR_24STEREO_FIFO0_AND_FIFO1,
-
 } audio_out_mode_e;
 
 typedef enum {
@@ -147,8 +146,7 @@ typedef enum {
     I2S_DATA_INVERT_EN,
 } audio_data_invert_e;
 
-typedef struct
-{
+typedef struct {
     unsigned char audio_in_mode;
     unsigned char audio_out_mode;
     unsigned char i2s_data_select;
@@ -212,7 +210,7 @@ typedef enum {
     AUDIO_RATE_LT_L1,
 } audio_rate_match_e;
 
-/*[0,+43], 1 dB steps*/
+/* [0,+43], 1 dB steps */
 typedef enum {
     CODEC_IN_D_GAIN_0_DB = 0,
     CODEC_IN_D_GAIN_4_DB = 4,
@@ -301,7 +299,6 @@ typedef enum {
 } codec_out_path_digital_gain_e;
 
 typedef enum {
-
     CODEC_OUT_A_GAIN_12_DB,
     CODEC_OUT_A_GAIN_11_DB,
     CODEC_OUT_A_GAIN_10_DB,
@@ -336,7 +333,7 @@ typedef enum {
     CODEC_OUT_A_GAIN_m19_DB,
 } codec_out_path_analog_gain_e;
 
-/*The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
+/* The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
 The wind noise filter is a 1st order filter.
                    Mode1  -3dB   59Hz
 corner frequency   Mode2  -3dB   117Hz
@@ -351,7 +348,7 @@ typedef enum {
 
 typedef enum {
     INNER_CODEC,
-    EXT_CODEC,  //wm8731
+    EXT_CODEC,  // wm8731
 } codec_type_e;
 
 typedef enum {
@@ -380,7 +377,7 @@ static inline void audio_set_i2s_clk(unsigned char step, unsigned char mod)
  */
 static inline void audio_set_codec_clk(unsigned char step, unsigned char mod)
 {
-    BM_CLR(reg_dmic_clk_set, BIT(0));  //set dmic_div
+    BM_CLR(reg_dmic_clk_set, BIT(0));  // set dmic_div
     reg_dmic_step = (step & FLD_DMIC_STEP) | FLD_DMIC_SEL;
     reg_dmic_mod = mod;
 }

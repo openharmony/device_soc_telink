@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H
+#define B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H
 
 #define GAP_ADTYPE_FLAGS                    0x01  //!< Discovery Mode: @ref GAP_ADTYPE_FLAGS_MODES
 #define GAP_ADTYPE_16BIT_INCOMPLETE         0x02  //!< Incomplete List of 16-bit Service Class UUIDs
@@ -34,7 +35,7 @@
 #define GAP_ADTYPE_SM_TK                    0x10  //!< Security Manager TK Value
 #define GAP_ADTYPE_SM_OOB_FLAG              0x11  //!< Secutiry Manager OOB Flags
 #define GAP_ADTYPE_SLAVE_CONN_INTERVAL_RANGE                                                                          \
-    0x12  //!< Min and Max values of the connection interval (2 octets Min, 2 octets Max) (0xFFFF indicates no conn interval min or max)
+    0x12  // !< Min and Max conn interval values (2 octets Min, 2 octets Max, 0xFFFF - no conn interval min or max)
 #define GAP_ADTYPE_SERVICES_LIST_16BIT      0x14  //!< Service Solicitation: list of 16-bit Service UUIDs
 #define GAP_ADTYPE_SERVICES_LIST_32BIT      0x1F  //!< Service Solicitation: list of 32-bit Service UUIDs
 #define GAP_ADTYPE_SERVICES_LIST_128BIT     0x15  //!< Service Solicitation: list of 128-bit Service UUIDs
@@ -52,8 +53,8 @@
 #define GAP_ADTYPE_SIMPLE_PAIRING_RAND_R256 0x1E  //!< Simple Pairing Randomizer R-256
 #define GAP_ADTYPE_3D_INFORMATION_DATA      0x3D  //!< 3D Synchronization Profile, v1.0 or later
 #define GAP_ADTYPE_MANUFACTURER_SPECIFIC                                                                              \
-    0xFF  //!< Manufacturer Specific Data: first 2 octets contain the Company Identifier Code followed by the additional manufacturer specific data
-
+    0xFF  // !< Manufacturer Specific Data:
+          // first 2 octets contain the Company Identifier Code followed by the additional manufacturer specific data
 #define GAP_ADTYPE_LE_LIMITED_DISCOVERABLE_MODE_BIT 0x01
 #define GAP_ADTYPE_LE_GENERAL_DISCOVERABLE_MODE_BIT 0x02
 #define GAP_ADTYPE_LMP_BIT37_BIT                    0x04
@@ -66,3 +67,5 @@
  * @return     none
  */
 void blc_gap_peripheral_init(void);
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_HOST_GAP_GAP_H

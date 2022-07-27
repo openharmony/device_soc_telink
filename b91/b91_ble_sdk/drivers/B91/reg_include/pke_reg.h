@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef PKE_REG_H
+#define PKE_REG_H
 
 #include "../sys.h"
 
@@ -58,3 +59,5 @@ enum {
     FLD_PKE_EXE_CONF_OMON = BIT(5),
     FLD_PKE_EXE_CONF_ME_SCA_EN = BIT_RNG(8, 9),
 };
+
+#endif // PKE_REG_H

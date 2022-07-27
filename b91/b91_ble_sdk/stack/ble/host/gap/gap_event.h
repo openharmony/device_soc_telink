@@ -159,51 +159,43 @@ Situation 2:   SMP Fast Connect																		|
 /**
  * @brief      data structure of GAP event callback data
  */
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u8 secure_conn;
     u8 tk_method;
 } gap_smp_paringBeginEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u8 bonding;
     u8 bonding_result;
 } gap_smp_paringSuccessEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u8 reason;
 } gap_smp_paringFailEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
-    u8 re_connect;  //1: re_connect, encrypt with previous distributed LTK;   0: paring , encrypt with STK
+    u8 re_connect;  // 1: re_connect, encrypt with previous distributed LTK;   0: paring , encrypt with STK
 } gap_smp_connEncDoneEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
-    u8 re_connect;  //1: re_connect, encrypt with previous distributed LTK;   0: paring , encrypt with STK
+    u8 re_connect;  // 1: re_connect, encrypt with previous distributed LTK;   0: paring , encrypt with STK
 } gap_smp_securityProcessDoneEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u32 tk_pincode;
 } gap_smp_TkDisplayEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
 } gap_smp_TkReqPassKeyEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u16 peer_MTU;
     u16 effective_MTU;

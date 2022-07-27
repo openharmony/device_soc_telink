@@ -19,27 +19,25 @@
 #define SMP_STORAGE_H_
 
 typedef enum {
-    Index_Update_by_Pairing_Order = 0,  //default value
+    Index_Update_by_Pairing_Order = 0,  // default value
     Index_Update_by_Connect_Order = 1,
 } index_updateMethod_t;
 
 /*
  * smp parameter need save to flash.
  * */
-typedef struct
-{  //82
+typedef struct {  // 82
     u8 flag;
-    u8 peer_addr_type;  //address used in link layer connection
+    u8 peer_addr_type;  // address used in link layer connection
     u8 peer_addr[6];
 
     u8 peer_key_size;
-    u8 peer_id_adrType;  //peer identity address information in key distribution, used to identify
+    u8 peer_id_adrType;  // peer identity address information in key distribution, used to identify
     u8 peer_id_addr[6];
 
-    u8 own_ltk[16];  //own_ltk[16]
+    u8 own_ltk[16];  // own_ltk[16]
     u8 peer_irk[16];
     u8 peer_csrk[16];
-
 } smp_param_save_t;
 
 /**

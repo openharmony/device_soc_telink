@@ -19,25 +19,25 @@
 #include "audio.h"
 #include "compiler.h"
 
-_attribute_data_retention_sec_ unsigned short g_adc_vref = 1175;  //default ADC ref voltage (unit:mV)
+_attribute_data_retention_sec_ unsigned short g_adc_vref = 1175;  // default ADC ref voltage (unit:mV)
 volatile unsigned char g_adc_pre_scale;
 volatile unsigned char g_adc_vbat_divider;
 
 dma_chn_e adc_dma_chn;
 dma_config_t adc_rx_dma_config = {
     .dst_req_sel = 0,
-    .src_req_sel = DMA_REQ_AUDIO1_RX,  //adc use the audio1 interface
+    .src_req_sel = DMA_REQ_AUDIO1_RX,  // adc use the audio1 interface
     .dst_addr_ctrl = DMA_ADDR_INCREMENT,
     .src_addr_ctrl = DMA_ADDR_FIX,
     .dstmode = DMA_NORMAL_MODE,
     .srcmode = DMA_HANDSHAKE_MODE,
-    .dstwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .src_burst_size = 0,             //must 0
+    .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .src_burst_size = 0,             // must 0
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 /**
  * @brief     This function serves to config adc_dma_chn channel.
@@ -51,7 +51,7 @@ void adc_set_dma_config(dma_chn_e chn)
     dma_clr_irq_mask(adc_dma_chn, TC_MASK | ERR_MASK | ABT_MASK);
     dma_set_irq_mask(adc_dma_chn, TC_MASK);
 
-    audio_data_fifo1_path_sel(SAR_ADC_DATA_IN_FIFO, OUT_NO_USE);  //connect DMA and ADC by audio input fifo1.
+    audio_data_fifo1_path_sel(SAR_ADC_DATA_IN_FIFO, OUT_NO_USE);  // connect DMA and ADC by audio input fifo1.
 }
 /**
  * @brief     This function serves to start sample with adc DMA channel.
@@ -138,13 +138,13 @@ void adc_set_ref_voltage(adc_ref_vol_e v_ref)
 {
     analog_write_reg8(areg_adc_vref, v_ref);
     if (v_ref == ADC_VREF_1P2V) {
-        //Vref buffer bias current trimming: 		150%
-        //Comparator preamp bias current trimming:  100%
+        // Vref buffer bias current trimming: 		150%
+        // Comparator preamp bias current trimming:  100%
         analog_write_reg8(areg_ain_scale, (analog_read_reg8(areg_ain_scale) & (0xC0)) | 0x3d);
         g_adc_vref = 1175;
     } else if (v_ref == ADC_VREF_0P9V) {
-        //Vref buffer bias current trimming: 		100%
-        //Comparator preamp bias current trimming:  100%
+        // Vref buffer bias current trimming: 		100%
+        // Comparator preamp bias current trimming:  100%
         analog_write_reg8(areg_ain_scale, (analog_read_reg8(areg_ain_scale) & (0xC0)) | 0x15);
         g_adc_vref = 900;  // v_ref = ADC_VREF_0P9V,
     }
@@ -163,15 +163,15 @@ void adc_set_sample_rate(adc_sample_freq_e sample_freq)
 	* 		The length of Tsample should match the sampling frequency.
 	*		changed by chaofan,confirmed by haitao.20201230.
 	**/
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_24);  //24 adc clocks for sample cycle
+            adc_set_tsample_cycle(ADC_SAMPLE_CYC_24);  // 24 adc clocks for sample cycle
             break;
         case ADC_SAMPLE_FREQ_48K:
             adc_set_state_length(490, 10);
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_12);  //12 adc clocks for sample cycle
+            adc_set_tsample_cycle(ADC_SAMPLE_CYC_12);  // 12 adc clocks for sample cycle
             break;
         case ADC_SAMPLE_FREQ_96K:
             adc_set_state_length(240, 10);
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  //6 adc clocks for sample cycle
+            adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  // 6 adc clocks for sample cycle
             break;
     }
 }
@@ -212,19 +212,19 @@ void adc_set_vbat_divider(adc_vbat_div_e vbat_div)
  */
 void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e sample_freq)
 {
-    adc_power_off();                   //power off sar adc
-    adc_reset();                       //reset whole digital adc module
-    adc_clk_en();                      //enable signal of 24M clock to sar adc
-    adc_set_clk(5);                    //default adc_clk 4M = 24M/(1+div),
-    adc_set_ref_voltage(v_ref);        //set channel Vref
-    adc_set_scale_factor(pre_scale);   //set Analog input pre-scaling
-    adc_set_sample_rate(sample_freq);  //set sample frequency.
-    adc_set_resolution(ADC_RES14);     //default adc_resolution set as 14bit ,BIT(13) is sign bit
+    adc_power_off();                   // power off sar adc
+    adc_reset();                       // reset whole digital adc module
+    adc_clk_en();                      // enable signal of 24M clock to sar adc
+    adc_set_clk(5);                    // default adc_clk 4M = 24M/(1+div),
+    adc_set_ref_voltage(v_ref);        // set channel Vref
+    adc_set_scale_factor(pre_scale);   // set Analog input pre-scaling
+    adc_set_sample_rate(sample_freq);  // set sample frequency.
+    adc_set_resolution(ADC_RES14);     // default adc_resolution set as 14bit ,BIT(13) is sign bit
     /**
 	* 		Move the Tsample set to function adc_set_sample_rate(),because of the length of Tsample should match the sampling frequency.
 	*		changed by chaofan,confirmed by haitao.20201230.
 	**/
-    adc_set_m_chn_en();  //enable adc channel.
+    adc_set_m_chn_en();  // enable adc channel.
 }
 /**
  * @brief This function serves to ADC gpio sample init.
@@ -233,7 +233,7 @@ void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e 
  * @param[in]  pre_scale - enum variable of ADC pre_scaling factor.
  * @param[in]  sample_freq - enum variable of ADC sample frequency.
  * @return none
- * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4. 
+ * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4.
  *			changed by chaofan.20201230.
  */
 void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
@@ -287,22 +287,22 @@ void adc_battery_voltage_sample_init(void)
  */
 void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 {
-    /******start adc sample********/
+    /****** start adc sample ********/
     adc_start_sample_dma((unsigned short *)sample_buffer, sample_num << 1);
-    /******wait for adc sample finish********/
-    while (!adc_get_sample_status_dma())
-        ;
-    /******stop dma smaple********/
+    /****** wait for adc sample finish ********/
+    while (!adc_get_sample_status_dma()) {
+    }
+    /****** stop dma smaple ********/
     adc_stop_sample_dma();
-    /******clear adc sample finished status********/
-    adc_clr_sample_status_dma();  //must
-    /******get adc sample data and sort these data ********/
+    /****** clear adc sample finished status ********/
+    adc_clr_sample_status_dma();  // must
+    /****** get adc sample data and sort these data ********/
     for (int i = 0; i < sample_num; i++) {
         if (sample_buffer[i] &
-            BIT(13)) {  //14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
+            BIT(13)) {  // 14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
             sample_buffer[i] = 0;
         } else {
-            sample_buffer[i] = (sample_buffer[i] & 0x1fff);  //BIT(12..0) is valid adc code
+            sample_buffer[i] = (sample_buffer[i] & 0x1fff);  // BIT(12..0) is valid adc code
         }
     }
 }
@@ -315,7 +315,7 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 unsigned short adc_get_code(void)
 {
     unsigned short adc_code;
-    /******Lock ADC code in analog register ********/
+    /****** Lock ADC code in analog register ********/
     analog_write_reg8(areg_adc_data_sample_control,
                       analog_read_reg8(areg_adc_data_sample_control) | FLD_NOT_SAMPLE_ADC_DATA);
     adc_code = analog_read_reg16(areg_adc_misc_l);
@@ -352,6 +352,6 @@ unsigned short adc_calculate_voltage(unsigned short adc_code)
 unsigned short adc_calculate_temperature(unsigned short adc_code)
 {
     //////////////// adc sample data convert to temperature(Celsius) ////////////////
-    //adc_temp_value = 564 - ((adc_code * 819)>>13)
+    // adc_temp_value = 564 - ((adc_code * 819)>>13)
     return 564 - ((adc_code * 819) >> 13);
 }

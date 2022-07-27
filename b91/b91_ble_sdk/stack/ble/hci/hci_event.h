@@ -18,51 +18,45 @@
 #ifndef HCI_EVENT_H_
 #define HCI_EVENT_H_
 
-#include "stack/ble/ble_common.h"
-#include "stack/ble/ble_config.h"
+#include <stack/ble/ble_common.h>
+#include <stack/ble/ble_config.h>
 #include <stack/ble/hci/hci.h>
 
 /**
  *  @brief  Definition for general HCI event packet
  */
-typedef struct
-{
+typedef struct {
     hci_type_t type;
     u8 eventCode;
     u8 paraLen;
     u8 parameters[1];
 } hci_event_t;
 
-typedef struct
-{
+typedef struct {
     u8 numHciCmds;
     u8 opCode_OCF;
     u8 opCode_OGF;
     u8 returnParas[1];
 } hci_cmdCompleteEvt_t;
 
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 numHciCmds;
     u8 opCode_OCF;
     u8 opCode_OGF;
 } hci_cmdStatusEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u16 numOfCmpPkts;
 } numCmpPktParamRet_t;
 
-typedef struct
-{
+typedef struct {
     u8 numHandles;
-    numCmpPktParamRet_t retParams[1];  //TODO
+    numCmpPktParamRet_t retParams[1];
 } hci_numOfCmpPktEvt_t;
 
-typedef struct
-{
+typedef struct {
     hci_type_t type;
     u8 eventCode;
     u8 paraLen;
@@ -73,15 +67,13 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.5 Disconnection Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 connHandle;
     u8 reason;
 } event_disconnection_t;
 
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 connHandle;
     u8 reason;
@@ -90,15 +82,13 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.8 Encryption Change event"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 handle;
     u8 enc_enable;
 } event_enc_change_t;
 
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 connHandle;
     u8 encryption_enable;
@@ -107,14 +97,12 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.39 Encryption Key Refresh Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 handle;
 } event_enc_refresh_t;
 
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 connHandle;
 } hci_le_encryptKeyRefreshEvt_t;
@@ -122,8 +110,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.1 LE Connection Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subcode;
     u8 status;
     u16 handle;
@@ -136,8 +123,7 @@ typedef struct
     u8 accuracy;
 } event_connection_complete_t;
 
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -153,8 +139,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.2 LE Advertising Report event"
  */
-typedef struct
-{
+typedef struct {
     u8 subcode;
     u8 nreport;
     u8 event_type;
@@ -176,8 +161,7 @@ typedef enum {
 /**
  *  @brief  Event Parameters for "7.7.65.3 LE Connection Update Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subcode;
     u8 status;
     u16 handle;
@@ -186,8 +170,7 @@ typedef struct
     u16 timeout;
 } event_connection_update_t;
 
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -200,8 +183,7 @@ typedef struct
  *  @brief  Event Parameters for "7.7.65.4 LE Read Remote Features Complete event"
  */
 #define LL_FEATURE_SIZE 8
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -211,8 +193,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.5 LE Long Term Key Request event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u16 connHandle;
     u8 random[8];
@@ -222,8 +203,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.6 LE Remote Connection Parameter Request event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u16 connHandle;
     u16 IntervalMin;
@@ -235,10 +215,9 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.7 LE Data Length Change event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
-    u16 connHandle;  //no aligned, can not be used as pointer
+    u16 connHandle;  // no aligned, can not be used as pointer
     u16 maxTxOct;
     u16 maxTxtime;
     u16 maxRxOct;
@@ -248,8 +227,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.8 LE Read Local P-256 Public Key Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u8 localP256Key[64];
@@ -258,8 +236,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.9 LE Generate DHKey Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u8 DHKey[32];
@@ -268,8 +245,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.10 LE Enhanced Connection Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -287,8 +263,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.12 LE PHY Update Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 connHandle;
@@ -300,12 +275,10 @@ typedef struct
  *  @brief  Event Parameters for "7.7.65.13 LE Extended Advertising Report event"
  */
 
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_extAdvReportEvt_t;
 
-/* Extended Advertising Report Event Event_Type mask*/
+/* Extended Advertising Report Event Event_Type mask */
 typedef enum {
     AEXT_ADV_RPT_EVT_MASK_CONNECTABLE = BIT(0),
     EXT_ADV_RPT_EVT_MASK_SCANNABLE = BIT(1),
@@ -323,14 +296,12 @@ typedef enum {
     EXT_ADV_RPT_EVT_TYPE_ADV_NONCONN_IND = 0x0010,          //  0001 0000'b
     EXT_ADV_RPT_EVT_TYPE_SCAN_RSP_2_ADV_IND = 0x001B,       //  0001 1011'b
     EXT_ADV_RPT_EVT_TYPE_SCAN_RSP_2_ADV_SCAN_IND = 0x001A,  //  0001 1010'b
-} extAdvRptEvtType_t;                                       //extended advertising report event type
+} extAdvRptEvtType_t;                                       // extended advertising report event type
 
 /**
  *  @brief  Event Parameters for "7.7.65.14 LE Periodic Advertising Sync Established event"
  */
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_PeriodicAdvSyncEstablishedEvt_t;
 
 /**
@@ -340,29 +311,22 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.15 LE Periodic Advertising Report event"
  */
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_periodicAdvReportEvt_t;
 
 /**
  *  @brief  Event Parameters for "7.7.65.16 LE Periodic Advertising Sync Lost event"
  */
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_periodicAdvSyncLostEvt_t;
 
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_scanTimeoutEvt_t;
 
 /**
  *  @brief  Event Parameters for "7.7.65.18 LE Advertising Set Terminated event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u8 advHandle;
@@ -373,16 +337,13 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.19 LE Scan Request Received event"
  */
-typedef struct
-{
-    //TODO
+typedef struct {
 } hci_le_scanReqRcvdEvt_t;
 
 /**
  *  @brief  Event Parameters for "7.7.65.20 LE Channel Selection Algorithm event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u16 connHandle;
     u8 channel_selection_algotihm;
@@ -391,8 +352,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.25 LE CIS Established event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 status;
     u16 cisHandle;
@@ -415,8 +375,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.26 LE CIS Request event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u16 aclHandle;
     u16 cisHandle;
@@ -427,8 +386,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.27 LE Create BIG Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 staus;
     u8 bigHandle;
@@ -448,8 +406,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.28 LE Terminate BIG Complete event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 bigHandle;
     u8 reason;
@@ -458,8 +415,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.20 LE Channel Selection Algorithm event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 staus;
     u8 bigHandle;
@@ -477,8 +433,7 @@ typedef struct
 /**
  *  @brief  Event Parameters for "7.7.65.29 LE BIG Sync Established event"
  */
-typedef struct
-{
+typedef struct {
     u8 subEventCode;
     u8 bigHandle;
     u8 reason;

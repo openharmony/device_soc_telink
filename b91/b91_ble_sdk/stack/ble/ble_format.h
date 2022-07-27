@@ -22,14 +22,12 @@
 
 /******************************************** Link Layer **************************************************************/
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 address[BLE_ADDR_LEN];
 } addr_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 nesn : 1;
     u8 sn : 1;
@@ -37,8 +35,7 @@ typedef struct
     u8 rfu1 : 3;
 } rf_data_head_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 nesn : 1;
     u8 sn : 1;
@@ -47,8 +44,7 @@ typedef struct
     u8 rf_len;
 } rf_acl_data_head_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 nesn : 1;
     u8 sn : 1;
@@ -59,8 +55,7 @@ typedef struct
     u8 rf_len;
 } rf_cis_data_hdr_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 cssn : 3;
     u8 cstf : 1;
@@ -68,8 +63,7 @@ typedef struct
     u8 rf_len;
 } rf_bis_data_hdr_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -78,14 +72,13 @@ typedef struct
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  //LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
-    u8 advA[6];  //address
+    u8 advA[6];         // address
     u8 data[31];
 } rf_packet_adv_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -94,14 +87,13 @@ typedef struct
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  //LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
-    u8 scanA[6];  //
-    u8 advA[6];   //
+    u8 scanA[6];
+    u8 advA[6];
 } rf_packet_scan_req_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -110,14 +102,13 @@ typedef struct
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;  //LEN(6)_RFU(2)
+    u8 rf_len;          // LEN(6)_RFU(2)
 
-    u8 advA[6];   //address
-    u8 data[31];  //0-31 byte
+    u8 advA[6];         // address
+    u8 data[31];        // 0-31 byte
 } rf_packet_scan_rsp_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -126,10 +117,10 @@ typedef struct
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;         //LEN(6)_RFU(2)
-    u8 initA[6];       //scanA
-    u8 advA[6];        //
-    u8 accessCode[4];  // access code
+    u8 rf_len;          // LEN(6)_RFU(2)
+    u8 initA[6];        // scanA
+    u8 advA[6];
+    u8 accessCode[4];   // access code
     u8 crcinit[3];
     u8 winSize;
     u16 winOffset;
@@ -137,11 +128,10 @@ typedef struct
     u16 latency;
     u16 timeout;
     u8 chm[5];
-    u8 hop;  //sca(3)_hop(5)
+    u8 hop;             // sca(3)_hop(5)
 } rf_packet_connect_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -150,10 +140,10 @@ typedef struct
     u8 txAddr : 1;
     u8 rxAddr : 1;
 
-    u8 rf_len;    //LEN(6)_RFU(2)
-    u8 scanA[6];  //
-    u8 advA[6];   //
-    u8 aa[4];     // access code
+    u8 rf_len;          // LEN(6)_RFU(2)
+    u8 scanA[6];
+    u8 advA[6];
+    u8 aa[4];           // access code
     u8 crcinit[3];
     u8 wsize;
     u16 woffset;
@@ -161,11 +151,10 @@ typedef struct
     u16 latency;
     u16 timeout;
     u8 chm[5];
-    u8 hop;  //sca(3)_hop(5)
+    u8 hop;             // sca(3)_hop(5)
 } rf_packet_ll_init_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -177,8 +166,7 @@ typedef struct
     u16 instant;
 } rf_packet_ll_updateConnPara_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -190,8 +178,7 @@ typedef struct
     u16 instant;
 } rf_packet_connect_upd_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -199,8 +186,7 @@ typedef struct
     u16 instant;
 } rf_packet_chm_upd_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -210,8 +196,7 @@ typedef struct
     u8 ivm[4];
 } rf_packet_ll_enc_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -219,24 +204,21 @@ typedef struct
     u8 ivs[4];
 } rf_packet_ll_enc_rsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
     u8 unknownType;
 } rf_packet_ll_unknown_rsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
     u8 featureSet[8];
 } rf_packet_ll_feature_exg_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -245,16 +227,14 @@ typedef struct
     u16 subVersNr;
 } rf_packet_version_ind_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
     u8 errCode;
 } rf_packet_ll_reject_ind_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -262,16 +242,14 @@ typedef struct
     u8 errCode;
 } rf_packet_ll_reject_ext_ind_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
     u8 reason;
 } rf_packet_ll_terminate_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -286,50 +264,46 @@ typedef struct
     u32 maxSduS2M : 12;
     u32 rfu1 : 4;
 
-    u8 sduIntvlM2S[3];  //SDU_Interval_M_To_S(20 bits) + RFU(4 bits)
-    u8 sduIntvlS2M[3];  //SDU_Interval_S_To_M(20 bits) + RFU(4 bits)
+    u8 sduIntvlM2S[3];  // SDU_Interval_M_To_S(20 bits) + RFU(4 bits)
+    u8 sduIntvlS2M[3];  // SDU_Interval_S_To_M(20 bits) + RFU(4 bits)
 
     u16 maxPduM2S;
     u16 maxPduS2M;
     u8 nse;
-    u8 subIntvl[3];  //unit: uS
+    u8 subIntvl[3];     // unit: uS
 
     u8 bnM2S : 4;
     u8 bnS2M : 4;
     u8 ftM2S;
     u8 ftS2M;
-    u16 isoIntvl;  //unit: 1.25 mS
+    u16 isoIntvl;       // unit: 1.25 mS
 
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
-    u16 connEventCnt;  //similar to instant
-
+    u16 connEventCnt;   // similar to instant
 } rf_packet_ll_cis_req_t;
 
-typedef struct
-{
-    u8 type;    //RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  //LEN(6)_RFU(2)
+typedef struct {
+    u8 type;            // RA(1)_TA(1)_RFU(2)_TYPE(4)
+    u8 rf_len;          // LEN(6)_RFU(2)
     u8 opcode;
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
     u16 connEventCnt;
 } rf_packet_ll_cis_rsp_t;
 
-typedef struct
-{
-    u8 type;    //RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  //LEN(6)_RFU(2)
+typedef struct {
+    u8 type;            // RA(1)_TA(1)_RFU(2)_TYPE(4)
+    u8 rf_len;          // LEN(6)_RFU(2)
     u8 opcode;
-    u32 cisAccessAddr;  //Access Address of the CIS
+    u32 cisAccessAddr;  // Access Address of the CIS
     u8 cisOffset[3];
     u8 cigSyncDly[3];
     u8 cisSyncDly[3];
     u16 connEventCnt;
 } rf_packet_ll_cis_ind_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -338,24 +312,20 @@ typedef struct
     u8 errorCode;
 } rf_packet_ll_cis_terminate_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
 
-    u8 opcode;  //
-    u8 dat[1];  //
+    u8 opcode;
+    u8 dat[1];
 } rf_packet_ll_control_t;
 
-typedef struct
-{
-    union
-    {
+typedef struct {
+    union {
         rf_bis_data_hdr_t bisPduHdr;
         rf_cis_data_hdr_t cisPduHdr;
         rf_acl_data_head_t aclPduHdr;
-        struct
-        {
+        struct {
             u8 type;
             u8 rf_len;
         } pduHdr;
@@ -363,15 +333,13 @@ typedef struct
     u8 llPayload[1]; /* Max LL Payload length: 251 */
 } llPhysChnPdu_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
     llPhysChnPdu_t llPhysChnPdu;
 } rf_packet_ll_data_t;
 
-//AuxPrt
-typedef struct
-{
+// AuxPrt
+typedef struct {
     u8 chn_index : 6;
     u8 ca : 1;
     u8 offset_unit : 1;
@@ -379,8 +347,7 @@ typedef struct
     u16 aux_phy : 3;
 } aux_ptr_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -394,13 +361,12 @@ typedef struct
     u8 adv_mode : 2;
     u8 ext_hdr_flg;
 
-    u8 data[253];  //Extended Header + AdvData
+    u8 data[253];  // Extended Header + AdvData
 } rf_pkt_ext_adv_t;
 
 /******************************************** L2CAP **************************************************************/
 
-typedef struct
-{
+typedef struct {
     rf_data_head_t header;
     u8 rf_len;
     u16 l2capLen;
@@ -409,8 +375,7 @@ typedef struct
     u8 data[1];
 } rf_packet_l2cap_t;
 
-typedef struct
-{
+typedef struct {
     rf_data_head_t header;
     u8 rf_len;
     u16 l2capLen;
@@ -420,8 +385,7 @@ typedef struct
     u8 dat[20];
 } rf_packet_att_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -430,8 +394,7 @@ typedef struct
     u8 data[1];
 } rf_packet_l2cap_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -442,8 +405,7 @@ typedef struct
     u16 result;
 } rf_pkt_l2cap_sig_connParaUpRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -457,8 +419,8 @@ typedef struct
     u16 init_credits;
     u16 scid[5];
 } rf_pkt_l2cap_credit_based_connection_req_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -472,8 +434,8 @@ typedef struct
     u16 result;
     u16 dcid[5];
 } rf_pkt_l2cap_credit_based_connection_rsp_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -485,8 +447,8 @@ typedef struct
     u16 mps;
     u16 dcid[5];
 } rf_pkt_l2cap_credit_based_reconfigure_req_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -497,8 +459,7 @@ typedef struct
     u16 result;
 } rf_pkt_l2cap_credit_based_reconfigure_rsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -507,8 +468,7 @@ typedef struct
     u8 data[1];
 } rf_pkt_l2cap_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid;
     u8 rf_len;
     u16 l2capLen;
@@ -521,8 +481,8 @@ typedef struct
     u16 latency;
     u16 timeout;
 } rf_packet_l2cap_connParaUpReq_t;
-typedef struct
-{
+
+typedef struct {
     u8 llid;
     u8 rf_len;
     u16 l2capLen;
@@ -537,8 +497,7 @@ typedef struct
     u16 scid[5];
 } rf_packet_l2cap_credit_based_connection_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid;
     u8 rf_len;
     u16 l2capLen;
@@ -550,8 +509,7 @@ typedef struct
 } rf_packet_l2cap_connParaUpRsp_t;
 
 /******************************************** ATT **************************************************************/
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2cap;
@@ -562,11 +520,9 @@ typedef struct
     u8 hh;
 
     u8 dat[20];
-
 } rf_packet_att_data_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -577,8 +533,7 @@ typedef struct
     u8 errReason;
 } rf_packet_att_errRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
 
@@ -592,8 +547,7 @@ typedef struct
     u8 attType[2];  //
 } rf_packet_att_readByType_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
 
@@ -608,8 +562,7 @@ typedef struct
     u8 attValue[2];
 } rf_packet_att_findByTypeReq_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
 
@@ -619,8 +572,7 @@ typedef struct
     u16 data[1];
 } rf_packet_att_findByTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -630,8 +582,7 @@ typedef struct
     u8 handle1;
 } rf_packet_att_read_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -643,8 +594,7 @@ typedef struct
     u8 offset1;
 } rf_packet_att_readBlob_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -653,8 +603,7 @@ typedef struct
     u8 value[22];
 } rf_packet_att_readRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -664,8 +613,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } rf_pkt_att_readByTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -675,8 +623,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } rf_packet_att_readByTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -686,8 +633,7 @@ typedef struct
     u8 data[3];
 } rf_packet_att_readByGroupTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -697,8 +643,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } rf_packet_att_findInfoReq_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -707,8 +652,7 @@ typedef struct
     u8 flags;
 } rf_packet_att_executeWriteReq_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -719,8 +663,7 @@ typedef struct
     u8 value;
 } rf_packet_att_write_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -730,8 +673,7 @@ typedef struct
     u8 data;
 } rf_packet_att_notification_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -740,8 +682,7 @@ typedef struct
     u8 mtu[2];
 } rf_packet_att_mtu_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -750,8 +691,7 @@ typedef struct
     u8 mtu[2];
 } rf_packet_att_mtu_exchange_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -759,8 +699,7 @@ typedef struct
     u8 opcode;
 } rf_packet_att_writeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -770,8 +709,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } att_readByTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -781,8 +719,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } att_findInfoRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;

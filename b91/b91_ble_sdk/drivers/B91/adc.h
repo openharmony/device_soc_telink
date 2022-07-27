@@ -25,7 +25,8 @@
  *	===============
  *	Header File: adc.h
  */
-#pragma once
+#ifndef B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
+#define B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
 
 #include "compiler.h"
 #include "dma.h"
@@ -132,10 +133,10 @@ typedef enum {
 } adc_chn_e;
 
 typedef enum {
-    ADC_PRESCALE_1 = 0x00,  //Only for internal testing and temperature sensor sampling
-                            //	ADC_PRESCALE_1F2 = 0x01,//Only for internal testing
+    ADC_PRESCALE_1 = 0x00,  // Only for internal testing and temperature sensor sampling
+                            //	ADC_PRESCALE_1F2 = 0x01,// Only for internal testing
     ADC_PRESCALE_1F4 = 0x02,
-    //	ADC_PRESCALE_1F8 = 0x03,//Only for internal testing
+    // ADC_PRESCALE_1F8 = 0x03, // Only for internal testing
 } adc_pre_scale_e;
 enum {
     ADC_MAX_STATE_NUM = 0x02,
@@ -232,8 +233,8 @@ static inline void adc_set_resolution(adc_res_e res)
  */
 static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
 {
-    //ana_ee<7:4> is reserved, so no need care its value
-    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  //optimize, <7:4> not cared
+    // ana_ee<7:4> is reserved, so no need care its value
+    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  // optimize, <7:4> not cared
 }
 /**
  * @brief      This function open temperature sensor power.
@@ -334,7 +335,7 @@ void adc_temperature_sample_init(void);
  * @param[in]  pre_scale - enum variable of ADC pre_scaling factor.
  * @param[in]  sample_freq - enum variable of ADC sample frequency.
  * @return none
- * @attention  gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4. 
+ * @attention  gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4.
  *			changed by chaofan.20201230.
  */
 void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
@@ -398,3 +399,5 @@ unsigned short adc_calculate_voltage(unsigned short adc_code);
  * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */
 unsigned short adc_calculate_temperature(unsigned short adc_code);
+
+#endif // B91_B91_BLE_SDK_DRIVERS_B91_ADC_H

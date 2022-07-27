@@ -24,8 +24,7 @@
  *  @brief  Command Parameters for "7.8.5 LE Set Advertising Parameters command"
  */
 /* Advertising Parameters structure */
-typedef struct
-{
+typedef struct {
     u16 intervalMin;  // Minimum advertising interval for non-directed advertising, time = N * 0.625ms
     u16 intervalMax;  // Maximum advertising interval for non-directed advertising, time = N * 0.625ms
     u8 advType;       // Advertising
@@ -103,14 +102,14 @@ typedef enum {
 typedef enum {
     ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY = 0x00,  // Process scan and connection requests from all devices
     ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_ANY =
-        0x01,  // Process connection requests from all devices and only scan requests from devices that are in the White List.
+        0x01,  // Process connection requests from all devices and only scan requests from devices in the White List.
     ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_WL =
-        0x02,  // Process scan requests from all devices and only connection requests from devices that are in the White List..
+        0x02,  // Process scan requests from all devices and only connection requests from devices in the White List.
     ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_WL =
         0x03,  // Process scan and connection requests only from devices in the White List.
 
-    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  //adv filter policy set to zero, not use whitelist
-} adv_fp_type_t;                                         //adv_filterPolicy_type_t
+    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  // adv filter policy set to zero, not use whitelist
+} adv_fp_type_t;                                         // adv_filterPolicy_type_t
 
 #define ALLOW_SCAN_WL BIT(0)
 #define ALLOW_CONN_WL BIT(1)
@@ -189,11 +188,10 @@ typedef enum {
 
 /* Scanning_Filter_Policy */
 typedef enum {
-    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  //except direct adv address not match
-    SCAN_FP_ALLOW_ADV_WL = 0x01,                   //except direct adv address not match
-    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             //and direct adv address match initiator's resolvable private MAC
-    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  //and direct adv address match initiator's resolvable private MAC
-
+    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  // except direct adv address not match
+    SCAN_FP_ALLOW_ADV_WL = 0x01,                   // except direct adv address not match
+    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             // and direct adv address match initiator's resolvable private MAC
+    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  // and direct adv address match initiator's resolvable private MAC
 } scan_fp_type_t;
 
 /**
@@ -217,8 +215,8 @@ typedef enum {
 
 /* Initiator_Filter_Policy */
 typedef enum {
-    INITIATE_FP_ADV_SPECIFY = 0x00,  //connect ADV specified by host
-    INITIATE_FP_ADV_WL = 0x01,       //connect ADV in whiteList
+    INITIATE_FP_ADV_SPECIFY = 0x00,  // connect ADV specified by host
+    INITIATE_FP_ADV_WL = 0x01,       // connect ADV in whiteList
 } init_fp_t;
 
 /* Connection_Interval, Time = N * 1.25 ms,
@@ -305,8 +303,7 @@ typedef enum {
 /**
  *  @brief  Return Parameters for "7.8.46 LE Read Maximum Data Length command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 support_max_tx_oct;
     u16 support_max_tx_time;
@@ -317,8 +314,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "7.8.47 LE Read PHY command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 handle[2];
     u8 tx_phy;
@@ -333,8 +329,7 @@ typedef struct
  *  @brief  Command Parameters for "7.8.49 LE Set PHY command"
  */
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u8 all_phys;
     u8 tx_phys;
@@ -355,23 +350,22 @@ typedef enum {
 } le_phy_prefer_type_t;
 
 typedef enum {
-    PHY_TRX_PREFER = 0,                     //has 	 preference among TX & RX PHYs
-    PHY_TX_NO_PREFER = BIT(0),              //has no preference among TX PHYs
-    PHY_RX_NO_PREFER = BIT(1),              //has no preference among RX PHYs
-    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  //has no preference among TX & RX PHYs
+    PHY_TRX_PREFER = 0,                     // has 	 preference among TX & RX PHYs
+    PHY_TX_NO_PREFER = BIT(0),              // has no preference among TX PHYs
+    PHY_RX_NO_PREFER = BIT(1),              // has no preference among RX PHYs
+    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  // has no preference among TX & RX PHYs
 } le_phy_prefer_mask_t;
 
 typedef enum {
     CODED_PHY_PREFER_NONE = 0,
     CODED_PHY_PREFER_S2 = 1,
     CODED_PHY_PREFER_S8 = 2,
-} le_ci_prefer_t;  //LE coding indication prefer
+} le_ci_prefer_t;  // LE coding indication prefer
 
 /**
  *  @brief  Command Parameters for "7.8.53 LE Set Extended Advertising Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 adv_handle;
     u16 advEvt_props;
     u8 pri_advIntMin[3];
@@ -396,7 +390,7 @@ typedef enum {
     ADV_HANDLE2 = 0x02,
 } adv_handle_t;
 
-/* Advertising Event Properties mask*/
+/* Advertising Event Properties mask */
 typedef enum {
     ADVEVT_PROP_MASK_CONNECTABLE = BIT(0),
     ADVEVT_PROP_MASK_SCANNABLE = BIT(1),
@@ -414,7 +408,7 @@ typedef enum {
 #define ADVEVT_PROP_MASK_LEGACY_CONNECTABLE_SCANNABLE                                                                 \
     (0x0013)  // ADVEVT_PROP_MASK_LEGACY | ADVEVT_PROP_MASK_CONNECTABLE | ADVEVT_PROP_MASK_SCANNABLE
 
-/* Advertising Event Properties type*/
+/* Advertising Event Properties type */
 typedef enum {
     ADV_EVT_PROP_LEGACY_CONNECTABLE_SCANNABLE_UNDIRECTED = 0x0013,  //  0001 0011'b 	ADV_IND
     ADV_EVT_PROP_LEGACY_CONNECTABLE_DIRECTED_LOW_DUTY = 0x0015,     //  0001 0101'b		ADV_DIRECT_IND(low duty cycle)
@@ -432,10 +426,9 @@ typedef enum {
     ADV_EVT_PROP_EXTENDED_SCANNABLE_DIRECTED = 0x0006,    //  0000 0110'b		ADV_EXT_IND + AUX_ADV_IND/AUX_CHAIN_IND
 
     ADV_EVT_PROP_EXTENDED_MASK_ANONYMOUS_ADV =
-        0x0020,  //if this mask on(only extended ADV event can mask it), anonymous advertising
+        0x0020,  // if this mask on(only extended ADV event can mask it), anonymous advertising
     ADV_EVT_PROP_EXTENDED_MASK_TX_POWER_INCLUDE =
-        0x0040,  //if this mask on(only extended ADV event can mask it), TX power include
-
+        0x0040,  // if this mask on(only extended ADV event can mask it), TX power include
 } advEvtProp_type_t;
 
 /* Advertising_TX_Power */
@@ -484,15 +477,13 @@ typedef enum {
  *  @brief  Command Parameters for "7.8.56 LE Set Extended Advertising Enable command"
  */
 
-typedef struct
-{
+typedef struct {
     u8 adv_handle;
     u16 duration;
     u8 max_ext_adv_evts;
 } extAdvEn_Cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 enable;
     u8 num_sets;
     extAdvEn_Cfg_t cisCfg[3];  // ADV_SETS_NUMBER_MAX
@@ -502,29 +493,25 @@ typedef struct
  *  @brief  Command Parameters for "7.8.61 LE Set Periodic Advertising Parameters command"
  */
 typedef enum {
-
     PERD_ADV_PROP_MASK_NONE = 0,
 
     PERD_ADV_PROP_MASK_TX_POWER_INCLUDE = BIT(6),
-
 } perd_adv_prop_t;
 
 /**
  *  @brief  Command Parameters for "7.8.64 LE Set Extended Scan Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 scan_type;
     u16 scan_interval;
     u16 scan_window;
 } ext_scan_cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 ownAddress_type;
     u8 scan_filter_policy;
     u8 scan_PHYs;
-    ext_scan_cfg_t scanCfg[2];  //at most 2 kind of PHY: 1M and Coded
+    ext_scan_cfg_t scanCfg[2];  // at most 2 kind of PHY: 1M and Coded
 } hci_le_setExtScan_cmdParam_t;
 
 /* Scanning_PHYs */
@@ -568,8 +555,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.66 LE Extended Create Connection command"
  */
-typedef struct
-{
+typedef struct {
     u16 scan_interval;
     u16 scan_window;
     u16 connInter_min;
@@ -580,8 +566,7 @@ typedef struct
     u16 ceLen_max;
 } ext_init_cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 init_filter_policy;
     u8 ownAddr_type;
     u8 peerAddr_type;
@@ -606,21 +591,18 @@ typedef enum {
  */
 /* Options */
 typedef enum {
-
     /* BIT(0)
 	 * 0: Use the adv_sid, adv_addr_type, and adv_address parameters to determine which advertiser to listen to.
 	 * 1: Use the Periodic Advertiser List to determine which advertiser to listen to. */
     SYNC_ADV_SPECIFY = 0,
     SYNC_ADV_FROM_LIST = BIT(0),
-
     /* BIT(1) ~ BIT(7) reserved */
 } option_msk_t;
 
 /**
  *  @brief  Command Parameters for "7.8.97 LE Set CIG Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 cig_id;
     u8 sdu_int_m2s[3];
     u8 sdu_int_s2m[3];
@@ -633,8 +615,7 @@ typedef struct
     u8 *restparam;
 } hci_le_setCigParam_cmdParam_t;
 
-typedef struct
-{
+typedef struct {
     u8 cis_id;
     u8 nse;
     u16 max_sdu_m2s;
@@ -674,8 +655,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.98 LE Set CIG Parameters Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 cig_id;
     u8 sdu_int_m2s[3];
     u8 sdu_int_s2m[3];
@@ -685,19 +665,18 @@ typedef struct
     u8 sca;
     u8 packing;
     u8 framing;
-    u8 cis_count;                     //15 B above
-    cigParamTest_cisCfg_t cisCfg[1];  //14 B for one CIS configuration
+    u8 cis_count;                     // 15 B above
+    cigParamTest_cisCfg_t cisCfg[1];  // 14 B for one CIS configuration
 } hci_le_setCigParamTest_cmdParam_t;
 
 /**
  *  @brief  Return Parameters for "LE Set CIG Parameters command" and "LE Set CIG Parameters Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 cig_id;
     u8 cis_count;
-    u16 cis_connHandle[LL_CIS_IN_CIG_NUM_MAX];  //not 4 byte aligned, but no problem
+    u16 cis_connHandle[LL_CIS_IN_CIG_NUM_MAX];  // not 4 byte aligned, but no problem
 } hci_le_setCigParam_retParam_t;
 
 /* ISO_Interval, Time = N * 1.25 ms,
@@ -727,34 +706,20 @@ typedef enum {
 /**
  *	@brief  Command Parameters for "7.8.99 LE Create CIS command"
  */
-typedef struct
-{
+typedef struct {
     u16 cis_handle;
     u16 acl_handle;
 } cisConnParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 cis_count;
     cisConnParams_t cisConn[1];
 } hci_le_CreateCisParams_t;
 
-#if 0
-/**
- *	@brief  Command Parameters for "7.8.102 LE Reject CIS Request command"
- */
-typedef struct
-{
-	u16		cis_handle;
-	u8		reason;
-} hci_le_rejectCisReqParams_t;
-#endif
-
 /**
  *	@brief  Command Parameters for "7.8.103 LE Create BIG command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;           /* Used to identify the BIG */
     u8 adv_handle;           /* Used to identify the periodic advertising train */
     u8 num_bis;              /* Total number of BISes in the BIG */
@@ -763,8 +728,8 @@ typedef struct
     u16 max_trans_lat;       /* Maximum time, in milliseconds, for transmitting an SDU */
     u8 rtn;                  /* The maximum number of times that every BIS Data PDU should be retransmitted */
     u8 phy;                  /* The transmitter PHY of packets */
-    packing_type_t packing;  //type same as u8
-    framing_t framing;       //type same as u8
+    packing_type_t packing;  /* type same as u8 */
+    framing_t framing;       /* type same as u8 */
     u8 enc;                  /* Encryption flag */
     u8 broadcast_code
         [16]; /* The code used to derive the session key that is used to encrypt and decrypt BIS payloads */
@@ -773,8 +738,7 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.104 LE Create BIG Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;           /* Used to identify the BIG */
     u8 adv_handle;           /* Used to identify the periodic advertising train */
     u8 num_bis;              /* Total number of BISes in the BIG */
@@ -784,10 +748,10 @@ typedef struct
     u16 max_sdu;             /* Maximum size of an SDU, in octets */
     u16 max_pdu;             /* Maximum size, in octets, of payload */
     u8 phy;                  /* The transmitter PHY of packets */
-    packing_type_t packing;  //type same as u8
-    framing_t framing;       //type same as u8
+    packing_type_t packing;  /* type same as u8 */
+    framing_t framing;       /* type same as u8 */
     u8 bn;                   /* The number of new payloads in each interval for each BIS */
-    u8 irc;                  /* The number of times the scheduled payload(s) are transmitted in a given event*/
+    u8 irc;                  /* The number of times the scheduled payload(s) are transmitted in a given event */
     u8 pto;                  /* Offset used for pre-transmissions */
     u8 enc;                  /* Encryption flag */
     u8 broadcast_code
@@ -797,14 +761,12 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.105 LE Terminate BIG command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;
     u8 reason;
 } hci_le_terminateBigParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 big_handle;   /* Used to identify the BIG */
     u16 sync_handle; /* Identifier of the periodic advertising train */
     u8 enc;          /* Encryption flag */
@@ -820,8 +782,7 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.109 LE Setup ISO Data Path command"
  */
-typedef struct
-{
+typedef struct {
     u16 conn_handle;
     u8 data_path_direction;
     u8 data_path_id;
@@ -831,7 +792,6 @@ typedef struct
     u32 codec_configration_length : 8;
 
     u8 codec_config[1];
-
 } hci_le_setupIsoDataPathCmdParams_t;
 
 /**

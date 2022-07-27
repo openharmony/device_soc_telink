@@ -23,18 +23,17 @@
 /**
  * @brief	Primary channel advertising packet data buffer size
  */
-#define MAX_LENGTH_PRIMARY_ADV_PKT 44  //sizeof(rf_pkt_pri_adv_t) = 43
+#define MAX_LENGTH_PRIMARY_ADV_PKT 44  // sizeof(rf_pkt_pri_adv_t) = 43
 
 /**
  * @brief	Secondary channel advertising packet data buffer size
  */
-#define MAX_LENGTH_SECOND_ADV_PKT 264  //sizeof(rf_pkt_ext_adv_t) = 261
+#define MAX_LENGTH_SECOND_ADV_PKT 264  // sizeof(rf_pkt_ext_adv_t) = 261
 
 /**
  * @brief	Primary advertising packet format
  */
-typedef struct
-{
+typedef struct {
     u32 dma_len;
 
     u8 type : 4;
@@ -44,13 +43,12 @@ typedef struct
     u8 rxAddr : 1;
 
     u8 rf_len;
-    u8 advA[6];   //address
-    u8 data[31];  //0-31 byte
+    u8 advA[6];             // address
+    u8 data[31];            // 0-31 byte
 } rf_pkt_pri_adv_t;
 
-//NOTE: this data structure must 4 bytes aligned
-typedef struct
-{
+// NOTE: this data structure must 4 bytes aligned
+typedef struct {
     u8 adv_handle;
     u8 extAdv_en;
     u8 adv_chn_mask;
@@ -68,32 +66,32 @@ typedef struct
 
     u8 adv_filterPolicy;
     u8 scan_req_noti_en;
-    u8 coding_ind;  //s2 or s8
+    u8 coding_ind;          // s2 or s8
     u8 param_update_flag;
 
-    u8 with_aux_adv_ind;  //ADV_EXT_IND  with AUX_ADV_IND
+    u8 with_aux_adv_ind;    // ADV_EXT_IND  with AUX_ADV_IND
     u8 with_aux_chain_ind;
     u8 rand_adr_flg;
     u8 adv_sid;
 
-    u16 adv_did;  // BIT<11:0>
+    u16 adv_did;            // BIT<11:0>
     u16 evt_props;
     u16 advInt_use;
     u16 send_dataLen;
-    u16 maxLen_advData;  //for each ADV sets, this value can be different to save SRAM
+    u16 maxLen_advData;     // for each ADV sets, this value can be different to save SRAM
     u16 curLen_advData;
-    u16 maxLen_scanRsp;  //for each ADV sets, this value can be different to save SRAM
+    u16 maxLen_scanRsp;     // for each ADV sets, this value can be different to save SRAM
     u16 curLen_scanRsp;
 
     u16 send_dataLenBackup;
     u16 rsvd_16_1;
 
     u32 adv_duration_tick;
-    u32 adv_begin_tick;  //24
+    u32 adv_begin_tick;     // 24
     u32 adv_event_tick;
 
     u8 *dat_extAdv;
-    u8 *dat_scanRsp;  //Scan response data.
+    u8 *dat_scanRsp;        // Scan response data.
     rf_pkt_pri_adv_t *primary_adv;
     rf_pkt_ext_adv_t *secondary_adv;
 
@@ -101,7 +99,7 @@ typedef struct
     u8 peer_addr[6];
 } ll_ext_adv_t;
 
-#define ADV_SET_PARAM_LENGTH (sizeof(ll_ext_adv_t))  //sizeof(ll_ext_adv_t) =  ,  must 4 byte aligned
+#define ADV_SET_PARAM_LENGTH (sizeof(ll_ext_adv_t))  // sizeof(ll_ext_adv_t) =  ,  must 4 byte aligned
 
 /**
  * @brief      this function is used to initialize extended advertising module

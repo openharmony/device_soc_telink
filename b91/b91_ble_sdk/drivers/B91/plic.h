@@ -33,8 +33,7 @@
 #include "compiler.h"
 #include "reg_include/register_b91.h"
 
-typedef struct
-{
+typedef struct {
     unsigned char preempt_en;
     unsigned char threshold;
 } preempt_config_t;
@@ -104,11 +103,10 @@ typedef enum {
     IRQ61_NPE_COMB,
     IRQ62_PM_TM,
     IRQ63_EOC,
-
 } irq_source_e;
 
 typedef enum {
-    IRQ_PRI_LEV0,  //Never interrupt
+    IRQ_PRI_LEV0,  // Never interrupt
     IRQ_PRI_LEV1,
     IRQ_PRI_LEV2,
     IRQ_PRI_LEV3,
@@ -121,7 +119,7 @@ typedef enum {
  */
 static inline void plic_set_feature(feature_e feature)
 {
-    reg_irq_feature = feature;  //enable vectored in PLIC
+    reg_irq_feature = feature;  // enable vectored in PLIC
 }
 
 /**

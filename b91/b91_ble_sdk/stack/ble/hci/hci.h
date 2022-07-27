@@ -15,7 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
+#ifndef B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
+#define B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
 
 #include <stack/ble/ble_common.h>
 
@@ -42,8 +43,7 @@ typedef int (*blc_hci_app_handler_t)(unsigned char *p);
 
 extern my_fifo_t hci_tx_iso_fifo;
 
-typedef struct
-{
+typedef struct {
     u32 size;
     u8 num;
     u8 mask;
@@ -66,35 +66,35 @@ typedef enum {
     HCI_TYPE_ACL_DATA = 0x02,
     HCI_TYPE_SCO_DATA = 0x03,
     HCI_TYPE_EVENT = 0x04,
-    HCI_TYPE_ISO_DATA = 0x05,  //core_5.2
+    HCI_TYPE_ISO_DATA = 0x05,  // core_5.2
 } hci_type_t;
 
 /**
  *  @brief  Definition for HCI ACL Data packets Packet_Boundary_Flag
  */
 typedef enum {
-    HCI_FIRST_NAF_PACKET = 0x00,   //LE Host to Controller
-    HCI_CONTINUING_PACKET = 0x01,  //LE Host to Controller / Controller to Host
-    HCI_FIRST_AF_PACKET = 0x02,    //LE 					  Controller to Host
+    HCI_FIRST_NAF_PACKET = 0x00,   // LE Host to Controller
+    HCI_CONTINUING_PACKET = 0x01,  // LE Host to Controller / Controller to Host
+    HCI_FIRST_AF_PACKET = 0x02,    // LE 					  Controller to Host
 } acl_pb_flag_t;
 
 /**
  *  @brief  Definition for HCI ISO Data packets PB_Flag
  */
 typedef enum {
-    HCI_ISO_SDU_FIRST_FRAG = 0x00,     //The ISO_Data_Load field contains the first fragment of a fragmented SDU
-    HCI_ISO_SDU_CONTINUE_FRAG = 0x01,  //The ISO_Data_Load field contains a continuation fragment of an SDU
-    HCI_ISO_SDU_COMPLETE = 0x02,       //The ISO_Data_Load field contains a complete SDU
-    HCI_ISO_SDU_LAST_FRAG = 0x03,      //The ISO_Data_Load field contains the last fragment of an SDU.
+    HCI_ISO_SDU_FIRST_FRAG = 0x00,     // The ISO_Data_Load field contains the first fragment of a fragmented SDU
+    HCI_ISO_SDU_CONTINUE_FRAG = 0x01,  // The ISO_Data_Load field contains a continuation fragment of an SDU
+    HCI_ISO_SDU_COMPLETE = 0x02,       // The ISO_Data_Load field contains a complete SDU
+    HCI_ISO_SDU_LAST_FRAG = 0x03,      // The ISO_Data_Load field contains the last fragment of an SDU.
 } iso_pb_flag_t;
 
 /**
  *  @brief  Definition for HCI ISO Data packets Packet_Status_Flag
  */
 typedef enum {
-    HCI_ISO_VALID_DATA = 0x00,           //Valid data. The complete ISO_SDU was received correctly
-    HCI_ISO_POSSIBLE_VALID_DATA = 0x01,  //Possibly invalid data
-    HCI_ISO_LOST_DATA = 0x02,  //Part(s) of the ISO_SDU were not received correctly. This is reported as "lost data"
+    HCI_ISO_VALID_DATA = 0x00,           // Valid data. The complete ISO_SDU was received correctly
+    HCI_ISO_POSSIBLE_VALID_DATA = 0x01,  // Possibly invalid data
+    HCI_ISO_LOST_DATA = 0x02,  // Part(s) of the ISO_SDU were not received correctly. This is reported as "lost data"
 } iso_ps_flag_t;
 
 // hci event
@@ -174,24 +174,24 @@ int blc_hci_proc(void);
 /******************************* User Interface  Begin *****************************************************************/
 /**
  * @brief      this function is used to set HCI EVENT mask
- * @param[in]  evtMask  -  HCI¡¡EVENT¡¡mask
+ * @param[in]  evtMask  -  HCIï¿½ï¿½EVENTï¿½ï¿½mask
  * @return     0
  */
-ble_sts_t blc_hci_setEventMask_cmd(u32 evtMask);  //eventMask: BT/EDR
+ble_sts_t blc_hci_setEventMask_cmd(u32 evtMask);  // eventMask: BT/EDR
 
 /**
  * @brief      this function is used to set HCI LE EVENT mask
- * @param[in]  evtMask  -  HCI¡¡LE EVENT¡¡mask(BIT<0-31>)
+ * @param[in]  evtMask  -  HCIï¿½ï¿½LE EVENTï¿½ï¿½mask(BIT<0-31>)
  * @return     0
  */
-ble_sts_t blc_hci_le_setEventMask_cmd(u32 evtMask);  //eventMask: LE event  0~31
+ble_sts_t blc_hci_le_setEventMask_cmd(u32 evtMask);  // eventMask: LE event  0~31
 
 /**
  * @brief      this function is used to set HCI LE EVENT mask
- * @param[in]  evtMask  -  HCI¡¡LE EVENT¡¡mask(BIT<32-63>)
+ * @param[in]  evtMask  -  HCIï¿½ï¿½LE EVENTï¿½ï¿½mask(BIT<32-63>)
  * @return     0
  */
-ble_sts_t blc_hci_le_setEventMask_2_cmd(u32 evtMask_2);  //eventMask: LE event 32~63
+ble_sts_t blc_hci_le_setEventMask_2_cmd(u32 evtMask_2);  // eventMask: LE event 32~63
 
 /**
  * @brief      this function is used to register HCI event handler callback function
@@ -225,3 +225,5 @@ int blc_hci_sendACLData2Host(u16 handle, u8 *p);
  */
 int blc_hci_send_data(u32 h, u8 *para, int n);
 /******************************* User Interface  End  ******************************************************************/
+
+#endif // B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H

@@ -16,6 +16,8 @@
  *
  *****************************************************************************/
 
+#include <securec.h>
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
@@ -26,9 +28,10 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "hal_file.h"
-#include "utils_file.h"
 #include <hiview_log.h>
+
+#include <hal_file.h>
+#include <utils_file.h>
 
 #define RD_WR_FIELD_MASK      0x000f
 #define CREAT_EXCL_FIELD_MASK 0x00f0
@@ -117,9 +120,9 @@ static char *GetActualFilePath(const char *path)
         return NULL;
     }
 
-    strcpy(file_path, ROOT_PATH);
-    strcat(file_path, DIR_SEPARATOR);
-    strcat(file_path, path);
+    strcpy_s(file_path, len, ROOT_PATH);
+    strcat_s(file_path, len, DIR_SEPARATOR);
+    strcat_s(file_path, len, path);
 
     return file_path;
 }

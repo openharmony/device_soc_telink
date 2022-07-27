@@ -15,8 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#pragma once
-
 #ifndef MSPI_REG_H
 #define MSPI_REG_H
 
@@ -49,12 +47,12 @@ enum {
 #define reg_mspi_set_l  REG_ADDR8(0x140104)
 enum {
     FLD_MSPI_MULTIBOOT_ADDR_OFFSET =
-        BIT_RNG(0, 2), /**<mutiboot address offset option, 0:0k;  1:128k;  2:256k;  4:256k*/
+        BIT_RNG(0, 2), /**< mutiboot address offset option, 0:0k;  1:128k;  2:256k;  4:256k */
 };
 
 #define reg_mspi_set_h REG_ADDR8(0x140105)
 enum {
-    FLD_MSPI_PROGRAM_SPACE_SIZE = BIT_RNG(0, 6), /**< program space size = mspi_set_h*4k*/
+    FLD_MSPI_PROGRAM_SPACE_SIZE = BIT_RNG(0, 6), /**< program space size = mspi_set_h*4k */
 };
 #define reg_mspi_xip_config REG_ADDR16(0x140106)
 #define reg_mspi_cmd_ahb    REG_ADDR8(0x140106)

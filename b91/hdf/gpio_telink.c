@@ -27,16 +27,14 @@
 
 #define GPIO_INDEX_MAX ((sizeof(g_GpioIndexToActualPin) / sizeof(gpio_pin_e)))
 
-struct B91GpioCntlr
-{
+struct B91GpioCntlr {
     struct GpioCntlr cntlr;
 
     uint8_t *pinReflectionMap;
 
-    struct
-    {
+    struct {
         bool irq_enabled;
-    } * config;
+    }* config;
 
     uint8_t pinNum;
 };
@@ -149,7 +147,6 @@ _attribute_ram_code_ static void GpioIrqHandler(void)
 
     for (size_t i = 0; i < pB91GpioCntlr->pinNum; ++i) {
         if (pB91GpioCntlr->config[i].irq_enabled) {
-            // TODO: Implement finding GPIO number which triggered IRQ
             GpioCntlrIrqCallback(&pB91GpioCntlr->cntlr, i);
         }
     }
@@ -382,7 +379,7 @@ static int32_t GpioDevSetIrq(struct GpioCntlr *cntlr, uint16_t local, uint16_t m
         }
         default: {
             return HDF_ERR_BSP_PLT_API_ERR;
-        };
+        }
     }
 
     return HDF_SUCCESS;

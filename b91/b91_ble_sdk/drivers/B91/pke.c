@@ -15,8 +15,10 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#include "pke.h"
+#include <limits.h>
 #include "string.h"
+
+#include "pke.h"
 
 /**
  * @brief       get real bit length of big number a of wordLen words.
@@ -43,7 +45,7 @@ unsigned int valid_bits_get(const unsigned int *a, unsigned int wordLen)
         return 0;
     }
 
-    for (j = 32; j > 0; j--) {
+    for (j = (sizeof(*a)*CHAR_BIT); j > 0; j--) {
         if (a[i - 1] & (0x1 << (j - 1))) {
             break;
         }
@@ -159,8 +161,7 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
             return i;
         }
         return aWordLen;
-    } else  //general method
-    {
+    } else { // general method
         j = n >> 5;
         n &= 31;
         for (i = 0; i < aWordLen - (signed int)j - 1; i++) {
@@ -170,8 +171,9 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
         a[i] = a[i + j] >> n;
         memset(a + aWordLen - j, 0, j << 2);
 
-        if (!a[i])
+        if (!a[i]) {
             return i;
+        }
         return aWordLen - j;
     }
 }
@@ -238,7 +240,7 @@ unsigned char pke_opr_cal(pke_microcode_e addr, pke_exe_cfg_e cfg)
     pke_opr_start();
 
     while (!pke_get_irq_status(FLD_PKE_STAT_DONE)) {
-    }  //0(in progress) 1(done))
+    }  // 0(in progress) 1(done))
 
     return (pke_check_rt_code());
 }
@@ -272,7 +274,7 @@ unsigned char pke_calc_pre_mont(const unsigned int *modulus, unsigned int wordLe
 
     pke_set_operand_width(wordLen << 5);
 
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), (unsigned int *)modulus, wordLen);  //B3 modulus
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), (unsigned int *)modulus, wordLen);  // B3 modulus
 
     ret = pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
 
@@ -296,14 +298,14 @@ unsigned char pke_eccp_point_del(eccp_curve_t *curve, unsigned int *Px, unsigned
 
     pke_set_operand_width(curve->eccp_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_a_ram(0), Px, wordLen);             //A0 Px
-    pke_load_operand((unsigned int *)reg_pke_a_ram(1), Py, wordLen);             //A1 Py
-    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  //A5 a
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_a_ram(0), Px, wordLen);             // A0 Px
+    pke_load_operand((unsigned int *)reg_pke_a_ram(1), Py, wordLen);             // A1 Py
+    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  // A5 a
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
     if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -340,15 +342,15 @@ unsigned char pke_eccp_point_add(eccp_curve_t *curve, unsigned int *P1x, unsigne
 
     pke_set_operand_width(curve->eccp_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), P1x, wordLen);            //B0 P1x
-    pke_load_operand((unsigned int *)reg_pke_b_ram(1), P1y, wordLen);            //B1 P1y
-    pke_load_operand((unsigned int *)reg_pke_a_ram(0), P2x, wordLen);            //A0 P2x
-    pke_load_operand((unsigned int *)reg_pke_a_ram(1), P2y, wordLen);            //A1 P2y
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), P1x, wordLen);            // B0 P1x
+    pke_load_operand((unsigned int *)reg_pke_b_ram(1), P1y, wordLen);            // B1 P1y
+    pke_load_operand((unsigned int *)reg_pke_a_ram(0), P2x, wordLen);            // A0 P2x
+    pke_load_operand((unsigned int *)reg_pke_a_ram(1), P2y, wordLen);            // A1 P2y
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
     if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -378,15 +380,15 @@ unsigned char pke_eccp_point_verify(eccp_curve_t *curve, unsigned int *Px, unsig
 
     pke_set_operand_width(curve->eccp_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), Px, wordLen);             //B0 Px
-    pke_load_operand((unsigned int *)reg_pke_b_ram(1), Py, wordLen);             //B1 Py
-    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  //A5 a
-    pke_load_operand((unsigned int *)reg_pke_a_ram(4), curve->eccp_b, wordLen);  //A4 b
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), Px, wordLen);             // B0 Px
+    pke_load_operand((unsigned int *)reg_pke_b_ram(1), Py, wordLen);             // B1 Py
+    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  // A5 a
+    pke_load_operand((unsigned int *)reg_pke_a_ram(4), curve->eccp_b, wordLen);  // A4 b
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
     if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -417,15 +419,15 @@ unsigned char pke_eccp_point_mul(eccp_curve_t *curve, unsigned int *k, unsigned 
 
     pke_set_operand_width(curve->eccp_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), Px, wordLen);             //B0 Px
-    pke_load_operand((unsigned int *)reg_pke_b_ram(1), Py, wordLen);             //B1 Py
-    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  //A5 a
-    pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);              //A4 k
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), Px, wordLen);             // B0 Px
+    pke_load_operand((unsigned int *)reg_pke_b_ram(1), Py, wordLen);             // B1 Py
+    pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  // A5 a
+    pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);              // A4 k
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
     if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -459,16 +461,16 @@ unsigned char pke_mod_mul(const unsigned int *modulus, const unsigned int *a, co
 
     pke_set_operand_width(wordLen << 5);
 
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  //B3 modulus
-    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        //A0 a
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        //B0 b
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  // B3 modulus
+    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        // A0 a
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        // B0 b
 
     ret = pke_opr_cal(PKE_MICROCODE_MODMUL, PKE_EXE_CFG_ALL_NON_MONT);
     if (ret) {
         return ret;
     }
 
-    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  //A0 result
+    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  // A0 result
 
     return PKE_SUCCESS;
 }
@@ -489,15 +491,15 @@ unsigned char pke_mod_inv(const unsigned int *modulus, const unsigned int *a, un
 
     pke_set_operand_width(modWordLen << 5);
 
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, modWordLen);  //B3 modulus
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)a, aWordLen);          //B0 a
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, modWordLen);  // B3 modulus
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)a, aWordLen);          // B0 a
 
     ret = pke_opr_cal(PKE_MICROCODE_MODINV, 0x00);
     if (ret) {
         return ret;
     }
 
-    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)ainv, modWordLen);  //A0 ainv
+    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)ainv, modWordLen);  // A0 ainv
 
     return PKE_SUCCESS;
 }
@@ -518,16 +520,16 @@ unsigned char pke_mod_add(const unsigned int *modulus, const unsigned int *a, co
 
     pke_set_operand_width(wordLen << 5);
 
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  //B3 modulus
-    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        //A0 a
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        //B0 b
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  // B3 modulus
+    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        // A0 a
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        // B0 b
 
     ret = pke_opr_cal(PKE_MICROCODE_MODADD, 0x00);
     if (ret) {
         return ret;
     }
 
-    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  //A0 result
+    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  // A0 result
 
     return PKE_SUCCESS;
 }
@@ -548,16 +550,16 @@ unsigned char pke_mod_sub(const unsigned int *modulus, const unsigned int *a, co
 
     pke_set_operand_width(wordLen << 5);
 
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  //B3 modulus
-    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        //A0 a
-    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        //B0 b
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(3)), (unsigned int *)modulus, wordLen);  // B3 modulus
+    pke_load_operand((unsigned int *)(reg_pke_a_ram(0)), (unsigned int *)a, wordLen);        // A0 a
+    pke_load_operand((unsigned int *)(reg_pke_b_ram(0)), (unsigned int *)b, wordLen);        // B0 b
 
     ret = pke_opr_cal(PKE_MICROCODE_MODSUB, 0x00);
     if (ret) {
         return ret;
     }
 
-    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  //A0 result
+    pke_read_operand((unsigned int *)(reg_pke_a_ram(0)), out, wordLen);  // A0 result
 
     return PKE_SUCCESS;
 }
@@ -577,14 +579,14 @@ unsigned char pke_x25519_point_mul(mont_curve_t *curve, unsigned int *k, unsigne
 
     pke_set_operand_width(curve->mont_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_a_ram(0), Pu, wordLen);               //A0 Pu
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->mont_a24, wordLen);  //B0 a24
-    pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);                //A4 k
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->mont_p, wordLen);    //B3 p
+    pke_load_operand((unsigned int *)reg_pke_a_ram(0), Pu, wordLen);               // A0 Pu
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->mont_a24, wordLen);  // B0 a24
+    pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);                // A4 k
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->mont_p, wordLen);    // B3 p
 
     if ((NULL != curve->mont_p_h) && (NULL != curve->mont_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->mont_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->mont_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->mont_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->mont_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -617,15 +619,15 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
 
     pke_set_operand_width(curve->edward_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_a_ram(1), Px, wordLen);               //A1 Px
-    pke_load_operand((unsigned int *)reg_pke_a_ram(2), Py, wordLen);               //A2 Py
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->edward_d, wordLen);  //B0 d
-    pke_load_operand((unsigned int *)reg_pke_a_ram(0), k, wordLen);                //A0 k
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_a_ram(1), Px, wordLen);               // A1 Px
+    pke_load_operand((unsigned int *)reg_pke_a_ram(2), Py, wordLen);               // A2 Py
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->edward_d, wordLen);  // B0 d
+    pke_load_operand((unsigned int *)reg_pke_a_ram(0), k, wordLen);                // A0 k
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  // B3 p
 
     if ((0 != curve->edward_p_h) && (0 != curve->edward_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -662,16 +664,16 @@ unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, un
 
     pke_set_operand_width(curve->edward_p_bitLen);
 
-    pke_load_operand((unsigned int *)reg_pke_a_ram(1), P1x, wordLen);              //A1 P1x
-    pke_load_operand((unsigned int *)reg_pke_a_ram(2), P1y, wordLen);              //A2 P1y
-    pke_load_operand((unsigned int *)reg_pke_b_ram(1), P2x, wordLen);              //B1 P2x
-    pke_load_operand((unsigned int *)reg_pke_b_ram(2), P2y, wordLen);              //B2 P2y
-    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->edward_d, wordLen);  //B0 d
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  //B3 p
+    pke_load_operand((unsigned int *)reg_pke_a_ram(1), P1x, wordLen);              // A1 P1x
+    pke_load_operand((unsigned int *)reg_pke_a_ram(2), P1y, wordLen);              // A2 P1y
+    pke_load_operand((unsigned int *)reg_pke_b_ram(1), P2x, wordLen);              // B1 P2x
+    pke_load_operand((unsigned int *)reg_pke_b_ram(2), P2y, wordLen);              // B2 P2y
+    pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->edward_d, wordLen);  // B0 d
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  // B3 p
 
     if ((0 != curve->edward_p_h) && (0 != curve->edward_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }
@@ -722,7 +724,7 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
     pke_set_operand_width(bWordLen << 5);
     p = (unsigned int *)reg_pke_a_ram(1);
 
-    //get a_high mod b
+    // get a_high mod b
     a_high = c;
     if (bitLen) {
         tmpLen = aWordLen - bWordLen + 1;
@@ -756,14 +758,14 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
         pke_load_pre_calc_mont(b_h, b_n1, bWordLen);
     }
 
-    //get 1000...000 mod b
+    // get 1000...000 mod b
     memset(p, 0, bWordLen << 2);
     if (bitLen) {
         p[bWordLen - 1] = 1 << (bitLen);
     }
     sub_u32(p, b, (unsigned int *)reg_pke_b_ram(1), bWordLen);
 
-    //get a_high * 1000..000 mod b
+    // get a_high * 1000..000 mod b
     pke_set_exe_cfg(PKE_EXE_CFG_ALL_NON_MONT);
     pke_calc_pre_mont(b, bWordLen);
     ret = pke_mod_mul(b, (unsigned int *)reg_pke_b_ram(1), a_high, (unsigned int *)reg_pke_b_ram(1), bWordLen);
@@ -771,7 +773,7 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
         return ret;
     }
 
-    //get a_low mod b
+    // get a_low mod b
     if (bitLen) {
         a_low = c;
         memcpy(p, a, bWordLen << 2);
