@@ -36,7 +36,7 @@
 
 本仓库包含的编译构建脚本和打包镜像工具等，需要在Linux环境上执行。
 
-本章节参考了OpenHarmoney文档《搭建轻量与小型系统》，[请点击查看详情](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-lite-env-setup.md)。
+本章节参考了OpenHarmony文档《搭建轻量与小型系统》，[请点击查看详情](https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/quick-start/quickstart-lite-env-setup.md)。
 
 ### 安装repo
 
@@ -500,6 +500,6 @@ Burning and Debugging Tools(BDT)仅支持在Windows平台下安装和使用，�
 
 ## 相关仓库
 
-演示样例：[vendor_telink](https://gitee.com/openharmony-sig/vendor_telink)
+演示样例：[vendor_telink](https://gitee.com/openharmony/vendor_telink)
 
-B91开发板：[device_board_telink](https://gitee.com/openharmony-sig/device_board_telink)
+B91开发板：[device_board_telink](https://gitee.com/openharmony/device_board_telink)
