@@ -34,6 +34,7 @@
 #define PAGE_MASK        (~(unsigned int)(PAGE_SIZE - 1))
 #define BOOT_MARK_OFFSET 0x20
 
+#define OTA_PARTITION_SIZE (1024 * 64 * 8)
 #define OTA_PARTITONS_START OTA_PARTITION_SIZE
 
 #define RUNNING_PARTITION_ADDR 0
