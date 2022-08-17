@@ -31,7 +31,7 @@
 
 #include <stack/ble/ble.h>
 
-#define SLEEP_TIME_CORRECTION      ((UINT64)(3 * SYSTEM_TIMER_TICK_1S) / OS_SYS_CLOCK)
+#define SLEEP_TIME_CORRECTION      MticksToSysticks(3)
 #define SYSTICKS_MAX_SLEEP         0xE0000000
 #define SYSTICKS_MIN_SLEEP         (18352 + SLEEP_TIME_CORRECTION)
 #define RESERVE_WAKEUP_TIME        1
@@ -96,7 +96,6 @@ static void B91Suspend(VOID)
     }
 
     UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
-
     if (systicksSleepTimeout >= SYSTICKS_MIN_SLEEP) {
         if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
             systicksSleepTimeout = SYSTICKS_MAX_SLEEP;
