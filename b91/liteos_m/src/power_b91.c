@@ -31,12 +31,20 @@
 
 #include <stack/ble/ble.h>
 
-#define MTICKS_TO_SYSTICKS(mticks) (((UINT64)(mticks)*SYSTEM_TIMER_TICK_1S) / OS_SYS_CLOCK)
-#define SYSTICKS_TO_MTICKS(sticks) (((UINT64)(sticks)*OS_SYS_CLOCK) / SYSTEM_TIMER_TICK_1S)
-#define SLEEP_TIME_CORRECTION      MTICKS_TO_SYSTICKS(3)
+#define SLEEP_TIME_CORRECTION      MticksToSysticks(3)
 #define SYSTICKS_MAX_SLEEP         0xE0000000
 #define SYSTICKS_MIN_SLEEP         (18352 + SLEEP_TIME_CORRECTION)
 #define RESERVE_WAKEUP_TIME        1
+
+static inline UINT64 MticksToSysticks(UINT64 mticks)
+{
+    return (mticks * SYSTEM_TIMER_TICK_1S) / OS_SYS_CLOCK;
+}
+
+static inline UINT32 SysticksToMticks(UINT32 sticks)
+{
+    return (UINT32)((UINT64)sticks * OS_SYS_CLOCK / SYSTEM_TIMER_TICK_1S);
+}
 
 static void B91Suspend(VOID);
 
@@ -87,7 +95,7 @@ static void B91Suspend(VOID)
         return;
     }
 
-    UINT64 systicksSleepTimeout = MTICKS_TO_SYSTICKS(mcompare - mtick);
+    UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
 
     if (systicksSleepTimeout >= SYSTICKS_MIN_SLEEP) {
         if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
@@ -101,9 +109,9 @@ static void B91Suspend(VOID)
         uart_clr_tx_index(UART1);
         uart_clr_rx_index(UART0);
         uart_clr_rx_index(UART1);
-        mtick += SYSTICKS_TO_MTICKS(stimer_get_tick() - sleepTick + SLEEP_TIME_CORRECTION);
+        mtick += SysticksToMticks(stimer_get_tick() - sleepTick + SLEEP_TIME_CORRECTION);
         SetMtime(mtick);
-        systicksSleepTimeout = MTICKS_TO_SYSTICKS(mcompare - mtick);
+        systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
         if (systicksSleepTimeout < SYSTICKS_MIN_SLEEP) {
             ArchEnterSleep();
         }
