@@ -413,6 +413,7 @@ static inline void usb_set_pin_en(void)
     gpio_function_dis(GPIO_PA6);
     gpio_input_en(GPIO_PA5 | GPIO_PA6);  // DP/DM must set input enable
     usb_dp_pullup_en(1);
+    write_reg8(0x100c01, (read_reg8(0x100c01) | BIT(7)));
 }
 
 #endif // B91_B91_BLE_SDK_DRIVERS_B91_USBHW_H

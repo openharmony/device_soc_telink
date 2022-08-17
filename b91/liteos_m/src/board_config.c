@@ -21,8 +21,13 @@
 #include <nds_intrinsic.h>
 #include <stdint.h>
 
+#include <B91/sys.h>
+
 #define MCACHE_CTL_ICACHE 1
 #define MCACHE_CTL_DCACHE 2
+
+#define SWIRE_MAGIC_REG 0x100c01
+#define SWIRE_MAGIC_VALUE 0x40
 
 typedef void (*InitFunc)(void);
 
@@ -77,6 +82,8 @@ __attribute__((used)) static void BoardConfigInner(void)
  */
 __attribute__((naked)) void BoardConfig(void)
 {
+    write_reg8(SWIRE_MAGIC_REG, SWIRE_MAGIC_VALUE);
+
 #ifdef __nds_execit
     /* Initialize EXEC.IT table */
     __builtin_riscv_csrw((UINT32)&_ITB_BASE_, NDS_UITB);
