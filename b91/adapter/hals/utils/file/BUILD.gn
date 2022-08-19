@@ -19,8 +19,8 @@ static_library("hal_file_static") {
   sources = [ "src/hal_file.c" ]
 
   include_dirs = [
-    "//utils/native/lite/hals/file",
-    "//utils/native/lite/include",
+    "//commonlibrary/utils_lite/hals/file",
+    "//commonlibrary/utils_lite/include",
     "//base/hiviewdfx/hilog_lite/frameworks/mini",
   ]
 
