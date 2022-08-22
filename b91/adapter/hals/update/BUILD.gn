@@ -24,7 +24,5 @@ static_library("hal_update_static") {
     "//base/update/ota_lite/interfaces/kits",
   ]
 
-  configs += [
-    "../../../:B91_config",
-  ]
+  configs += [ "../../../:B91_config" ]
 }

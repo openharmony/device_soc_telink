@@ -481,7 +481,6 @@
  *
  * Uncomment to enable testing of the constant-flow nature of selected code.
  */
-//#define MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
 
 /**
  * \def MBEDTLS_TEST_NULL_ENTROPY
@@ -751,7 +750,6 @@
  *
  * Uncomment this macro to disable some counter-measures in ECP.
  */
-//#define MBEDTLS_ECP_NO_INTERNAL_RNG
 
 /**
  * \def MBEDTLS_ECP_RESTARTABLE
