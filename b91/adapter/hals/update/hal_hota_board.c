@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
  * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
  * All rights reserved.
  *
@@ -39,6 +39,14 @@
 
 #define RUNNING_PARTITION_ADDR 0
 
+#define B_IN_KB 1024
+#define BLOCK_64K (64 * B_IN_KB)
+#define BOOT_MARK_SIZE 4
+#define BOOTLOADER_STEP (B_IN_KB * 128)
+
+#define RDID_CAPACITY_ID 2
+
+
 static struct {
     size_t flash_size;
     size_t first_invalid_byte;
@@ -57,7 +65,7 @@ int HotaHalInit(void)
 {
     g_ota_state.n_partition_started = -1;
 
-    g_ota_state.cur_partition_addr = (1024 * 128) * (reg_mspi_set_l & 0x07);
+    g_ota_state.cur_partition_addr = BOOTLOADER_STEP * (reg_mspi_set_l & 0x07);
 
     if (g_ota_state.cur_partition_addr) {
         g_ota_state.partition0_addr = 0;
@@ -67,11 +75,11 @@ int HotaHalInit(void)
 
     UINT8 buf[4];
     flash_read_mid(buf);
-    g_ota_state.flash_size = 1 << buf[2];
+    g_ota_state.flash_size = 1 << buf[RDID_CAPACITY_ID];
     g_ota_state.first_invalid_byte =
         ((g_ota_state.flash_size - OTA_PARTITONS_START) / OTA_PARTITION_SIZE) * OTA_PARTITION_SIZE +
         OTA_PARTITONS_START;
-    printf("flash_size: %uk first_invalid_byte: %u\r\n", g_ota_state.flash_size / 1024,
+    printf("flash_size: %uk first_invalid_byte: %u\r\n", g_ota_state.flash_size / B_IN_KB,
            g_ota_state.first_invalid_byte);
 
     return OHOS_SUCCESS;
@@ -90,7 +98,7 @@ int HotaHalDeInit(void)
         size_t next_part = addr + OTA_PARTITION_SIZE;
         while (addr < next_part) {
             flash_erase_64kblock(addr);
-            addr += 64 * 1024;
+            addr += BLOCK_64K;
         }
         g_ota_state.n_partition_started = -1;
         printf(" === %s:%d\r\n", __func__, __LINE__);
@@ -124,10 +132,10 @@ int HotaHalRead(int partition, unsigned int offset, unsigned int bufLen, unsigne
     return OHOS_SUCCESS;
 }
 
-_attribute_ram_code_sec_ void OtaPartitionClear(unsigned addr)
+_attribute_ram_code_sec_ void OtaPartitionClear(unsigned int addr)
 {
-    for (unsigned int end = addr + OTA_PARTITION_SIZE; addr < end; addr += 64 * 1024) {
-        flash_erase_64kblock_ram(addr);
+    for (unsigned int current = addr, end = addr + OTA_PARTITION_SIZE; current < end; current += BLOCK_64K) {
+        flash_erase_64kblock_ram(current);
     }
 }
 
@@ -157,10 +165,8 @@ int HotaHalWrite(int partition, unsigned char *buffer, unsigned int offset, unsi
 
     return OHOS_SUCCESS;
 }
-_attribute_ram_code_sec_ bool FlashCheckPageIsFree(unsigned int addr, void *workbuf)
+_attribute_ram_code_sec_ bool FlashCheckPageIsFree(unsigned int addr, UINT8 *workbuf)
 {
-    //    const UINT32 *page_end = (addr + PAGE_SIZE) & PAGE_MASK;
-    //    size_t sz = (-addr) % PAGE_SIZE;
     addr &= PAGE_MASK;
     flash_read_page_ram(addr, PAGE_SIZE, workbuf);
 
@@ -173,7 +179,7 @@ _attribute_ram_code_sec_ bool FlashCheckPageIsFree(unsigned int addr, void *work
     return true;
 }
 
-_attribute_ram_code_sec_ STATIC void FlashCopyPage(unsigned int dst, unsigned int src, void *workbuf)
+_attribute_ram_code_sec_ STATIC void FlashCopyPage(unsigned int dst, unsigned int src, UINT8 *workbuf)
 {
     if (false == FlashCheckPageIsFree(dst, workbuf)) {
         flash_erase_page_ram(dst);
@@ -183,15 +189,15 @@ _attribute_ram_code_sec_ STATIC void FlashCopyPage(unsigned int dst, unsigned in
     flash_write_page_ram(dst, PAGE_SIZE, workbuf);
 }
 
-_attribute_ram_code_sec_ STATIC void OtaPartitionCopy(unsigned int dst, unsigned int src, void *workbuf)
+_attribute_ram_code_sec_ STATIC void OtaPartitionCopy(unsigned int dst, unsigned int src, UINT8 *workbuf)
 {
     for (unsigned int addr = 0; addr < OTA_PARTITION_SIZE; addr += PAGE_SIZE) {
         FlashCopyPage(dst + addr, src + addr, workbuf);
     }
 }
 
-_attribute_ram_code_sec_ STATIC void flash_write_data(unsigned long addr, unsigned long len, const void *data,
-                                                      unsigned char *buf)
+_attribute_ram_code_sec_ STATIC void flash_write_data(unsigned long addr, unsigned long len, const UINT8 *data,
+                                                      UINT8 *buf)
 {
     unsigned int page_addr = addr & PAGE_MASK;
     flash_read_page_ram(page_addr, PAGE_SIZE, buf);
@@ -204,7 +210,7 @@ _attribute_ram_code_sec_ STATIC int HotaBootNewImpl(void)
 {
     void *buf = malloc(PAGE_SIZE);
 
-    if (NULL == buf) {
+    if (buf == NULL) {
         return OHOS_FAILURE;
     }
 
@@ -213,12 +219,12 @@ _attribute_ram_code_sec_ STATIC int HotaBootNewImpl(void)
     __asm__ volatile("csrci mmisc_ctl, 8");  // disable BTB
 
     unsigned int new_partition_addr =
-        ((0 == g_ota_state.n_partition_started)
+        ((g_ota_state.n_partition_started == 0)
              ? g_ota_state.partition0_addr
              : OTA_PARTITONS_START + OTA_PARTITION_SIZE * g_ota_state.n_partition_started);
 
-    flash_write_data(new_partition_addr + BOOT_MARK_OFFSET, 4, "KNLT", buf);
-    flash_write_data(g_ota_state.cur_partition_addr + BOOT_MARK_OFFSET, 4, "\0\0\0\0", buf);
+    flash_write_data(new_partition_addr + BOOT_MARK_OFFSET, BOOT_MARK_SIZE, "KNLT", buf);
+    flash_write_data(g_ota_state.cur_partition_addr + BOOT_MARK_OFFSET, BOOT_MARK_SIZE, "\0\0\0\0", buf);
 
     sys_reboot();
 
@@ -255,7 +261,7 @@ _attribute_ram_code_sec_ int HotaBootRoollbackImpl(void)
 
     void *buf = malloc(PAGE_SIZE);
 
-    if (NULL == buf) {
+    if (buf == NULL) {
         return OHOS_FAILURE;
     }
 
@@ -272,8 +278,8 @@ _attribute_ram_code_sec_ int HotaBootRoollbackImpl(void)
         return OHOS_FAILURE;
     }
 
-    flash_write_data(rollback_partition_addr + BOOT_MARK_OFFSET, 4, "KNLT", buf);
-    flash_write_data(g_ota_state.cur_partition_addr + BOOT_MARK_OFFSET, 4, "\0\0\0\0", buf);
+    flash_write_data(rollback_partition_addr + BOOT_MARK_OFFSET, BOOT_MARK_SIZE, "KNLT", buf);
+    flash_write_data(g_ota_state.cur_partition_addr + BOOT_MARK_OFFSET, BOOT_MARK_SIZE, "\0\0\0\0", buf);
 
     sys_reboot();
 
