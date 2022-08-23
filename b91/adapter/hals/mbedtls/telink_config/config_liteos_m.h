@@ -20,9 +20,6 @@
 #define MBEDTLS_CONFIG_H
 #include <stdio.h>
 #include <stdlib.h>
-#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_DEPRECATE)
-#define _CRT_SECURE_NO_DEPRECATE 1
-#endif
 
 /**
  * \name SECTION: System support
