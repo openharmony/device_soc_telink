@@ -27,8 +27,6 @@
 
 #include <B91/flash.h>
 
-#include <bootloader.h>
-
 #define CONFIG_USE_BOOTLOADER 1
 
 #define PAGE_MASK        (~(unsigned int)(PAGE_SIZE - 1))
