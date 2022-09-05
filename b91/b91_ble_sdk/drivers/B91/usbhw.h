@@ -32,6 +32,9 @@
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
+#define SWIRE_CTL_REG (REG_ADDR8(0x100c01))
+#define SWIRE_USB_EN (BIT(7))
+
 typedef enum {
     USB_IRQ_RESET_MASK = BIT(0),
     USB_IRQ_250US_MASK = BIT(1),
@@ -413,6 +416,7 @@ static inline void usb_set_pin_en(void)
     gpio_function_dis(GPIO_PA6);
     gpio_input_en(GPIO_PA5 | GPIO_PA6);  // DP/DM must set input enable
     usb_dp_pullup_en(1);
+    SWIRE_CTL_REG |= SWIRE_USB_EN;
 }
 
 #endif // B91_B91_BLE_SDK_DRIVERS_B91_USBHW_H
