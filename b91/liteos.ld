@@ -80,6 +80,9 @@ SECTIONS
     KEEP(*(.eh_frame ))
     KEEP(*(.exec.itable))
 
+    KEEP(*(.got*))
+    KEEP(*(.plt*))
+
     KEEP (*(.init))
     KEEP (*(.fini))
 
