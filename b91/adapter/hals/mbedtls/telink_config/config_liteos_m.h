@@ -344,6 +344,7 @@
  *            digests and ciphers instead.
  *
  */
+#define MBEDTLS_AES_ALT
 
 /*
  * When replacing the elliptic curve module, pleace consider, that it is
@@ -445,6 +446,8 @@
 /* Support for Weierstrass curves with Jacobi representation */
 /* Support for curves with Montgomery arithmetic */
 
+#define MBEDTLS_ECP_ALT
+
 /**
  * \def MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
  *
@@ -506,6 +509,7 @@
  *
  * Uncomment to use your own hardware entropy collector.
  */
+#define MBEDTLS_ENTROPY_HARDWARE_ALT
 
 /**
  * \def MBEDTLS_AES_ROM_TABLES
@@ -1227,6 +1231,7 @@
  *
  * Enable the checkup functions (*_self_test).
  */
+#define MBEDTLS_SELF_TEST
 
 /**
  * \def MBEDTLS_SHA256_SMALLER
