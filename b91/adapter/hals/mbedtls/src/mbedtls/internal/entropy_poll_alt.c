@@ -18,19 +18,17 @@
 
 #include "common.h"
 
-#if defined( MBEDTLS_ENTROPY_HARDWARE_ALT )
+#if defined(MBEDTLS_ENTROPY_HARDWARE_ALT)
 
-#include "trng.h"
 #include "multithread.h"
+#include "trng.h"
 #include <string.h>
-
 
 int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen)
 {
     (void)data;
 
-    if (output != NULL && len != 0 && olen != NULL)
-    {
+    if (output != NULL && len != 0 && olen != NULL) {
         mbedtls_entropy_lock();
         *olen = 0;
         extern unsigned int g_rnd_m_w;

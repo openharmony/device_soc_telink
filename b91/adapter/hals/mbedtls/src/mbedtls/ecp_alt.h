@@ -21,28 +21,29 @@
 
 #if defined(MBEDTLS_ECP_ALT)
 
-typedef struct mbedtls_ecp_group {
-    mbedtls_ecp_group_id id;    /*!< An internal group identifier. */
-    mbedtls_mpi P;              /*!< The prime modulus of the base field. */
-    mbedtls_mpi A;              /*!< For Short Weierstrass: \p A in the equation. For
+typedef struct mbedtls_ecp_group
+{
+    mbedtls_ecp_group_id id; /*!< An internal group identifier. */
+    mbedtls_mpi P;           /*!< The prime modulus of the base field. */
+    mbedtls_mpi A;           /*!< For Short Weierstrass: \p A in the equation. For
                                      Montgomery curves: <code>(A + 2) / 4</code>. */
-    mbedtls_mpi B;              /*!< For Short Weierstrass: \p B in the equation.
+    mbedtls_mpi B;           /*!< For Short Weierstrass: \p B in the equation.
                                      For Montgomery curves: unused. */
-    mbedtls_ecp_point G;        /*!< The generator of the subgroup used. */
-    mbedtls_mpi N;              /*!< The order of \p G. */
-    size_t pbits;               /*!< The number of bits in \p P.*/
-    size_t nbits;               /*!< For Short Weierstrass: The number of bits in \p P.
+    mbedtls_ecp_point G;     /*!< The generator of the subgroup used. */
+    mbedtls_mpi N;           /*!< The order of \p G. */
+    size_t pbits;            /*!< The number of bits in \p P.*/
+    size_t nbits;            /*!< For Short Weierstrass: The number of bits in \p P.
                                      For Montgomery curves: the number of bits in the
                                      private keys. */
     /* End of public fields */
 
-    unsigned int h;                              /*!< \internal 1 if the constants are static. */
-    int (*modp)(mbedtls_mpi *);                  /*!< The function for fast pseudo-reduction mod \p P (see above).*/
-    int (*t_pre)(mbedtls_ecp_point *, void *);   /*!< Unused. */
-    int (*t_post)(mbedtls_ecp_point *, void *);  /*!< Unused. */
-    void *t_data;                                /*!< Unused. */
-    mbedtls_ecp_point *T;                        /*!< Pre-computed points for ecp_mul_comb(). */
-    size_t T_size;                               /*!< The number of dynamic allocated pre-computed points. */
+    unsigned int h;                             /*!< \internal 1 if the constants are static. */
+    int (*modp)(mbedtls_mpi *);                 /*!< The function for fast pseudo-reduction mod \p P (see above).*/
+    int (*t_pre)(mbedtls_ecp_point *, void *);  /*!< Unused. */
+    int (*t_post)(mbedtls_ecp_point *, void *); /*!< Unused. */
+    void *t_data;                               /*!< Unused. */
+    mbedtls_ecp_point *T;                       /*!< Pre-computed points for ecp_mul_comb(). */
+    size_t T_size;                              /*!< The number of dynamic allocated pre-computed points. */
 } mbedtls_ecp_group;
 
 /**
@@ -63,7 +64,7 @@ typedef struct mbedtls_ecp_group {
 /**
  * The maximum size of the groups, that is, of \c N and \c P.
  */
-#define MBEDTLS_ECP_MAX_BITS     MBEDTLS_ECP_MAX_BITS_MIN
+#define MBEDTLS_ECP_MAX_BITS MBEDTLS_ECP_MAX_BITS_MIN
 
 #else
 /* MBEDTLS_ECP_MAX_BITS is not relevant without MBEDTLS_ECP_C, but set it
@@ -72,8 +73,8 @@ typedef struct mbedtls_ecp_group {
 #define MBEDTLS_ECP_MAX_BITS 1
 #endif
 
-#define MBEDTLS_ECP_MAX_BYTES    ( ( MBEDTLS_ECP_MAX_BITS + 7 ) / 8 )
-#define MBEDTLS_ECP_MAX_PT_LEN   ( 2 * MBEDTLS_ECP_MAX_BYTES + 1 )
+#define MBEDTLS_ECP_MAX_BYTES  ((MBEDTLS_ECP_MAX_BITS + 7) / 8)
+#define MBEDTLS_ECP_MAX_PT_LEN (2 * MBEDTLS_ECP_MAX_BYTES + 1)
 
 #if !defined(MBEDTLS_ECP_WINDOW_SIZE)
 /*
@@ -96,8 +97,8 @@ typedef struct mbedtls_ecp_group {
  *      224       475     475     453     398     342
  *      192       640     640     633     587     476
  */
-#define MBEDTLS_ECP_WINDOW_SIZE    4   /**< The maximum window size used. */
-#endif /* MBEDTLS_ECP_WINDOW_SIZE */
+#define MBEDTLS_ECP_WINDOW_SIZE 4 /**< The maximum window size used. */
+#endif                            /* MBEDTLS_ECP_WINDOW_SIZE */
 
 #if !defined(MBEDTLS_ECP_FIXED_POINT_OPTIM)
 /*
@@ -112,11 +113,10 @@ typedef struct mbedtls_ecp_group {
  *
  * Change this value to 0 to reduce code size.
  */
-#define MBEDTLS_ECP_FIXED_POINT_OPTIM  1   /**< Enable fixed-point speed-up. */
-#endif /* MBEDTLS_ECP_FIXED_POINT_OPTIM */
+#define MBEDTLS_ECP_FIXED_POINT_OPTIM 1 /**< Enable fixed-point speed-up. */
+#endif                                  /* MBEDTLS_ECP_FIXED_POINT_OPTIM */
 
 /* \} name SECTION: Module settings */
-
 
 #endif /* MBEDTLS_ECP_ALT */
 

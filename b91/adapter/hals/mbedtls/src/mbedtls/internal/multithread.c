@@ -24,7 +24,8 @@
 #include "common.h"
 #include "multithread.h"
 
-static struct {
+static struct
+{
     UINT32 entropy;
     UINT32 ecp;
     UINT32 aes;
@@ -54,32 +55,32 @@ void mbedtls_multithread_init(void)
     }
 }
 
-void mbedtls_entropy_lock( void )
+void mbedtls_entropy_lock(void)
 {
     LOS_MuxPend(g_mutexes.entropy, LOS_WAIT_FOREVER);
 }
 
-void mbedtls_entropy_unlock( void )
+void mbedtls_entropy_unlock(void)
 {
     LOS_MuxPost(g_mutexes.entropy);
 }
 
-void mbedtls_ecp_lock( void )
+void mbedtls_ecp_lock(void)
 {
     LOS_MuxPend(g_mutexes.ecp, LOS_WAIT_FOREVER);
 }
 
-void mbedtls_ecp_unlock( void )
+void mbedtls_ecp_unlock(void)
 {
     LOS_MuxPost(g_mutexes.ecp);
 }
 
-void mbedtls_aes_lock( void )
+void mbedtls_aes_lock(void)
 {
     LOS_MuxPend(g_mutexes.aes, LOS_WAIT_FOREVER);
 }
 
-void mbedtls_aes_unlock( void )
+void mbedtls_aes_unlock(void)
 {
     LOS_MuxPost(g_mutexes.aes);
 }
