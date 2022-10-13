@@ -2753,11 +2753,12 @@ int mbedtls_ecp_mul_restartable( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
         MBEDTLS_MPI_CHK( ecp_mul_mxz( grp, R, m, P, f_rng, p_rng ) );
 #endif
 #if defined(ECP_SHORTWEIERSTRASS)
-    if( ecp_get_type( grp ) == ECP_TYPE_SHORT_WEIERSTRASS )
-    if( GET_WORD_LEN( grp->pbits ) <= PKE_OPERAND_MAX_WORD_LEN )
-        return( ecp_alt_b91_backend_mul( grp, R, m, P ) );
-
-        MBEDTLS_MPI_CHK( ecp_mul_comb( grp, R, m, P, f_rng, p_rng, rs_ctx ) );
+    if( ecp_get_type( grp ) == ECP_TYPE_SHORT_WEIERSTRASS ) {
+        if( GET_WORD_LEN( grp->pbits ) <= PKE_OPERAND_MAX_WORD_LEN )
+            MBEDTLS_MPI_CHK( ecp_alt_b91_backend_mul( grp, R, m, P ) );
+        else
+            MBEDTLS_MPI_CHK( ecp_mul_comb( grp, R, m, P, f_rng, p_rng, rs_ctx ) );
+    }
 #endif
 
 cleanup:
