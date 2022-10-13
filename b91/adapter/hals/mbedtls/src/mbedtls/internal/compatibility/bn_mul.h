@@ -32,8 +32,6 @@
 #ifndef MBEDTLS_BN_MUL_H
 #define MBEDTLS_BN_MUL_H
 
-// #include "mbedtls/build_info.h"
-
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
 #else
@@ -65,14 +63,14 @@
 #else /* 64-bits */
 
 #define MBEDTLS_BYTES_TO_T_UINT_8( a, b, c, d, e, f, g, h )   \
-    ( (mbedtls_mpi_uint) (a) <<  0 ) |                        \
+    (( (mbedtls_mpi_uint) (a) <<  0 ) |                        \
     ( (mbedtls_mpi_uint) (b) <<  8 ) |                        \
     ( (mbedtls_mpi_uint) (c) << 16 ) |                        \
     ( (mbedtls_mpi_uint) (d) << 24 ) |                        \
     ( (mbedtls_mpi_uint) (e) << 32 ) |                        \
     ( (mbedtls_mpi_uint) (f) << 40 ) |                        \
     ( (mbedtls_mpi_uint) (g) << 48 ) |                        \
-    ( (mbedtls_mpi_uint) (h) << 56 )
+    ( (mbedtls_mpi_uint) (h) << 56 ))
 
 #define MBEDTLS_BYTES_TO_T_UINT_4( a, b, c, d )             \
     MBEDTLS_BYTES_TO_T_UINT_8( a, b, c, d, 0, 0, 0, 0 )

@@ -21,17 +21,13 @@
 #include <los_mux.h>
 #include <ohos_init.h>
 
-#include "multithread.h"
 #include "common.h"
+#include "multithread.h"
 
 static struct {
     UINT32 entropy;
-    // bool mbedtls_entropy_mutex_inited;
     UINT32 ecp;
-    // bool mbedtls_ecp_mutex_inited;
     UINT32 aes;
-    // bool mbedtls_aes_mutex_inited;
-    // bool inited;
 } g_mutexes;
 
 /****************************************************************
@@ -56,8 +52,6 @@ void mbedtls_multithread_init(void)
         printf("LOS_MuxCreate(&g_mutexes.aes) = %u\r\n");
         return;
     }
-    printf("%s:%d\r\n", __func__, __LINE__);
-    // g_mutexes.inited = true;
 }
 
 void mbedtls_entropy_lock( void )
