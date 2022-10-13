@@ -19,12 +19,9 @@
 #ifndef ECP_ALT_H
 #define ECP_ALT_H
 
-#if defined( MBEDTLS_ECP_ALT )
+#if defined(MBEDTLS_ECP_ALT)
 
-#define MBEDTLS_PRIVATE(x) x
-
-typedef struct mbedtls_ecp_group
-{
+typedef struct mbedtls_ecp_group {
     mbedtls_ecp_group_id id;    /*!< An internal group identifier. */
     mbedtls_mpi P;              /*!< The prime modulus of the base field. */
     mbedtls_mpi A;              /*!< For Short Weierstrass: \p A in the equation. For
@@ -39,15 +36,14 @@ typedef struct mbedtls_ecp_group
                                      private keys. */
     /* End of public fields */
 
-    unsigned int MBEDTLS_PRIVATE( h );                                  /*!< \internal 1 if the constants are static. */
-    int ( *MBEDTLS_PRIVATE( modp ) )( mbedtls_mpi * );                  /*!< The function for fast pseudo-reduction mod \p P (see above).*/
-    int ( *MBEDTLS_PRIVATE( t_pre ) )( mbedtls_ecp_point *, void * );   /*!< Unused. */
-    int ( *MBEDTLS_PRIVATE( t_post ) )( mbedtls_ecp_point *, void * );  /*!< Unused. */
-    void *MBEDTLS_PRIVATE( t_data );                                    /*!< Unused. */
-    mbedtls_ecp_point *MBEDTLS_PRIVATE( T );                            /*!< Pre-computed points for ecp_mul_comb(). */
-    size_t MBEDTLS_PRIVATE( T_size );                                   /*!< The number of dynamic allocated pre-computed points. */
-}
-mbedtls_ecp_group;
+    unsigned int h;                              /*!< \internal 1 if the constants are static. */
+    int (*modp)(mbedtls_mpi *);                  /*!< The function for fast pseudo-reduction mod \p P (see above).*/
+    int (*t_pre)(mbedtls_ecp_point *, void *);   /*!< Unused. */
+    int (*t_post)(mbedtls_ecp_point *, void *);  /*!< Unused. */
+    void *t_data;                                /*!< Unused. */
+    mbedtls_ecp_point *T;                        /*!< Pre-computed points for ecp_mul_comb(). */
+    size_t T_size;                               /*!< The number of dynamic allocated pre-computed points. */
+} mbedtls_ecp_group;
 
 /**
  * \name SECTION: Module settings
