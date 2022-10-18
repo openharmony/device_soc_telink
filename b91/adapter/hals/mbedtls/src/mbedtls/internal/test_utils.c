@@ -22,7 +22,7 @@
 
 void mbedtls_printbuf(const char *comment, const void *buf, size_t len)
 {
-    mbedtls_printf("%s [%u]:", comment, (unsigned int len);
+    mbedtls_printf("%s [%u]:", comment, (unsigned int)len);
     for (size_t i = 0; i < len; i++) {
         mbedtls_printf(" %02x", ((unsigned char *)buf)[i]);
     }

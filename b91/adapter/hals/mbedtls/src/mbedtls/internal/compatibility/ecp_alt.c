@@ -286,8 +286,7 @@ cleanup:
  * We stored them concatenated in a single buffer as that's what will get
  * passed to the hash function.
  */
-typedef struct
-{
+typedef struct {
     size_t total_len;
     uint8_t buf[4 + MBEDTLS_ECP_MAX_BYTES];
 } ecp_drbg_context;
@@ -391,8 +390,7 @@ int mbedtls_ecp_restart_is_enabled(void)
 /*
  * Restart sub-context for ecp_mul_comb()
  */
-struct mbedtls_ecp_restart_mul
-{
+struct mbedtls_ecp_restart_mul {
     mbedtls_ecp_point R;      /* current intermediate result                  */
     size_t i;                 /* current index in various loops, 0 outside    */
     mbedtls_ecp_point *T;     /* table for precomputed points                 */
@@ -456,8 +454,7 @@ static void ecp_restart_rsm_free(mbedtls_ecp_restart_mul_ctx *ctx)
 /*
  * Restart context for ecp_muladd()
  */
-struct mbedtls_ecp_restart_muladd
-{
+struct mbedtls_ecp_restart_muladd {
     mbedtls_ecp_point mP;  /* mP value                             */
     mbedtls_ecp_point R;   /* R intermediate result                */
     enum {                 /* what should we do next?              */
@@ -552,34 +549,34 @@ int mbedtls_ecp_check_budget(const mbedtls_ecp_group *grp, mbedtls_ecp_restart_c
 }
 
 /* Call this when entering a function that needs its own sub-context */
-#define ECP_RS_ENTER(SUB)                                                                                             \
-    do {                                                                                                              \
-        /* reset ops count for this call if top-level */                                                              \
-        if (rs_ctx != NULL && rs_ctx->depth++ == 0)                                                                   \
-            rs_ctx->ops_done = 0;                                                                                     \
-                                                                                                                      \
-        /* set up our own sub-context if needed */                                                                    \
-        if (mbedtls_ecp_restart_is_enabled() && rs_ctx != NULL && rs_ctx->SUB == NULL) {                              \
-            rs_ctx->SUB = mbedtls_calloc(1, sizeof(*rs_ctx->SUB));                                                    \
-            if (rs_ctx->SUB == NULL)                                                                                  \
-                return (MBEDTLS_ERR_ECP_ALLOC_FAILED);                                                                \
-                                                                                                                      \
-            ecp_restart_##SUB##_init(rs_ctx->SUB);                                                                    \
-        }                                                                                                             \
+#define ECP_RS_ENTER(SUB)                                                                                            \
+    do {                                                                                                             \
+        /* reset ops count for this call if top-level */                                                             \
+        if (rs_ctx != NULL && rs_ctx->depth++ == 0)                                                                  \
+            rs_ctx->ops_done = 0;                                                                                    \
+                                                                                                                     \
+        /* set up our own sub-context if needed */                                                                   \
+        if (mbedtls_ecp_restart_is_enabled() && rs_ctx != NULL && rs_ctx->SUB == NULL) {                             \
+            rs_ctx->SUB = mbedtls_calloc(1, sizeof(*rs_ctx->SUB));                                                   \
+            if (rs_ctx->SUB == NULL)                                                                                 \
+                return (MBEDTLS_ERR_ECP_ALLOC_FAILED);                                                               \
+                                                                                                                     \
+            ecp_restart_##SUB##_init(rs_ctx->SUB);                                                                   \
+        }                                                                                                            \
     } while (0)
 
 /* Call this when leaving a function that needs its own sub-context */
-#define ECP_RS_LEAVE(SUB)                                                                                             \
-    do {                                                                                                              \
-        /* clear our sub-context when not in progress (done or error) */                                              \
-        if (rs_ctx != NULL && rs_ctx->SUB != NULL && ret != MBEDTLS_ERR_ECP_IN_PROGRESS) {                            \
-            ecp_restart_##SUB##_free(rs_ctx->SUB);                                                                    \
-            mbedtls_free(rs_ctx->SUB);                                                                                \
-            rs_ctx->SUB = NULL;                                                                                       \
-        }                                                                                                             \
-                                                                                                                      \
-        if (rs_ctx != NULL)                                                                                           \
-            rs_ctx->depth--;                                                                                          \
+#define ECP_RS_LEAVE(SUB)                                                                                            \
+    do {                                                                                                             \
+        /* clear our sub-context when not in progress (done or error) */                                             \
+        if (rs_ctx != NULL && rs_ctx->SUB != NULL && ret != MBEDTLS_ERR_ECP_IN_PROGRESS) {                           \
+            ecp_restart_##SUB##_free(rs_ctx->SUB);                                                                   \
+            mbedtls_free(rs_ctx->SUB);                                                                               \
+            rs_ctx->SUB = NULL;                                                                                      \
+        }                                                                                                            \
+                                                                                                                     \
+        if (rs_ctx != NULL)                                                                                          \
+            rs_ctx->depth--;                                                                                         \
     } while (0)
 
 #else /* MBEDTLS_ECP_RESTARTABLE */
@@ -589,11 +586,11 @@ int mbedtls_ecp_check_budget(const mbedtls_ecp_group *grp, mbedtls_ecp_restart_c
 
 #endif /* MBEDTLS_ECP_RESTARTABLE */
 
-#if defined(MBEDTLS_ECP_DP_SECP192R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) ||                         \
-    defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP384R1_ENABLED) ||                         \
-    defined(MBEDTLS_ECP_DP_SECP521R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP256R1_ENABLED) ||                           \
-    defined(MBEDTLS_ECP_DP_BP384R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP512R1_ENABLED) ||                             \
-    defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                         \
+#if defined(MBEDTLS_ECP_DP_SECP192R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) ||                        \
+    defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP384R1_ENABLED) ||                        \
+    defined(MBEDTLS_ECP_DP_SECP521R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP256R1_ENABLED) ||                          \
+    defined(MBEDTLS_ECP_DP_BP384R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP512R1_ENABLED) ||                            \
+    defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                        \
     defined(MBEDTLS_ECP_DP_SECP256K1_ENABLED)
 #define ECP_SHORTWEIERSTRASS
 #endif
@@ -1245,18 +1242,18 @@ cleanup:
 #define INC_MUL_COUNT
 #endif
 
-#define MOD_MUL(N)                                                                                                    \
-    do {                                                                                                              \
-        MBEDTLS_MPI_CHK(ecp_modp(&(N), grp));                                                                         \
-        INC_MUL_COUNT                                                                                                 \
+#define MOD_MUL(N)                                                                                                   \
+    do {                                                                                                             \
+        MBEDTLS_MPI_CHK(ecp_modp(&(N), grp));                                                                        \
+        INC_MUL_COUNT                                                                                                \
     } while (0)
 
 /*
  * Reduce a mbedtls_mpi mod p in-place, to use after mbedtls_mpi_sub_mpi
  * N->s < 0 is a very fast test, which fails only if N is 0
  */
-#define MOD_SUB(N)                                                                                                    \
-    while ((N).s < 0 && mbedtls_mpi_cmp_int(&(N), 0) != 0)                                                            \
+#define MOD_SUB(N)                                                                                                   \
+    while ((N).s < 0 && mbedtls_mpi_cmp_int(&(N), 0) != 0)                                                           \
     MBEDTLS_MPI_CHK(mbedtls_mpi_add_mpi(&(N), &(N), &grp->P))
 
 /*
@@ -1264,8 +1261,8 @@ cleanup:
  * We known P, N and the result are positive, so sub_abs is correct, and
  * a bit faster.
  */
-#define MOD_ADD(N)                                                                                                    \
-    while (mbedtls_mpi_cmp_mpi(&(N), &grp->P) >= 0)                                                                   \
+#define MOD_ADD(N)                                                                                                   \
+    while (mbedtls_mpi_cmp_mpi(&(N), &grp->P) >= 0)                                                                  \
     MBEDTLS_MPI_CHK(mbedtls_mpi_sub_abs(&(N), &(N), &grp->P))
 
 #if defined(ECP_SHORTWEIERSTRASS)
@@ -2241,8 +2238,9 @@ static unsigned char ecp_pick_window_size(const mbedtls_ecp_group *grp, unsigned
  *
  * See comments on ecp_comb_recode_core() regarding the computation strategy.
  */
-static int ecp_mul_comb(mbedtls_ecp_group *grp, mbedtls_ecp_point *R, const mbedtls_mpi *m, const mbedtls_ecp_point *P,
-    int (*f_rng)(void *, unsigned char *, size_t), void *p_rng, mbedtls_ecp_restart_ctx *rs_ctx)
+static int ecp_mul_comb(mbedtls_ecp_group *grp, mbedtls_ecp_point *R, const mbedtls_mpi *m,
+    const mbedtls_ecp_point *P, int (*f_rng)(void *, unsigned char *, size_t), void *p_rng,
+    mbedtls_ecp_restart_ctx *rs_ctx)
 {
     int ret;
     unsigned char w, p_eq_g, i;
@@ -2915,9 +2913,9 @@ int mbedtls_ecp_muladd(mbedtls_ecp_group *grp, mbedtls_ecp_point *R, const mbedt
 
 #if defined(ECP_MONTGOMERY)
 #if defined(MBEDTLS_ECP_DP_CURVE25519_ENABLED)
-#define ECP_MPI_INIT(s, n, p)                                                                                         \
-    {                                                                                                                 \
-        s, (n), (mbedtls_mpi_uint *)(p)                                                                               \
+#define ECP_MPI_INIT(s, n, p)                                                                                        \
+    {                                                                                                                \
+        s, (n), (mbedtls_mpi_uint *)(p)                                                                              \
     }
 #define ECP_MPI_INIT_ARRAY(x) ECP_MPI_INIT(1, sizeof(x) / sizeof(mbedtls_mpi_uint), x)
 /*
@@ -2963,8 +2961,7 @@ static int ecp_check_bad_points_mx(const mbedtls_mpi *X, const mbedtls_mpi *P, c
     /* Check against the known bad values that are less than P. For Curve448
      * these are 0, 1 and -1. For Curve25519 we check the values less than P
      * from the following list: https://cr.yp.to/ecdh.html#validate */
-    if (mbedtls_mpi_cmp_int(&XmP, 1) <= 0) /* takes care of 0 and 1 */
-    {
+    if (mbedtls_mpi_cmp_int(&XmP, 1) <= 0) { /* takes care of 0 and 1 */
         ret = MBEDTLS_ERR_ECP_INVALID_KEY;
         goto cleanup;
     }

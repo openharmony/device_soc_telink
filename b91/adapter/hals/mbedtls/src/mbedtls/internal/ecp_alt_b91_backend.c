@@ -51,11 +51,11 @@
 
 #if defined(MBEDTLS_ECP_ALT)
 
-#if defined(MBEDTLS_ECP_DP_SECP192R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) ||                         \
-    defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP384R1_ENABLED) ||                         \
-    defined(MBEDTLS_ECP_DP_SECP521R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP256R1_ENABLED) ||                           \
-    defined(MBEDTLS_ECP_DP_BP384R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP512R1_ENABLED) ||                             \
-    defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                         \
+#if defined(MBEDTLS_ECP_DP_SECP192R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) ||                        \
+    defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP384R1_ENABLED) ||                        \
+    defined(MBEDTLS_ECP_DP_SECP521R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP256R1_ENABLED) ||                          \
+    defined(MBEDTLS_ECP_DP_BP384R1_ENABLED) || defined(MBEDTLS_ECP_DP_BP512R1_ENABLED) ||                            \
+    defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                        \
     defined(MBEDTLS_ECP_DP_SECP256K1_ENABLED)
 #define ECP_SHORTWEIERSTRASS
 #endif
@@ -126,8 +126,8 @@ static eccp_curve_t BP256r1 = {.eccp_p_bitLen = 256,
     .eccp_p_h = (unsigned int[]){0xcefd89b9},
     .eccp_a = (unsigned int[]){0xf330b5d9, 0xe94a4b44, 0x26dc5c6c, 0xfb8055c1, 0x417affe7, 0xeef67530, 0xfc2c3057,
         0x7d5a0975},
-    .eccp_b = (unsigned int[]){
-        0xff8c07b6, 0x6bccdc18, 0x5cf7e1ce, 0x95841629, 0xbbd77cbf, 0xf330b5d9, 0xe94a4b44, 0x26dc5c6c}};
+    .eccp_b = (unsigned int[]){0xff8c07b6, 0x6bccdc18, 0x5cf7e1ce, 0x95841629, 0xbbd77cbf, 0xf330b5d9, 0xe94a4b44,
+        0x26dc5c6c}};
 #endif /* MBEDTLS_ECP_DP_BP256R1_ENABLED */
 
 #if defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED)
@@ -182,8 +182,7 @@ static mont_curve_t x25519 = {.mont_p_bitLen = 255,
  ****************************************************************/
 
 #if defined(ECP_SHORTWEIERSTRASS)
-static const struct
-{
+static const struct {
     mbedtls_ecp_group_id group;
     eccp_curve_t *curve_dat;
 }
@@ -214,8 +213,7 @@ eccp_curve_linking[] = {
 #endif /* ECP_SHORTWEIERSTRASS */
 
 #if defined(ECP_MONTGOMERY)
-static const struct
-{
+static const struct {
     mbedtls_ecp_group_id group;
     mont_curve_t *curve_dat;
 }

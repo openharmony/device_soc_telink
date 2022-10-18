@@ -40,9 +40,9 @@
 #define inline __inline
 #endif
 
-#define ECP_MPI_INIT(s, n, p)                                                                                         \
-    {                                                                                                                 \
-        s, (n), (mbedtls_mpi_uint *)(p)                                                                               \
+#define ECP_MPI_INIT(s, n, p)                                                                                        \
+    {                                                                                                                \
+        s, (n), (mbedtls_mpi_uint *)(p)                                                                              \
     }
 
 #define ECP_MPI_INIT_ARRAY(x) ECP_MPI_INIT(1, sizeof(x) / sizeof(mbedtls_mpi_uint), x)
@@ -606,12 +606,12 @@ static int ecp_mod_p224k1(mbedtls_mpi *);
 static int ecp_mod_p256k1(mbedtls_mpi *);
 #endif
 
-#define LOAD_GROUP_A(G)                                                                                               \
-    ecp_group_load(grp, G##_p, sizeof(G##_p), G##_a, sizeof(G##_a), G##_b, sizeof(G##_b), G##_gx, sizeof(G##_gx),     \
+#define LOAD_GROUP_A(G)                                                                                              \
+    ecp_group_load(grp, G##_p, sizeof(G##_p), G##_a, sizeof(G##_a), G##_b, sizeof(G##_b), G##_gx, sizeof(G##_gx),    \
         G##_gy, sizeof(G##_gy), G##_n, sizeof(G##_n))
 
-#define LOAD_GROUP(G)                                                                                                 \
-    ecp_group_load(grp, G##_p, sizeof(G##_p), NULL, 0, G##_b, sizeof(G##_b), G##_gx, sizeof(G##_gx), G##_gy,          \
+#define LOAD_GROUP(G)                                                                                                \
+    ecp_group_load(grp, G##_p, sizeof(G##_p), NULL, 0, G##_b, sizeof(G##_b), G##_gx, sizeof(G##_gx), G##_gy,         \
         sizeof(G##_gy), G##_n, sizeof(G##_n))
 
 #if defined(MBEDTLS_ECP_DP_CURVE25519_ENABLED)
@@ -894,13 +894,13 @@ static inline void carry64(mbedtls_mpi_uint *dst, mbedtls_mpi_uint *carry)
 #define WIDTH  8 / sizeof(mbedtls_mpi_uint)
 #define A(i)   N->p + (i)*WIDTH
 #define ADD(i) add64(p, A(i), &c)
-#define NEXT                                                                                                          \
-    p += WIDTH;                                                                                                       \
+#define NEXT                                                                                                         \
+    p += WIDTH;                                                                                                      \
     carry64(p, &c)
-#define LAST                                                                                                          \
-    p += WIDTH;                                                                                                       \
-    *p = c;                                                                                                           \
-    while (++p < end)                                                                                                 \
+#define LAST                                                                                                         \
+    p += WIDTH;                                                                                                      \
+    *p = c;                                                                                                          \
+    while (++p < end)                                                                                                \
     *p = 0
 
 /*
@@ -940,7 +940,7 @@ cleanup:
 #undef LAST
 #endif /* MBEDTLS_ECP_DP_SECP192R1_ENABLED */
 
-#if defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) ||                         \
+#if defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED) ||                        \
     defined(MBEDTLS_ECP_DP_SECP384R1_ENABLED)
 /*
  * The reader is advised to first understand ecp_mod_p192() since the same
@@ -970,13 +970,13 @@ cleanup:
 
 #define MAX32 N->n * 2
 #define A(j)  (j) % 2 ? (uint32_t)(N->p[(j) / 2] >> 32) : (uint32_t)(N->p[(j) / 2])
-#define STORE32                                                                                                       \
-    if (i % 2) {                                                                                                      \
-        N->p[i / 2] &= 0x00000000FFFFFFFF;                                                                            \
-        N->p[i / 2] |= ((mbedtls_mpi_uint)cur) << 32;                                                                 \
-    } else {                                                                                                          \
-        N->p[i / 2] &= 0xFFFFFFFF00000000;                                                                            \
-        N->p[i / 2] |= (mbedtls_mpi_uint)cur;                                                                         \
+#define STORE32                                                                                                      \
+    if (i % 2) {                                                                                                     \
+        N->p[i / 2] &= 0x00000000FFFFFFFF;                                                                           \
+        N->p[i / 2] |= ((mbedtls_mpi_uint)cur) << 32;                                                                \
+    } else {                                                                                                         \
+        N->p[i / 2] &= 0xFFFFFFFF00000000;                                                                           \
+        N->p[i / 2] |= (mbedtls_mpi_uint)cur;                                                                        \
     }
 
 #endif /* sizeof( mbedtls_mpi_uint ) */
@@ -1003,43 +1003,43 @@ static inline void sub32(uint32_t *dst, uint32_t src, signed char *carry)
  * Helpers for the main 'loop'
  * (see fix_negative for the motivation of C)
  */
-#define INIT(b)                                                                                                       \
-    int ret;                                                                                                          \
-    signed char c = 0, cc;                                                                                            \
-    uint32_t cur;                                                                                                     \
-    size_t i = 0, bits = (b);                                                                                         \
-    mbedtls_mpi C;                                                                                                    \
-    mbedtls_mpi_uint Cp[(b) / 8 / sizeof(mbedtls_mpi_uint) + 1];                                                      \
-                                                                                                                      \
-    C.s = 1;                                                                                                          \
-    C.n = (b) / 8 / sizeof(mbedtls_mpi_uint) + 1;                                                                     \
-    C.p = Cp;                                                                                                         \
-    memset(Cp, 0, C.n * sizeof(mbedtls_mpi_uint));                                                                    \
-                                                                                                                      \
-    MBEDTLS_MPI_CHK(mbedtls_mpi_grow(N, (b)*2 / 8 / sizeof(mbedtls_mpi_uint)));                                       \
+#define INIT(b)                                                                                                      \
+    int ret;                                                                                                         \
+    signed char c = 0, cc;                                                                                           \
+    uint32_t cur;                                                                                                    \
+    size_t i = 0, bits = (b);                                                                                        \
+    mbedtls_mpi C;                                                                                                   \
+    mbedtls_mpi_uint Cp[(b) / 8 / sizeof(mbedtls_mpi_uint) + 1];                                                     \
+                                                                                                                     \
+    C.s = 1;                                                                                                         \
+    C.n = (b) / 8 / sizeof(mbedtls_mpi_uint) + 1;                                                                    \
+    C.p = Cp;                                                                                                        \
+    memset(Cp, 0, C.n * sizeof(mbedtls_mpi_uint));                                                                   \
+                                                                                                                     \
+    MBEDTLS_MPI_CHK(mbedtls_mpi_grow(N, (b)*2 / 8 / sizeof(mbedtls_mpi_uint)));                                      \
     LOAD32;
 
-#define NEXT                                                                                                          \
-    STORE32;                                                                                                          \
-    i++;                                                                                                              \
-    LOAD32;                                                                                                           \
-    cc = c;                                                                                                           \
-    c = 0;                                                                                                            \
-    if (cc < 0)                                                                                                       \
-        sub32(&cur, -cc, &c);                                                                                         \
-    else                                                                                                              \
+#define NEXT                                                                                                         \
+    STORE32;                                                                                                         \
+    i++;                                                                                                             \
+    LOAD32;                                                                                                          \
+    cc = c;                                                                                                          \
+    c = 0;                                                                                                           \
+    if (cc < 0)                                                                                                      \
+        sub32(&cur, -cc, &c);                                                                                        \
+    else                                                                                                             \
         add32(&cur, cc, &c);
 
-#define LAST                                                                                                          \
-    STORE32;                                                                                                          \
-    i++;                                                                                                              \
-    cur = c > 0 ? c : 0;                                                                                              \
-    STORE32;                                                                                                          \
-    cur = 0;                                                                                                          \
-    while (++i < MAX32) {                                                                                             \
-        STORE32;                                                                                                      \
-    }                                                                                                                 \
-    if (c < 0)                                                                                                        \
+#define LAST                                                                                                         \
+    STORE32;                                                                                                         \
+    i++;                                                                                                             \
+    cur = c > 0 ? c : 0;                                                                                             \
+    STORE32;                                                                                                         \
+    cur = 0;                                                                                                         \
+    while (++i < MAX32) {                                                                                            \
+        STORE32;                                                                                                     \
+    }                                                                                                                \
+    if (c < 0)                                                                                                       \
         MBEDTLS_MPI_CHK(fix_negative(N, c, &C, bits));
 
 /*
@@ -1477,7 +1477,7 @@ cleanup:
 }
 #endif /* MBEDTLS_ECP_DP_CURVE448_ENABLED */
 
-#if defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                         \
+#if defined(MBEDTLS_ECP_DP_SECP192K1_ENABLED) || defined(MBEDTLS_ECP_DP_SECP224K1_ENABLED) ||                        \
     defined(MBEDTLS_ECP_DP_SECP256K1_ENABLED)
 /*
  * Fast quasi-reduction modulo P = 2^s - R,

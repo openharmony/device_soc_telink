@@ -24,8 +24,7 @@
 #include "common.h"
 #include "multithread.h"
 
-static struct
-{
+static struct {
     UINT32 entropy;
     UINT32 ecp;
     UINT32 aes;

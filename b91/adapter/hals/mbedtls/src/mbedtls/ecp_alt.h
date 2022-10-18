@@ -21,8 +21,7 @@
 
 #if defined(MBEDTLS_ECP_ALT)
 
-typedef struct mbedtls_ecp_group
-{
+typedef struct mbedtls_ecp_group {
     mbedtls_ecp_group_id id; /*!< An internal group identifier. */
     mbedtls_mpi P;           /*!< The prime modulus of the base field. */
     mbedtls_mpi A;           /*!< For Short Weierstrass: \p A in the equation. For
@@ -31,14 +30,14 @@ typedef struct mbedtls_ecp_group
                                      For Montgomery curves: unused. */
     mbedtls_ecp_point G;     /*!< The generator of the subgroup used. */
     mbedtls_mpi N;           /*!< The order of \p G. */
-    size_t pbits;            /*!< The number of bits in \p P.*/
+    size_t pbits;            /*!< The number of bits in \p P. */
     size_t nbits;            /*!< For Short Weierstrass: The number of bits in \p P.
                                      For Montgomery curves: the number of bits in the
                                      private keys. */
     /* End of public fields */
 
     unsigned int h;                             /*!< \internal 1 if the constants are static. */
-    int (*modp)(mbedtls_mpi *);                 /*!< The function for fast pseudo-reduction mod \p P (see above).*/
+    int (*modp)(mbedtls_mpi *);                 /*!< The function for fast pseudo-reduction mod \p P (see above). */
     int (*t_pre)(mbedtls_ecp_point *, void *);  /*!< Unused. */
     int (*t_post)(mbedtls_ecp_point *, void *); /*!< Unused. */
     void *t_data;                               /*!< Unused. */
