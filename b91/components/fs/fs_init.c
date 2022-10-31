@@ -16,11 +16,12 @@
  *
  *****************************************************************************/
 #include <sys/mount.h>
-#include "los_config.h"
-#include "hdf_log.h"
-#include "hdf_device_desc.h"
-#include "device_resource_if.h"
-#include "lfs_adapter.h"
+
+#include <device_resource_if.h>
+#include <hdf_device_desc.h>
+#include <hdf_log.h>
+#include <lfs_adapter.h>
+#include <los_config.h>
 
 #include <los_fs.h>
 
@@ -44,14 +45,14 @@ struct fs_cfg {
 
 static struct fs_cfg fs[LOSCFG_LFS_MAX_MOUNT_SIZE] = {0};
 
-static int readFunc(int partition, UINT32 *offset, void *buf, UINT32 size)
+static int readFunc(int partition, UINT32 *offset, unsigned char *buf, UINT32 size)
 {
     flash_read_page(LITTLEFS_PHYS_ADDR + *offset, size, buf);
     return LFS_ERR_OK;
 }
 
 /* partition low-level write func */
-static int writeFunc(int partition, UINT32 *offset, const void *buf, UINT32 size)
+static int writeFunc(int partition, UINT32 *offset, const unsigned char *buf, UINT32 size)
 {
     flash_write_page(LITTLEFS_PHYS_ADDR + *offset, size, (unsigned char *)buf);
     return LFS_ERR_OK;
@@ -81,25 +82,41 @@ static uint32_t FsGetResource(struct fs_cfg *fs, const struct DeviceResourceNode
             HDF_LOGE("%s: failed to get mount_points", __func__);
             return HDF_FAILURE;
         }
-        if (resource->GetUint32ArrayElem(resourceNode, "partitions", i,
-                                         (uint32_t *)&fs[i].lfs_cfg.context, 0) != HDF_SUCCESS) {
+        if (resource->GetUint32ArrayElem(resourceNode, "partitions", i, (uint32_t *)&fs[i].lfs_cfg.context, 0) !=
+            HDF_SUCCESS) {
             HDF_LOGE("%s: failed to get partitions", __func__);
             return HDF_FAILURE;
         }
-        if (resource->GetUint32ArrayElem(resourceNode, "block_size", i, &fs[i].lfs_cfg.block_size, 0) != HDF_SUCCESS) {
+        if (resource->GetUint32ArrayElem(resourceNode, "block_size", i, &fs[i].lfs_cfg.block_size, 0) !=
+            HDF_SUCCESS) {
             HDF_LOGE("%s: failed to get block_size", __func__);
             return HDF_FAILURE;
         }
-        if (resource->GetUint32ArrayElem(resourceNode, "block_count", i,
-                                         &fs[i].lfs_cfg.block_count, 0) != HDF_SUCCESS) {
+        if (resource->GetUint32ArrayElem(resourceNode, "block_count", i, &fs[i].lfs_cfg.block_count, 0) !=
+            HDF_SUCCESS) {
             HDF_LOGE("%s: failed to get block_count", __func__);
             return HDF_FAILURE;
         }
         HDF_LOGD("%s: fs[%d] mount_point=%s, partition=%u, block_size=%u, block_count=%u", __func__, i,
-                 fs[i].mount_point, (uint32_t)fs[i].lfs_cfg.context, fs[i].lfs_cfg.block_size,
-                 fs[i].lfs_cfg.block_count);
+            fs[i].mount_point, (uint32_t)fs[i].lfs_cfg.context, fs[i].lfs_cfg.block_size, fs[i].lfs_cfg.block_count);
     }
     return HDF_SUCCESS;
+}
+
+void PartitionsInit(void)
+{
+
+    int lengthArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
+    int addrArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
+    int nextAddr = 0;
+
+    for (int i = 0; i < sizeof(fs) / sizeof(fs[0]); i++) {
+        lengthArray[i] = fs[i].lfs_cfg.block_count * fs[i].lfs_cfg.block_size;
+        addrArray[i] = nextAddr;
+        nextAddr += lengthArray[i];
+    }
+
+    (VOID) LOS_DiskPartition("flash0", "littlefs", lengthArray, addrArray, LOSCFG_LFS_MAX_MOUNT_SIZE);
 }
 
 int32_t FsDriverInit(struct HdfDeviceObject *object)
@@ -116,54 +133,34 @@ int32_t FsDriverInit(struct HdfDeviceObject *object)
         }
     }
 
-    int lengthArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
-    int addrArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
-    int nextAddr = 0;
-
-    for (int i = 0; i < sizeof(fs) / sizeof(fs[0]); i++) {
-        lengthArray[i] = fs[i].lfs_cfg.block_count * fs[i].lfs_cfg.block_size;
-        addrArray[i] = nextAddr;
-        nextAddr += lengthArray[i];
-    }
-
-    (VOID)LOS_DiskPartition("flash0", "littlefs", lengthArray, addrArray, LOSCFG_LFS_MAX_MOUNT_SIZE);
-
-    struct PartitionCfg partCfg;
-
-    partCfg.readSize = READ_SIZE;
-    partCfg.writeSize = PROG_SIZE;
-    partCfg.cacheSize = CACHE_SIZE;
-    partCfg.partNo = 0;
-    partCfg.blockCycles = BLOCK_CYCLES;
-    partCfg.lookaheadSize = LOOKAHEAD_SIZE;
-
-    partCfg.readFunc = readFunc;
-    partCfg.writeFunc = writeFunc;
-    partCfg.eraseFunc = eraseFunc;
+    struct PartitionCfg partCfg = {.readSize = READ_SIZE,
+        .writeSize = PROG_SIZE,
+        .cacheSize = CACHE_SIZE,
+        .partNo = 0,
+        .blockCycles = BLOCK_CYCLES,
+        .lookaheadSize = LOOKAHEAD_SIZE,
+        .readFunc = readFunc,
+        .writeFunc = writeFunc,
+        .eraseFunc = eraseFunc};
 
     for (int i = 0; i < sizeof(fs) / sizeof(fs[0]); i++) {
         if (fs[i].mount_point == NULL) {
             continue;
         }
-        printf("mount_point: '%s'\r\n", fs[i].mount_point);
 
         partCfg.blockSize = fs[i].lfs_cfg.block_size;
         partCfg.blockCount = fs[i].lfs_cfg.block_count;
 
         int ret = mount(NULL, fs[i].mount_point, "littlefs", 0, &partCfg);
-        printf(" === %s:%d\r\n", __func__, __LINE__);
         HDF_LOGI("%s: mount fs on '%s' %s\n", __func__, fs[i].mount_point, (ret == 0) ? "succeed" : "failed");
         if (ret == 0) {
             ret = mkdir(fs[i].mount_point, S_IRWXU | S_IRWXG | S_IRWXO);
             if (ret == 0) {
-                printf("create root dir success.\r\n");
-                // HDF_LOGI("create root dir success.");
+                HDF_LOGI("create root dir success.");
             } else if (errno == EEXIST) {
-                printf("root dir exist.\r\n");
-                // HDF_LOGI("root dir exist.");
+                HDF_LOGI("root dir exist.");
             } else {
-                printf("create root dir failed.\r\n");
-                // HDF_LOGI("create root dir failed.");
+                HDF_LOGI("create root dir failed.");
             }
         }
     }
