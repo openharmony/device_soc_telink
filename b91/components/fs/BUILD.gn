@@ -20,9 +20,7 @@ config("public") {
 }
 
 hdf_driver("fs_adapter") {
-  sources = [
-    "fs_init.c",
-  ]
+  sources = [ "fs_init.c" ]
   configs += [ "../../:B91_config" ]
 
   deps = [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static" ]

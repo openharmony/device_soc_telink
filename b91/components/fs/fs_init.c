@@ -105,7 +105,6 @@ static uint32_t FsGetResource(struct fs_cfg *fs, const struct DeviceResourceNode
 
 void PartitionsInit(void)
 {
-
     int lengthArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
     int addrArray[LOSCFG_LFS_MAX_MOUNT_SIZE];
     int nextAddr = 0;
