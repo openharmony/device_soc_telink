@@ -72,25 +72,6 @@ VOID HardwareInit(VOID)
     SystemInit();
 }
 
-STATIC VOID LittlefsInit(VOID)
-{
-#define DIR_DATA        "/data"
-#define PAR_DATA        0
-#define DIR_PERMISSIONS 0777
-
-    int res;
-
-    printf("LittleFS_Init\r\n");
-
-    struct lfs_config *cfg = LittlefsConfigGet();
-
-    res = mount(PAR_DATA, DIR_DATA, "littlefs", 0, cfg);
-    printf("mount = %d\r\n", res);
-
-    res = mkdir(DIR_DATA, DIR_PERMISSIONS);
-    printf("mkdir = %d\r\n", res);
-}
-
 VOID IoTWatchDogKick(VOID)
 {
 }
@@ -98,8 +79,6 @@ VOID IoTWatchDogKick(VOID)
 STATIC VOID B91SystemInit(VOID)
 {
     OHOS_SystemInit();
-
-    LittlefsInit();
 }
 
 UINT32 LosAppInit(VOID)
