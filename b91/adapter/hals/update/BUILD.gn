@@ -20,8 +20,8 @@ static_library("hal_update_static") {
 
   include_dirs = [
     "//utils/native/lite/include",
-    "//base/update/ota_lite/hals",
-    "//base/update/ota_lite/interfaces/kits",
+    "//base/update/sys_installer_lite/hals",
+    "//base/update/sys_installer_lite/interfaces/kits",
   ]
 
   configs += [ "../../../:B91_config" ]
