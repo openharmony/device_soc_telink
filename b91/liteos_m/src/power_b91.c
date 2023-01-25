@@ -31,10 +31,10 @@
 
 #include <stack/ble/ble.h>
 
-#define SLEEP_TIME_CORRECTION      MticksToSysticks(3)
-#define SYSTICKS_MAX_SLEEP         0xE0000000
-#define SYSTICKS_MIN_SLEEP         (18352 + SLEEP_TIME_CORRECTION)
-#define RESERVE_WAKEUP_TIME        1
+#define MTICKS_SLEEP_TIME_CORRECTION        3
+#define SYSTICKS_MAX_SLEEP                  0xE0000000
+#define MTICKS_MIN_SLEEP                    37
+#define RESERVE_WAKEUP_TIME                 1
 
 static inline UINT64 MticksToSysticks(UINT64 mticks)
 {
@@ -86,37 +86,27 @@ static inline UINT64 GetMtime(void)
 */
 static void B91Suspend(VOID)
 {
-    UINT64 mcompare = GetMtimeCompare();
+	UINT32 intSave = LOS_IntLock();
+	UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
-    while (mtick == GetMtime()) {
-    }
-    mtick++;
-    if (mtick > mcompare) {
-        return;
-    }
-
-    UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
-    if (systicksSleepTimeout >= SYSTICKS_MIN_SLEEP) {
+    if ((mtick + MTICKS_MIN_SLEEP + MTICKS_SLEEP_TIME_CORRECTION) > mcompare) {
+    	LOS_IntRestore(intSave);
+    } else {
+        UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick - MTICKS_SLEEP_TIME_CORRECTION);
         if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
             systicksSleepTimeout = SYSTICKS_MAX_SLEEP;
-        } else {
-            systicksSleepTimeout -= SLEEP_TIME_CORRECTION;
         }
         UINT32 sleepTick = stimer_get_tick();
         cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER, sleepTick + systicksSleepTimeout);
+        mtick += SysticksToMticks(stimer_get_tick() - sleepTick);
         uart_clr_tx_index(UART0);
         uart_clr_tx_index(UART1);
         uart_clr_rx_index(UART0);
         uart_clr_rx_index(UART1);
-        mtick += SysticksToMticks(stimer_get_tick() - sleepTick + SLEEP_TIME_CORRECTION);
         SetMtime(mtick);
-        systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
-        if (systicksSleepTimeout < SYSTICKS_MIN_SLEEP) {
-            ArchEnterSleep();
-        }
-    } else {
-        ArchEnterSleep();
+        LOS_IntRestore(intSave);
     }
+    while((GetMtime()) < mcompare) {}
 }
 
 /**
