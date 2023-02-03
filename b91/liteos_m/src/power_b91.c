@@ -31,7 +31,7 @@
 
 #include <stack/ble/ble.h>
 
-#define MTICKS_SLEEP_TIME_CORRECTION        3
+#define MTICKS_SLEEP_TIME_CORRECTION        4
 #define SYSTICKS_MAX_SLEEP                  0xE0000000
 #define MTICKS_MIN_SLEEP                    37
 #define RESERVE_WAKEUP_TIME                 1
