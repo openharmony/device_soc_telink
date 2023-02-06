@@ -90,7 +90,7 @@ static void B91Suspend(VOID)
     UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
     if ((mtick + MTICKS_MIN_SLEEP + MTICKS_SLEEP_TIME_CORRECTION) > mcompare) {
-    	LOS_IntRestore(intSave);
+        LOS_IntRestore(intSave);
     } else {
         UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick - MTICKS_SLEEP_TIME_CORRECTION);
         if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
@@ -106,7 +106,7 @@ static void B91Suspend(VOID)
         SetMtime(mtick);
         LOS_IntRestore(intSave);
     }
-    while((GetMtime()) < mcompare) {}
+    while (GetMtime() < mcompare) {}
 }
 
 /**
