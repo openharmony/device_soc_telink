@@ -86,8 +86,8 @@ static inline UINT64 GetMtime(void)
 */
 static void B91Suspend(VOID)
 {
-	UINT32 intSave = LOS_IntLock();
-	UINT64 mcompare = GetMtimeCompare();
+    UINT32 intSave = LOS_IntLock();
+    UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
     if ((mtick + MTICKS_MIN_SLEEP + MTICKS_SLEEP_TIME_CORRECTION) > mcompare) {
     	LOS_IntRestore(intSave);
