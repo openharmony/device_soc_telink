@@ -26,6 +26,7 @@
 #include <unistd.h>
 
 #include <los_task.h>
+#include <los_memory.h>
 
 #include <devmgr_service_start.h>
 #include <gpio_if.h>
@@ -63,6 +64,22 @@
 #define B91_SYSTEM_INIT_TASK_NAME      "B91SystemInit"
 
 extern UserErrFunc g_userErrFunc;
+
+void *__wrap_malloc(size_t s)
+{
+    if (s == 0) {
+        return NULL;
+    }
+    return LOS_MemAlloc(OS_SYS_MEM_ADDR, s);
+}
+
+void __wrap_free(void *ptr)
+{
+    if (ptr == NULL) {
+        return;
+    }
+    return LOS_MemFree(OS_SYS_MEM_ADDR, ptr);
+}
 
 void OHOS_SystemInit(void);
 struct lfs_config *LittlefsConfigGet(void);
