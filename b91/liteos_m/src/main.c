@@ -82,7 +82,29 @@ void __wrap_free(void *ptr)
 }
 
 void OHOS_SystemInit(void);
-struct lfs_config *LittlefsConfigGet(void);
+struct PartitionCfg *LittlefsConfigGet(void);
+
+STATIC VOID LittlefsInit(VOID)
+{
+#define DIR_DATA "/data"
+#define PAR_DATA 0
+#define DIR_PERMISSIONS 0777
+
+    int res;
+
+    printf("LittleFS_Init \r\n");
+
+    struct PartitionCfg *cfg = LittlefsConfigGet();
+
+    res = mount(PAR_DATA, DIR_DATA, "littlefs", 0, cfg);
+    printf("mount = %d\r\n", res);
+
+    struct stat sinfo;
+    if ( !(stat(DIR_DATA, &sinfo) == 0 && S_ISDIR(sinfo.st_mode))) {
+        res = mkdir(DIR_DATA, DIR_PERMISSIONS);
+        printf("mkdir = %d\r\n", res);
+    }
+}
 
 VOID HardwareInit(VOID)
 {
@@ -96,6 +118,7 @@ VOID IoTWatchDogKick(VOID)
 STATIC VOID B91SystemInit(VOID)
 {
     OHOS_SystemInit();
+    LittlefsInit();
 }
 
 UINT32 LosAppInit(VOID)

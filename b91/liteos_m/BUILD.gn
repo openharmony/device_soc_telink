@@ -21,6 +21,7 @@ kernel_module("platform_main") {
     "src/board_config.c",
     "src/canary.c",
     "src/inject_start.S",
+    "src/littlefs_hal.c",
     "src/main.c",
     "src/power_b91.c",
     "src/reset_vector.S",
