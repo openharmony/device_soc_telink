@@ -100,7 +100,7 @@ STATIC VOID LittlefsInit(VOID)
     printf("mount = %d\r\n", res);
 
     struct stat sinfo;
-    if ( !(stat(DIR_DATA, &sinfo) == 0 && S_ISDIR(sinfo.st_mode))) {
+    if (!(stat(DIR_DATA, &sinfo) == 0 && S_ISDIR(sinfo.st_mode))) {
         res = mkdir(DIR_DATA, DIR_PERMISSIONS);
         printf("mkdir = %d\r\n", res);
     }

@@ -37,7 +37,7 @@
 #define LOOKAHEAD_SIZE 64
 #define BLOCK_CYCLES   500
 
-int littlefs_block_read(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, void *buffer, lfs_size_t size)
+int littlefs_block_read(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, unsigned char *buffer, lfs_size_t size)
 {
     uint32_t addr = block * (cfg->block_size) + off;
 
@@ -46,8 +46,8 @@ int littlefs_block_read(const struct lfs_config *cfg, lfs_block_t block, lfs_off
     return LFS_ERR_OK;
 }
 
-int littlefs_block_write(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, const void *buffer,
-                        lfs_size_t size)
+int littlefs_block_write(const struct lfs_config *cfg, lfs_block_t block, lfs_off_t off, const unsigned char *buffer,
+                         lfs_size_t size)
 {
     uint32_t addr = block * (cfg->block_size) + off;
 
