@@ -18,17 +18,28 @@ import("//build/lite/ndk/ndk.gni")
 import("//third_party/mbedtls/mbedtls.gni")
 
 config("mbedtls_config") {
-  include_dirs = [ "." ] + MBEDTLS_INLCUDE_DIRS
+  include_dirs = [ "." ] + MBEDTLS_INLCUDE_DIRS + [ "src/mbedtls" ]
   defines += [
     "__unix__",
     "MBEDTLS_CONFIG_FILE=<telink_config/config_liteos_m.h>",
   ]
+
+  configs = [ "../../../:B91_config" ]
 }
 
 lite_library("mbedtls_static") {
   target_type = "static_library"
   public_configs = [ ":mbedtls_config" ]
-  sources = MBEDTLS_SOURCES
+  sources = MBEDTLS_SOURCES + [
+              "src/mbedtls/internal/ecp_alt_b91_backend_test.c",
+              "src/mbedtls/internal/ecp_alt_b91_backend.c",
+              "src/mbedtls/internal/entropy_poll_alt.c",
+              "src/mbedtls/internal/multithread.c",
+              "src/mbedtls/internal/test_utils.c",
+              "src/mbedtls/internal/compatibility/aes_alt.c",
+              "src/mbedtls/internal/compatibility/ecp_alt.c",
+              "src/mbedtls/internal/compatibility/ecp_curves_alt.c",
+            ]
 }
 
 group("mbedtls") {

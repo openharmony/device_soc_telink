@@ -22,6 +22,7 @@ static_library("b91_ble_sdk") {
     "drivers/B91/ext_driver/software_pa.c",
     "drivers/B91/flash.c",
     "drivers/B91/gpio.c",
+    "drivers/B91/pke.c",
     "drivers/B91/stimer.c",
     "drivers/B91/uart.c",
   ]

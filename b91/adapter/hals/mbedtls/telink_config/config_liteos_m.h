@@ -345,6 +345,7 @@
  *            digests and ciphers instead.
  *
  */
+#define MBEDTLS_AES_ALT
 
 /*
  * When replacing the elliptic curve module, pleace consider, that it is
@@ -446,6 +447,8 @@
 /* Support for Weierstrass curves with Jacobi representation */
 /* Support for curves with Montgomery arithmetic */
 
+#define MBEDTLS_ECP_ALT
+
 /**
  * \def MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
  *
@@ -507,6 +510,7 @@
  *
  * Uncomment to use your own hardware entropy collector.
  */
+#define MBEDTLS_ENTROPY_HARDWARE_ALT
 
 /**
  * \def MBEDTLS_AES_ROM_TABLES
@@ -1228,6 +1232,7 @@
  *
  * Enable the checkup functions (*_self_test).
  */
+#define MBEDTLS_SELF_TEST
 
 /**
  * \def MBEDTLS_SHA256_SMALLER
@@ -1574,7 +1579,6 @@
  *
  * Comment this macro to disable support for truncated HMAC in SSL
  */
-#define MBEDTLS_SSL_TRUNCATED_HMAC
 
 /**
  * \def MBEDTLS_SSL_TRUNCATED_HMAC_COMPAT
@@ -2673,6 +2677,7 @@
  * This module adds support for SHA-224 and SHA-256.
  * This module is required for the SSL/TLS 1.2 PRF function.
  */
+#define MBEDTLS_SHA224_C
 #define MBEDTLS_SHA256_C
 
 /**
@@ -3123,7 +3128,6 @@
  *            on it, and considering stronger message digests instead.
  *
  */
-#define MBEDTLS_TLS_DEFAULT_ALLOW_SHA1_IN_CERTIFICATES
 
 /**
  * Allow SHA-1 in the default TLS configuration for TLS 1.2 handshake
