@@ -13,6 +13,7 @@
  *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
+ *  Copyright (c) 2023 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
  */
 #ifndef MBEDTLS_PADLOCK_H
 #define MBEDTLS_PADLOCK_H
