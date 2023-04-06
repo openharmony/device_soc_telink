@@ -1,20 +1,48 @@
-/******************************************************************************
- * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
- * All rights reserved.
+/********************************************************************************************************
+ * @file	ext_rf.h
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * @brief	This is the header file for B91
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * @author	BLE Group
+ * @date	2020
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @par     Copyright (c) 2020, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ *          All rights reserved.
  *
- *****************************************************************************/
+ *          Redistribution and use in source and binary forms, with or without
+ *          modification, are permitted provided that the following conditions are met:
+ *
+ *              1. Redistributions of source code must retain the above copyright
+ *              notice, this list of conditions and the following disclaimer.
+ *
+ *              2. Unless for usage inside a TELINK integrated circuit, redistributions
+ *              in binary form must reproduce the above copyright notice, this list of
+ *              conditions and the following disclaimer in the documentation and/or other
+ *              materials provided with the distribution.
+ *
+ *              3. Neither the name of TELINK, nor the names of its contributors may be
+ *              used to endorse or promote products derived from this software without
+ *              specific prior written permission.
+ *
+ *              4. This software, with or without modification, must only be used with a
+ *              TELINK integrated circuit. All other usages are subject to written permission
+ *              from TELINK and different commercial license may apply.
+ *
+ *              5. Licensee shall be solely responsible for any claim to the extent arising out of or
+ *              relating to such deletion(s), modification(s) or alteration(s).
+ *
+ *          THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *          ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *          DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
+ *          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *******************************************************************************************************/
 
 #ifndef DRIVERS_B91_DRIVER_EXT_EXT_RF_H_
 #define DRIVERS_B91_DRIVER_EXT_EXT_RF_H_
@@ -22,25 +50,31 @@
 #include "compiler.h"
 #include "types.h"
 
-#define DMA_RFRX_LEN_HW_INFO   0  // 826x: 8
-#define DMA_RFRX_OFFSET_HEADER 4  // 826x: 12
-#define DMA_RFRX_OFFSET_RFLEN  5  // 826x: 13
-#define DMA_RFRX_OFFSET_DATA   6  // 826x: 14
+#define DMA_RFRX_LEN_HW_INFO				0	// 826x: 8
+#define DMA_RFRX_OFFSET_HEADER				4	// 826x: 12
+#define DMA_RFRX_OFFSET_RFLEN				5   // 826x: 13
+#define DMA_RFRX_OFFSET_DATA				6	// 826x: 14
 
-#define RF_TX_PAKET_DMA_LEN(rf_data_len) ((((rf_data_len) + 3) / 4) | (((rf_data_len) % 4) << 22))
-#define DMA_RFRX_OFFSET_CRC24(p)         ((p)[DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
-#define DMA_RFRX_OFFSET_TIME_STAMP(p)    ((p)[DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
-#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)   ((p)[DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
-#define DMA_RFRX_OFFSET_RSSI(p)          ((p)[DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
+#define DMA_RFRX_OFFSET_CRC24(p)			(p[DMA_RFRX_OFFSET_RFLEN]+6)  //data len:3
+#define DMA_RFRX_OFFSET_TIME_STAMP(p)		(p[DMA_RFRX_OFFSET_RFLEN]+9)  //data len:4
+#define DMA_RFRX_OFFSET_FREQ_OFFSET(p)		(p[DMA_RFRX_OFFSET_RFLEN]+13) //data len:2
+#define DMA_RFRX_OFFSET_RSSI(p)				(p[DMA_RFRX_OFFSET_RFLEN]+15) //data len:1, signed
 
-#define RF_BLE_RF_PAYLOAD_LENGTH_OK(p)  ((p)[5] <= reg_rf_rxtmaxlen)
-#define RF_BLE_RF_PACKET_CRC_OK(p)      (((p)[(p)[5] + 5 + 11] & 0x01) == 0x0)
-#define RF_BLE_PACKET_VALIDITY_CHECK(p) (RF_BLE_RF_PAYLOAD_LENGTH_OK(p) && RF_BLE_RF_PACKET_CRC_OK(p))
+#define	RF_BLE_RF_PAYLOAD_LENGTH_OK(p)					(p[5] <= reg_rf_rxtmaxlen)
+#define	RF_BLE_RF_PACKET_CRC_OK(p)						((p[p[5]+5+11] & 0x01) == 0x0)
+#define	RF_BLE_PACKET_VALIDITY_CHECK(p)					(RF_BLE_RF_PAYLOAD_LENGTH_OK(p) && RF_BLE_RF_PACKET_CRC_OK(p))
+
+
 
 typedef enum {
-    RF_ACC_CODE_TRIGGER_AUTO = BIT(0), /**< auto trigger */
-    RF_ACC_CODE_TRIGGER_MANU = BIT(1), /**< manual trigger */
+	 RF_ACC_CODE_TRIGGER_AUTO   =    BIT(0),	/**< auto trigger */
+	 RF_ACC_CODE_TRIGGER_MANU   =    BIT(1),	/**< manual trigger */
 } rf_acc_trigger_mode;
+
+
+
+
+extern signed char ble_txPowerLevel;
 
 _attribute_ram_code_ void ble_rf_set_rx_dma(unsigned char *buff, unsigned char fifo_byte_size);
 
@@ -58,9 +92,9 @@ void rf_drv_ble_init(void);
  * @param   txstl_us - adjust TX settle time.
  * @return  none
  */
-static inline void rf_tx_settle_adjust(unsigned short txstl_us)
+static inline void 	rf_tx_settle_adjust(unsigned short txstl_us)
 {
-    REG_ADDR16(0x80140a04) = txstl_us;
+	REG_ADDR16(0x80140a04) = txstl_us;
 }
 
 /**
@@ -70,8 +104,8 @@ static inline void rf_tx_settle_adjust(unsigned short txstl_us)
 */
 static inline void rf_reset_baseband(void)
 {
-    REG_ADDR8(0x801404e3) = 0;       // rf_reset_baseband,rf reg need re-setting
-    REG_ADDR8(0x801404e3) = BIT(0);  // release reset signal
+	REG_ADDR8(0x801404e3) = 0;		//rf_reset_baseband,rf reg need re-setting
+	REG_ADDR8(0x801404e3) = BIT(0);			//release reset signal
 }
 
 /**
@@ -79,9 +113,9 @@ static inline void rf_reset_baseband(void)
  * @param[in]   ac - the address value.
  * @return  none
  */
-static inline void rf_set_ble_access_code_value(unsigned int ac)
+static inline void rf_set_ble_access_code_value (unsigned int ac)
 {
-    write_reg32(0x80140808, ac);
+	write_reg32 (0x80140808, ac);
 }
 
 /**
@@ -89,9 +123,9 @@ static inline void rf_set_ble_access_code_value(unsigned int ac)
  * @param[in]   p - the address to access.
  * @return  none
  */
-static inline void rf_set_ble_access_code(unsigned char *p)
+static inline void rf_set_ble_access_code (unsigned char *p)
 {
-    write_reg32(0x80140808, p[3] | (p[2] << 8) | (p[1] << 16) | (p[0] << 24));
+	write_reg32 (0x80140808, p[3] | (p[2]<<8) | (p[1]<<16) | (p[0]<<24));
 }
 
 /**
@@ -102,7 +136,7 @@ static inline void rf_set_ble_access_code(unsigned char *p)
  */
 static inline void reset_sn_nesn(void)
 {
-    REG_ADDR8(0x80140a01) = 0x01;
+	REG_ADDR8(0x80140a01) =  0x01;
 }
 
 /**
@@ -110,10 +144,11 @@ static inline void reset_sn_nesn(void)
  * @param   none.
  * @return  none.
  */
-static inline void rf_set_ble_access_code_adv(void)
+static inline void rf_set_ble_access_code_adv (void)
 {
-    write_reg32(0x0140808, 0xd6be898e);
+	write_reg32 (0x0140808, 0xd6be898e);
 }
+
 
 /**
  * @brief   This function serves to triggle accesscode in coded Phy mode.
@@ -122,7 +157,7 @@ static inline void rf_set_ble_access_code_adv(void)
  */
 static inline void rf_trigle_codedPhy_accesscode(void)
 {
-    write_reg8(0x140c25, read_reg8(0x140c25) | 0x01);
+	write_reg8(0x140c25,read_reg8(0x140c25)|0x01);
 }
 
 /**
@@ -130,9 +165,9 @@ static inline void rf_trigle_codedPhy_accesscode(void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_on(void)
+static inline void rf_ble_tx_on ()
 {
-    write_reg8(0x80140a02, 0x45 | BIT(4));  // TX enable
+	write_reg8  (0x80140a02, 0x45 | BIT(4));	// TX enable
 }
 
 /**
@@ -140,12 +175,57 @@ static inline void rf_ble_tx_on(void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_done(void)
+static inline void rf_ble_tx_done ()
 {
-    write_reg8(0x80140a02, 0x45);
+	write_reg8  (0x80140a02, 0x45);
 }
 
-#define rf_set_ble_channel rf_set_ble_chn
+
+/**
+ * @brief   This function serves to set RX first timeout value.
+ * @param[in]   tm - timeout, unit: uS.
+ * @return  none.
+ */
+static inline void rf_set_1st_rx_timeout(unsigned int tm)
+{
+	reg_rf_ll_rx_fst_timeout = tm;
+}
+
+
+/**
+ * @brief   This function serves to set RX timeout value.
+ * @param[in]   tm - timeout, unit: uS, range: 0 ~ 0xfff
+ * @return  none.
+ */
+static inline void rf_ble_set_rx_timeout(u16 tm)
+{
+	reg_rf_rx_timeout = tm;
+}
+
+
+
+typedef enum{
+	FSM_BTX 	= 0x81,
+	FSM_BRX 	= 0x82,
+	FSM_STX 	= 0x85,
+	FSM_SRX 	= 0x86,
+	FSM_TX2RX	= 0x87,
+	FSM_RX2TX	= 0x88,
+}fsm_mode_e;
+
+
+/**
+ * @brief     	This function serves to RF trigger RF state machine.
+ * @param[in] 	mode  - FSM mode.
+ * @param[in] 	tx_addr  - DMA TX buffer, if not TX, must be "NULL"
+ * @param[in] 	tick  - FAM Trigger tick.
+ * @return	   	none.
+ */
+void rf_start_fsm(fsm_mode_e mode, void* tx_addr, unsigned int tick);
+
+
+#define	rf_set_ble_channel	rf_set_ble_chn
+
 
 /**
  * @brief     This function performs to switch PHY test mode.
@@ -153,5 +233,157 @@ static inline void rf_ble_tx_done(void)
  * @return    none.
  */
 void rf_switchPhyTestMode(rf_mode_e mode);
+
+
+
+
+
+
+
+
+
+
+//TODO: merge into driver
+#define	STOP_RF_STATE_MACHINE				( REG_ADDR8(0x80140a00) = 0x80 )
+enum{
+	FLD_RF_SN                     =	BIT(0),
+};
+
+
+
+/**
+ * @brief    This function serves to enable zb_rt interrupt source.
+ * @return  none
+ */
+static inline void zb_rt_irq_enable(void)
+{
+	plic_interrupt_enable(IRQ15_ZB_RT);
+}
+
+
+
+
+
+#if RF_RX_SHORT_MODE_EN//open rx dly
+//TX settle time
+
+	#define 		LL_SCAN_TX_SETTLE								63
+	#define 		LL_SCANRSP_TX_SETTLE							78  //63+15=78
+
+
+	//TODO: need debug
+	#define 		LL_TX_STL_TIFS_1M								63
+	#define 		LL_TX_STL_TIFS_2M								(LL_TX_STL_TIFS_1M + 24)
+	#define 		LL_TX_STL_TIFS_CODED							(LL_TX_STL_TIFS_1M + 40)
+
+
+	#define			LL_TX_STL_ADV_1M								84
+	#define			LL_TX_STL_ADV_2M								115
+	#define			LL_TX_STL_ADV_CODED								124
+
+	#define 		LL_SLAVE_TX_SETTLE								86
+	#define 		LL_SLAVE_TX_STL_2M								117
+	#define 		LL_SLAVE_TX_STL_CODED							125
+
+	#define 		LL_MASTER_TX_SETTLE								87
+	#define			LL_MASTER_TX_STL_2M								117
+	#define			LL_MASTER_TX_STL_CODED							125
+
+#else// close rx dly
+	#error "add code here"
+#endif
+
+
+/* AD convert delay : timing cost on RF analog to digital convert signal process:
+ * 					Eagle	1M: 20uS	   2M: 10uS;      500K(S2): 14uS    125K(S8):  14uS
+ *					Jaguar	1M: 20uS	   2M: 10uS;      500K(S2): 14uS    125K(S8):  14uS
+ */
+#define AD_CONVERT_DLY_1M											20
+#define AD_CONVERT_DLY_2M											10
+#define AD_CONVERT_DLY_CODED										14
+
+
+static inline void rf_ble_set_1m_phy(void)
+{
+	write_reg8(0x140e3d,0x61);
+	write_reg32(0x140e20,0x23200a16);
+	write_reg8(0x140c20,0xc4);
+	write_reg8(0x140c22,0x00);
+	write_reg8(0x140c4d,0x01);
+	write_reg8(0x140c4e,0x1e);
+	write_reg16(0x140c36,0x0eb7);
+	write_reg16(0x140c38,0x71c4);
+	write_reg8(0x140c73,0x01);
+	#if RF_RX_SHORT_MODE_EN
+		write_reg8(0x140c79,0x38);			//default:0x00;RX_DIS_PDET_BLANK
+	#else
+		write_reg8(0x140c79,0x08);
+	#endif
+	write_reg16(0x140cc2,0x4b39);
+	write_reg32(0x140cc4,0x796e6256);
+	write_reg32(0x140800,0x4446081f);
+	write_reg16(0x140804,0x04f5);
+}
+
+
+static inline void rf_ble_set_2m_phy(void)
+{
+	write_reg8(0x140e3d,0x41);
+	write_reg32(0x140e20,0x26432a06);
+	write_reg8(0x140c20,0xc4);
+	write_reg8(0x140c22,0x01);
+	write_reg8(0x140c4d,0x01);
+	write_reg8(0x140c4e,0x1e);
+	write_reg16(0x140c36,0x0eb7);
+	write_reg16(0x140c38,0x71c4);
+	write_reg8(0x140c73,0x01);
+	#if RF_RX_SHORT_MODE_EN
+		write_reg8(0x140c79,0x30);			//default:0x00;RX_DIS_PDET_BLANK
+	#else
+		write_reg8(0x140c79,0x00);
+	#endif
+	write_reg16(0x140cc2,0x4c3b);
+	write_reg32(0x140cc4,0x7a706458);
+	write_reg32(0x140800,0x4446081f);
+	write_reg16(0x140804,0x04e5);
+}
+
+
+
+
+static inline void rf_ble_set_coded_phy_common(void)
+{
+	write_reg8(0x140e3d,0x61);
+	write_reg32(0x140e20,0x23200a16);
+	write_reg8(0x140c20,0xc5);
+	write_reg8(0x140c22,0x00);
+	write_reg8(0x140c4d,0x01);
+	write_reg8(0x140c4e,0xf0);
+	write_reg16(0x140c38,0x7dc8);
+	write_reg8(0x140c73,0x21);
+	#if RF_RX_SHORT_MODE_EN
+		write_reg8(0x140c79,0x30);
+	#else
+		write_reg8(0x140c79,0x00);
+	#endif
+	write_reg16(0x140cc2,0x4836);
+	write_reg32(0x140cc4,0x796e6254);
+	write_reg32(0x140800,0x444a081f);
+}
+
+
+static inline void rf_ble_set_coded_phy_s2(void)
+{
+	write_reg16(0x140c36,0x0cee);
+	write_reg16(0x140804,0xa4f5);
+}
+
+
+static inline void rf_ble_set_coded_phy_s8(void)
+{
+	write_reg16(0x140c36,0x0cf6);
+	write_reg16(0x140804,0xb4f5);
+}
+
 
 #endif /* DRIVERS_B91_DRIVER_EXT_EXT_RF_H_ */

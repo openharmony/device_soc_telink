@@ -19,6 +19,7 @@ static_library("b91_ble_sdk") {
     "drivers/B91/aes.c",
     "drivers/B91/analog.c",
     "drivers/B91/clock.c",
+    "drivers/B91/ext_driver/ext_gpio.c",
     "drivers/B91/ext_driver/software_pa.c",
     "drivers/B91/flash.c",
     "drivers/B91/gpio.c",
@@ -35,11 +36,11 @@ static_library("b91_ble_sdk") {
     #"vendor/common/device_manage.c",
   ]
 
-  libs = [ "proj_lib/libB91_ble_lib.a" ]
+  libs = [ "proj_lib/liblt_9518_liteos.a" ]
 
   configs += [ "..:B91_config" ]
 }
 
 config("public") {
-  defines = [ "TELINK_SDK_B91_BLE_SINGLE=1" ]
+  #defines = [ "TELINK_SDK_B91_BLE_SINGLE=1" ]
 }

@@ -1,3 +1,2 @@
 Telink BLE SDK_VERSION = 
-
-telink_eagle_ble_single_connection_sdk_v3.1.0
+telink_b91_ble_sdk_beta_v4.0.1.0
