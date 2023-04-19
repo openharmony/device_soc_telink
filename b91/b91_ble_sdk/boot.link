@@ -89,7 +89,7 @@ SECTIONS
 	_end = .;
 	PROVIDE (end = .);		
 	PROVIDE (_STACK_TOP = 0x00a0000);/*Need to prevent stack overflow*/
-	PROVIDE (FLASH_SIZE = 0x0100000);
+	PROVIDE (FLASH_SIZE = FLASH_SIZE_CONFIG);
 }
 
 ASSERT((BIN_SIZE)<= FLASH_SIZE, "BIN FILE OVERFLOW");

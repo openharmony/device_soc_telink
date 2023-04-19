@@ -51,7 +51,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
 #include "config.h"
 #include "common/types.h"
 #include "common/bit.h"
@@ -59,9 +58,6 @@
 #include "common/utility.h"
 #include "common/usb_dbg/myudb.h"
 #include "common/usb_dbg/log_def_stack.h"
-
-
-#include "application/print/printf.h"
 
 #include "vendor/common/user_config.h"
 #include "vendor/common/blt_common.h"
