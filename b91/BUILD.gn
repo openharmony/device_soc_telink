@@ -22,9 +22,7 @@ import("//kernel/liteos_m/liteos.gni")
 driver_sdk_path = "b91_ble_sdk"
 
 config("B91_config") {
-  defines = [ 
-    "CHIP_TYPE=CHIP_TYPE_9518",    
-    ]
+  defines = [ "CHIP_TYPE=CHIP_TYPE_9518" ]
 
   include_dirs = [
     "liteos_m/inc",
