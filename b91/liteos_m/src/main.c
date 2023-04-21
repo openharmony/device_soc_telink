@@ -118,7 +118,7 @@ VOID IoTWatchDogKick(VOID)
 STATIC VOID B91SystemInit(VOID)
 {
     OHOS_SystemInit();
-    //LittlefsInit();
+    LittlefsInit();
 }
 
 UINT32 LosAppInit(VOID)
