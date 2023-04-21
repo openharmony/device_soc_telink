@@ -52,6 +52,8 @@
 #include "stimer.h"
 #include "ext_driver/ext_misc.h"
 #include "watchdog.h"
+#include "los_timer.h"
+#include "los_task.h"
 #define RAMCODE_OPTIMIZE_UNUSED_FLASH_API_NOT_IMPLEMENT				1
 
 _attribute_data_retention_sec_	volatile unsigned char flash_cnt = 1;
@@ -139,6 +141,8 @@ _attribute_ram_code_sec_noinline_ static void flash_wait_done(void)
  */
 _attribute_ram_code_sec_noinline_ void flash_erase_sector_ram(unsigned long addr)
 {
+    LOS_SysTickTimerGet()->lock();
+    LOS_TaskLock();
 #if SUPPORT_PFT_ARCH
 	unsigned int r= core_interrupt_disable();
 	reg_irq_threshold = 1;
@@ -160,6 +164,8 @@ _attribute_ram_code_sec_noinline_ void flash_erase_sector_ram(unsigned long addr
 #else
 	core_restore_interrupt(r);
 #endif
+    LOS_SysTickTimerGet()->unlock();
+    LOS_TaskUnlock();
 }
 _attribute_text_sec_ void flash_erase_sector(unsigned long addr)
 {
@@ -178,6 +184,8 @@ _attribute_text_sec_ void flash_erase_sector(unsigned long addr)
  */
 _attribute_ram_code_sec_noinline_ void flash_write_page_ram(unsigned long addr, unsigned long len, unsigned char *buf)
 {
+    LOS_SysTickTimerGet()->lock();
+    LOS_TaskLock();
 #if SUPPORT_PFT_ARCH
 	unsigned int r= core_interrupt_disable();
 	reg_irq_threshold = 1;
@@ -206,6 +214,8 @@ _attribute_ram_code_sec_noinline_ void flash_write_page_ram(unsigned long addr, 
 #else
 	core_restore_interrupt(r);//???irq_restore(r);
 #endif
+    LOS_SysTickTimerGet()->unlock();
+    LOS_TaskUnlock();
 }
 _attribute_text_sec_ void flash_write_page(unsigned long addr, unsigned long len, unsigned char *buf)
 {
@@ -233,6 +243,8 @@ _attribute_text_sec_ void flash_write_page(unsigned long addr, unsigned long len
  */
 _attribute_ram_code_sec_noinline_ void flash_read_page_ram(unsigned long addr, unsigned long len, unsigned char *buf)
 {
+    LOS_SysTickTimerGet()->lock();
+    LOS_TaskLock();
 #if SUPPORT_PFT_ARCH
 	unsigned int r= core_interrupt_disable();
 	reg_irq_threshold = 1;
@@ -263,6 +275,8 @@ _attribute_ram_code_sec_noinline_ void flash_read_page_ram(unsigned long addr, u
 #else
 	core_restore_interrupt(r);//???irq_restore(r);
 #endif
+    LOS_SysTickTimerGet()->unlock();
+    LOS_TaskUnlock();
 }
 _attribute_text_sec_ void flash_read_page(unsigned long addr, unsigned long len, unsigned char *buf)
 {
@@ -271,14 +285,14 @@ _attribute_text_sec_ void flash_read_page(unsigned long addr, unsigned long len,
 	__asm__("csrsi 	mmisc_ctl,8");	//enable BTB
 }
 
-
-
 /**
  * @brief     	This function serves to erase a chip.
  * @return    	none.
  */
 _attribute_ram_code_sec_noinline_ void flash_erase_chip_ram(void)
 {
+    LOS_SysTickTimerGet()->lock();
+    LOS_TaskLock();
 #if SUPPORT_PFT_ARCH
 	unsigned int r= core_interrupt_disable();
 	reg_irq_threshold = 1;
@@ -299,6 +313,8 @@ _attribute_ram_code_sec_noinline_ void flash_erase_chip_ram(void)
 #else
 	core_restore_interrupt(r);
 #endif
+    LOS_SysTickTimerGet()->unlock();
+    LOS_TaskUnlock();
 }
 _attribute_text_sec_ void flash_erase_chip(void)
 {
