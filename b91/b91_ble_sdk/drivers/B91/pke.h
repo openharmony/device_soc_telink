@@ -47,24 +47,21 @@
 
 #include "reg_include/register_b91.h"
 
+#define GET_WORD_LEN(bitLen) ((bitLen + 31) / 32)
+#define GET_BYTE_LEN(bitLen) ((bitLen + 7) / 8)
 
-
-
-#define GET_WORD_LEN(bitLen)     	((bitLen+31)/32)
-#define GET_BYTE_LEN(bitLen)     	((bitLen+7)/8)
-
-#define PKE_BASE             	 	(0X80110000)
-#define reg_pke_a_ram(a)		 	((volatile unsigned long *)(PKE_BASE+0x0400+(a)*(0x24)))
-#define reg_pke_b_ram(b)		 	((volatile unsigned long *)(PKE_BASE+0x1000+(b)*(0x24)))
+#define PKE_BASE         (0X80110000)
+#define reg_pke_a_ram(a) ((volatile unsigned long *)(PKE_BASE + 0x0400 + (a) * (0x24)))
+#define reg_pke_b_ram(b) ((volatile unsigned long *)(PKE_BASE + 0x1000 + (b) * (0x24)))
 
 /********* oprand length *********/
-#define PKE_OPERAND_MAX_WORD_LEN	(0x08)
-#define PKE_OPERAND_MAX_BIT_LEN		(0x100)
-#define ECC_MAX_WORD_LEN			PKE_OPERAND_MAX_WORD_LEN
-#define ECC_MAX_BIT_LEN				PKE_OPERAND_MAX_BIT_LEN
+#define PKE_OPERAND_MAX_WORD_LEN (0x08)
+#define PKE_OPERAND_MAX_BIT_LEN  (0x100)
+#define ECC_MAX_WORD_LEN         PKE_OPERAND_MAX_WORD_LEN
+#define ECC_MAX_BIT_LEN          PKE_OPERAND_MAX_BIT_LEN
 
 #ifndef NULL
-#define NULL  0
+#define NULL 0
 #endif
 
 /**
@@ -72,8 +69,8 @@
  */
 typedef struct
 {
-    unsigned int eccp_p_bitLen;        //bit length of prime p
-    unsigned int eccp_n_bitLen;        //bit length of order n
+    unsigned int eccp_p_bitLen;  //bit length of prime p
+    unsigned int eccp_n_bitLen;  //bit length of order n
     unsigned int *eccp_p;
     unsigned int *eccp_p_h;
     unsigned int *eccp_p_n1;
@@ -84,32 +81,32 @@ typedef struct
     unsigned int *eccp_n;
     unsigned int *eccp_n_h;
     unsigned int *eccp_n_n1;
-}eccp_curve_t;
+} eccp_curve_t;
 
 /**
  * mont curve
  */
 typedef struct
 {
-	unsigned int mont_p_bitLen;        //bit length of prime p
-	unsigned int *mont_p;
-	unsigned int *mont_p_h;
-	unsigned int *mont_p_n1;
-	unsigned int *mont_a24;
-	unsigned int *mont_u;
-	unsigned int *mont_v;
-	unsigned int *mont_n;
-	unsigned int *mont_n_h;
-	unsigned int *mont_n_n1;
-	unsigned int *mont_h;
-}mont_curve_t;
+    unsigned int mont_p_bitLen;  //bit length of prime p
+    unsigned int *mont_p;
+    unsigned int *mont_p_h;
+    unsigned int *mont_p_n1;
+    unsigned int *mont_a24;
+    unsigned int *mont_u;
+    unsigned int *mont_v;
+    unsigned int *mont_n;
+    unsigned int *mont_n_h;
+    unsigned int *mont_n_n1;
+    unsigned int *mont_h;
+} mont_curve_t;
 
 /**
  * edward curve
  */
 typedef struct
 {
-    unsigned int edward_p_bitLen;        //bit length of prime p
+    unsigned int edward_p_bitLen;  //bit length of prime p
     unsigned int *edward_p;
     unsigned int *edward_p_h;
     unsigned int *edward_p_n1;
@@ -121,48 +118,47 @@ typedef struct
     unsigned int *edward_n_n1;
     unsigned int *edward_h;
 
-}edward_curve_t;
+} edward_curve_t;
 
 /**
  * pke return code
  */
-typedef enum
-{
+typedef enum {
     PKE_SUCCESS = 0,
-	PKE_ACTIVE_STOP,
+    PKE_ACTIVE_STOP,
     PKE_MOD_INV_NOT_EXIST,
     PKE_POINT_NOT_ON_CURVE,
     PKE_INVALID_MICRO_CODE,
-	PKE_POINTOR_NULL,
-	PKE_INVALID_INPUT,
-}pke_ret_code_e;
+    PKE_POINTOR_NULL,
+    PKE_INVALID_INPUT,
+} pke_ret_code_e;
 
 /**
  * pke exe cfg
  */
-typedef enum{
-	PKE_EXE_CFG_ALL_NON_MONT = 0x15,
-	PKE_EXE_CFG_ALL_MONT	 = 0x2A,
-}pke_exe_cfg_e;
+typedef enum {
+    PKE_EXE_CFG_ALL_NON_MONT = 0x15,
+    PKE_EXE_CFG_ALL_MONT = 0x2A,
+} pke_exe_cfg_e;
 
 /**
  * pke micro code
  */
-typedef enum{
-	PKE_MICROCODE_PDBL = 0x04,
-	PKE_MICROCODE_PADD = 0x08,
-	PKE_MICROCODE_PVER = 0x0C,
-	PKE_MICROCODE_PMUL = 0x10,
-	PKE_MICROCODE_MODMUL = 0x18,
-	PKE_MICROCODE_MODINV = 0x1C,
-	PKE_MICROCODE_MODADD = 0x20,
-	PKE_MICROCODE_MODSUB = 0x24,
-	PKE_MICROCODE_CAL_PRE_MON = 0x28,
-	PKE_MICROCODE_C25519_PMUL = 0x34,
-	PKE_MICROCODE_Ed25519_PMUL = 0x38,
-	PKE_MICROCODE_Ed25519_PADD = 0x3C,
+typedef enum {
+    PKE_MICROCODE_PDBL = 0x04,
+    PKE_MICROCODE_PADD = 0x08,
+    PKE_MICROCODE_PVER = 0x0C,
+    PKE_MICROCODE_PMUL = 0x10,
+    PKE_MICROCODE_MODMUL = 0x18,
+    PKE_MICROCODE_MODINV = 0x1C,
+    PKE_MICROCODE_MODADD = 0x20,
+    PKE_MICROCODE_MODSUB = 0x24,
+    PKE_MICROCODE_CAL_PRE_MON = 0x28,
+    PKE_MICROCODE_C25519_PMUL = 0x34,
+    PKE_MICROCODE_Ed25519_PMUL = 0x38,
+    PKE_MICROCODE_Ed25519_PADD = 0x3C,
 
-}pke_microcode_e;
+} pke_microcode_e;
 
 /**
  * @brief		This function serves to get pke status.
@@ -181,7 +177,7 @@ static inline unsigned int pke_get_irq_status(pke_status_e status)
  */
 static inline void pke_clr_irq_status(pke_status_e status)
 {
-	BM_CLR(reg_pke_stat, status);
+    BM_CLR(reg_pke_stat, status);
 }
 
 /**
@@ -191,7 +187,7 @@ static inline void pke_clr_irq_status(pke_status_e status)
  */
 static inline void pke_set_irq_mask(pke_conf_e mask)
 {
-	BM_SET(reg_pke_conf, mask);
+    BM_SET(reg_pke_conf, mask);
 }
 
 /**
@@ -201,7 +197,7 @@ static inline void pke_set_irq_mask(pke_conf_e mask)
  */
 static inline void pke_clr_irq_mask(pke_conf_e mask)
 {
-	BM_CLR(reg_pke_conf, mask);
+    BM_CLR(reg_pke_conf, mask);
 }
 
 /**
@@ -211,7 +207,7 @@ static inline void pke_clr_irq_mask(pke_conf_e mask)
  */
 static inline void pke_set_microcode(pke_microcode_e addr)
 {
-	reg_pke_mc_ptr = addr;
+    reg_pke_mc_ptr = addr;
 }
 
 /**
@@ -221,7 +217,7 @@ static inline void pke_set_microcode(pke_microcode_e addr)
  */
 static inline void pke_set_exe_cfg(pke_exe_cfg_e cfg)
 {
-	reg_pke_exe_conf = cfg;
+    reg_pke_exe_conf = cfg;
 }
 
 /**
@@ -230,7 +226,7 @@ static inline void pke_set_exe_cfg(pke_exe_cfg_e cfg)
  */
 static inline void pke_opr_start(void)
 {
-	BM_SET(reg_pke_ctrl, FLD_PKE_CTRL_START);
+    BM_SET(reg_pke_ctrl, FLD_PKE_CTRL_START);
 }
 
 /**
@@ -253,10 +249,10 @@ static inline unsigned char pke_check_rt_code(void)
  */
 static inline void pke_set_operand_width(unsigned int bitLen)
 {
-	BM_CLR(reg_pke_conf, FLD_PKE_CONF_PARTIAL_RADIX);
-	BM_SET(reg_pke_conf, GET_WORD_LEN(bitLen)<<16);
-	BM_CLR(reg_pke_conf, FLD_PKE_CONF_BASE_RADIX);
-	BM_SET(reg_pke_conf, 2<<24);
+    BM_CLR(reg_pke_conf, FLD_PKE_CONF_PARTIAL_RADIX);
+    BM_SET(reg_pke_conf, GET_WORD_LEN(bitLen) << 16);
+    BM_CLR(reg_pke_conf, FLD_PKE_CONF_BASE_RADIX);
+    BM_SET(reg_pke_conf, 2 << 24);
 }
 
 /**
@@ -319,8 +315,8 @@ unsigned char pke_calc_pre_mont(const unsigned int *modulus, unsigned int wordLe
  * @param[out]  out		- out = a*b mod modulus.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_mod_mul(const unsigned int *modulus, const unsigned int *a, const unsigned int *b,
- 							unsigned int *out, unsigned int wordLen);
+unsigned char pke_mod_mul(const unsigned int *modulus, const unsigned int *a, const unsigned int *b, unsigned int *out,
+                          unsigned int wordLen);
 
 /**
  * @brief       ainv = a^(-1) mod modulus.
@@ -331,8 +327,8 @@ unsigned char pke_mod_mul(const unsigned int *modulus, const unsigned int *a, co
  * @param[out]	ainv 		- ainv = a^(-1) mod modulus.
  * @return: 	PKE_SUCCESS(success), other(inverse not exists or error).
  */
- unsigned char pke_mod_inv(const unsigned int *modulus, const unsigned int *a, unsigned int *ainv, unsigned int modWordLen,
- 				   unsigned int aWordLen);
+unsigned char pke_mod_inv(const unsigned int *modulus, const unsigned int *a, unsigned int *ainv,
+                          unsigned int modWordLen, unsigned int aWordLen);
 
 /**
  * @brief       out = (a+b) mod modulus.
@@ -343,8 +339,8 @@ unsigned char pke_mod_mul(const unsigned int *modulus, const unsigned int *a, co
  * @param[out]  out 	- out = a+b mod modulus.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_mod_add(const unsigned int *modulus, const unsigned int *a, const unsigned int *b,
-				   unsigned int *out, unsigned int wordLen);
+unsigned char pke_mod_add(const unsigned int *modulus, const unsigned int *a, const unsigned int *b, unsigned int *out,
+                          unsigned int wordLen);
 
 /**
  * @brief       out = (a-b) mod modulus.
@@ -355,8 +351,8 @@ unsigned char pke_mod_add(const unsigned int *modulus, const unsigned int *a, co
  * @param[out]  out		- output, out = a-b mod modulus.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_mod_sub(const unsigned int *modulus, const unsigned int *a, const unsigned int *b,
- 				   unsigned int *out, unsigned int wordLen);
+unsigned char pke_mod_sub(const unsigned int *modulus, const unsigned int *a, const unsigned int *b, unsigned int *out,
+                          unsigned int wordLen);
 
 /**
  * @brief		c = a mod b.
@@ -370,7 +366,7 @@ unsigned char pke_mod_sub(const unsigned int *modulus, const unsigned int *a, co
  * @return		PKE_SUCCESS(success), other(error).
  */
 unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, unsigned int *b_h, unsigned int *b_n1,
-				unsigned int bWordLen, unsigned int *c);
+                      unsigned int bWordLen, unsigned int *c);
 
 /**
  * @brief       ECCP curve point del point, Q=2P.
@@ -381,8 +377,8 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
  * @param[out]  Qy 		- y coordinate of point Q=2P.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_eccp_point_del(eccp_curve_t *curve, unsigned int *Px, unsigned int *Py,
-					  unsigned int *Qx, unsigned int *Qy);
+unsigned char pke_eccp_point_del(eccp_curve_t *curve, unsigned int *Px, unsigned int *Py, unsigned int *Qx,
+                                 unsigned int *Qy);
 
 /**
  * @brief       check whether the input point P is on ECCP curve or not.
@@ -404,7 +400,7 @@ unsigned char pke_eccp_point_verify(eccp_curve_t *curve, unsigned int *Px, unsig
  * @return      PKE_SUCCESS(success), other(error).
  */
 unsigned char pke_eccp_point_mul(eccp_curve_t *curve, unsigned int *k, unsigned int *Px, unsigned int *Py,
-					  unsigned int *Qx, unsigned int *Qy);
+                                 unsigned int *Qx, unsigned int *Qy);
 
 /**
  * @brief       ECCP curve point add, Q=P1+P2.
@@ -417,8 +413,8 @@ unsigned char pke_eccp_point_mul(eccp_curve_t *curve, unsigned int *k, unsigned 
  * @param[out]  Qy 		- y coordinate of point Q=P1+P2.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_eccp_point_add(eccp_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x, unsigned int *P2y,
-					  unsigned int *Qx, unsigned int *Qy);
+unsigned char pke_eccp_point_add(eccp_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x,
+                                 unsigned int *P2y, unsigned int *Qx, unsigned int *Qy);
 
 /**
  * @brief       c25519 point mul(random point), Q=[k]P.
@@ -441,7 +437,7 @@ unsigned char pke_x25519_point_mul(mont_curve_t *curve, unsigned int *k, unsigne
  * @return      PKE_SUCCESS(success), other(error).
  */
 unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsigned int *Px, unsigned int *Py,
-					  unsigned int *Qx, unsigned int *Qy);
+                                    unsigned int *Qx, unsigned int *Qy);
 
 /**
  * @brief       edwards25519 point add, Q=P1+P2.
@@ -454,9 +450,5 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
  * @param[out]  Qy 		- y coordinate of point Q=P1+P2.
  * @return      PKE_SUCCESS(success), other(error).
  */
-unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x, unsigned int *P2y,
-					  unsigned int *Qx, unsigned int *Qy);
-
-
-
-
+unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x,
+                                    unsigned int *P2y, unsigned int *Qx, unsigned int *Qy);

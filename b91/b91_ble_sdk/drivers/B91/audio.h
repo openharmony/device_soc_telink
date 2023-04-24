@@ -61,7 +61,6 @@
 #include "pwm.h"
 #include "reg_include/register_b91.h"
 
-
 typedef enum {
     I2S_BCK_PC3 = GPIO_PC3,
     I2S_ADC_LR_PC4 = GPIO_PC4,

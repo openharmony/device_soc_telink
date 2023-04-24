@@ -46,17 +46,19 @@
 #ifndef BLM_PAIR_H_
 #define BLM_PAIR_H_
 
+#include "blt_common.h"
+#include "drivers.h"
+#include "tl_common.h"
 #include "vendor/common/user_config.h"
 
-
-
 /*!  Pair parameter manager type */
-typedef struct{
-	u8 manual_pair;
-	u8 mac_type;  //address type
-	u8 mac[6];
-	u32 pair_tick;
-}man_pair_t;
+typedef struct
+{
+    u8 manual_pair;
+    u8 mac_type;  //address type
+    u8 mac[6];
+    u32 pair_tick;
+} man_pair_t;
 
 extern man_pair_t blm_manPair;
 
@@ -78,7 +80,7 @@ void user_master_host_pairing_management_init(void);
  * @return     0:      invalid index
  *             others valid index
  */
-int user_tbl_slave_mac_search(u8 adr_type, u8 * adr);
+int user_tbl_slave_mac_search(u8 adr_type, u8 *adr);
 
 /**
  * @brief     Store bonding info to flash.
@@ -87,7 +89,6 @@ int user_tbl_slave_mac_search(u8 adr_type, u8 * adr);
  * @return    none.
  */
 int user_tbl_slave_mac_add(u8 adr_type, u8 *adr);
-
 
 /**
  * @brief      Delete bonding info.
@@ -104,9 +105,5 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr);
  * @return     none.
  */
 void user_tbl_slave_mac_delete_all(void);
-
-
-
-
 
 #endif /* APP_PAIR_H_ */

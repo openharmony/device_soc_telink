@@ -67,14 +67,14 @@
  */
 /*************************************************************************************************/
 
-#include "common\types.h"
 #include "common\compiler.h"
+#include "common\types.h"
+
 
 /**************************************************************************************************
   Macros
 **************************************************************************************************/
-#define		HEAP_MEM_SIZE_CFG		3072 //3K Heap
-
+#define HEAP_MEM_SIZE_CFG 3072  //3K Heap
 
 /**************************************************************************************************
   Global Variables
@@ -95,11 +95,11 @@ _attribute_data_retention_ static u32 SystemHeapSize = HEAP_MEM_SIZE_CFG;
 /*************************************************************************************************/
 void myHeapAlloc(u32 size)
 {
-  /* Round up to nearest multiple of 4 for word alignment */
-  size = (size + 3) & ~3;
+    /* Round up to nearest multiple of 4 for word alignment */
+    size = (size + 3) & ~3;
 
-  SystemHeapStart += size;
-  SystemHeapSize -= size;
+    SystemHeapStart += size;
+    SystemHeapSize -= size;
 }
 
 /*************************************************************************************************/
@@ -111,7 +111,7 @@ void myHeapAlloc(u32 size)
 /*************************************************************************************************/
 void *myHeapGetFreeStartAddress(void)
 {
-  return (void *)SystemHeapStart;
+    return (void *)SystemHeapStart;
 }
 
 /*************************************************************************************************/
@@ -123,7 +123,7 @@ void *myHeapGetFreeStartAddress(void)
 /*************************************************************************************************/
 u32 myHeapCountAvailable(void)
 {
-  return SystemHeapSize;
+    return SystemHeapSize;
 }
 
 /*************************************************************************************************/
@@ -135,5 +135,5 @@ u32 myHeapCountAvailable(void)
 /*************************************************************************************************/
 u32 myHeapCountUsed(void)
 {
-  return HEAP_MEM_SIZE_CFG - SystemHeapSize;
+    return HEAP_MEM_SIZE_CFG - SystemHeapSize;
 }

@@ -56,9 +56,10 @@
 #ifndef TRNG_H_
 #define TRNG_H_
 
-#include "sys.h"
-#include "stimer.h"
 #include "reg_include/register_b91.h"
+#include "stimer.h"
+#include "sys.h"
+
 
 /**********************************************************************************************************************
  *                                         global constants                                                           *

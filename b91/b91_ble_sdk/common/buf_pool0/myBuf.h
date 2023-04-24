@@ -73,10 +73,8 @@
 extern "C" {
 #endif
 
-
-#include "common/types.h"
 #include "common/compiler.h"
-
+#include "common/types.h"
 
 /*! \addtogroup MY_BUF_API
  *  \{ */
@@ -87,22 +85,22 @@ extern "C" {
 
 /*! \brief Check if trying to free a buffer that is already free */
 #ifndef MY_BUF_FREE_CHECK_ASSERT
-#define MY_BUF_FREE_CHECK_ASSERT 				TRUE
+#define MY_BUF_FREE_CHECK_ASSERT TRUE
 #endif
 
 /*! \brief Assert on best-fit buffer allocation failure */
 #ifndef MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT
-#define MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT 		TRUE//FALSE
+#define MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT TRUE  //FALSE
 #endif
 
 /*! \brief Assert on buffer allocation failure */
 #ifndef MY_BUF_ALLOC_FAIL_ASSERT
-#define MY_BUF_ALLOC_FAIL_ASSERT 				TRUE
+#define MY_BUF_ALLOC_FAIL_ASSERT TRUE
 #endif
 
 /*! \brief Buffer histogram stats */
 #ifndef MY_BUF_STATS_HIST
-#define MY_BUF_STATS_HIST 						FALSE//TRUE//
+#define MY_BUF_STATS_HIST FALSE  //TRUE//
 #endif
 
 /**************************************************************************************************
@@ -110,17 +108,17 @@ extern "C" {
 **************************************************************************************************/
 
 /*! \brief Length of the buffer statistics array */
-#define MY_BUF_STATS_MAX_LEN       				128
+#define MY_BUF_STATS_MAX_LEN 128
 
 /*! \brief Max number of pools can allocate */
-#define MY_BUF_STATS_MAX_POOL      				32
+#define MY_BUF_STATS_MAX_POOL 32
 
 /*! \brief Failure Codes */
-#define MY_BUF_ALLOC_FAILED        				1
+#define MY_BUF_ALLOC_FAILED 1
 
 #ifndef MY_BUF_STATS
 /*! \brief Enable buffer allocation statistics. */
-#define MY_BUF_STATS 							FALSE//TRUE//
+#define MY_BUF_STATS FALSE  //TRUE//
 #endif
 
 /**************************************************************************************************
@@ -130,36 +128,36 @@ extern "C" {
 /*! \brief Buffer pool descriptor structure */
 typedef struct
 {
-  u16   len;                  /*!< \brief Length of buffers in pool */
-  u8    num;                  /*!< \brief Number of buffers in pool */
+    u16 len; /*!< \brief Length of buffers in pool */
+    u8 num;  /*!< \brief Number of buffers in pool */
 } myBufPoolDesc_t;
 
 /*! \brief Pool statistics */
 typedef struct
 {
-  u16   bufSize;              /*!< \brief Pool buffer size. */
-  u8    numBuf;               /*!< \brief Total number of buffers. */
-  u8    numAlloc;             /*!< \brief Number of outstanding allocations. */
-  u8    maxAlloc;             /*!< \brief High allocation watermark. */
-  u16   maxReqLen;            /*!< \brief Maximum requested buffer length. */
+    u16 bufSize;   /*!< \brief Pool buffer size. */
+    u8 numBuf;     /*!< \brief Total number of buffers. */
+    u8 numAlloc;   /*!< \brief Number of outstanding allocations. */
+    u8 maxAlloc;   /*!< \brief High allocation watermark. */
+    u16 maxReqLen; /*!< \brief Maximum requested buffer length. */
 } myBufPoolStat_t;
 
 /*! \brief MY buffer diagnostics - buffer allocation failure */
 typedef struct
 {
-  u8    taskId;               /*!< \brief Task handler ID where failure occured */
-  u16   len;                  /*!< \brief Length of buffer being allocated */
+    u8 taskId; /*!< \brief Task handler ID where failure occured */
+    u16 len;   /*!< \brief Length of buffer being allocated */
 } myBufDiagAllocFail_t;
 
 /*! \brief MY buffer diagnostics message */
 typedef struct
 {
-  union
-  {
-    myBufDiagAllocFail_t alloc;   /*!< \brief Buffer allocation failure */
-  } param;                         /*!< \brief Union of diagnostic data types. */
+    union
+    {
+        myBufDiagAllocFail_t alloc; /*!< \brief Buffer allocation failure */
+    } param;                        /*!< \brief Union of diagnostic data types. */
 
-  u8 type;                    /*!< \brief Type of error */
+    u8 type; /*!< \brief Type of error */
 } myBufDiag_t;
 
 /**************************************************************************************************
@@ -272,7 +270,7 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 numPool);
 /*************************************************************************************************/
 void myBufDiagRegister(myBufDiagCback_t callback);
 
-/*! \} */    /* MY_BUF_API */
+/*! \} */ /* MY_BUF_API */
 
 #ifdef __cplusplus
 };

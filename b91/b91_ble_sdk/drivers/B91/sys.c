@@ -44,16 +44,15 @@
  *
  *******************************************************************************************************/
 #include "sys.h"
-#include "core.h"
-#include "pm.h"
-#include "compiler.h"
 #include "analog.h"
+#include "compiler.h"
+#include "core.h"
 #include "gpio.h"
 #include "mspi.h"
+#include "pm.h"
 #include "stimer.h"
 
-
-unsigned int g_chip_version=0;
+unsigned int g_chip_version = 0;
 
 extern void pm_update_status_info(void);
 
@@ -156,33 +155,29 @@ void sys_init(power_mode_e power_mode, vbat_type_e vbat_v)
  * @return     number of commands are carried out
  */
 
-int write_reg_table(const tbl_cmd_set_t * pt, int size)
+int write_reg_table(const tbl_cmd_set_t *pt, int size)
 {
-	int l=0;
+    int l = 0;
 
-	while (l<size) {
-		unsigned int  cadr = ((unsigned int)0x80000000) | pt[l].adr;
-		unsigned char cdat = pt[l].dat;
-		unsigned char ccmd = pt[l].cmd;
-		unsigned char cvld =(ccmd & TCMD_UNDER_WR);
-		ccmd &= TCMD_MASK;
-		if (cvld) {
-			if (ccmd == TCMD_WRITE) {
-				write_reg8 (cadr, cdat);
-			}
-			else if (ccmd == TCMD_WAREG) {
-				analog_write_reg8 (cadr, cdat);
-			}
-			else if (ccmd == TCMD_WAIT) {
-				delay_us(pt[l].adr*256 + cdat);
-			}
-		}
-		l++;
-	}
-	return size;
-
+    while (l < size) {
+        unsigned int cadr = ((unsigned int)0x80000000) | pt[l].adr;
+        unsigned char cdat = pt[l].dat;
+        unsigned char ccmd = pt[l].cmd;
+        unsigned char cvld = (ccmd & TCMD_UNDER_WR);
+        ccmd &= TCMD_MASK;
+        if (cvld) {
+            if (ccmd == TCMD_WRITE) {
+                write_reg8(cadr, cdat);
+            } else if (ccmd == TCMD_WAREG) {
+                analog_write_reg8(cadr, cdat);
+            } else if (ccmd == TCMD_WAIT) {
+                delay_us(pt[l].adr * 256 + cdat);
+            }
+        }
+        l++;
+    }
+    return size;
 }
-
 
 /**********************************************************************************************************************
  *                    						local function implementation                                             *

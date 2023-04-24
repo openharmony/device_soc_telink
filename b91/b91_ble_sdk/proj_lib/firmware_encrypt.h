@@ -46,6 +46,6 @@
 #ifndef ENCRYPT_H_
 #define ENCRYPT_H_
 
-void firmware_encrypt_based_on_uid(unsigned char* uid,unsigned char* ciphertext);
+void firmware_encrypt_based_on_uid(unsigned char *uid, unsigned char *ciphertext);
 
 #endif /* ENCRYPT_H_ */

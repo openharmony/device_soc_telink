@@ -67,21 +67,20 @@
  */
 /*************************************************************************************************/
 
-#include <buf_pool0/myBuf.h>
-#include <buf_pool0/myHeap.h>
-#include "types.h"
-#include "utility.h"
+#include "application\print\printf.h"
 #include "assert.h"
 #include "common\compiler.h"
-#include "application\print\printf.h"
-
+#include "types.h"
+#include "utility.h"
+#include <buf_pool0/myBuf.h>
+#include <buf_pool0/myHeap.h>
 
 /**************************************************************************************************
   Global Variables
 **************************************************************************************************/
 
 /*! \brief  Critical section nesting level. */
-_attribute_data_retention_  static u8 myCsNesting = 0;
+_attribute_data_retention_ static u8 myCsNesting = 0;
 
 /*************************************************************************************************/
 /*!
@@ -90,11 +89,10 @@ _attribute_data_retention_  static u8 myCsNesting = 0;
 /*************************************************************************************************/
 void myCsEnter(void)
 {
-  if (myCsNesting == 0)
-  {
-    irq_disable();
-  }
-  myCsNesting++;
+    if (myCsNesting == 0) {
+        irq_disable();
+    }
+    myCsNesting++;
 }
 
 /*************************************************************************************************/
@@ -104,27 +102,21 @@ void myCsEnter(void)
 /*************************************************************************************************/
 void myCsExit(void)
 {
-  assert(myCsNesting != 0);
+    assert(myCsNesting != 0);
 
-  myCsNesting--;
-  if (myCsNesting == 0)
-  {
-	irq_enable();
-  }
+    myCsNesting--;
+    if (myCsNesting == 0) {
+        irq_enable();
+    }
 }
-
-
-
-
-
 
 /**************************************************************************************************
   Macros
 **************************************************************************************************/
-#define DEBUG_INFO					//printf //debug use
+#define DEBUG_INFO  //printf //debug use
 
 /* Magic number used to check for free buffer. */
-#define MY_BUF_FREE_NUM            0xFAABD00D
+#define MY_BUF_FREE_NUM 0xFAABD00D
 
 /**************************************************************************************************
   Data Types
@@ -133,22 +125,22 @@ void myCsExit(void)
 /* Unit of memory storage-- a structure containing a pointer. */
 typedef struct myBufMem_tag
 {
-  struct myBufMem_tag  *pNext;
+    struct myBufMem_tag *pNext;
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
-  u32              free;
+    u32 free;
 #endif
 } myBufMem_t;
 
 /* Internal buffer pool. */
 typedef struct
 {
-  myBufPoolDesc_t  desc;           /* Number of buffers and length. */
-  myBufMem_t       *pStart;        /* Start of pool. */
-  myBufMem_t       *pFree;         /* First free buffer in pool. */
+    myBufPoolDesc_t desc; /* Number of buffers and length. */
+    myBufMem_t *pStart;   /* Start of pool. */
+    myBufMem_t *pFree;    /* First free buffer in pool. */
 #if MY_BUF_STATS == TRUE
-  u8           numAlloc;       /* Number of buffers currently allocated from pool. */
-  u8           maxAlloc;       /* Maximum buffers ever allocated from pool. */
-  u16          maxReqLen;      /* Maximum request length from pool. */
+    u8 numAlloc;   /* Number of buffers currently allocated from pool. */
+    u8 maxAlloc;   /* Maximum buffers ever allocated from pool. */
+    u16 maxReqLen; /* Maximum request length from pool. */
 #endif
 } myBufPool_t;
 
@@ -190,51 +182,43 @@ _attribute_data_retention_ static myBufDiagCback_t myBufDiagCback = NULL;
 /*************************************************************************************************/
 u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc)
 {
-  u32      len;
-  u32      descLen;
-  myBufPool_t  *pPool;
-  myBufMem_t   *pStart;
-  u8       i;
+    u32 len;
+    u32 descLen;
+    myBufPool_t *pPool;
+    myBufMem_t *pStart;
+    u8 i;
 
-  myBufMem = (myBufMem_t *)0;
-  pPool = (myBufPool_t *)myBufMem;
+    myBufMem = (myBufMem_t *)0;
+    pPool = (myBufPool_t *)myBufMem;
 
-  /* Buffer storage starts after the pool structs. */
-  pStart = (myBufMem_t *) (pPool + numPools);
+    /* Buffer storage starts after the pool structs. */
+    pStart = (myBufMem_t *)(pPool + numPools);
 
-  /* Create each pool; see loop exit condition below. */
-  while (TRUE)
-  {
-    /* Exit loop after verification check. */
-    if (numPools-- == 0)
-    {
-      break;
+    /* Create each pool; see loop exit condition below. */
+    while (TRUE) {
+        /* Exit loop after verification check. */
+        if (numPools-- == 0) {
+            break;
+        }
+
+        /* Adjust pool lengths for minimum size and alignment. */
+        if (pDesc->len < sizeof(myBufMem_t)) {
+            descLen = sizeof(myBufMem_t);
+        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0) {
+            descLen = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
+        } else {
+            descLen = pDesc->len;
+        }
+
+        len = descLen / sizeof(myBufMem_t);
+        for (i = pDesc->num; i > 0; i--) {
+            /* Pointer to the next free buffer is stored in the buffer itself. */
+            pStart += len;
+        }
+        pDesc++;
     }
 
-    /* Adjust pool lengths for minimum size and alignment. */
-    if (pDesc->len < sizeof(myBufMem_t))
-    {
-      descLen = sizeof(myBufMem_t);
-    }
-    else if ((pDesc->len % sizeof(myBufMem_t)) != 0)
-    {
-      descLen = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
-    }
-    else
-    {
-      descLen = pDesc->len;
-    }
-
-    len = descLen / sizeof(myBufMem_t);
-    for (i = pDesc->num; i > 0; i--)
-    {
-      /* Pointer to the next free buffer is stored in the buffer itself. */
-      pStart += len;
-    }
-    pDesc++;
-  }
-
-  return (u8 *)pStart - (u8 *)myBufMem;
+    return (u8 *)pStart - (u8 *)myBufMem;
 }
 
 /*************************************************************************************************/
@@ -250,93 +234,83 @@ u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc)
 /*************************************************************************************************/
 u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
 {
-  myBufPool_t  *pPool;
-  myBufMem_t   *pStart;
-  u16      len;
-  u8       i;
+    myBufPool_t *pPool;
+    myBufMem_t *pStart;
+    u16 len;
+    u8 i;
 
-  myBufMem = (myBufMem_t *) myHeapGetFreeStartAddress();//ȡsystemHeapStartAddr
-  pPool = (myBufPool_t *) myBufMem;
+    myBufMem = (myBufMem_t *)myHeapGetFreeStartAddress();  //ȡsystemHeapStartAddr
+    pPool = (myBufPool_t *)myBufMem;
 
-  /* Buffer storage starts after the pool structs. */
-  pStart = (myBufMem_t *) (pPool + numPools); //ڴͷnumPoolspStartָڴ0ĵһ(num=0)ʼַ
+    /* Buffer storage starts after the pool structs. */
+    pStart = (myBufMem_t *)(pPool + numPools);  //ڴͷnumPoolspStartָڴ0ĵһ(num=0)ʼַ
 
-  myBufNumPools = numPools;
+    myBufNumPools = numPools;
 
-  /* Create each pool; see loop exit condition below. */
-  while (TRUE)
-  {
-    /* Verify we didn't overrun memory; if we did, abort. */
-    if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)])
-    {
-      assert(FALSE);
-      return 0;
-    }
+    /* Create each pool; see loop exit condition below. */
+    while (TRUE) {
+        /* Verify we didn't overrun memory; if we did, abort. */
+        if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)]) {
+            assert(FALSE);
+            return 0;
+        }
 
-    /* Exit loop after verification check. */
-    if (numPools-- == 0)
-    {
-      break;
-    }
+        /* Exit loop after verification check. */
+        if (numPools-- == 0) {
+            break;
+        }
 
-    /* Adjust pool lengths for minimum size and alignment. */
-    if (pDesc->len < sizeof(myBufMem_t)) //һڴس < sizeof(myBufMem_t)
-    {
-      pPool->desc.len = sizeof(myBufMem_t);
-    }
-    else if ((pDesc->len % sizeof(myBufMem_t)) != 0)//ȡsizeof(myBufMem_t)ֽڶ
-    {
-      pPool->desc.len = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
-    }
-    else
-    {
-      pPool->desc.len = pDesc->len;
-    }
+        /* Adjust pool lengths for minimum size and alignment. */
+        if (pDesc->len < sizeof(myBufMem_t))  //һڴس < sizeof(myBufMem_t)
+        {
+            pPool->desc.len = sizeof(myBufMem_t);
+        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0)  //ȡsizeof(myBufMem_t)ֽڶ
+        {
+            pPool->desc.len = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
+        } else {
+            pPool->desc.len = pDesc->len;
+        }
 
-    pPool->desc.num = pDesc->num;
-    pDesc++;
+        pPool->desc.num = pDesc->num;
+        pDesc++;
 
-    pPool->pStart = pStart;
-    pPool->pFree = pStart;
+        pPool->pStart = pStart;
+        pPool->pFree = pStart;
 #if MY_BUF_STATS == TRUE
-    pPool->numAlloc = 0;
-    pPool->maxAlloc = 0;
-    pPool->maxReqLen = 0;
+        pPool->numAlloc = 0;
+        pPool->maxAlloc = 0;
+        pPool->maxReqLen = 0;
 #endif
 
+        /* Initialize free list. */
+        len = pPool->desc.len / sizeof(myBufMem_t);
+        for (i = pPool->desc.num; i > 1; i--) {
+            /* Verify we didn't overrun memory; if we did, abort. */
+            if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)]) {
+                assert(FALSE);
+                return 0;
+            }
+            /* Pointer to the next free buffer is stored in the buffer itself. */
+            pStart->pNext = pStart + len;  //ָһ
+            pStart += len;                 //pStartָǰڴصһʼַ(/ǰڴضӦnum++)
+        }
 
-    /* Initialize free list. */
-    len = pPool->desc.len / sizeof(myBufMem_t);
-    for (i = pPool->desc.num; i > 1; i--)
-    {
-      /* Verify we didn't overrun memory; if we did, abort. */
-      if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)])
-      {
-        assert(FALSE);
-        return 0;
-      }
-      /* Pointer to the next free buffer is stored in the buffer itself. */
-      pStart->pNext = pStart + len; //ָһ
-      pStart += len;//pStartָǰڴصһʼַ(/ǰڴضӦnum++)
+        /* Verify we didn't overrun memory; if we did, abort. */
+        if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)]) {
+            assert(FALSE);
+            return 0;
+        }
+        /* Last one in list points to NULL. */
+        pStart->pNext = NULL;  //ǰڴصһnumӦһʼַΪNULL
+        pStart += len;         //pStartָһڴصĵһʼַ
+
+        /* Next pool. */
+        pPool++;  //ָһڴͷַ
     }
 
-    /* Verify we didn't overrun memory; if we did, abort. */
-    if (pStart > &myBufMem[myHeapCountAvailable() / sizeof(myBufMem_t)])
-    {
-      assert(FALSE);
-      return 0;
-    }
-    /* Last one in list points to NULL. */
-    pStart->pNext = NULL;//ǰڴصһnumӦһʼַΪNULL
-    pStart += len;//pStartָһڴصĵһʼַ
+    myBufMemLen = (u8 *)pStart - (u8 *)myBufMem;
 
-    /* Next pool. */
-    pPool++; //ָһڴͷַ
-  }
-
-  myBufMemLen = (u8 *) pStart - (u8 *) myBufMem;
-
-  return myBufMemLen; //ڴ0ڴnumPools-1ȫʼĵBufferСλByte
+    return myBufMemLen;  //ڴ0ڴnumPools-1ȫʼĵBufferСλByte
 }
 
 /*************************************************************************************************/
@@ -350,101 +324,90 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
 /*************************************************************************************************/
 void *myBufAlloc(u16 len)
 {
-  myBufPool_t  *pPool;
-  myBufMem_t   *pBuf;
-  u8       i;
+    myBufPool_t *pPool;
+    myBufMem_t *pBuf;
+    u8 i;
 
-  //MY_CS_INIT(cs);
+    //MY_CS_INIT(cs);
 
-  assert(len > 0);
+    assert(len > 0);
 
-  pPool = (myBufPool_t *) myBufMem;
+    pPool = (myBufPool_t *)myBufMem;
 
-  for (i = myBufNumPools; i > 0; i--, pPool++)
-  {
-    /* Check if buffer is big enough. */
-    if (len <= pPool->desc.len)
-    {
-      /* Enter critical section. */
-      myCsEnter();
+    for (i = myBufNumPools; i > 0; i--, pPool++) {
+        /* Check if buffer is big enough. */
+        if (len <= pPool->desc.len) {
+            /* Enter critical section. */
+            myCsEnter();
 
-      /* Check if buffers are available. */
-      if (pPool->pFree != NULL)
-      {
-        /* Allocation succeeded. */
-        pBuf = pPool->pFree;
+            /* Check if buffers are available. */
+            if (pPool->pFree != NULL) {
+                /* Allocation succeeded. */
+                pBuf = pPool->pFree;
 
-        /* Next free buffer is stored inside current free buffer. */
-        pPool->pFree = pBuf->pNext;
+                /* Next free buffer is stored inside current free buffer. */
+                pPool->pFree = pBuf->pNext;
 
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
-        pBuf->free = 0;
+                pBuf->free = 0;
 #endif
 #if MY_BUF_STATS_HIST == TRUE
-        /* Increment count for buffers of this length. */
-        if (len < MY_BUF_STATS_MAX_LEN)
-        {
-          myBufAllocCount[len]++;
-        }
-        else
-        {
-          myBufAllocCount[0]++;
-        }
+                /* Increment count for buffers of this length. */
+                if (len < MY_BUF_STATS_MAX_LEN) {
+                    myBufAllocCount[len]++;
+                } else {
+                    myBufAllocCount[0]++;
+                }
 #endif
 #if MY_BUF_STATS == TRUE
-        if (++pPool->numAlloc > pPool->maxAlloc)
-        {
-          pPool->maxAlloc = pPool->numAlloc;
-        }
-        pPool->maxReqLen = max2(pPool->maxReqLen, len);
+                if (++pPool->numAlloc > pPool->maxAlloc) {
+                    pPool->maxAlloc = pPool->numAlloc;
+                }
+                pPool->maxReqLen = max2(pPool->maxReqLen, len);
 #endif
-        /* Exit critical section. */
-        myCsExit();;
+                /* Exit critical section. */
+                myCsExit();
+                ;
 
-
-        return pBuf;
-      }
+                return pBuf;
+            }
 #if MY_BUF_STATS_HIST == TRUE
-      else
-      {
-        /* Pool overflow: increment count of overflow for current pool. */
-        myPoolOverFlowCount[myBufNumPools-i]++;
-      }
+            else {
+                /* Pool overflow: increment count of overflow for current pool. */
+                myPoolOverFlowCount[myBufNumPools - i]++;
+            }
 #endif
-      /* Exit critical section. */
-      myCsExit();;
+            /* Exit critical section. */
+            myCsExit();
+            ;
 
 #if MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT == TRUE
-      assert(FALSE);
+            assert(FALSE);
 #endif
+        }
     }
-  }
 
-  /* Allocation failed. */
+    /* Allocation failed. */
 #if MY_OS_DIAG == TRUE
-  if (myBufDiagCback != NULL)
-  {
-    myBufDiag_t info;
+    if (myBufDiagCback != NULL) {
+        myBufDiag_t info;
 
-    info.type = MY_BUF_ALLOC_FAILED;
-    info.param.alloc.taskId = MY_OS_GET_ACTIVE_HANDLER_ID();
-    info.param.alloc.len = len;
+        info.type = MY_BUF_ALLOC_FAILED;
+        info.param.alloc.taskId = MY_OS_GET_ACTIVE_HANDLER_ID();
+        info.param.alloc.len = len;
 
-    myBufDiagCback(&info);
-  }
-  else
-  {
-
-  }
+        myBufDiagCback(&info);
+    } else {
+    }
 #else
 
 #endif
 
 #if MY_BUF_ALLOC_FAIL_ASSERT == TRUE
-  assert(FALSE);
+    assert(FALSE);
 #endif
 
-  return NULL;
+    return NULL;
 }
 
 /*************************************************************************************************/
@@ -456,53 +419,52 @@ void *myBufAlloc(u16 len)
 /*************************************************************************************************/
 void myBufFree(void *pBuf)
 {
-  myBufPool_t  *pPool;
-  myBufMem_t   *p = pBuf;
+    myBufPool_t *pPool;
+    myBufMem_t *p = pBuf;
 
-  //MY_CS_INIT(cs);
+    //MY_CS_INIT(cs);
 
-  /* Verify pointer is within range. */
+    /* Verify pointer is within range. */
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
-  assert(p >= ((myBufPool_t *) myBufMem)->pStart);
-  assert(p < (myBufMem_t *)(((u8 *) myBufMem) + myBufMemLen));
+    assert(p >= ((myBufPool_t *)myBufMem)->pStart);
+    assert(p < (myBufMem_t *)(((u8 *)myBufMem) + myBufMemLen));
 #endif
 
-  /* Iterate over pools starting from last pool. */
-  pPool = (myBufPool_t *) myBufMem + (myBufNumPools - 1);
-  while (pPool >= (myBufPool_t *) myBufMem)
-  {
-    /* Check if the buffer memory is located inside this pool. */
-    if (p >= pPool->pStart)
-    {
-      /* Enter critical section. */
-      myCsEnter();
+    /* Iterate over pools starting from last pool. */
+    pPool = (myBufPool_t *)myBufMem + (myBufNumPools - 1);
+    while (pPool >= (myBufPool_t *)myBufMem) {
+        /* Check if the buffer memory is located inside this pool. */
+        if (p >= pPool->pStart) {
+            /* Enter critical section. */
+            myCsEnter();
 
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
-      assert(p->free != MY_BUF_FREE_NUM);
-      p->free = MY_BUF_FREE_NUM;
+            assert(p->free != MY_BUF_FREE_NUM);
+            p->free = MY_BUF_FREE_NUM;
 #endif
 #if MY_BUF_STATS == TRUE
-      pPool->numAlloc--;
+            pPool->numAlloc--;
 #endif
 
-      /* Pool found; put buffer back in free list. */
-      p->pNext = pPool->pFree;
-      pPool->pFree = p;
+            /* Pool found; put buffer back in free list. */
+            p->pNext = pPool->pFree;
+            pPool->pFree = p;
 
-      /* Exit critical section. */
-      myCsExit();;
+            /* Exit critical section. */
+            myCsExit();
+            ;
 
-      return;
+            return;
+        }
+
+        /* Next pool. */
+        pPool--;
     }
 
-    /* Next pool. */
-    pPool--;
-  }
+    /* Should never get here. */
+    assert(FALSE);
 
-  /* Should never get here. */
-  assert(FALSE);
-
-  return;
+    return;
 }
 
 /*************************************************************************************************/
@@ -515,9 +477,9 @@ void myBufFree(void *pBuf)
 u8 *myBufGetAllocStats(void)
 {
 #if MY_BUF_STATS_HIST == TRUE
-  return myBufAllocCount;
+    return myBufAllocCount;
 #else
-  return NULL;
+    return NULL;
 #endif
 }
 
@@ -531,9 +493,9 @@ u8 *myBufGetAllocStats(void)
 u8 *myBufGetPoolOverFlowStats(void)
 {
 #if MY_BUF_STATS_HIST == TRUE
-  return myPoolOverFlowCount;
+    return myPoolOverFlowCount;
 #else
-  return NULL;
+    return NULL;
 #endif
 }
 
@@ -546,7 +508,7 @@ u8 *myBufGetPoolOverFlowStats(void)
 /*************************************************************************************************/
 u8 myBufGetNumPool(void)
 {
-  return myBufNumPools;
+    return myBufNumPools;
 }
 
 /*************************************************************************************************/
@@ -559,33 +521,33 @@ u8 myBufGetNumPool(void)
 /*************************************************************************************************/
 void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
 {
-  myBufPool_t  *pPool;
+    myBufPool_t *pPool;
 
-  if (poolId >= myBufNumPools)
-  {
-    pStat->bufSize = 0;
-    return;
-  }
+    if (poolId >= myBufNumPools) {
+        pStat->bufSize = 0;
+        return;
+    }
 
-  //MY_CS_INIT(cs);
-  myCsEnter();
+    //MY_CS_INIT(cs);
+    myCsEnter();
 
-  pPool = (myBufPool_t *) myBufMem;
+    pPool = (myBufPool_t *)myBufMem;
 
-  pStat->bufSize  = pPool[poolId].desc.len;
-  pStat->numBuf   = pPool[poolId].desc.num;
+    pStat->bufSize = pPool[poolId].desc.len;
+    pStat->numBuf = pPool[poolId].desc.num;
 #if MY_BUF_STATS == TRUE
-  pStat->numAlloc = pPool[poolId].numAlloc;
-  pStat->maxAlloc = pPool[poolId].maxAlloc;
-  pStat->maxReqLen = pPool[poolId].maxReqLen;
+    pStat->numAlloc = pPool[poolId].numAlloc;
+    pStat->maxAlloc = pPool[poolId].maxAlloc;
+    pStat->maxReqLen = pPool[poolId].maxReqLen;
 #else
-  pStat->numAlloc = 0;
-  pStat->maxAlloc = 0;
-  pStat->maxReqLen = 0;
+    pStat->numAlloc = 0;
+    pStat->maxAlloc = 0;
+    pStat->maxReqLen = 0;
 #endif
 
-  /* Exit critical section. */
-  myCsExit();;
+    /* Exit critical section. */
+    myCsExit();
+    ;
 }
 
 /*************************************************************************************************/
@@ -598,15 +560,14 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
 void myBufDiagRegister(myBufDiagCback_t callback)
 {
 #if MY_OS_DIAG == TRUE
-  myBufDiagCback = callback;
+    myBufDiagCback = callback;
 #else
-  /* Unused parameter */
-  (void)callback;
+    /* Unused parameter */
+    (void)callback;
 #endif
 }
 
-
-#if 0 //demo test
+#if 0  //demo test
 	u8* AAA = NULL;
 	u8* ABB = NULL;
 	u8* ACC = NULL;
@@ -652,4 +613,3 @@ void myBufDiagRegister(myBufDiagCback_t callback)
 		myBufGetPoolStats(&myBufPoolStatC, 5);
 	}
 #endif
-

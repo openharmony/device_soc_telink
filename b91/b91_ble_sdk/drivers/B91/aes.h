@@ -56,8 +56,9 @@
 #ifndef _AES_H_
 #define _AES_H_
 
-#include "compiler.h"
 #include "./reg_include/aes_reg.h"
+#include "compiler.h"
+
 
 /**********************************************************************************************************************
  *                                         global constants                                                           *
@@ -73,10 +74,10 @@
 /**
  * @brief AES mode.
  */
-typedef enum{
-	AES_ENCRYPT_MODE	=  0,
-	AES_DECRYPT_MODE	=  2,
-}aes_mode_e;
+typedef enum {
+    AES_ENCRYPT_MODE = 0,
+    AES_DECRYPT_MODE = 2,
+} aes_mode_e;
 /**********************************************************************************************************************
  *                                     global variable declaration                                                    *
  *********************************************************************************************************************/
@@ -84,13 +85,13 @@ typedef enum{
 /**********************************************************************************************************************
  *                                      global function prototype                                                     *
  *********************************************************************************************************************/
- /* @brief     This function refer to encrypt. AES module register must be used by word. , all data need big endian.
+/* @brief     This function refer to encrypt. AES module register must be used by word. , all data need big endian.
  * @param[in] key       - the key of encrypt.
  * @param[in] plaintext - the plaintext of encrypt.
  * @param[in] result    - the result of encrypt.
  * @return    none
  */
-int aes_encrypt(unsigned char *key, unsigned char* plaintext, unsigned char *result);
+int aes_encrypt(unsigned char *key, unsigned char *plaintext, unsigned char *result);
 
 /**
  * @brief     This function refer to decrypt. AES module register must be used by word., all data need big endian.
@@ -99,7 +100,7 @@ int aes_encrypt(unsigned char *key, unsigned char* plaintext, unsigned char *res
  * @param[in] result      - the result of decrypt.
  * @return    none.
  */
-int aes_decrypt(unsigned char *key, unsigned char* decrypttext, unsigned char *result);
+int aes_decrypt(unsigned char *key, unsigned char *decrypttext, unsigned char *result);
 
 /**
  * @brief     This function refer to set the base addr of data which use in CEVA module
@@ -115,7 +116,7 @@ void aes_set_em_base_addr(unsigned int addr);
  * @param[in] data - the data which to do encrypt/decrypt.
  * @return    none
  */
-void aes_set_key_data(unsigned char *key, unsigned char* data);
+void aes_set_key_data(unsigned char *key, unsigned char *data);
 
 /**
  * @brief     This function refer to encrypt/decrypt to get result. AES module register must be used by word.
@@ -131,7 +132,7 @@ void aes_get_result(unsigned char *result);
  */
 static inline void aes_set_mode(aes_mode_e mode)
 {
-	reg_aes_mode = (FLD_AES_START | mode);
+    reg_aes_mode = (FLD_AES_START | mode);
 }
 
 /**
@@ -141,7 +142,7 @@ static inline void aes_set_mode(aes_mode_e mode)
  */
 static inline void aes_set_irq_mask(aes_irq_e mask)
 {
-	reg_aes_irq_mask |= mask;
+    reg_aes_irq_mask |= mask;
 }
 
 /**
@@ -151,7 +152,7 @@ static inline void aes_set_irq_mask(aes_irq_e mask)
  */
 static inline void aes_clr_irq_mask(aes_irq_e mask)
 {
-	reg_aes_irq_mask &= (~mask);
+    reg_aes_irq_mask &= (~mask);
 }
 
 /**
@@ -161,7 +162,7 @@ static inline void aes_clr_irq_mask(aes_irq_e mask)
  */
 static inline int aes_get_irq_status(aes_irq_e status)
 {
-	return (reg_aes_irq_status & status);
+    return (reg_aes_irq_status & status);
 }
 
 /**
@@ -171,7 +172,7 @@ static inline int aes_get_irq_status(aes_irq_e status)
  */
 static inline void aes_clr_irq_status(aes_irq_e status)
 {
-	reg_aes_clr_irq_status = (status);
+    reg_aes_clr_irq_status = (status);
 }
 
 #endif /* _AES_H_ */

@@ -55,51 +55,51 @@
  */
 #pragma once
 
-
-#include "dma.h"
 #include "compiler.h"
+#include "dma.h"
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
-typedef enum{
-	ADC_VREF_0P9V = 0x01,
-	ADC_VREF_1P2V = 0x02,
-}adc_ref_vol_e;
-typedef enum{
-	ADC_VBAT_DIV_OFF = 0,
-	ADC_VBAT_DIV_1F3 = 0x02,
-}adc_vbat_div_e;
 
 typedef enum {
-	NOINPUTN = 0,
-	ADC_GPIO_PB0N = 0x01,
-	ADC_GPIO_PB1N = 0x02,
-	ADC_GPIO_PB2N = 0x03,
-	ADC_GPIO_PB3N = 0x04,
-	ADC_GPIO_PB4N = 0x05,
-	ADC_GPIO_PB5N = 0x06,
-	ADC_GPIO_PB6N = 0x07,
-	ADC_GPIO_PB7N = 0x08,
-	ADC_GPIO_PD0N = 0x09,
-	ADC_GPIO_PD1N = 0x0a,
-	ADC_TEMSENSORN_EE = 0x0e,
-	GND = 0x0f,
-}adc_input_nch_e;
+    ADC_VREF_0P9V = 0x01,
+    ADC_VREF_1P2V = 0x02,
+} adc_ref_vol_e;
 typedef enum {
-	NOINPUTP = 0,
-	ADC_GPIO_PB0P = 0x01,
-	ADC_GPIO_PB1P = 0x02,
-	ADC_GPIO_PB2P = 0x03,
-	ADC_GPIO_PB3P = 0x04,
-	ADC_GPIO_PB4P = 0x05,
-	ADC_GPIO_PB5P = 0x06,
-	ADC_GPIO_PB6P = 0x07,
-	ADC_GPIO_PB7P = 0x08,
-	ADC_GPIO_PD0P = 0x09,
-	ADC_GPIO_PD1P = 0x0a,
-	ADC_TEMSENSORP_EE = 0x0e,
-	ADC_VBAT = 0x0f,
-}adc_input_pch_e;
+    ADC_VBAT_DIV_OFF = 0,
+    ADC_VBAT_DIV_1F3 = 0x02,
+} adc_vbat_div_e;
+
+typedef enum {
+    NOINPUTN = 0,
+    ADC_GPIO_PB0N = 0x01,
+    ADC_GPIO_PB1N = 0x02,
+    ADC_GPIO_PB2N = 0x03,
+    ADC_GPIO_PB3N = 0x04,
+    ADC_GPIO_PB4N = 0x05,
+    ADC_GPIO_PB5N = 0x06,
+    ADC_GPIO_PB6N = 0x07,
+    ADC_GPIO_PB7N = 0x08,
+    ADC_GPIO_PD0N = 0x09,
+    ADC_GPIO_PD1N = 0x0a,
+    ADC_TEMSENSORN_EE = 0x0e,
+    GND = 0x0f,
+} adc_input_nch_e;
+typedef enum {
+    NOINPUTP = 0,
+    ADC_GPIO_PB0P = 0x01,
+    ADC_GPIO_PB1P = 0x02,
+    ADC_GPIO_PB2P = 0x03,
+    ADC_GPIO_PB3P = 0x04,
+    ADC_GPIO_PB4P = 0x05,
+    ADC_GPIO_PB5P = 0x06,
+    ADC_GPIO_PB6P = 0x07,
+    ADC_GPIO_PB7P = 0x08,
+    ADC_GPIO_PD0P = 0x09,
+    ADC_GPIO_PD1P = 0x0a,
+    ADC_TEMSENSORP_EE = 0x0e,
+    ADC_VBAT = 0x0f,
+} adc_input_pch_e;
 /**
  * @brief adc input pin type
  * |           |              |
@@ -107,65 +107,65 @@ typedef enum {
  * |   <15:12> |    <11:0>    |
  * |adc channel|    gpio pin  |
  */
-typedef enum{
-	ADC_GPIO_PB0 = GPIO_PB0 | (0x1<<12),
-	ADC_GPIO_PB1 = GPIO_PB1 | (0x2<<12),
-	ADC_GPIO_PB2 = GPIO_PB2 | (0x3<<12),
-	ADC_GPIO_PB3 = GPIO_PB3 | (0x4<<12),
-	ADC_GPIO_PB4 = GPIO_PB4 | (0x5<<12),
-	ADC_GPIO_PB5 = GPIO_PB5 | (0x6<<12),
-	ADC_GPIO_PB6 = GPIO_PB6 | (0x7<<12),
-	ADC_GPIO_PB7 = GPIO_PB7 | (0x8<<12),
-	ADC_GPIO_PD0 = GPIO_PD0 | (0x9<<12),
-	ADC_GPIO_PD1 = GPIO_PD1 | (0xa<<12),
-}adc_input_pin_def_e;
-typedef enum{
-	ADC_GPIO_MODE,
-	ADC_VBAT_MODE,
-}adc_input_pin_mode_e;
+typedef enum {
+    ADC_GPIO_PB0 = GPIO_PB0 | (0x1 << 12),
+    ADC_GPIO_PB1 = GPIO_PB1 | (0x2 << 12),
+    ADC_GPIO_PB2 = GPIO_PB2 | (0x3 << 12),
+    ADC_GPIO_PB3 = GPIO_PB3 | (0x4 << 12),
+    ADC_GPIO_PB4 = GPIO_PB4 | (0x5 << 12),
+    ADC_GPIO_PB5 = GPIO_PB5 | (0x6 << 12),
+    ADC_GPIO_PB6 = GPIO_PB6 | (0x7 << 12),
+    ADC_GPIO_PB7 = GPIO_PB7 | (0x8 << 12),
+    ADC_GPIO_PD0 = GPIO_PD0 | (0x9 << 12),
+    ADC_GPIO_PD1 = GPIO_PD1 | (0xa << 12),
+} adc_input_pin_def_e;
+typedef enum {
+    ADC_GPIO_MODE,
+    ADC_VBAT_MODE,
+} adc_input_pin_mode_e;
 
-typedef enum{
-	ADC_RES8 = 0,
-	ADC_RES10 = 0x01,
-	ADC_RES12 = 0x02,
-	ADC_RES14 = 0x03,
-}adc_res_e;
+typedef enum {
+    ADC_RES8 = 0,
+    ADC_RES10 = 0x01,
+    ADC_RES12 = 0x02,
+    ADC_RES14 = 0x03,
+} adc_res_e;
 
-typedef enum{
-	ADC_SAMPLE_CYC_3,
-	ADC_SAMPLE_CYC_6,
-	ADC_SAMPLE_CYC_9,
-	ADC_SAMPLE_CYC_12,
-	ADC_SAMPLE_CYC_15,
-	ADC_SAMPLE_CYC_18,
-	ADC_SAMPLE_CYC_21,
-	ADC_SAMPLE_CYC_24,
-	ADC_SAMPLE_CYC_27,
-	ADC_SAMPLE_CYC_30,
-	ADC_SAMPLE_CYC_33,
-	ADC_SAMPLE_CYC_36,
-	ADC_SAMPLE_CYC_39,
-	ADC_SAMPLE_CYC_42,
-	ADC_SAMPLE_CYC_45,
-	ADC_SAMPLE_CYC_48,
-}adc_sample_cycle_e;
+typedef enum {
+    ADC_SAMPLE_CYC_3,
+    ADC_SAMPLE_CYC_6,
+    ADC_SAMPLE_CYC_9,
+    ADC_SAMPLE_CYC_12,
+    ADC_SAMPLE_CYC_15,
+    ADC_SAMPLE_CYC_18,
+    ADC_SAMPLE_CYC_21,
+    ADC_SAMPLE_CYC_24,
+    ADC_SAMPLE_CYC_27,
+    ADC_SAMPLE_CYC_30,
+    ADC_SAMPLE_CYC_33,
+    ADC_SAMPLE_CYC_36,
+    ADC_SAMPLE_CYC_39,
+    ADC_SAMPLE_CYC_42,
+    ADC_SAMPLE_CYC_45,
+    ADC_SAMPLE_CYC_48,
+} adc_sample_cycle_e;
 
-typedef enum{
-	ADC_SAMPLE_FREQ_23K,
-	ADC_SAMPLE_FREQ_48K,
-	ADC_SAMPLE_FREQ_96K,
-}adc_sample_freq_e;
+typedef enum {
+    ADC_SAMPLE_FREQ_23K,
+    ADC_SAMPLE_FREQ_48K,
+    ADC_SAMPLE_FREQ_96K,
+} adc_sample_freq_e;
 
-typedef enum{
-	ADC_MISC_CHN	= BIT(2),
-}adc_chn_e;
+typedef enum {
+    ADC_MISC_CHN = BIT(2),
+} adc_chn_e;
 
-typedef enum{
-	ADC_PRESCALE_1   = 0x00,
-	ADC_PRESCALE_1F8 = 0x03,
-}adc_pre_scale_e;
-enum{
-	ADC_MAX_STATE_NUM  = 0x02,
+typedef enum {
+    ADC_PRESCALE_1 = 0x00,
+    ADC_PRESCALE_1F8 = 0x03,
+} adc_pre_scale_e;
+enum {
+    ADC_MAX_STATE_NUM = 0x02,
 };
 
 /**
@@ -174,7 +174,7 @@ enum{
  */
 static inline void adc_power_on(void)
 {
-	analog_write_reg8 (areg_adc_pga_ctrl, (analog_read_reg8(areg_adc_pga_ctrl)&(~FLD_SAR_ADC_POWER_DOWN)));
+    analog_write_reg8(areg_adc_pga_ctrl, (analog_read_reg8(areg_adc_pga_ctrl) & (~FLD_SAR_ADC_POWER_DOWN)));
 }
 /**
  * @brief      This function close sar_adc power.
@@ -182,7 +182,7 @@ static inline void adc_power_on(void)
  */
 static inline void adc_power_off(void)
 {
-	analog_write_reg8 (areg_adc_pga_ctrl, (analog_read_reg8(areg_adc_pga_ctrl)|FLD_SAR_ADC_POWER_DOWN));
+    analog_write_reg8(areg_adc_pga_ctrl, (analog_read_reg8(areg_adc_pga_ctrl) | FLD_SAR_ADC_POWER_DOWN));
 }
 /**
  * @brief      This function reset adc module
@@ -190,8 +190,8 @@ static inline void adc_power_off(void)
  */
 static inline void adc_reset(void)
 {
-	reg_rst3 &= (~FLD_RST3_SARADC );
-	reg_rst3 |=FLD_RST3_SARADC;
+    reg_rst3 &= (~FLD_RST3_SARADC);
+    reg_rst3 |= FLD_RST3_SARADC;
 }
 /**
  * @brief     This function serves to enable adc sample fifo.
@@ -199,7 +199,7 @@ static inline void adc_reset(void)
  */
 static inline void adc_fifo_enable(void)
 {
-	reg_i2s_cfg2 &= (~FLD_AUDIO_FIFO1_RST);
+    reg_i2s_cfg2 &= (~FLD_AUDIO_FIFO1_RST);
 }
 /**
  * @brief     This function serves to disable adc sample fifo.
@@ -207,7 +207,7 @@ static inline void adc_fifo_enable(void)
  */
 static inline void adc_fifo_disable(void)
 {
-	reg_i2s_cfg2 |= FLD_AUDIO_FIFO1_RST;
+    reg_i2s_cfg2 |= FLD_AUDIO_FIFO1_RST;
 }
 /**
  * @brief      This function enable adc source clock: Pad_24M
@@ -215,7 +215,7 @@ static inline void adc_fifo_disable(void)
  */
 static inline void adc_clk_en(void)
 {
-	analog_write_reg8(areg_adc_clk_setting	, analog_read_reg8(areg_adc_clk_setting	) | FLD_CLK_24M_TO_SAR_EN);
+    analog_write_reg8(areg_adc_clk_setting, analog_read_reg8(areg_adc_clk_setting) | FLD_CLK_24M_TO_SAR_EN);
 }
 /**
  * @brief      This function disable adc source clock: Pad_24M
@@ -223,7 +223,7 @@ static inline void adc_clk_en(void)
  */
 static inline void adc_clk_dis(void)
 {
-	analog_write_reg8(areg_adc_clk_setting	, analog_read_reg8(areg_adc_clk_setting	) & (~FLD_CLK_24M_TO_SAR_EN));
+    analog_write_reg8(areg_adc_clk_setting, analog_read_reg8(areg_adc_clk_setting) & (~FLD_CLK_24M_TO_SAR_EN));
 }
 /**
  * @brief      This function sets adc sample clk. adc sample clk = 24M/(1+div)  div: 0~7.
@@ -232,7 +232,7 @@ static inline void adc_clk_dis(void)
  */
 static inline void adc_set_clk(unsigned char div)
 {
-	analog_write_reg8(areg_adc_sample_clk_div, div);
+    analog_write_reg8(areg_adc_sample_clk_div, div);
 }
 /**
  * @brief      This function sets ADC input channel as misc channel.
@@ -240,7 +240,7 @@ static inline void adc_set_clk(unsigned char div)
  */
 static inline void adc_set_m_chn_en(void)
 {
-	analog_write_reg8(areg_adc_chn_en, FLD_ADC_CHN_EN_M | (ADC_MAX_STATE_NUM<<4) );
+    analog_write_reg8(areg_adc_chn_en, FLD_ADC_CHN_EN_M | (ADC_MAX_STATE_NUM << 4));
 }
 /**
  * @brief This function serves to set resolution.
@@ -249,7 +249,7 @@ static inline void adc_set_m_chn_en(void)
  */
 static inline void adc_set_resolution(adc_res_e res)
 {
-	analog_write_reg8(areg_adc_res_m, (analog_read_reg8(areg_adc_res_m)&(~FLD_ADC_RES_M)) | res);
+    analog_write_reg8(areg_adc_res_m, (analog_read_reg8(areg_adc_res_m) & (~FLD_ADC_RES_M)) | res);
 }
 
 /**
@@ -259,8 +259,8 @@ static inline void adc_set_resolution(adc_res_e res)
  */
 static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
 {
-	//ana_ee<7:4> is reserved, so no need care its value
-	analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  //optimize, <7:4> not cared
+    //ana_ee<7:4> is reserved, so no need care its value
+    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  //optimize, <7:4> not cared
 }
 /**
  * @brief      This function open temperature sensor power.
@@ -268,7 +268,8 @@ static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
  */
 static inline void adc_temp_sensor_power_on(void)
 {
-	analog_write_reg8(areg_temp_sensor_ctrl, (analog_read_reg8(areg_temp_sensor_ctrl)&(~FLD_TEMP_SENSOR_POWER_DOWN)));
+    analog_write_reg8(areg_temp_sensor_ctrl,
+                      (analog_read_reg8(areg_temp_sensor_ctrl) & (~FLD_TEMP_SENSOR_POWER_DOWN)));
 }
 /**
  * @brief      This function close temperature sensor power.
@@ -276,7 +277,7 @@ static inline void adc_temp_sensor_power_on(void)
  */
 static inline void adc_temp_sensor_power_off(void)
 {
-	analog_write_reg8(areg_temp_sensor_ctrl, (analog_read_reg8(areg_temp_sensor_ctrl)|FLD_TEMP_SENSOR_POWER_DOWN));
+    analog_write_reg8(areg_temp_sensor_ctrl, (analog_read_reg8(areg_temp_sensor_ctrl) | FLD_TEMP_SENSOR_POWER_DOWN));
 }
 /**
  * @brief This function serves to set input channel in differential_mode.
@@ -286,8 +287,8 @@ static inline void adc_temp_sensor_power_off(void)
  */
 static inline void adc_set_diff_input(adc_input_pch_e p_ain, adc_input_nch_e n_ain)
 {
-	analog_write_reg8(areg_adc_res_m, analog_read_reg8(areg_adc_res_m) | FLD_ADC_EN_DIFF_CHN_M);
-	analog_write_reg8(areg_adc_ain_chn_misc, n_ain | p_ain<<4 );
+    analog_write_reg8(areg_adc_res_m, analog_read_reg8(areg_adc_res_m) | FLD_ADC_EN_DIFF_CHN_M);
+    analog_write_reg8(areg_adc_ain_chn_misc, n_ain | p_ain << 4);
 }
 /**
  * @brief This function serves to set state and capture_state length.
@@ -295,10 +296,10 @@ static inline void adc_set_diff_input(adc_input_pch_e p_ain, adc_input_nch_e n_a
  * @param[in]   r_max_s - Value of length of "set" state for MISC channel.
  * @return none
  */
-static inline void adc_set_state_length(unsigned short r_max_mc,unsigned char r_max_s)
+static inline void adc_set_state_length(unsigned short r_max_mc, unsigned char r_max_s)
 {
-	analog_write_reg8(areg_r_max_mc, r_max_mc);
-	analog_write_reg8(areg_r_max_s, ((r_max_mc>>8)<<6)| (r_max_s & FLD_R_MAX_S));
+    analog_write_reg8(areg_r_max_mc, r_max_mc);
+    analog_write_reg8(areg_r_max_s, ((r_max_mc >> 8) << 6) | (r_max_s & FLD_R_MAX_S));
 }
 /**
  * @brief     This function serves to config adc_dma_chn channel.
@@ -312,14 +313,14 @@ void adc_set_dma_config(dma_chn_e chn);
  * @param[in] data_byte_len - the length of data size by byte
  * @return    none
  */
-void adc_start_sample_dma(unsigned short *adc_data_buf,unsigned int data_byte_len);
+void adc_start_sample_dma(unsigned short *adc_data_buf, unsigned int data_byte_len);
 /**
  * @brief This function is used to set IO port for ADC supply or ADC IO port voltage sampling.
  * @param[in]  mode - ADC gpio pin sample mode
  * @param[in]  pin - adc_input_pin_def_e ADC input gpio pin
  * @return none
  */
-void adc_pin_config(adc_input_pin_mode_e mode ,adc_input_pin_def_e pin);
+void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin);
 /**
  * @brief This function is used to set two IO port configuration and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
@@ -368,7 +369,8 @@ void adc_temperature_sample_init(void);
  * 			1.2V			1/8				0 ~ 3.5V (suggest)
  * 			0.9V            1				0 ~ 0.8V
  */
-void adc_gpio_sample_init(adc_input_pin_def_e pin,adc_ref_vol_e v_ref,adc_pre_scale_e pre_scale,adc_sample_freq_e sample_freq);
+void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
+                          adc_sample_freq_e sample_freq);
 
 /**
  * @brief This function servers to set ADC configuration for ADC supply voltage sampling.
@@ -396,7 +398,7 @@ void adc_set_vbat_divider(adc_vbat_div_e vbat_div);
  * 		such as adc_clk, resolution, tsample_cycle, we think better to set as default value,
  * 		and user don't need to change them in most use cases.
  */
-void adc_init(adc_ref_vol_e v_ref,adc_pre_scale_e pre_scale,adc_sample_freq_e sample_freq);
+void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e sample_freq);
 /**
  * @brief This function serves to start adc sample and get raw adc sample code.
  * @param[in]   sample_buffer 		- pointer to the buffer adc sample code need to store.
