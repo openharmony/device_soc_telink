@@ -43,28 +43,29 @@
  *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *******************************************************************************************************/
-#ifndef  REGISTER_B91_H
-#define  REGISTER_B91_H
+#ifndef REGISTER_B91_H
+#define REGISTER_B91_H
 
-#include "gpio_reg.h"
-#include "soc.h"
+#include "adc_reg.h"
+#include "aes_reg.h"
 #include "analog_reg.h"
 #include "audio_reg.h"
-#include "timer_reg.h"
 #include "dma_reg.h"
-#include "usb_reg.h"
-#include "pwm_reg.h"
-#include "spi_reg.h"
+#include "gpio_reg.h"
 #include "i2c_reg.h"
+#include "mdec_reg.h"
 #include "mspi_reg.h"
-#include "rf_reg.h"
-#include "trng_reg.h"
 #include "npe_reg.h"
 #include "pke_reg.h"
 #include "plic_reg.h"
-#include "uart_reg.h"
+#include "pwm_reg.h"
+#include "rf_reg.h"
+#include "soc.h"
+#include "spi_reg.h"
 #include "stimer_reg.h"
-#include "aes_reg.h"
-#include "adc_reg.h"
-#include "mdec_reg.h"
+#include "timer_reg.h"
+#include "trng_reg.h"
+#include "uart_reg.h"
+#include "usb_reg.h"
+
 #endif

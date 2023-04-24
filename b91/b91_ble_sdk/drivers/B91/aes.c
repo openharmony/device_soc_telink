@@ -88,7 +88,7 @@ static inline void aes_wait_done(void);
 void aes_set_key_data(unsigned char *key, unsigned char *data)
 {
     unsigned int temp;
-    reg_embase_addr = aes_base_addr;  //set the embase addr
+    reg_embase_addr = aes_base_addr;  // set the embase addr
     for (unsigned char i = 0; i < 4; i++) {
         temp = key[16 - (4 * i) - 4] << 24 | key[16 - (4 * i) - 3] << 16 | key[16 - (4 * i) - 2] << 8 |
                key[16 - (4 * i) - 1];
@@ -124,11 +124,10 @@ void aes_get_result(unsigned char *result)
  */
 int aes_encrypt(unsigned char *key, unsigned char *plaintext, unsigned char *result)
 {
-
-    //set the key
+    // set the key
     aes_set_key_data(key, plaintext);
 
-    aes_set_mode(AES_ENCRYPT_MODE);  //cipher mode
+    aes_set_mode(AES_ENCRYPT_MODE);  // cipher mode
 
     aes_wait_done();
 
@@ -146,10 +145,10 @@ int aes_encrypt(unsigned char *key, unsigned char *plaintext, unsigned char *res
  */
 int aes_decrypt(unsigned char *key, unsigned char *decrypttext, unsigned char *result)
 {
-    //set the key
+    // set the key
     aes_set_key_data(key, decrypttext);
 
-    aes_set_mode(AES_DECRYPT_MODE);  //decipher mode
+    aes_set_mode(AES_DECRYPT_MODE);  // decipher mode
 
     aes_wait_done();
 
@@ -177,5 +176,6 @@ void aes_set_em_base_addr(unsigned int addr)
 static inline void aes_wait_done(void)
 {
     while (FLD_AES_START == (reg_aes_mode & FLD_AES_START))
-        ;
+    {
+	}
 }
