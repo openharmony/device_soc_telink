@@ -67,10 +67,7 @@
  */
 /*************************************************************************************************/
 
-#pragma  once
-
-
-
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,10 +76,8 @@ extern "C" {
 /*! \addtogroup MY_HEAP_API
  *  \{ */
 
-
-#include "common/types.h"
 #include "common/compiler.h"
-
+#include "common/types.h"
 
 /*************************************************************************************************/
 /*!
@@ -120,10 +115,8 @@ void myHeapAlloc(u32 size);
 /*************************************************************************************************/
 void *myHeapGetFreeStartAddress(void);
 
-/*! \} */    /* MY_HEAP_API */
+/*! \} */ /* MY_HEAP_API */
 
 #ifdef __cplusplus
 };
 #endif
-
-

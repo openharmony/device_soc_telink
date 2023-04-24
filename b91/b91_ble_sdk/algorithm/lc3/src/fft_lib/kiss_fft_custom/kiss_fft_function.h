@@ -1,37 +1,30 @@
 #ifndef KISS_FFT_FUNCTION_H
 #define KISS_FFT_FUNCTION_H
 
-
 #include "../../../inc/config.h"
 #if (ALG_LC3_ENABLE)
 #include "kiss_fft_fixed_op.h"
 
-
 static inline short spx_ilog2(unsigned int x)
 {
     int r = 0;
-    if (x >= (int)65536)
-    {
+    if (x >= (int)65536) {
         x >>= 16;
         r += 16;
     }
-    if (x >= 256)
-    {
+    if (x >= 256) {
         x >>= 8;
         r += 8;
     }
-    if (x >= 16)
-    {
+    if (x >= 16) {
         x >>= 4;
         r += 4;
     }
-    if (x >= 4)
-    {
+    if (x >= 4) {
         x >>= 2;
         r += 2;
     }
-    if (x >= 2)
-    {
+    if (x >= 2) {
         r += 1;
     }
     return r;
@@ -40,31 +33,26 @@ static inline short spx_ilog2(unsigned int x)
 static inline short spx_ilog4(unsigned int x)
 {
     int r = 0;
-    if (x >= (int)65536)
-    {
+    if (x >= (int)65536) {
         x >>= 16;
         r += 8;
     }
-    if (x >= 256)
-    {
+    if (x >= 256) {
         x >>= 8;
         r += 4;
     }
-    if (x >= 16)
-    {
+    if (x >= 16) {
         x >>= 4;
         r += 2;
     }
-    if (x >= 4)
-    {
+    if (x >= 4) {
         r += 1;
     }
     return r;
 }
 
-
 /** Generate a pseudo-random number */
-static inline short speex_rand(short std, int* seed)
+static inline short speex_rand(short std, int *seed)
 {
     int res;
     *seed = 1664525 * *seed + 1013904223;
@@ -97,7 +85,6 @@ static inline short spx_sqrt(int x)
 
 /* log(x) ~= -2.18151 + 4.20592*x - 2.88938*x^2 + 0.86535*x^3 (for .5 < x < 1) */
 
-
 #define A1 16469
 #define A2 2242
 #define A3 1486
@@ -107,8 +94,7 @@ static inline short spx_acos(short x)
     int s = 0;
     short ret;
     short sq;
-    if (x < 0)
-    {
+    if (x < 0) {
         s = 1;
         x = NEG16(x);
     }
@@ -124,7 +110,6 @@ static inline short spx_acos(short x)
     return ret;
 }
 
-
 #define K1 8192
 #define K2 -4096
 #define K3 340
@@ -134,12 +119,10 @@ static inline short spx_cos(short x)
 {
     short x2;
 
-    if (x < 12868)
-    {
+    if (x < 12868) {
         x2 = MULT16_16_P13(x, x);
         return ADD32(K1, MULT16_16_P13(x2, ADD32(K2, MULT16_16_P13(x2, ADD32(K3, MULT16_16_P13(K4, x2))))));
-    }
-    else {
+    } else {
         x = SUB16(25736, x);
         x2 = MULT16_16_P13(x, x);
         return SUB32(-K1, MULT16_16_P13(x2, ADD32(K2, MULT16_16_P13(x2, ADD32(K3, MULT16_16_P13(K4, x2))))));
@@ -156,7 +139,9 @@ static inline short _spx_cos_pi_2(short x)
     short x2;
 
     x2 = MULT16_16_P15(x, x);
-    return ADD16(1, MIN16(32766, ADD32(SUB16(L1, x2), MULT16_16_P15(x2, ADD32(L2, MULT16_16_P15(x2, ADD32(L3, MULT16_16_P15(L4, x2))))))));
+    return ADD16(
+        1, MIN16(32766, ADD32(SUB16(L1, x2),
+                              MULT16_16_P15(x2, ADD32(L2, MULT16_16_P15(x2, ADD32(L3, MULT16_16_P15(L4, x2))))))));
 }
 
 static inline short spx_cos_norm(int x)
@@ -164,17 +149,13 @@ static inline short spx_cos_norm(int x)
     x = x & 0x0001ffff;
     if (x > SHL32(EXTEND32(1), 16))
         x = SUB32(SHL32(EXTEND32(1), 17), x);
-    if (x & 0x00007fff)
-    {
-        if (x < SHL32(EXTEND32(1), 15))
-        {
+    if (x & 0x00007fff) {
+        if (x < SHL32(EXTEND32(1), 15)) {
             return _spx_cos_pi_2(EXTRACT16(x));
-        }
-        else {
+        } else {
             return NEG32(_spx_cos_pi_2(EXTRACT16(65536 - x)));
         }
-    }
-    else {
+    } else {
         if (x & 0x0000ffff)
             return 0;
         else if (x & 0x0001ffff)
@@ -237,11 +218,9 @@ static inline short spx_atan01(short x)
 /* Input in Q15, output in Q14 */
 static inline short spx_atan(int x)
 {
-    if (x <= 32767)
-    {
+    if (x <= 32767) {
         return SHR16(spx_atan01(x), 1);
-    }
-    else {
+    } else {
         int e = spx_ilog2(x);
         if (e >= 29)
             return 25736;
@@ -250,15 +229,12 @@ static inline short spx_atan(int x)
     }
 }
 
+#define kf_cexp2(x, phase)                                                                                            \
+    do {                                                                                                              \
+        (x)->r = spx_cos_norm((phase));                                                                               \
+        (x)->i = spx_cos_norm((phase)-32768);                                                                         \
+    } while (0)
 
+#endif  //#if (ALG_LC3_ENABLE)
 
-#define  kf_cexp2(x,phase) \
-               do{ \
-               (x)->r = spx_cos_norm((phase));\
-               (x)->i = spx_cos_norm((phase)-32768);\
-}while(0)
-
-
-#endif //#if (ALG_LC3_ENABLE)
-
-#endif // KISS_FFT_FUNCTION_H
+#endif  // KISS_FFT_FUNCTION_H

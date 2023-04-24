@@ -3,20 +3,21 @@
 
 #include "../inc/lc3_types.h"
 
-#if  (ALG_LC3_ENABLE)
-#ifdef   ANDES_INTRINSIC
+#if (ALG_LC3_ENABLE)
+#ifdef ANDES_INTRINSIC
 #include <nds_intrinsic.h>
 #include <nds_utils_math.h>
 #endif
 
-#ifdef   ANDES_INTRINSIC
+#ifdef ANDES_INTRINSIC
 /* 16-bit Count Leading Redundant Sign */
 inline Word16 clrs16(Word16 a)
 {
     return __nds__clrs16(a);
 }
 /* 32-bit count leading zero */
-inline UWord32 clz32(UWord32 a) {
+inline UWord32 clz32(UWord32 a)
+{
     return __nds__clz32(a);
 }
 
@@ -34,7 +35,7 @@ inline Word32 mult_16_16_32(Word16 vin1, Word16 vin2)
 /* vin1 : Q15,  vin2: Q15 ---> vout: Q15 */
 inline Word16 mult_r_16(Word16 vin1, Word16 vin2)
 {
-    return __nds__sra_u(__nds__smul16(vin1, vin2),15);
+    return __nds__sra_u(__nds__smul16(vin1, vin2), 15);
 }
 inline Word32 mult_32(Word32 vin1, Word32 vin2)
 {
@@ -42,12 +43,14 @@ inline Word32 mult_32(Word32 vin1, Word32 vin2)
 }
 
 /* 32-bit count leading redundant sign */
-inline UWord32 clrs32(UWord32 a){
-    return  __nds__clrs32(a);
+inline UWord32 clrs32(UWord32 a)
+{
+    return __nds__clrs32(a);
 }
 
 /* 32-bit shift right arithmetic */
-inline UWord32 sra32(UWord32 a, UWord32 b) {
+inline UWord32 sra32(UWord32 a, UWord32 b)
+{
     return __nds__sra32(a, b);
 }
 
@@ -115,7 +118,7 @@ inline Word16 lshr(Word16 var1, Word16 var2)
 }*/
 inline Word32 L_add(Word32 L_var1, Word32 L_var2)
 {
-	return __nds__kaddw(L_var1, L_var2);
+    return __nds__kaddw(L_var1, L_var2);
 }
 
 inline Word32 L_sub(Word32 L_var1, Word32 L_var2)
@@ -168,7 +171,8 @@ inline Word16 msu_r(Word32 L_var3, Word16 var1, Word16 var2)
 }
 #else
 
-inline UWord32 clz32(UWord32 a) {
+inline UWord32 clz32(UWord32 a)
+{
     int i;
     for (i = 32; i >= 0; i--) {
         if (a == 0)
@@ -217,32 +221,25 @@ inline Word16 clrs16(Word16 a)
 {
     int i;
     UWord32 cnt = 0;
-    for (i = 14; i >= 0; i--)
-    {
+    for (i = 14; i >= 0; i--) {
 
-        if (((a >> i) & 1) == ((a >> 15) & 1))
-        {
+        if (((a >> i) & 1) == ((a >> 15) & 1)) {
             cnt++;
-        }
-        else
-        {
+        } else {
             break;
         }
     }
     return cnt;
 }
-inline UWord32 clrs32(UWord32 a) {
+inline UWord32 clrs32(UWord32 a)
+{
     int i;
-    UWord32 cnt=0;
-    for ( i = 30; i >= 0; i--)
-    {
+    UWord32 cnt = 0;
+    for (i = 30; i >= 0; i--) {
 
-        if ( ((a>>i)&1) == ((a>>31)&1) )
-        {
+        if (((a >> i) & 1) == ((a >> 31) & 1)) {
             cnt++;
-        }
-        else
-        {
+        } else {
             break;
         }
     }
@@ -315,42 +312,28 @@ inline Word32 L_shl(Word32 L_var1, Word16 var2)
     Word32 L_var_out = 0L;
     //int Overflow = 0;
 
-    if (var2 <= 0)
-    {
+    if (var2 <= 0) {
         if (var2 < -32)
             var2 = -32;
         var2 = -var2;
         //L_var_out = L_shr(L_var1, var2);
-        if (var2 >= 31)
-        {
+        if (var2 >= 31) {
             L_var_out = (L_var1 < 0L) ? -1 : 0;
-        }
-        else
-        {
-            if (L_var1 < 0)
-            {
+        } else {
+            if (L_var1 < 0) {
                 L_var_out = ~((~L_var1) >> var2);
-            }
-            else
-            {
+            } else {
                 L_var_out = L_var1 >> var2;
             }
         }
-    }
-    else
-    {
-        for (; var2 > 0; var2--)
-        {
-            if (L_var1 > (Word32)0X3fffffffL)
-            {
+    } else {
+        for (; var2 > 0; var2--) {
+            if (L_var1 > (Word32)0X3fffffffL) {
                 //Overflow = 1;
                 L_var_out = MAX_32;
                 break;
-            }
-            else
-            {
-                if (L_var1 < (Word32)0xc0000000L)
-                {
+            } else {
+                if (L_var1 < (Word32)0xc0000000L) {
                     //Overflow = 1;
                     L_var_out = MIN_32;
                     break;
@@ -368,27 +351,18 @@ inline Word32 L_shr(Word32 L_var1, Word16 var2)
 {
     Word32 L_var_out;
 
-    if (var2 < 0)
-    {
+    if (var2 < 0) {
         if (var2 < -32)
             var2 = -32;
         var2 = -var2;
         L_var_out = L_shl(L_var1, var2);
-    }
-    else
-    {
-        if (var2 >= 31)
-        {
+    } else {
+        if (var2 >= 31) {
             L_var_out = (L_var1 < 0L) ? -1 : 0;
-        }
-        else
-        {
-            if (L_var1 < 0)
-            {
+        } else {
+            if (L_var1 < 0) {
                 L_var_out = ~((~L_var1) >> var2);
-            }
-            else
-            {
+            } else {
                 L_var_out = L_var1 >> var2;
             }
         }
@@ -397,25 +371,21 @@ inline Word32 L_shr(Word32 L_var1, Word16 var2)
     return (L_var_out);
 }
 
-
 inline Word32 L_add(Word32 L_var1, Word32 L_var2)
 {
     Word32 L_var_out;
-   int Overflow = 0;
+    int Overflow = 0;
 
     L_var_out = L_var1 + L_var2;
 
-    if (((L_var1 ^ L_var2) & 0x80000000L) == 0)
-    {
-        if ((L_var_out ^ L_var1) & 0x80000000L)
-        {
+    if (((L_var1 ^ L_var2) & 0x80000000L) == 0) {
+        if ((L_var_out ^ L_var1) & 0x80000000L) {
             L_var_out = (L_var1 < 0) ? 0x80000000L : 0x7fffffffL;
             Overflow = 1;
         }
     }
-    if (Overflow == 1)
-    {
-        //printf("LaddÒç³ö\n");
+    if (Overflow == 1) {
+        //printf("Laddï¿½ï¿½ï¿½\n");
     }
     return (L_var_out);
 }
@@ -426,12 +396,10 @@ inline Word32 L_sub(Word32 L_var1, Word32 L_var2)
 
     L_var_out = L_var1 - L_var2;
 
-    if (((L_var1 ^ L_var2) & MIN_32) != 0)
-    {
-        if ((L_var_out ^ L_var1) & MIN_32)
-        {
+    if (((L_var1 ^ L_var2) & MIN_32) != 0) {
+        if ((L_var_out ^ L_var1) & MIN_32) {
             L_var_out = (L_var1 < 0L) ? MIN_32 : MAX_32;
-            //printf("LsubÒç³ö\n");
+            //printf("Lsubï¿½ï¿½ï¿½\n");
         }
     }
     return (L_var_out);
@@ -449,39 +417,27 @@ inline Word32 L_sub_half(Word32 L_var1, Word32 L_var2)
 
 inline Word16 abs16(Word16 x)
 {
-    if (x < 0)
-    {
-        if (x == MIN_16)
-        {
+    if (x < 0) {
+        if (x == MIN_16) {
             return MAX_16;
-        }
-        else
-        {
+        } else {
             return -x;
         }
 
-    }
-    else
-    {
+    } else {
         return x;
     }
 }
 inline Word32 abs32(Word32 x)
 {
-    if (x < 0)
-    {
-        if (x == MIN_32)
-        {
+    if (x < 0) {
+        if (x == MIN_32) {
             return MAX_32;
-        }
-        else
-        {
+        } else {
             return -x;
         }
 
-    }
-    else
-    {
+    } else {
         return x;
     }
 }
@@ -494,12 +450,9 @@ inline Word32 L_mult(Word16 var1, Word16 var2)
     Word32 L_var_out;
     L_var_out = (Word32)var1 * (Word32)var2;
 
-    if (L_var_out != (Word32)0x40000000L)
-    {
+    if (L_var_out != (Word32)0x40000000L) {
         L_var_out *= 2;
-    }
-    else
-    {
+    } else {
         L_var_out = 0x7fffffffL;
     }
 
@@ -550,8 +503,6 @@ inline Word16 msu_r(Word32 L_var3, Word16 var1, Word16 var2)
 }
 #endif
 
-
-
 /* below functions needs to be further optimized */
 inline Word32 L_negate(Word32 L_var1)
 {
@@ -573,11 +524,9 @@ inline Word16 saturate(Word32 vin)
 
     if (vin > MAX_16) {
         vout = MAX_16;
-    }
-    else if (vin < MIN_16) {
+    } else if (vin < MIN_16) {
         vout = MIN_16;
-    }
-    else {
+    } else {
         vout = (Word16)vin;
     }
 
@@ -661,36 +610,27 @@ inline Word32 asr_r_32(Word32 vin, Word32 shift)
 }
 inline Word16 norm32_l(Word32 x)
 {
-    if (x==0)
-    {
+    if (x == 0) {
         return 0;
-    }
-    else
-    {
+    } else {
         return (Word16)clrs32(x);
     }
-
 }
 
 inline Word64 mac_32_32_64(Word32 vin1, Word32 vin2, Word64 vout)
 {
     vout = vout + (Word64)vin1 * (Word64)vin1;
-    if (vout >= 0x80000000)
-    {
+    if (vout >= 0x80000000) {
         vout = 0x7FFFFFF;
     }
     return vout;
 }
 
-
 inline Word16 norm16_l(Word16 x)
 {
-    if (x == 0)
-    {
+    if (x == 0) {
         return 0;
-    }
-    else
-    {
+    } else {
         return clrs16(x);
     }
 }
@@ -704,9 +644,9 @@ inline Word16 negate(Word16 var1)
     return (var_out);
 }
 
-inline Word16 lshr(Word16 var1, Word16 var2) {
+inline Word16 lshr(Word16 var1, Word16 var2)
+{
     Word16 var_out;
-
 
     var_out = var1 >> 1;
     var_out = var_out & 0x7fff;
@@ -715,13 +655,12 @@ inline Word16 lshr(Word16 var1, Word16 var2) {
     //printf("\noutput=%d %d\n", (Word16)__nds__srl16(var1, var2), var_out);
     return (var_out);
 }
-#define cplxMult32_16_32(r, i, a, b, c, d)                                                                          \
-    do                                                                                                                 \
-    {                                                                                                                  \
-        r =(( ( (mult_32_16_32(a, c)) ) -  ( (mult_32_16_32(b, d)) ) ));                                              \
-        i =(( ( (mult_32_16_32(a, d)) ) +  ( (mult_32_16_32(b, c)) ) ));                                              \
+#define cplxMult32_16_32(r, i, a, b, c, d)                                                                            \
+    do {                                                                                                              \
+        r = ((((mult_32_16_32(a, c))) - ((mult_32_16_32(b, d)))));                                                    \
+        i = ((((mult_32_16_32(a, d))) + ((mult_32_16_32(b, c)))));                                                    \
     } while (0)
 
-#endif //#if  (ALG_LC3_ENABLE)
+#endif  //#if  (ALG_LC3_ENABLE)
 
 #endif

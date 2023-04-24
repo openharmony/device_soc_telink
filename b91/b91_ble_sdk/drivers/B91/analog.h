@@ -56,10 +56,10 @@
  */
 #pragma once
 
-
-#include "dma.h"
 #include "compiler.h"
+#include "dma.h"
 #include "reg_include/register_b91.h"
+
 
 /**********************************************************************************************************************
  *                                         global constants                                                           *
@@ -115,9 +115,9 @@ void analog_write_reg16(unsigned char addr, unsigned short data);
  * @param[in]  addr - address need to be read.
  * @return     the result of read.
  */
- unsigned int analog_read_reg32(unsigned char addr);
+unsigned int analog_read_reg32(unsigned char addr);
 
- /**
+/**
   * @brief      This function serves to analog register write by word.
   * @param[in]  addr - address need to be write.
   * @param[in]  data - the value need to be write.
@@ -142,7 +142,6 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
  */
 _attribute_ram_code_sec_noinline_ void analog_write_buff(unsigned char addr, unsigned char *buff, int len);
 
-
 /**
  * @brief      This function serves to analog register write by word using dma.
  * @param[in]  chn  - the dma channel.
@@ -159,7 +158,7 @@ void analog_write_reg32_dma(dma_chn_e chn, unsigned char addr, void *pdat);
  * @param[out] pdat - the buffer ptr to store read data.
  * @return     none.
  */
-void analog_read_reg32_dma(dma_chn_e chn, unsigned char addr,void *pdat);
+void analog_read_reg32_dma(dma_chn_e chn, unsigned char addr, void *pdat);
 
 /**
  * @brief      This function write buffer to analog register by dma channel.

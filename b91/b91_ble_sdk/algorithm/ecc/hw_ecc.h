@@ -28,10 +28,11 @@
 #ifndef HW_ECC_H_
 #define HW_ECC_H_
 
-#include "algorithm/ecc/hw_ecc.h"
 #include "algorithm/ecc/ecc_curve.h"
+#include "algorithm/ecc/hw_ecc.h"
 
-#if ( (MCU_CORE_TYPE == MCU_CORE_827x) || (MCU_CORE_TYPE == MCU_CORE_9518) )
+
+#if ((MCU_CORE_TYPE == MCU_CORE_827x) || (MCU_CORE_TYPE == MCU_CORE_9518))
 
 /* hECC_RNG_Function type
 The RNG function should fill 'size' random bytes into 'dest'. It should return 1 if
@@ -42,14 +43,12 @@ hECC_make_key(). */
 
 typedef int (*hECC_rng_func)(unsigned char *dest, unsigned size);
 
-
 /**
  * @brief		The function that will be used to generate random bytes.
  * @param[in]	resister predefined TRNG function
  * @return		none
  */
-void			hwECC_set_rng(hECC_rng_func rng_func);
-
+void hwECC_set_rng(hECC_rng_func rng_func);
 
 /**
  * @brief		get ECCP key pair(the key pair could be used in ECDH).
@@ -58,8 +57,7 @@ void			hwECC_set_rng(hECC_rng_func rng_func);
  * @param[in]	curve_sel	- ecc_curve select, e.g.: p-256r1.
  * @return		1(success), 0(error).
  */
-unsigned char 	hwECC_make_key(unsigned char *public_key, unsigned char *private_key, ecc_curve_t curve_sel);
-
+unsigned char hwECC_make_key(unsigned char *public_key, unsigned char *private_key, ecc_curve_t curve_sel);
 
 /**
  * @brief		ECDH compute key.
@@ -69,14 +67,9 @@ unsigned char 	hwECC_make_key(unsigned char *public_key, unsigned char *private_
  * @param[in]	curve_sel		- ecc_curve select, e.g.: p-256r1.
  * @Return		1(success); 0(error).
  */
-unsigned char	hwECC_shared_secret(const unsigned char *public_key, const unsigned char *private_key,
-									unsigned char *secret, ecc_curve_t curve_sel);
-
-
-
+unsigned char hwECC_shared_secret(const unsigned char *public_key, const unsigned char *private_key,
+                                  unsigned char *secret, ecc_curve_t curve_sel);
 
 #endif /* HW_ECC_H_ */
 
 #endif /* The end of #if((MCU_CORE_TYPE == MCU_CORE_827x) || (MCU_CORE_TYPE == MCU_CORE_9518)) */
-
-

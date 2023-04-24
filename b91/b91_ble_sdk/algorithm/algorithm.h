@@ -50,11 +50,11 @@
 #include "algorithm/aes_ccm/aes_ccm.h"
 #include "algorithm/crypto/crypto_alg.h"
 
-
 #include "algorithm/ecc/ecc_ll.h"
 #include "algorithm/ecc/hw_ecc.h"
 
-#include "algorithm/lc3/inc/lc3_enc.h"
 #include "algorithm/lc3/inc/lc3_dec.h"
+#include "algorithm/lc3/inc/lc3_enc.h"
+
 
 #endif /* ALGORITHM_H_ */

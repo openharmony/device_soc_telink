@@ -3,9 +3,9 @@
 
 #include "../inc/lc3_dec.h"
 
-#if  (ALG_LC3_ENABLE)
+#if (ALG_LC3_ENABLE)
 
-LC3DEC_Error dec_bitstream(LC3_DEC_STRU* dec, UWord8* inbuf, UWord32 inlen);
+LC3DEC_Error dec_bitstream(LC3_DEC_STRU *dec, UWord8 *inbuf, UWord32 inlen);
 
 #endif
 

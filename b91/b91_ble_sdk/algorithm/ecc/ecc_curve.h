@@ -48,16 +48,12 @@
 #define ECC_CURVE_H_
 
 /* Curve selection options */
-typedef enum{
-//	ECC_use_secp160r1,
-	ECC_use_secp192r1,
-	ECC_use_secp224r1,
-	ECC_use_secp256r1,
-//	ECC_use_secp256k1,
-}ecc_curve_t;
-
-
-
-
+typedef enum {
+    //	ECC_use_secp160r1,
+    ECC_use_secp192r1,
+    ECC_use_secp224r1,
+    ECC_use_secp256r1,
+    //	ECC_use_secp256k1,
+} ecc_curve_t;
 
 #endif /* ECC_CURVE_H_ */
