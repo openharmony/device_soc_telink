@@ -48,24 +48,13 @@
 
 #include "stack/ble/hci/hci_cmd.h"
 
-
-
-
-
-
 /**
  * @brief      for user to initialize extended scanning module
  * 			   notice that only one module can be selected between legacy scanning module and extended scanning module
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initExtendedScanning_module(void);
-
-
-
-
-
-
+void blc_ll_initExtendedScanning_module(void);
 
 /**
  * @brief      This function is used to set the extended scan parameters to be used on the advertising physical channels
@@ -91,15 +80,9 @@ void 		blc_ll_initExtendedScanning_module(void);
  *
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_setExtScanParam ( own_addr_type_t  ownAddrType,	scan_fp_type_t scan_fp,		 scan_phy_t	scan_phys,
-									 	 scan_type_t   scanType_0,	scan_inter_t   scanInter_0,  scan_wind_t scanWindow_0,
-										 scan_type_t   scanType_1,	scan_inter_t   scanInter_1,  scan_wind_t scanWindow_1);
-
-
-
-
-
-
+ble_sts_t blc_ll_setExtScanParam(own_addr_type_t ownAddrType, scan_fp_type_t scan_fp, scan_phy_t scan_phys,
+                                 scan_type_t scanType_0, scan_inter_t scanInter_0, scan_wind_t scanWindow_0,
+                                 scan_type_t scanType_1, scan_inter_t scanInter_1, scan_wind_t scanWindow_1);
 
 /**
  * @brief	   This function is used to enable or disable scanning.
@@ -110,10 +93,7 @@ ble_sts_t 	blc_ll_setExtScanParam ( own_addr_type_t  ownAddrType,	scan_fp_type_t
  * 			   			subsequent Scan_Duration.
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_setExtScanEnable (scan_en_t  extScan_en,	dupe_fltr_en_t filter_duplicate, scan_durn_t duration,	scan_period_t period);
-
-
-
-
+ble_sts_t blc_ll_setExtScanEnable(scan_en_t extScan_en, dupe_fltr_en_t filter_duplicate, scan_durn_t duration,
+                                  scan_period_t period);
 
 #endif /* LL_SCAN_EXT_H_ */

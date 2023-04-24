@@ -46,15 +46,12 @@
 #ifndef LL_WHITELIST_H_
 #define LL_WHITELIST_H_
 
-
-
 /**
  * @brief      This function is used to reset whitelist
  * @param[in]  none
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_whiteList_reset(void);
-
+ble_sts_t ll_whiteList_reset(void);
 
 /**
  * @brief      This function is used to add a device form whitelist
@@ -62,8 +59,7 @@ ble_sts_t		ll_whiteList_reset(void);
  * @param[in]  addr - device mac address
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_whiteList_add(u8 type, u8 *addr);
-
+ble_sts_t ll_whiteList_add(u8 type, u8 *addr);
 
 /**
  * @brief      This function is used to delete a device from whitelist
@@ -71,15 +67,13 @@ ble_sts_t		ll_whiteList_add(u8 type, u8 *addr);
  * @param[in]  addr - device mac address
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_whiteList_delete(u8 type, u8 *addr);
-
+ble_sts_t ll_whiteList_delete(u8 type, u8 *addr);
 
 /**
  * @brief      This function is used to get whitelist size
  * @param[out] pointer to size
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_whiteList_readSize(u8 *returnPublicAddrListSize) ;
-
+ble_sts_t ll_whiteList_readSize(u8 *returnPublicAddrListSize);
 
 #endif /* LL_WHITELIST_H_ */

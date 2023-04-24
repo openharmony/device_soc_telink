@@ -46,43 +46,26 @@
 #ifndef CIS_MASTER_H_
 #define CIS_MASTER_H_
 
-
-
-
-#define 		CIG_MST_PARAM_LEN				(436)   //Note: user can't modify this value,and this value must 4 byte aligned
-#define 		CIG_ID_0						0
-#define 		CIG_ID_1		      			1
-#define 		CIG_ID_2		              	2
-#define 		CIG_ID_3		              	3
-#define 		CIG_ID_INVALID		           	0xFF
-
-
-
+#define CIG_MST_PARAM_LEN (436)  //Note: user can't modify this value,and this value must 4 byte aligned
+#define CIG_ID_0          0
+#define CIG_ID_1          1
+#define CIG_ID_2          2
+#define CIG_ID_3          3
+#define CIG_ID_INVALID    0xFF
 
 /**
  * @brief      for user to initialize CIS master module.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initCisMaster_module(void);
-
+void blc_ll_initCisMaster_module(void);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initCisMasterParameters( u8 *pCigPara, int cig_mst_num);
-
-
-/**
- * @brief
- * @param
- * @param
- * @return     ble_sts_t
- */
-ble_sts_t 	blc_hci_le_setCigParams	   (hci_le_setCigParam_cmdParam_t* pCmdParam, 		hci_le_setCigParam_retParam_t* pRetParam);
-
+void blc_ll_initCisMasterParameters(u8 *pCigPara, int cig_mst_num);
 
 /**
  * @brief
@@ -90,17 +73,7 @@ ble_sts_t 	blc_hci_le_setCigParams	   (hci_le_setCigParam_cmdParam_t* pCmdParam,
  * @param
  * @return     ble_sts_t
  */
-ble_sts_t 	blc_hci_le_setCigParamsTest(hci_le_setCigParamTest_cmdParam_t* pCmdParam, 	hci_le_setCigParam_retParam_t* pRetParam);
-
-
-/**
- * @brief
- * @param
- * @param
- * @return     ble_sts_t
- */
-ble_sts_t 	blc_hci_le_removeCig(u8 cigId, u8* pRetParamm);
-
+ble_sts_t blc_hci_le_setCigParams(hci_le_setCigParam_cmdParam_t *pCmdParam, hci_le_setCigParam_retParam_t *pRetParam);
 
 /**
  * @brief
@@ -108,8 +81,23 @@ ble_sts_t 	blc_hci_le_removeCig(u8 cigId, u8* pRetParamm);
  * @param
  * @return     ble_sts_t
  */
-ble_sts_t 	blc_hci_le_createCis(hci_le_CreateCisParams_t* pCisPara);
+ble_sts_t blc_hci_le_setCigParamsTest(hci_le_setCigParamTest_cmdParam_t *pCmdParam,
+                                      hci_le_setCigParam_retParam_t *pRetParam);
 
+/**
+ * @brief
+ * @param
+ * @param
+ * @return     ble_sts_t
+ */
+ble_sts_t blc_hci_le_removeCig(u8 cigId, u8 *pRetParamm);
 
+/**
+ * @brief
+ * @param
+ * @param
+ * @return     ble_sts_t
+ */
+ble_sts_t blc_hci_le_createCis(hci_le_CreateCisParams_t *pCisPara);
 
 #endif

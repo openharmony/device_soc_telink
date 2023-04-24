@@ -46,103 +46,93 @@
 #ifndef LL_PM_H_
 #define LL_PM_H_
 
-
-
 /**
  *  @brief
  */
 typedef enum {
-	PM_SLEEP_DISABLE		= 0,
-	PM_SLEEP_LEG_ADV		= BIT(0),
-	PM_SLEEP_LEG_SCAN 		= BIT(1),
-	PM_SLEEP_ACL_SLAVE		= BIT(2),
-	PM_SLEEP_ACL_MASTER 	= BIT(3),
-}sleep_mask_t;
-
-
+    PM_SLEEP_DISABLE = 0,
+    PM_SLEEP_LEG_ADV = BIT(0),
+    PM_SLEEP_LEG_SCAN = BIT(1),
+    PM_SLEEP_ACL_SLAVE = BIT(2),
+    PM_SLEEP_ACL_MASTER = BIT(3),
+} sleep_mask_t;
 
 /**
  *  @brief
  */
 /* DeepSleepRetention_Enable */
 typedef enum {
-	PM_DeepRetn_Disable = 0x00,
-	PM_DeepRetn_Enable  = 0x01,
+    PM_DeepRetn_Disable = 0x00,
+    PM_DeepRetn_Enable = 0x01,
 } deep_retn_en_t;
-
 
 /**
  * @brief	for user to initialize low power mode
  * @param	none
  * @return	none
  */
-void 		blc_ll_initPowerManagement_module(void);
-
+void blc_ll_initPowerManagement_module(void);
 
 /**
  * @brief   LinkLayer initialization after deepSleep retention wake_up
  * @param	none
  * @return	none
  */
-void 		blc_ll_recoverDeepRetention(void);
-
+void blc_ll_recoverDeepRetention(void);
 
 /**
  * @brief	for user to set low power mode mask
  * @param	mask - low power mode mask
  * @return	none
  */
-void 		blc_pm_setSleepMask (sleep_mask_t mask);
+void blc_pm_setSleepMask(sleep_mask_t mask);
 
 /**
  * @brief	for user to enable or disable deepSleep retention function
  * @param	en -  deepSleep retention enable, 1: enable; 0: disable
  * @return	none
  */
-void 	blc_pm_setDeepsleepRetentionEnable (deep_retn_en_t en);
+void blc_pm_setDeepsleepRetentionEnable(deep_retn_en_t en);
 
 /**
  * @brief	for user to set low power mode wake up source
  * @param	wakeup_src - low power mode wake_up source
  * @return	none
  */
-void		blc_pm_setWakeupSource (SleepMode_TypeDef wakeup_src);
-
+void blc_pm_setWakeupSource(SleepMode_TypeDef wakeup_src);
 
 /**
  * @brief	for user to get low power mode wake up time
  * @param	none
  * @return	bltPm.current_wakeup_tick
  */
-u32 		blc_pm_getWakeupSystemTick(void);
+u32 blc_pm_getWakeupSystemTick(void);
 
 /**
  * @brief	for user to set the threshold of sleep tick for entering deep retention mode
  * @param	thres_ms - the threshold of time for suspend or deepsleep retention
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionThreshold(u32 thres_ms);
+void blc_pm_setDeepsleepRetentionThreshold(u32 thres_ms);
 
 /**
  * @brief	for user to set early wake up tick for deep retention mode
  * @param	earlyWakeup_us - early wake up tick for deep retention mode
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionEarlyWakeupTiming(u32 earlyWakeup_us);
+void blc_pm_setDeepsleepRetentionEarlyWakeupTiming(u32 earlyWakeup_us);
 
 /**
  * @brief	for user to set the type of deep retention mode
  * @param	sleep_type - the type of deep retention mode
  * @return  none.
  */
-void 		blc_pm_setDeepsleepRetentionType(SleepMode_TypeDef sleep_type);
-
-
+void blc_pm_setDeepsleepRetentionType(SleepMode_TypeDef sleep_type);
 
 /**
  * @brief	application wake up low power mode process callback function
  */
-typedef 	void (*pm_appWakeupLowPower_callback_t)(int);
+typedef void (*pm_appWakeupLowPower_callback_t)(int);
 
 /**
  * @brief	for user to set application wake up low power mode
@@ -150,15 +140,13 @@ typedef 	void (*pm_appWakeupLowPower_callback_t)(int);
  * @param	enable - low power mode application wake up enable
  * @return	none
  */
-void 		blc_pm_setAppWakeupLowPower(u32 wakeup_tick, u8 enable);
+void blc_pm_setAppWakeupLowPower(u32 wakeup_tick, u8 enable);
 
 /**
  * @brief	for user to register the callback for application wake up low power mode process
  * @param	cb - the pointer of callback function
  * @return  none.
  */
-void 		blc_pm_registerAppWakeupLowPowerCb(pm_appWakeupLowPower_callback_t cb);
-
-
+void blc_pm_registerAppWakeupLowPowerCb(pm_appWakeupLowPower_callback_t cb);
 
 #endif /* LL_PM_H_ */

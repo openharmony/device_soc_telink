@@ -53,17 +53,13 @@
 #include "stack/ble/host/l2cap/l2cap.h"
 #include "stack/ble/host/l2cap/l2cap_signal.h"
 
-
 #include "stack/ble/host/attr/att.h"
 #include "stack/ble/host/attr/gatt.h"
-
 
 #include "stack/ble/host/smp/smp.h"
 #include "stack/ble/host/smp/smp_storage.h"
 
 #include "stack/ble/host/gap/gap.h"
 #include "stack/ble/host/gap/gap_event.h"
-
-
 
 #endif /* STACK_BLE_HOST_BLE_HOST_H_ */

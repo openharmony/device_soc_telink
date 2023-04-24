@@ -48,21 +48,15 @@
 
 #if (BLC_AUDIO_RAAP_ENABLE)
 
+int blc_audio_raapAttRead(u16 connHandle, void *p);
+int blc_audio_raapAttWrite(u16 connHandle, void *p);
 
-
-int blc_audio_raapAttRead(u16 connHandle, void* p);
-int blc_audio_raapAttWrite(u16 connHandle, void* p);
-
-
-
-
-static int  blt_audio_raapInit(blt_audio_handle_t *pHandle);
-static int  blt_audio_raapGattIn(blt_audio_handle_t *pHandle, u8 *pPkt);
-static int  blt_audio_raapSetServ(blt_audio_handle_t *pHandle, attribute_t *pService);
+static int blt_audio_raapInit(blt_audio_handle_t *pHandle);
+static int blt_audio_raapGattIn(blt_audio_handle_t *pHandle, u8 *pPkt);
+static int blt_audio_raapSetServ(blt_audio_handle_t *pHandle, attribute_t *pService);
 static void blt_audio_raapSetConn(blt_audio_handle_t *pHandle, BLC_AUDIO_STATE_ENUM state);
 static void blt_audio_raapProcess(blt_audio_handle_t *pHandle);
 
+#endif  //#if (BLC_AUDIO_RAAP_ENABLE)
 
-#endif //#if (BLC_AUDIO_RAAP_ENABLE)
-
-#endif //_AUDIO_RAAP_H_
+#endif  //_AUDIO_RAAP_H_

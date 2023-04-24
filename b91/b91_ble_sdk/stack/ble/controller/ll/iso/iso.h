@@ -46,9 +46,9 @@
 #ifndef ISO_H_
 #define ISO_H_
 
-#define  	ISO_RX_EVENT_LENGTH			(24)	//Note: user can't modify this value,and this value must 4 byte aligned
-#define		CIS_TX_PDU_BUFFER_LENGTH	(28)	//Note: user can't modify this value,and this value must 4 byte aligned
-#define		BIS_TX_PDU_BUFFER_LENGTH	(20)	//Note: user can't modify this value,and this value must 4 byte aligned
+#define ISO_RX_EVENT_LENGTH      (24)  //Note: user can't modify this value,and this value must 4 byte aligned
+#define CIS_TX_PDU_BUFFER_LENGTH (28)  //Note: user can't modify this value,and this value must 4 byte aligned
+#define BIS_TX_PDU_BUFFER_LENGTH (20)  //Note: user can't modify this value,and this value must 4 byte aligned
 /**
  * @brief      for user to initialize CIS ISO TX FIFO.
  * @param[in]  pRxbuf - TX FIFO buffer address(Tx buffer must concern all CISes).
@@ -57,8 +57,7 @@
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_initCisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
-
+ble_sts_t blc_ll_initCisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      for user to initialize CIS ISO RX FIFO.
@@ -68,8 +67,7 @@ ble_sts_t	blc_ll_initCisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_initCisRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
-
+ble_sts_t blc_ll_initCisRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      for user to initialize CIS RX EVT FIFO.
@@ -79,8 +77,7 @@ ble_sts_t	blc_ll_initCisRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_initCisRxEvtFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
-
+ble_sts_t blc_ll_initCisRxEvtFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      for user to initialize BIS ISO TX FIFO.
@@ -90,8 +87,7 @@ ble_sts_t	blc_ll_initCisRxEvtFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_initBisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
-
+ble_sts_t blc_ll_initBisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      for user to initialize BIS ISO RX FIFO.
@@ -110,9 +106,6 @@ ble_sts_t blc_ll_initBisRxFifo(u8 *pRxbuf, int full_size, int fifo_number, u8 bi
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t	blc_setHostFeatureISOChannel_en(u8 en);
-
+ble_sts_t blc_setHostFeatureISOChannel_en(u8 en);
 
 #endif
-
-

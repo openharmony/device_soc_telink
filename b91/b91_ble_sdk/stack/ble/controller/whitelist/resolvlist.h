@@ -46,26 +46,21 @@
 #ifndef LL_RESOLVLIST_H_
 #define LL_RESOLVLIST_H_
 
-
 #include <stack/ble/ble_common.h>
-
-
-
 
 /**
  * @brief      This function is used to initialize resolving list && RPA concerned parameters
  * @param[in]  none
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-void			blc_ll_resolvListInit(void);
+void blc_ll_resolvListInit(void);
 
 /**
  * @brief      This function is used to reset resolving list
  * @param[in]  none
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_resolvingList_reset(void);
-
+ble_sts_t ll_resolvingList_reset(void);
 
 /**
  * @brief      This function is used to add a device to resolving list
@@ -75,8 +70,7 @@ ble_sts_t		ll_resolvingList_reset(void);
  * @param[in]  local_irk - local IRK pointer
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_resolvingList_add(u8 peerIdAddrType, u8 *peerIdAddr, u8 *peer_irk, u8 *local_irk);
-
+ble_sts_t ll_resolvingList_add(u8 peerIdAddrType, u8 *peerIdAddr, u8 *peer_irk, u8 *local_irk);
 
 /**
  * @brief      This function is used to delete a device from resolving list
@@ -84,24 +78,21 @@ ble_sts_t		ll_resolvingList_add(u8 peerIdAddrType, u8 *peerIdAddr, u8 *peer_irk,
  * @param[in]  peerIdAddr - device mac address
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_resolvingList_delete(u8 peerIdAddrType, u8 *peerIdAddr);
-
+ble_sts_t ll_resolvingList_delete(u8 peerIdAddrType, u8 *peerIdAddr);
 
 /**
  * @brief      This function is used to enable resolvinglist resolution
  * @param[in]  resolutionEn - 1: enable; 0:disable
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t		ll_resolvingList_setAddrResolutionEnable (u8 resolutionEn);
-
+ble_sts_t ll_resolvingList_setAddrResolutionEnable(u8 resolutionEn);
 
 /**
  * @brief      This function is used to get resolving list size
  * @param[out] pointer to size
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t  		ll_resolvingList_getSize(u8 *Size);
-
+ble_sts_t ll_resolvingList_getSize(u8 *Size);
 
 /**
  * @brief	This function is used to get the current peer Resolvable Private
@@ -111,8 +102,7 @@ ble_sts_t  		ll_resolvingList_getSize(u8 *Size);
  * @param[out]  peerResolvableAddr - Peer Resolvable Address
  * @return	Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t  		ll_resolvingList_getPeerResolvableAddr (u8 peerIdAddrType, u8* peerIdAddr, u8* peerResolvableAddr);
-
+ble_sts_t ll_resolvingList_getPeerResolvableAddr(u8 peerIdAddrType, u8 *peerIdAddr, u8 *peerResolvableAddr);
 
 /**
  * @brief	This function is used to get the current local Resolvable Private
@@ -122,15 +112,14 @@ ble_sts_t  		ll_resolvingList_getPeerResolvableAddr (u8 peerIdAddrType, u8* peer
  * @param[out]  LocalResolvableAddr - Local Resolvable Address
  * @return	Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t  		ll_resolvingList_getLocalResolvableAddr(u8 peerIdAddrType, u8* peerIdAddr, u8* LocalResolvableAddr);
-
+ble_sts_t ll_resolvingList_getLocalResolvableAddr(u8 peerIdAddrType, u8 *peerIdAddr, u8 *LocalResolvableAddr);
 
 /**
  * @brief	This function is used to enable resolution of Resolvable Private Addresses in the Controller.
  * @param[in]	resolutionEn - Address Resolution Enable/Disable
  * @return	Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t  		ll_resolvingList_setAddrResolutionEnable (u8 resolutionEn);
+ble_sts_t ll_resolvingList_setAddrResolutionEnable(u8 resolutionEn);
 
 /*
  * @brief 	This function is used to set the length of time the controller uses a
@@ -140,7 +129,7 @@ ble_sts_t  		ll_resolvingList_setAddrResolutionEnable (u8 resolutionEn);
 *  @param[in]	timeout_s - RPA_Timeout: RPA_Timeout measured in seconds Range: 0x0001 to 0x0E10, Time range: 1 s to 1 hour
  * @return	Status - 0x00: command succeeded; 0x01-0xFF: command failed
  * */
-ble_sts_t  		ll_resolvingList_setResolvablePrivateAddrTimer (u16 timeout_s);
+ble_sts_t ll_resolvingList_setResolvablePrivateAddrTimer(u16 timeout_s);
 
 /*
  * @brief 	This function is used to allow the Host to specify the privacy mode to
@@ -150,7 +139,6 @@ ble_sts_t  		ll_resolvingList_setResolvablePrivateAddrTimer (u16 timeout_s);
  * @param[in]	privMode - Privacy_Mode: Network/Device Privacy Mode
  * @return	Status - 0x00: command succeeded; 0x01-0xFF: command failed
  * */
-ble_sts_t  		ll_resolvingList_setPrivcyMode(u8 peerIdAddrType, u8* peerIdAddr, u8 privMode);
-
+ble_sts_t ll_resolvingList_setPrivcyMode(u8 peerIdAddrType, u8 *peerIdAddr, u8 privMode);
 
 #endif /* LL_RESOLVLIST_H_ */

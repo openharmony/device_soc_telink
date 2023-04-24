@@ -46,38 +46,25 @@
 #ifndef LL_H_
 #define LL_H_
 
-
-
 /**
  * @brief	Telink defined LinkLayer Event Callback
  */
 typedef void (*blt_event_callback_t)(u8 e, u8 *p, int n);
 
+typedef enum {
+    BLT_EV_FLAG_ADV_DURATION_TIMEOUT = 0,
+    BLT_EV_FLAG_RX_DATA_ABANDOM,
+    BLT_EV_FLAG_GPIO_EARLY_WAKEUP,
+    BLT_EV_FLAG_SLEEP_ENTER,
+    BLT_EV_FLAG_SUSPEND_EXIT,
+    BLT_EV_FLAG_KEY_MISSING,
+    BLT_EV_MAX_NUM,
+} blt_ev_flag_t;
 
-
-
-typedef enum{
-	BLT_EV_FLAG_ADV_DURATION_TIMEOUT	=	0,
-	BLT_EV_FLAG_RX_DATA_ABANDOM,
-	BLT_EV_FLAG_GPIO_EARLY_WAKEUP,
-	BLT_EV_FLAG_SLEEP_ENTER,
-	BLT_EV_FLAG_SUSPEND_EXIT,
-	BLT_EV_FLAG_KEY_MISSING,
-	BLT_EV_MAX_NUM,
-}blt_ev_flag_t;
-
-
-
-
-
-
-
-typedef enum{
-	LL_FEATURE_ENABLE	= 1,
-	LL_FEATURE_DISABLE  = 0,
-}ll_feature_value_t;
-
-
+typedef enum {
+    LL_FEATURE_ENABLE = 1,
+    LL_FEATURE_DISABLE = 0,
+} ll_feature_value_t;
 
 /**
  * @brief	Telink defined LinkLayer Event callBack
@@ -85,40 +72,35 @@ typedef enum{
  * @param[in]	p - callBack function
  * @return	none
  */
-void 		blc_ll_registerTelinkControllerEventCallback (u8 e, blt_event_callback_t p);
+void blc_ll_registerTelinkControllerEventCallback(u8 e, blt_event_callback_t p);
 
 /**
  * @brief	irq_handler for BLE stack, process system tick interrupt and RF interrupt
  * @param	none
  * @return	none
  */
-void 		blc_sdk_irq_handler(void);
+void blc_sdk_irq_handler(void);
 
 /**
  * @brief   main_loop for BLE stack, process data and event
  * @param	none
  * @return	none
  */
-void 		blc_sdk_main_loop (void);
-
-
+void blc_sdk_main_loop(void);
 
 /**
  * @brief      for user to initialize MCU
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initBasicMCU (void);
-
-
+void blc_ll_initBasicMCU(void);
 
 /**
  * @brief      for user to initialize link layer Standby state
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initStandby_module (u8 *public_adr);
-
+void blc_ll_initStandby_module(u8 *public_adr);
 
 /**
  * @brief      this function is used to read MAC address
@@ -126,8 +108,7 @@ void 		blc_ll_initStandby_module (u8 *public_adr);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t   blc_ll_readBDAddr(u8 *addr);
-
+ble_sts_t blc_ll_readBDAddr(u8 *addr);
 
 /**
  * @brief      this function is used to set the LE Random Device Address in the Controller
@@ -135,24 +116,21 @@ ble_sts_t   blc_ll_readBDAddr(u8 *addr);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_setRandomAddr(u8 *randomAddr);
-
+ble_sts_t blc_ll_setRandomAddr(u8 *randomAddr);
 
 /**
  * @brief      This function is used to check if the address's type is public
  * @param[in]  *addr -  The address need to check.
  * @return     bool, 0x00: no public, 0x01: Public
  */
-bool 		blc_ll_isValidPublicAddr(u8* addr);
-
+bool blc_ll_isValidPublicAddr(u8 *addr);
 
 /**
  * @brief      This function is used to check if the address's type is random
  * @param[in]  *addr -  The address need to check.
  * @return     bool, 0x00: no random, 0x01: random
  */
-bool 		blc_ll_isValidRandomAddr(u8* addr);
-
+bool blc_ll_isValidRandomAddr(u8 *addr);
 
 /**
  * @brief      This function is used to check if owner's address type is valid
@@ -160,8 +138,7 @@ bool 		blc_ll_isValidRandomAddr(u8* addr);
  * @param[in]  randomAddr -  If Owner's address type is Random, input Random address.
  * @return     bool, 0x00: invalid, 0x01: valid
  */
-bool 		blc_ll_isValidOwnAddrByAddrType(u8 ownAddrType, u8* randomAddr);
-
+bool blc_ll_isValidOwnAddrByAddrType(u8 ownAddrType, u8 *randomAddr);
 
 /**
  * @brief      this function is used by the Host to specify a channel classification based on its local information,
@@ -171,8 +148,7 @@ bool 		blc_ll_isValidOwnAddrByAddrType(u8 ownAddrType, u8* randomAddr);
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t	blc_hci_le_setHostFeature(u8 bit_number, ll_feature_value_t bit_value);
-
+ble_sts_t blc_hci_le_setHostFeature(u8 bit_number, ll_feature_value_t bit_value);
 
 /**
  * @brief      this function is used check if any controller buffer initialized by application incorrect.
@@ -181,9 +157,7 @@ ble_sts_t	blc_hci_le_setHostFeature(u8 bit_number, ll_feature_value_t bit_value)
  * @return     status, 0x00:  succeed, no buffer error
  * 					   other: buffer error code
  */
-ble_sts_t	blc_controller_check_appBufferInitialization(void);
-
-
+ble_sts_t blc_controller_check_appBufferInitialization(void);
 
 /**
  * @brief      this function is used by the Host to specify a channel classification based on its local information,
@@ -192,8 +166,7 @@ ble_sts_t	blc_controller_check_appBufferInitialization(void);
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t 	blc_ll_setHostChannel(u8 * chnMap);
-
+ble_sts_t blc_ll_setHostChannel(u8 *chnMap);
 
 /**
  * @brief      this function is used to reset module of all.
@@ -201,9 +174,9 @@ ble_sts_t 	blc_ll_setHostChannel(u8 * chnMap);
  * @return     status, 0x00:  succeed, no buffer error
  * 					   other: buffer error code
  */
-ble_sts_t  	blc_hci_reset(void);
-ble_sts_t 	blc_hci_le_getRemoteSupportedFeatures(u16 connHandle);
-ble_sts_t 	blc_hci_le_readChannelMap(u16 connHandle, u8 *returnChannelMap);
+ble_sts_t blc_hci_reset(void);
+ble_sts_t blc_hci_le_getRemoteSupportedFeatures(u16 connHandle);
+ble_sts_t blc_hci_le_readChannelMap(u16 connHandle, u8 *returnChannelMap);
 
 /**
  * @brief      this function checks whether the Bluetooth stack task is IDLE
@@ -211,6 +184,6 @@ ble_sts_t 	blc_hci_le_readChannelMap(u16 connHandle, u8 *returnChannelMap);
  * @return     bool, 0:  task running
  *                   1:  idle
  */
-bool 		blc_ll_isBleTaskIdle(void);
+bool blc_ll_isBleTaskIdle(void);
 
 #endif /* LL_H_ */

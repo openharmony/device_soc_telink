@@ -46,49 +46,29 @@
 #ifndef LL_EXT_ADV_H_
 #define LL_EXT_ADV_H_
 
-
 #include "stack/ble/hci/hci_cmd.h"
 
-
 /* maximum number of advertising sets this SDK can support, periodic advertising is included. */
-#define			ADV_SETS_NUMBER_MAX								4
-
+#define ADV_SETS_NUMBER_MAX 4
 
 /* Note: user can't modify this value,and this value must 4 byte aligned
  *  if use BLUETOOTH_VER_5_2 this value is 680 other than 572
  */
-#define 		ADV_SET_PARAM_LENGTH							680//572
-
-
+#define ADV_SET_PARAM_LENGTH 680  //572
 
 #if 0
 /* if use legacy ADV, primary ADV packet maximum length is 44 */
-#define 		MAX_LENGTH_PRIMARY_ADV_PKT_LEGACY				44
+#define MAX_LENGTH_PRIMARY_ADV_PKT_LEGACY   44
 
 /* if use extended ADV, primary ADV packet maximum length is 28 */
-#define 		MAX_LENGTH_PRIMARY_ADV_PKT_EXTENDED				28
+#define MAX_LENGTH_PRIMARY_ADV_PKT_EXTENDED 28
 
 /* if not sure which kind of ADV will be used, use the bigger value is recommended.
  * For example, when used as BLE Controller, BLE Host can use either legacy or extended ADV */
-#define 		MAX_LENGTH_PRIMARY_ADV_PKT						44
+#define MAX_LENGTH_PRIMARY_ADV_PKT          44
 
-
-
-#define 		MAX_LENGTH_SECOND_ADV_PKT						264   //sizeof(rf_pkt_ext_adv_t) = 261
+#define MAX_LENGTH_SECOND_ADV_PKT 264  //sizeof(rf_pkt_ext_adv_t) = 261
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @brief      for user to initialize extended advertising module
@@ -97,7 +77,7 @@
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initExtendedAdvertising_module(void);
+void blc_ll_initExtendedAdvertising_module(void);
 
 /**
  * @brief      for user to allocate single or multiple advertising sets buffer
@@ -108,7 +88,7 @@ void 		blc_ll_initExtendedAdvertising_module(void);
  * @return     Status - 0x00: command succeeded;
  * 						0x12: num_advSets exceed maximum number of supported adv_sets.
  */
-ble_sts_t 	blc_ll_initExtendedAdvSetBuffer(u8 *pBuff_advSets, int num_advSets);
+ble_sts_t blc_ll_initExtendedAdvSetBuffer(u8 *pBuff_advSets, int num_advSets);
 
 /**
  * @brief      initialize Advertising Data buffer for all adv_set
@@ -116,7 +96,7 @@ ble_sts_t 	blc_ll_initExtendedAdvSetBuffer(u8 *pBuff_advSets, int num_advSets);
  * @param[in]  max_len_advData -
  * @return     none
  */
-void 		blc_ll_initExtAdvDataBuffer(u8 *pExtAdvData, int max_len_advData);
+void blc_ll_initExtAdvDataBuffer(u8 *pExtAdvData, int max_len_advData);
 
 /**
  * @brief      initialize Advertising Data buffer for specific adv_set.
@@ -126,7 +106,7 @@ void 		blc_ll_initExtAdvDataBuffer(u8 *pExtAdvData, int max_len_advData);
  * @return     Status - 0x00: succeed.
  * 						0x12: adv_handle out of range.
  */
-ble_sts_t 	blc_ll_initExtAdvDataBuffer_by_advHandle( u8 adv_handle, u8 *pExtAdvData, int max_len_advData);
+ble_sts_t blc_ll_initExtAdvDataBuffer_by_advHandle(u8 adv_handle, u8 *pExtAdvData, int max_len_advData);
 
 /**
  * @brief      initialize Scan Response Data Buffer for all adv_set
@@ -134,7 +114,7 @@ ble_sts_t 	blc_ll_initExtAdvDataBuffer_by_advHandle( u8 adv_handle, u8 *pExtAdvD
  * @param[in]  max_len_scanRspData -
  * @return     none
  */
-void 		blc_ll_initExtScanRspDataBuffer(u8 *pScanRspData, int max_len_scanRspData);
+void blc_ll_initExtScanRspDataBuffer(u8 *pScanRspData, int max_len_scanRspData);
 
 /**
  * @brief      initialize Scan Response Data Buffer buffer for specific adv_set.
@@ -144,13 +124,7 @@ void 		blc_ll_initExtScanRspDataBuffer(u8 *pScanRspData, int max_len_scanRspData
  * @return     Status - 0x00: succeed.
  * 						0x12: adv_handle out of range.
  */
-ble_sts_t 	blc_ll_initExtScanRspDataBuffer_by_advHandle(u8 adv_handle, u8 *pScanRspData, int max_len_scanRspData);
-
-
-
-
-
-
+ble_sts_t blc_ll_initExtScanRspDataBuffer_by_advHandle(u8 adv_handle, u8 *pScanRspData, int max_len_scanRspData);
 
 /**
  * @brief      This function is used to set the advertising parameters
@@ -166,12 +140,11 @@ ble_sts_t 	blc_ll_initExtScanRspDataBuffer_by_advHandle(u8 adv_handle, u8 *pScan
  * 						       2. pri_advChnMap out of range
  * 						0x0C:  advertising is enabled for the specified advertising set
  */
-ble_sts_t 	blc_ll_setExtAdvParam(  u8 adv_handle, 		 			advEvtProp_type_t adv_evt_prop,	u32 pri_advInter_min, 		u32 pri_advInter_max,
-									adv_chn_map_t pri_advChnMap,	own_addr_type_t ownAddrType, 	u8 peerAddrType, 			u8  *peerAddr,
-									adv_fp_type_t advFilterPolicy,  tx_power_t adv_tx_pow,			le_phy_type_t pri_adv_phy, 	u8 sec_adv_max_skip,
-									le_phy_type_t sec_adv_phy, 	 	u8 adv_sid, 					u8 scan_req_noti_en);
-
-
+ble_sts_t blc_ll_setExtAdvParam(u8 adv_handle, advEvtProp_type_t adv_evt_prop, u32 pri_advInter_min,
+                                u32 pri_advInter_max, adv_chn_map_t pri_advChnMap, own_addr_type_t ownAddrType,
+                                u8 peerAddrType, u8 *peerAddr, adv_fp_type_t advFilterPolicy, tx_power_t adv_tx_pow,
+                                le_phy_type_t pri_adv_phy, u8 sec_adv_max_skip, le_phy_type_t sec_adv_phy, u8 adv_sid,
+                                u8 scan_req_noti_en);
 
 /**
  * @brief      This function is used to set the data used in advertising PDU that have a data field
@@ -181,12 +154,7 @@ ble_sts_t 	blc_ll_setExtAdvParam(  u8 adv_handle, 		 			advEvtProp_type_t adv_ev
  * @param[in]  advData_len -
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t	blc_ll_setExtAdvData (u8 adv_handle, int advData_len, u8 *advData);
-
-
-
-
-
+ble_sts_t blc_ll_setExtAdvData(u8 adv_handle, int advData_len, u8 *advData);
 
 /**
  * @brief      This function is used to provide scan response data used in scanning response PDUs.
@@ -196,11 +164,7 @@ ble_sts_t	blc_ll_setExtAdvData (u8 adv_handle, int advData_len, u8 *advData);
  * @param[in]  *scanRspData -
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_setExtScanRspData(u8 adv_handle, int scanRspData_len, u8 *scanRspData);
-
-
-
-
+ble_sts_t blc_ll_setExtScanRspData(u8 adv_handle, int scanRspData_len, u8 *scanRspData);
 
 /**
  * @brief      This function is used to request the Controller to enable or disable one or more advertising sets using the
@@ -213,9 +177,7 @@ ble_sts_t 	blc_ll_setExtScanRspData(u8 adv_handle, int scanRspData_len, u8 *scan
  *                             attempt to send prior to terminating the extended advertising
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_setExtAdvEnable(adv_en_t enable, u8 adv_handle, u16 duration, u8 max_extAdvEvt);
-
-
+ble_sts_t blc_ll_setExtAdvEnable(adv_en_t enable, u8 adv_handle, u16 duration, u8 max_extAdvEvt);
 
 /**
  * @brief      This function is used by the Host to set the random device address specified by the Random_Address
@@ -224,33 +186,23 @@ ble_sts_t 	blc_ll_setExtAdvEnable(adv_en_t enable, u8 adv_handle, u16 duration, 
  * @param[in]  *rand_addr - Random Device Address
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t	blc_ll_setAdvRandomAddr(u8 adv_handle, u8* rand_addr);
-
-
+ble_sts_t blc_ll_setAdvRandomAddr(u8 adv_handle, u8 *rand_addr);
 
 /**
  * @brief      This function is is used to remove an advertising set from the Controller.
  * @param[in]  adv_handle - Used to identify an advertising set
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t	blc_ll_removeAdvSet(u8 adv_handle);
-
-
+ble_sts_t blc_ll_removeAdvSet(u8 adv_handle);
 
 /**
  * @brief      This function is used to remove all existing advertising sets from the Controller.
  * @param[in]  none.
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t	blc_ll_clearAdvSets(void);
-
-
-
+ble_sts_t blc_ll_clearAdvSets(void);
 
 //only for Debug
-ble_sts_t	blc_ll_setAuxAdvChnIdxByCustomers(u8 aux_chn);
-
-
-
+ble_sts_t blc_ll_setAuxAdvChnIdxByCustomers(u8 aux_chn);
 
 #endif /* LL_EXT_ADV_H_ */

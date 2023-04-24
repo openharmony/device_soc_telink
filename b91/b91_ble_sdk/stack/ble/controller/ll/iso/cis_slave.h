@@ -48,30 +48,14 @@
 
 //#if (LL_FEATURE_ENABLE_CONNECTED_ISOCHRONOUS_STREAM_SLAVE)
 
-
-
-
-#define		CIG_SLV_PARAM_LEN		(416)   //Note: user can't modify this value,and this value must 4 byte aligned
-
-
-
+#define CIG_SLV_PARAM_LEN (416)  //Note: user can't modify this value,and this value must 4 byte aligned
 
 /**
  * @brief      for user to initialize CIS slave module.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initCisSlave_module(void);
-
-
-/**
- * @brief
- * @param
- * @param
- * @return     ble_sts_t
- */
-ble_sts_t 	blc_ll_initCisSlaveParameters( u8 *pCisSlavePara, int cis_slv_num);
-
+void blc_ll_initCisSlave_module(void);
 
 /**
  * @brief
@@ -79,8 +63,7 @@ ble_sts_t 	blc_ll_initCisSlaveParameters( u8 *pCisSlavePara, int cis_slv_num);
  * @param
  * @return     ble_sts_t
  */
-ble_sts_t 	blc_hci_le_acceptCisReq(u16 cisHandle);
-
+ble_sts_t blc_ll_initCisSlaveParameters(u8 *pCisSlavePara, int cis_slv_num);
 
 /**
  * @brief
@@ -88,11 +71,16 @@ ble_sts_t 	blc_hci_le_acceptCisReq(u16 cisHandle);
  * @param
  * @return     ble_sts_t
  */
-ble_sts_t 	blc_hci_le_rejectCisReq(u16 cisHandle, u8 reason, u8* pRetParam);
+ble_sts_t blc_hci_le_acceptCisReq(u16 cisHandle);
 
-
+/**
+ * @brief
+ * @param
+ * @param
+ * @return     ble_sts_t
+ */
+ble_sts_t blc_hci_le_rejectCisReq(u16 cisHandle, u8 reason, u8 *pRetParam);
 
 #endif
-
 
 //#endif /* CIS_MASTER_H_ */

@@ -46,38 +46,33 @@
 #ifndef ACL_CONN_H_
 #define ACL_CONN_H_
 
-
 /**
  * @brief      This function is used to get the current number of ACL connections.
  * @param[in]  none.
  * @return     The number of currently connected ACLs.
  */
-int 		blc_ll_getCurrentConnectionNumber(void);   //master + slave connection number
-
+int blc_ll_getCurrentConnectionNumber(void);  //master + slave connection number
 
 /**
  * @brief      This function is used to obtain the maximum number of connections that can be supported.
  * @param[in]  none.
  * @return     Maximum number of connections that can be supported.
  */
-int			blc_ll_getSupportedMaxConnNumber(void);
-
+int blc_ll_getSupportedMaxConnNumber(void);
 
 /**
  * @brief      This function is used to obtain the number of ACL connections of the Master role.
  * @param[in]  none.
  * @return     The number of currently connected master ACLs.
  */
-int 		blc_ll_getCurrentMasterRoleNumber(void);   //master role number
-
+int blc_ll_getCurrentMasterRoleNumber(void);  //master role number
 
 /**
  * @brief      This function is used to obtain the number of ACL connections of the Slave role.
  * @param[in]  none.
  * @return     The number of currently connected slave ACLs.
  */
-int 		blc_ll_getCurrentSlaveRoleNumber(void);    //slave  role number
-
+int blc_ll_getCurrentSlaveRoleNumber(void);  //slave  role number
 
 /**
  * @brief      This function is used to configure the number of master and slave connections that the protocol stack can support.
@@ -86,16 +81,14 @@ int 		blc_ll_getCurrentSlaveRoleNumber(void);    //slave  role number
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_setMaxConnectionNumber(int max_master_num, int max_slave_num);
-
+ble_sts_t blc_ll_setMaxConnectionNumber(int max_master_num, int max_slave_num);
 
 /**
  * @brief      This function is used to obtain the currently available TX FIFO numbers according to the ACL handle.
  * @param[in]  connHandle - ACL connection handle.
  * @return     available TX FIFO numbers
  */
-u8  		blc_ll_getTxFifoNumber (u16 connHandle);
-
+u8 blc_ll_getTxFifoNumber(u16 connHandle);
 
 /**
  * @brief      This function is used to disconnect the device with the specified ACL connection handle and specify the reason for the disconnection.
@@ -104,8 +97,7 @@ u8  		blc_ll_getTxFifoNumber (u16 connHandle);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_disconnect (u16 connHandle, u8 reason);
-
+ble_sts_t blc_ll_disconnect(u16 connHandle, u8 reason);
 
 /**
  * @brief      This function is used to obtain the connection establishment time point corresponding to the current ACL connection handle.
@@ -113,8 +105,7 @@ ble_sts_t 	blc_ll_disconnect (u16 connHandle, u8 reason);
  * @param[in]  reason - Reason for disconnection..
  * @return     The connection establishment time point corresponding to the current ACL connection handle: Based on 16M system clock ticks.
  */
-u32 		blc_ll_getConnectionStartTick(u16 connHandle);
-
+u32 blc_ll_getConnectionStartTick(u16 connHandle);
 
 /**
  * @brief      This function is used to read remote version with the specified ACL connection handle.
@@ -122,17 +113,14 @@ u32 		blc_ll_getConnectionStartTick(u16 connHandle);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_readRemoteVersion(u16 connHandle);
-
+ble_sts_t blc_ll_readRemoteVersion(u16 connHandle);
 
 /**
  * @brief      for user to initialize ACL connection module, this is must if user want use ACL master role or ACL slave role.
  * @param	   none
  * @return     none
  */
-void		blc_ll_initAclConnection_module(void);
-
-
+void blc_ll_initAclConnection_module(void);
 
 /**
  * @brief      for user to initialize LinkLayer ACL connection RX FIFO.
@@ -143,9 +131,7 @@ void		blc_ll_initAclConnection_module(void);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_initAclConnRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
-
-
+ble_sts_t blc_ll_initAclConnRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      for user to initialize master LinkLayer ACL connection TX FIFO.
@@ -156,8 +142,7 @@ ble_sts_t 	blc_ll_initAclConnRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_initAclConnMasterTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number, int conn_number);
-
+ble_sts_t blc_ll_initAclConnMasterTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number, int conn_number);
 
 /**
  * @brief      for user to initialize slave LinkLayer ACL connection TX FIFO.
@@ -168,8 +153,7 @@ ble_sts_t 	blc_ll_initAclConnMasterTxFifo(u8 *pTxbuf, int fifo_size, int fifo_nu
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t 	blc_ll_initAclConnSlaveTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number, int conn_number);
-
+ble_sts_t blc_ll_initAclConnSlaveTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number, int conn_number);
 
 /**
  * @brief      check ACL whether is in establish state.
@@ -177,8 +161,7 @@ ble_sts_t 	blc_ll_initAclConnSlaveTxFifo(u8 *pTxbuf, int fifo_size, int fifo_num
  * @return     status, 0:  connection not established(disconnection or connection complete but not established)
  * 					   1:  connection established state
  */
-bool  		blc_ll_isAclConnEstablished(u16 connHandle);
-
+bool blc_ll_isAclConnEstablished(u16 connHandle);
 
 /**
  * @brief      set ACL data length for Master and Slave.
@@ -188,16 +171,14 @@ bool  		blc_ll_isAclConnEstablished(u16 connHandle);
  * @return     status, 0x00 :  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_setAclConnMaxOctetsNumber(u8 maxRxOct, u8 maxTxOct_master, u8 maxTxOct_slave);
-
+ble_sts_t blc_ll_setAclConnMaxOctetsNumber(u8 maxRxOct, u8 maxTxOct_master, u8 maxTxOct_slave);
 
 /**
  * @brief		This function is used to set ll_length_req pending timing after connection created
  * @param[in]	time_ms - pending timing, unit: ms
  * @return      none
  */
-void		blc_ll_setDataLengthReqSendingTime_after_connCreate(int time_ms);
-
+void blc_ll_setDataLengthReqSendingTime_after_connCreate(int time_ms);
 
 /**
  * @brief       this function is used to set PHY type for connection
@@ -209,10 +190,8 @@ void		blc_ll_setDataLengthReqSendingTime_after_connCreate(int time_ms);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t  	blc_ll_setPhy (	u16 connHandle,					le_phy_prefer_mask_t all_phys,
-							le_phy_prefer_type_t tx_phys, 	le_phy_prefer_type_t rx_phys,
-							le_ci_prefer_t phy_options);
-
+ble_sts_t blc_ll_setPhy(u16 connHandle, le_phy_prefer_mask_t all_phys, le_phy_prefer_type_t tx_phys,
+                        le_phy_prefer_type_t rx_phys, le_ci_prefer_t phy_options);
 
 /**
  * @brief       This function is used to set LE Coded PHY preference, S2 or S8, or no specific preference.
@@ -220,8 +199,7 @@ ble_sts_t  	blc_ll_setPhy (	u16 connHandle,					le_phy_prefer_mask_t all_phys,
  * @return      status, 0x00:  succeed
  * 					    other: failed
  */
-ble_sts_t	blc_ll_setDefaultConnCodingIndication(le_ci_prefer_t prefer_CI);
-
+ble_sts_t blc_ll_setDefaultConnCodingIndication(le_ci_prefer_t prefer_CI);
 
 /**
  * @brief       this function is used to allows the Host to specify its preferred values for the transmitter PHY and
@@ -239,8 +217,8 @@ ble_sts_t	blc_ll_setDefaultConnCodingIndication(le_ci_prefer_t prefer_CI);
  * @return      status, 0x00:  succeed
  * 					    other: failed
  */
-ble_sts_t 	blc_ll_setDefaultPhy(le_phy_prefer_mask_t all_phys, le_phy_prefer_type_t tx_phys, le_phy_prefer_type_t rx_phys);
-
+ble_sts_t blc_ll_setDefaultPhy(le_phy_prefer_mask_t all_phys, le_phy_prefer_type_t tx_phys,
+                               le_phy_prefer_type_t rx_phys);
 
 /**
  * @brief       this function is used to read the current transmitter PHY and receiver PHY on the connection identified
@@ -254,12 +232,12 @@ ble_sts_t 	blc_ll_setDefaultPhy(le_phy_prefer_mask_t all_phys, le_phy_prefer_typ
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_readPhy( u16 connHandle, hci_le_readPhyCmd_retParam_t *para);
+ble_sts_t blc_ll_readPhy(u16 connHandle, hci_le_readPhyCmd_retParam_t *para);
 
-ble_sts_t 	blc_hci_le_readBufferSize_cmd(u8 *pData);
-ble_sts_t 	blc_hci_le_getLocalSupportedFeatures(u8 *features);
-ble_sts_t 	blc_hci_readSuggestedDefaultTxDataLength (u8 *tx, u8 *txtime);
-ble_sts_t 	blc_hci_writeSuggestedDefaultTxDataLength (u16 tx, u16 txtime);
-ble_sts_t	blc_hci_readMaximumDataLength(hci_le_readMaxDataLengthCmd_retParam_t  *para);
+ble_sts_t blc_hci_le_readBufferSize_cmd(u8 *pData);
+ble_sts_t blc_hci_le_getLocalSupportedFeatures(u8 *features);
+ble_sts_t blc_hci_readSuggestedDefaultTxDataLength(u8 *tx, u8 *txtime);
+ble_sts_t blc_hci_writeSuggestedDefaultTxDataLength(u16 tx, u16 txtime);
+ble_sts_t blc_hci_readMaximumDataLength(hci_le_readMaxDataLengthCmd_retParam_t *para);
 
 #endif /* ACL_CONN_H_ */

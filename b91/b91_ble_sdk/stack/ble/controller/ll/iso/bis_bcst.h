@@ -47,48 +47,43 @@
 #define BIS_BCST_H_
 
 //Note: user can't modify this value,and this value must 4 byte aligned
-#define 		BIG_BCST_PARAM_LENGTH		(672) //4B aligned
-
+#define BIG_BCST_PARAM_LENGTH (672)  //4B aligned
 
 /**
  * @brief      This function is used to initialize BIG broadcast module.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initBigBroadcast_module(void);
-
-
-/**
- * @brief
- * @param	   none
- * @return     none
- */
-ble_sts_t	blc_ll_initBigBcstParameters(u8 *pBigBcstPara, u8 bigBcstNum);
-
+void blc_ll_initBigBroadcast_module(void);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-ble_sts_t 	blc_hci_le_createBigParams(hci_le_createBigParams_t* pCmdParam);
-
-
-/**
- * @brief
- * @param	   none
- * @return     none
- */
-ble_sts_t 	blc_hci_le_createBigParamsTest(hci_le_createBigParamsTest_t* pCmdParam);
-
+ble_sts_t blc_ll_initBigBcstParameters(u8 *pBigBcstPara, u8 bigBcstNum);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-ble_sts_t 	blc_hci_le_terminateBig(hci_le_terminateBigParams_t* pCmdParam); //TODO: BIG BCST and BIG SYNC use common BIG CB
+ble_sts_t blc_hci_le_createBigParams(hci_le_createBigParams_t *pCmdParam);
 
+/**
+ * @brief
+ * @param	   none
+ * @return     none
+ */
+ble_sts_t blc_hci_le_createBigParamsTest(hci_le_createBigParamsTest_t *pCmdParam);
+
+/**
+ * @brief
+ * @param	   none
+ * @return     none
+ */
+ble_sts_t
+blc_hci_le_terminateBig(hci_le_terminateBigParams_t *pCmdParam);  //TODO: BIG BCST and BIG SYNC use common BIG CB
 
 /**
  * @brief      Used to enable private ExtADV to send BIGINFO
@@ -96,7 +91,6 @@ ble_sts_t 	blc_hci_le_terminateBig(hci_le_terminateBigParams_t* pCmdParam); //TO
  * @param	   If the BIS encrypted
  * @return     none
  */
-void		blc_ll_enPrivExtAdvForBigBcst(u8 extAdvHdl);
-
+void blc_ll_enPrivExtAdvForBigBcst(u8 extAdvHdl);
 
 #endif /* BIS_BCST_H_ */

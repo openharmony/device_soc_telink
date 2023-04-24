@@ -46,19 +46,11 @@
 #ifndef ACL_SLAVE_H_
 #define ACL_SLAVE_H_
 
-
-
-
-
 /**
  * @brief      for user to initialize ACL connection slave role.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initAclSlaveRole_module(void);
-
-
-
-
+void blc_ll_initAclSlaveRole_module(void);
 
 #endif /* ACL_SLAVE_H_ */

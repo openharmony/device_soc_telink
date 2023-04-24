@@ -46,17 +46,13 @@
 #ifndef BIS_H_
 #define BIS_H_
 
-
 //Note: user can't modify this value,and this value must 4 byte aligned
-#define		BIS_PARAM_LENGTH		(192)
+#define BIS_PARAM_LENGTH (192)
 
+u32 blc_ll_getAvailBisNum(u8 role);
+u32 blt_ll_bis_getAccessCode(u32 seedAccessCode, u8 bisSeq);
+u32 blt_ll_bis_getSeedAccessAddr(void);
 
-
-u32 		blc_ll_getAvailBisNum(u8 role);
-u32 		blt_ll_bis_getAccessCode(u32 seedAccessCode, u8 bisSeq);
-u32 		blt_ll_bis_getSeedAccessAddr(void);
-
-ble_sts_t	blc_ll_InitBisConnectionlessParameters(u8 *pBisPara, u8 bis_bcst_num, u8 bis_sync_num);
-
+ble_sts_t blc_ll_InitBisConnectionlessParameters(u8 *pBisPara, u8 bis_bcst_num, u8 bis_sync_num);
 
 #endif

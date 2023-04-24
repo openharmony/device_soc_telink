@@ -46,71 +46,63 @@
 #ifndef BIS_SYNC_H_
 #define BIS_SYNC_H_
 
-
-#define 		BIG_SYNC_PARAM_LENGTH		(696) // Note: user can't modify this value,and this value must 4 byte aligned
-
-
+#define BIG_SYNC_PARAM_LENGTH (696)  // Note: user can't modify this value,and this value must 4 byte aligned
 
 /**
  * @brief      This function is used to initialize BIG Synchronize module.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initBisSynchronize_module(void);
+void blc_ll_initBisSynchronize_module(void);
 
 /**
  * @brief      This function is used to initialize BIG Synchronize parameters.
  * @param	   pointer to BIG Synchronize parameters buffer
  * @return     Number of BIG SYNC supported
  */
-ble_sts_t	blc_ll_initBigSyncParameters(u8 *pBigSyncPara, u8 bigSyncNum);
-
-
-/**
- * @brief
- * @param	   none
- * @return     none
- */
-ble_sts_t 	blc_hci_le_bigCreateSync(hci_le_bigCreateSyncParams_t* pCmdParam);
-
+ble_sts_t blc_ll_initBigSyncParameters(u8 *pBigSyncPara, u8 bigSyncNum);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-ble_sts_t 	blc_hci_le_bigTerminateSync(u8 bigHandle, u8* pRetParam);
+ble_sts_t blc_hci_le_bigCreateSync(hci_le_bigCreateSyncParams_t *pCmdParam);
 
+/**
+ * @brief
+ * @param	   none
+ * @return     none
+ */
+ble_sts_t blc_hci_le_bigTerminateSync(u8 bigHandle, u8 *pRetParam);
 
 /**
  * @brief      Used to enable private LegScan to get BIGINFO for BIG SYNC
  * @param	   none
  * @return     none
  */
-void		blc_ll_enPrivLegScanForBigBync(void);
-
+void blc_ll_enPrivLegScanForBigBync(void);
 
 /**
  * @brief      Used to enable scan to get BIGINFO for BIG SYNC
  * @param	   none
  * @return     none
  */
-void		blc_ll_enScanForBigBync(void);
+void blc_ll_enScanForBigBync(void);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-ble_sts_t 	blc_ll_bigCreateSync(u8 big_handle, u16 sync_handle, u8 enc, u8 broadcast_code[16],
-								 u8 mse, u16 big_sync_timeout, u8  num_bis, u8 *bis);
+ble_sts_t blc_ll_bigCreateSync(u8 big_handle, u16 sync_handle, u8 enc, u8 broadcast_code[16], u8 mse,
+                               u16 big_sync_timeout, u8 num_bis, u8 *bis);
 
 /**
  * @brief
  * @param	   none
  * @return     none
  */
-ble_sts_t 	blc_ll_bigTerminateSync(u8 bigHandle);
-
+ble_sts_t blc_ll_bigTerminateSync(u8 bigHandle);
 
 #endif /* BIS_SYNC_H_ */

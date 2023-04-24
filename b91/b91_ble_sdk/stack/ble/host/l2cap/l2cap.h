@@ -46,18 +46,13 @@
 #ifndef L2CAP_H_
 #define L2CAP_H_
 
+#define L2CAP_PSM_EATT 0x0027
+#define L2CAP_PSM_ATT  0x001f
 
-#define	L2CAP_PSM_EATT		0x0027
-#define	L2CAP_PSM_ATT		0x001f
-
-
-
-typedef enum{
-	CONN_PARAM_UPDATE_ACCEPT = 0x0000,
-	CONN_PARAM_UPDATE_REJECT = 0x0001,
-}conn_para_up_rsp;
-
-
+typedef enum {
+    CONN_PARAM_UPDATE_ACCEPT = 0x0000,
+    CONN_PARAM_UPDATE_REJECT = 0x0001,
+} conn_para_up_rsp;
 
 /**
  * @brief		initialize l2cap buffer to reassembly link lay PDU to SDU in master
@@ -67,8 +62,8 @@ typedef enum{
  * @param[in]	mtu_m_tx_size   - the size of of tx buffer in master
  * @return		none.
  */
-void 	blc_l2cap_initAclConnMasterMtuBuffer(u8 *pMTU_m_rx_buff, u16 mtu_m_rx_size, u8 *pMTU_m_tx_buff,u16 mtu_m_tx_size);
-
+void blc_l2cap_initAclConnMasterMtuBuffer(u8 *pMTU_m_rx_buff, u16 mtu_m_rx_size, u8 *pMTU_m_tx_buff,
+                                          u16 mtu_m_tx_size);
 
 /**
  * @brief		initialize l2cap buffer to reassembly link lay PDU to SDU in master
@@ -78,8 +73,7 @@ void 	blc_l2cap_initAclConnMasterMtuBuffer(u8 *pMTU_m_rx_buff, u16 mtu_m_rx_size
  * @param[in]	mtu_s_tx_size   - the size of of tx buffer in slave
  * @return	none.
  */
-void 	blc_l2cap_initAclConnSlaveMtuBuffer(u8 *pMTU_s_rx_buff, u16 mtu_s_rx_size, u8 *pMTU_s_tx_buff, u16 mtu_s_tx_size);
-
+void blc_l2cap_initAclConnSlaveMtuBuffer(u8 *pMTU_s_rx_buff, u16 mtu_s_rx_size, u8 *pMTU_s_tx_buff, u16 mtu_s_tx_size);
 
 /**
  * @brief		This function is used to set connect request parameter for updating connect parameter in slave
@@ -91,8 +85,7 @@ void 	blc_l2cap_initAclConnSlaveMtuBuffer(u8 *pMTU_s_rx_buff, u16 mtu_s_rx_size,
  * @return		0: success
  * 				1: fail
  */
-u8   	bls_l2cap_requestConnParamUpdate (u16 connHandle, u16 min_interval, u16 max_interval, u16 latency, u16 timeout);
-
+u8 bls_l2cap_requestConnParamUpdate(u16 connHandle, u16 min_interval, u16 max_interval, u16 latency, u16 timeout);
 
 /**
  * @brief		This function is used to send connect parameter update response in master
@@ -103,8 +96,7 @@ u8   	bls_l2cap_requestConnParamUpdate (u16 connHandle, u16 min_interval, u16 ma
  * 				0x0000: CONN_PARAM_UPDATE_ACCEPT, need to call the API blm_l2cap_processConnParamUpdatePending() later
  * @return		none.
  */
-void  	blc_l2cap_SendConnParamUpdateResponse(u16 connHandle, u8 req_id, conn_para_up_rsp result);
-
+void blc_l2cap_SendConnParamUpdateResponse(u16 connHandle, u8 req_id, conn_para_up_rsp result);
 
 /**
  * @brief		This function is used to host set connect parameter process pending in master
@@ -115,8 +107,8 @@ void  	blc_l2cap_SendConnParamUpdateResponse(u16 connHandle, u8 req_id, conn_par
  * @param[in]	timeout - connect timeout
  * @return		none.
  */
-void	blm_l2cap_processConnParamUpdatePending(u16 connHandle, u16 min_interval, u16 max_interval, u16 latency, u16 timeout);
-
+void blm_l2cap_processConnParamUpdatePending(u16 connHandle, u16 min_interval, u16 max_interval, u16 latency,
+                                             u16 timeout);
 
 /**
  * @brief		This function is used to set the minimal time for send connect parameter update request after connect created
@@ -125,8 +117,7 @@ void	blm_l2cap_processConnParamUpdatePending(u16 connHandle, u16 min_interval, u
  * @return		0: success
  * 				1: fail
  */
-u8   	bls_l2cap_setMinimalUpdateReqSendingTime_after_connCreate(u16 connHandle, int time_ms);
-
+u8 bls_l2cap_setMinimalUpdateReqSendingTime_after_connCreate(u16 connHandle, int time_ms);
 
 /**
  * @brief	This function is used to handler L2CAP data
@@ -134,6 +125,6 @@ u8   	bls_l2cap_setMinimalUpdateReqSendingTime_after_connCreate(u16 connHandle, 
  * @param	*p - the pointer of l2cap data
  * @return	0
  */
-int 	blc_l2cap_pktHandler (u16 connHandle, u8 *raw_pkt);
+int blc_l2cap_pktHandler(u16 connHandle, u8 *raw_pkt);
 
 #endif

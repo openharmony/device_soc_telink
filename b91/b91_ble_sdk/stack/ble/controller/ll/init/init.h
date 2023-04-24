@@ -46,25 +46,19 @@
 #ifndef INIT_H_
 #define INIT_H_
 
-
-
 /**
  * @brief      This function is used to cancel the HCI_LE_Create_Connection or HCI_LE_Extended_Create_Connection commands.
  * 			   This command shall only be issued after the HCI_LE_Create_Connection or HCI_LE_Extended_Create_Connection commands have been issued.
  * @param	   none
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_createConnectionCancel (void);
-
+ble_sts_t blc_ll_createConnectionCancel(void);
 
 /**
  * @brief      This function is used to set the timeout of ACL connection establishment
  * @param[in]  timeout_ms - timeout of ACL connection establishment, unit: mS. If not set, default value is 4000 mS
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
-ble_sts_t 	blc_ll_setCreateConnectionTimeout (u32 timeout_ms);
-
-
-
+ble_sts_t blc_ll_setCreateConnectionTimeout(u32 timeout_ms);
 
 #endif /* INIT_H_ */

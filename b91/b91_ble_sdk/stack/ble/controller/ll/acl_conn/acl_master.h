@@ -46,16 +46,12 @@
 #ifndef ACL_MASTER_H_
 #define ACL_MASTER_H_
 
-
-
 /**
  * @brief      for user to initialize ACL connection master role.
  * @param	   none
  * @return     none
  */
-void 		blc_ll_initAclMasterRole_module(void);
-
-
+void blc_ll_initAclMasterRole_module(void);
 
 /**
  * @brief      for user to initialize LinkLayer ACL connection RX FIFO.
@@ -64,8 +60,7 @@ void 		blc_ll_initAclMasterRole_module(void);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-ble_sts_t	blc_ll_setAclMasterConnectionInterval(conn_inter_t conn_interval);
-
+ble_sts_t blc_ll_setAclMasterConnectionInterval(conn_inter_t conn_interval);
 
 /**
  * @brief      this function is used to change the ACL connection parameters.
@@ -79,7 +74,7 @@ ble_sts_t	blc_ll_setAclMasterConnectionInterval(conn_inter_t conn_interval);
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */
-ble_sts_t 	blc_ll_updateConnection(u16 connHandle, conn_inter_t conn_min, conn_inter_t conn_max, u16 conn_latency, conn_tm_t timeout, u16 ce_min, u16 ce_max);
-
+ble_sts_t blc_ll_updateConnection(u16 connHandle, conn_inter_t conn_min, conn_inter_t conn_max, u16 conn_latency,
+                                  conn_tm_t timeout, u16 ce_min, u16 ce_max);
 
 #endif /* ACL_MASTER_H_ */

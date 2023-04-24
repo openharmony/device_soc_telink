@@ -49,7 +49,7 @@
 
 #include "stack/ble/ble_config.h"
 
-#define OS_SUP_LONG_SLEEP    0
+#define OS_SUP_LONG_SLEEP 0
 
 typedef void (*os_give_sem_t)(void);
 
@@ -65,9 +65,7 @@ extern uint8_t os_wakeup_en;
 void blc_ll_setOSWakeupTick(uint32_t wakeup_tick);
 #endif
 
-
 /* Stack API. !!! user can't use. */
 void blt_ll_sem_give(void);
-
 
 #endif /* _OS_SUP_H_ */
