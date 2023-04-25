@@ -87,7 +87,7 @@ typedef struct
     u8 advType;       // Advertising
     u8 ownAddrType;
     u8 peerAddrType;
-    u8 peerAddr[6];  //BLE_ADDR_LEN];
+    u8 peerAddr[6];  // BLE_ADDR_LEN];
     u8 advChannelMap;
     u8 advFilterPolicy;
 } hci_le_setAdvParam_cmdParam_t;
@@ -159,15 +159,14 @@ typedef enum {
 /* Advertising_Filter_Policy */
 typedef enum {
     ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY = 0x00,  // Process scan and connection requests from all devices
-    ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_ANY =
-        0x01,  // Process connection requests from all devices and only scan requests from devices that are in the White List.
-    ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_WL =
-        0x02,  // Process scan requests from all devices and only connection requests from devices that are in the White List..
-    ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_WL =
-        0x03,  // Process scan and connection requests only from devices in the White List.
-
-    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  //adv filter policy set to zero, not use whitelist
-} adv_fp_type_t;                                         //adv_filterPolicy_type_t
+    ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_ANY = 0x01,
+    // Process connection requests from all devices and only scan requests from devices that are in the White List.
+    ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_WL = 0x02,
+    // Process scan requests from all devices and only connection requests from devices that are in the White List.
+    ADV_FP_ALLOW_SCAN_WL_ALLOW_CONN_WL = 0x03,
+    // Process scan and connection requests only from devices in the White List.
+    ADV_FP_NONE = ADV_FP_ALLOW_SCAN_ANY_ALLOW_CONN_ANY,  // adv filter policy set to zero, not use whitelist
+} adv_fp_type_t;                                         // adv_filterPolicy_type_t
 
 #define ALLOW_SCAN_WL BIT(0)
 #define ALLOW_CONN_WL BIT(1)

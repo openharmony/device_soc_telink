@@ -46,7 +46,7 @@
 #ifndef CIS_MASTER_H_
 #define CIS_MASTER_H_
 
-#define CIG_MST_PARAM_LEN (436)  //Note: user can't modify this value,and this value must 4 byte aligned
+#define CIG_MST_PARAM_LEN (436)  // Note: user can't modify this value,and this value must 4 byte aligned
 #define CIG_ID_0          0
 #define CIG_ID_1          1
 #define CIG_ID_2          2

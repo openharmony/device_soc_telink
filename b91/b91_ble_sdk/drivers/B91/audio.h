@@ -407,7 +407,7 @@ static inline void audio_set_i2s_clk(unsigned char step, unsigned char mod)
  */
 static inline void audio_set_codec_clk(unsigned char step, unsigned char mod)
 {
-    BM_CLR(reg_dmic_clk_set, BIT(0));  //set dmic_div
+    BM_CLR(reg_dmic_clk_set, BIT(0));  // set dmic_div
     reg_dmic_step = (step & FLD_DMIC_STEP) | FLD_DMIC_SEL;
     reg_dmic_mod = mod;
 }

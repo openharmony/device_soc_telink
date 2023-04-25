@@ -59,7 +59,8 @@ void blc_ll_initLegacyScanning_module(void);
 /**
  * @brief      This function is used to set the scan parameters
  * @param[in]  scan_type - passive Scanning or active scanning.
- * @param[in]  scan_interval - time interval from when the Controller started its last LE scan until it begins the subsequent LE scan
+ * @param[in]  scan_interval - time interval from when the Controller started its last LE scan
+ *                             until it begins the subsequent LE scan
  * @param[in]  scan_window - The duration of the LE scan.
  * @param[in]  ownAddrType - Own_Address_Type
  * @param[in]  scan_fp - Scanning_Filter_Policy

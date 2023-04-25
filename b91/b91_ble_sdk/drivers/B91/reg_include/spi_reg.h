@@ -116,7 +116,7 @@ enum {
  */
 
 #define reg_spi_tx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x12 + (i) * (BASE_ADDR_DIFF - 0x12 + 0x20))
-//#define reg_hspi_tx_cnt1		   REG_ADDR8(HSPI_BASE_ADDR+0x20)
+// #define reg_hspi_tx_cnt1		   REG_ADDR8(HSPI_BASE_ADDR+0x20)
 /**
  * BIT[0:7]   transfer count2 for write data.master only
  */

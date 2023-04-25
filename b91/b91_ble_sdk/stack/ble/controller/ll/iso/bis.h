@@ -46,7 +46,7 @@
 #ifndef BIS_H_
 #define BIS_H_
 
-//Note: user can't modify this value,and this value must 4 byte aligned
+// Note: user can't modify this value,and this value must 4 byte aligned
 #define BIS_PARAM_LENGTH (192)
 
 u32 blc_ll_getAvailBisNum(u8 role);

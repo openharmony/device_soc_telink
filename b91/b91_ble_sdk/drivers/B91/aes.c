@@ -166,7 +166,7 @@ int aes_decrypt(unsigned char *key, unsigned char *decrypttext, unsigned char *r
  */
 void aes_set_em_base_addr(unsigned int addr)
 {
-    aes_base_addr = addr;  //set the embase addr
+    aes_base_addr = addr;  // set the embase addr
 }
 
 /**

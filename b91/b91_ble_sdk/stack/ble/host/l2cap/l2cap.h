@@ -111,7 +111,8 @@ void blm_l2cap_processConnParamUpdatePending(u16 connHandle, u16 min_interval, u
                                              u16 timeout);
 
 /**
- * @brief		This function is used to set the minimal time for send connect parameter update request after connect created
+ * @brief		This function is used to set the minimal time for send connect parameter update request
+ *              after connect created
  * @param[in]	connHandle - connection handle
  * @param[in]	time_ms - the unit is millisecond
  * @return		0: success

@@ -68,6 +68,6 @@ int blc_eatt_sendPrepareWriteRsp(u16 connHandle, u16 scid, u16 attHandle, u16 of
 int blc_eatt_sendExecuteWriteReq(u16 connHandle, u16 scid, u8 flag);
 int blc_eatt_sendExecuteWriteRsp(u16 connHandle, u16 scid);
 
-#endif  //#if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
+#endif  // #if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
 
-#endif  //#ifndef GATT_H_
+#endif  // #ifndef GATT_H_

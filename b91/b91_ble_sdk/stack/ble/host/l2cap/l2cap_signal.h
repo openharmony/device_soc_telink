@@ -73,13 +73,13 @@
      (chCount) * sizeof(l2cap_coc_channel_t))
 
 enum L2CAP_COC_PSM_ENUM {
-    L2CAP_COC_SPSM_EATT = 0x0027,  //L2CAP_COC_START_CREADIT_CONNECT
-    L2CAP_COC_SPSM_OTS = 0x0025,   //L2CAP_COC_START_LE_CREADIT_CONNECT
-                                   //L2CAP_COC_LE_PSM   = L2CAP_COC_SPSM_OTS,
+    L2CAP_COC_SPSM_EATT = 0x0027,  // L2CAP_COC_START_CREADIT_CONNECT
+    L2CAP_COC_SPSM_OTS = 0x0025,   // L2CAP_COC_START_LE_CREADIT_CONNECT
+                                   // L2CAP_COC_LE_PSM   = L2CAP_COC_SPSM_OTS,
 };
 enum L2CAP_COC_START_METHOD_ENUM {
-    L2CAP_COC_START_CREADIT_CONNECT = 0,     //Send blc_l2cap_sendCreditBasedConnectReq
-    L2CAP_COC_START_LE_CREADIT_CONNECT = 1,  //Send blc_l2cap_sendLECreditBasedConnectReq
+    L2CAP_COC_START_CREADIT_CONNECT = 0,     // Send blc_l2cap_sendCreditBasedConnectReq
+    L2CAP_COC_START_LE_CREADIT_CONNECT = 1,  // Send blc_l2cap_sendLECreditBasedConnectReq
 };
 
 /**
@@ -103,16 +103,16 @@ typedef struct
 {
     u8 stat : 4;
     u8 opts : 4;
-    u8 chID;    //channel identifier
-    u8 supChs;  //Bit[7~4]-Supported channel count; bit[3~0]-Now channel count.
+    u8 chID;    // channel identifier
+    u8 supChs;  // Bit[7~4]-Supported channel count; bit[3~0]-Now channel count.
     u8 nowChs;
-    u8 *pBuffer;  //Sdu Buffer
+    u8 *pBuffer;  // Sdu Buffer
 
     u16 newMtu;
     u16 newMps;
 
     u16 spsm;
-    u16 aclHandle;  //connect aclHandle
+    u16 aclHandle;  // connect aclHandle
 
     u16 ownMtu;
     u16 ownMps;
@@ -146,7 +146,7 @@ typedef struct
 typedef struct
 {
     u8 isUsed;
-    u8 isCocPkt;  ///Prev Is COC Packet
+    u8 isCocPkt;  // Prev Is COC Packet
     u16 aclHandle;
     u16 cocPendLen;
     u16 cocPendScid;
@@ -165,7 +165,8 @@ typedef struct
 int blc_l2cap_cocInit(u8 connCount, u8 serviceCount, u8 channelCount, u8 *pBuffer, u16 buffLen);
 
 /**
- * @brief		Bind a connection to a COC processing flow.The received data from the COC is not available until the binding is completed.
+ * @brief		Bind a connection to a COC processing flow.
+ *              The received data from the COC is not available until the binding is completed.
  * @param[in]	aclHandle - The connection handle to be bound.
  * @return		0: success;
  *             -1: The handle is already bound.
@@ -180,7 +181,8 @@ int blc_l2cap_cocConnectHandler(u16 aclHandle);
 void blc_l2cap_cocDisconnHandler(u16 aclHandle);
 
 /**
- * @brief		Register the COC service into L2CAP. After registration, the corresponding service is activated, and then the user can call "startService" to start the service.
+ * @brief		Register the COC service into L2CAP. After registration,
+ *              the corresponding service is activated, and then the user can call "startService" to start the service.
  * @param[in]	spsm - Simplified Protocol/Service Multiplexer. Refer to L2CAP_COC_PSM_ENUM.
  * @param[in]	srvCount - Number of registered services.
  * @param[in]	chCount - Number of Channels per service.
@@ -198,7 +200,8 @@ void blc_l2cap_cocDisconnHandler(u16 aclHandle);
 int blc_l2cap_registerService(u16 spsm, u8 srvCount, u8 chCount, u16 mtu, u16 mps, u16 credits, u8 *pBuffer,
                               blc_l2cap_coc_evtcb evtCb, blc_l2cap_coc_datacb dataCb);
 /**
- * @brief		Start the COC service. The interface automatically finds the relevant SPSM service, binds it to ConnHandle, and sends the start instruction packet.
+ * @brief		Start the COC service. The interface automatically finds the relevant SPSM service,
+ *              binds it to ConnHandle, and sends the start instruction packet.
  * @param[in]	aclHandle - The connection handle to be bound.
  * @param[in]	spsm      - Simplified Protocol/Service Multiplexer. Refer to L2CAP_COC_PSM_ENUM.
  * @param[in]	method    - Refer to L2CAP_COC_START_METHOD_ENUM.
@@ -206,7 +209,8 @@ int blc_l2cap_registerService(u16 spsm, u8 srvCount, u8 chCount, u16 mtu, u16 mp
  *             -1: The AclHandle is not in a connected state;
  *             -2: There is no available service.
  *             -3: The service's state is error. (eg, Busy.)
- *             -4: There is no available channel. (This interface can be called multiple times so that all Channels are created.)
+ *             -4: There is no available channel.
+ *                 (This interface can be called multiple times so that all Channels are created.)
  *             -5: Failed to push data to Controller.
  */
 int blc_l2cap_startService(u16 aclHandle, u16 spsm, u8 method);
@@ -220,7 +224,8 @@ int blc_l2cap_startService(u16 aclHandle, u16 spsm, u8 method);
  */
 int blc_l2cap_stopService(u16 aclHandle, u16 spsm);
 /**
- * @brief		Disconnects the specified channel. Once disconnected, the user can also call "startService" to recreate it.
+ * @brief		Disconnects the specified channel.
+ *              Once disconnected, the user can also call "startService" to recreate it.
  * @param[in]	aclHandle - The connection handle.
  * @param[in]	scid      - Source Channel ID. (local CID)
  * @return		0: success;
@@ -232,7 +237,8 @@ int blc_l2cap_stopService(u16 aclHandle, u16 spsm);
 int blc_l2cap_disconnScid(u16 aclHandle, u16 scid);
 
 /**
- * @brief		Reconfigure the MTU and MPS of the COC service. This interface can only be invoked when the service is idle.
+ * @brief		Reconfigure the MTU and MPS of the COC service.
+ *              This interface can only be invoked when the service is idle.
  *              It is not stable at the moment, please use with caution!
  * @param[in]	aclHandle - The connection handle.
  * @param[in]	srvNum    - Service ID.
@@ -274,6 +280,6 @@ u8 blc_l2cap_getSrvnumBySpsm(u16 aclHandle, u16 spsm);
  */
 int blc_l2cap_cocSendData(u16 aclHandle, u16 scid, u8 *pHead, u8 headLen, u8 *pData, u16 dataLen);
 
-#endif  //#if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
+#endif  // #if (L2CAP_CREDIT_BASED_FLOW_CONTROL_MODE_EN)
 
 #endif /* L2CAP_COC_H_ */

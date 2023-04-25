@@ -58,24 +58,27 @@ void blc_ll_initExtendedScanning_module(void);
 
 /**
  * @brief      This function is used to set the extended scan parameters to be used on the advertising physical channels
- *			   attention: when scan_phys is SCAN_PHY_1M, 	scanType_1 & scanInter_1 & scanWindow_1 are invalid parameters,
- *			   			  when scan_phys is SCAN_PHY_CODED, scanType_0 & scanInter_0 & scanWindow_0 are invalid parameters,
+ *			   Attention:
+               when scan_phys is SCAN_PHY_1M, 	scanType_1 & scanInter_1 & scanWindow_1 are invalid parameters,
+ *			   when scan_phys is SCAN_PHY_CODED, scanType_0 & scanInter_0 & scanWindow_0 are invalid parameters,
  * @param[in]  ownAddrType - Own_Address_Type
  * @param[in]  scan_fp - Scanning_Filter_Policy
  * @param[in]  scan_phys - Scanning_PHYs, "SCAN_PHY_1M" or "SCAN_PHY_CODED"
  *
  * 			   Attention:
- * 			   scanType_0/scanInter_0/scanWindow_0 are only for 1M    PHY.  If    1M PHY is not supported, these parameters are ignored.
- * 			   scanType_1/scanInter_1/scanWindow_1 are only for Coded PHY.  If Coded PHY is not supported, these parameters are ignored.
+ * 			   scanType_0/scanInter_0/scanWindow_0 are only for 1M    PHY.
+ *             If 1M PHY is not supported, these parameters are ignored.
+ * 			   scanType_1/scanInter_1/scanWindow_1 are only for Coded PHY.
+ *             If Coded PHY is not supported, these parameters are ignored.
  *
  * @param[in]  scanType_0 - Scan_Type for 1M PHY, Passive Scanning or Active Scanning.
- * @param[in]  scanInter_0 - Scan_Interval for 1M PHY, Time interval from when the Controller started its last scan until it
-							   begins the subsequent scan on the primary advertising physical channel.
+ * @param[in]  scanInter_0 - Scan_Interval for 1M PHY, Time interval from when the Controller started its last scan
+ *                           until it begins the subsequent scan on the primary advertising physical channel.
  * @param[in]  scanWindow_0 - Duration of the scan on the primary advertising physical channel for 1M PHY
  *
  * @param[in]  scanType_1 - Scan_Type for Coded PHY, Passive Scanning or Active Scanning.
- * @param[in]  scanInter_1 - Scan_Interval for Coded PHY, Time interval from when the Controller started its last scan until it
-							   begins the subsequent scan on the primary advertising physical channel.
+ * @param[in]  scanInter_1 - Scan_Interval for Coded PHY, Time interval from when the Controller started its last scan
+ *                           until it begins the subsequent scan on the primary advertising physical channel.
  * @param[in]  scanWindow_1 - Duration of the scan on the primary advertising physical channel  for Coded PHY
  *
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed

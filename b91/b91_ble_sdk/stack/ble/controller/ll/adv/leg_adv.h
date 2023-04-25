@@ -48,18 +48,19 @@
 
 enum {
     LEG_ADV_STRATEGY_0 = 0, /*!< default adv strategy */
-    LEG_ADV_STRATEGY_1 =
-        1, /*!< adv keep sending. eg: if 1M1S configuration, After a slave establishes a link, adv can continue to send,
+    LEG_ADV_STRATEGY_1 = 1,
+    /* !< adv keep sending. eg: if 1M1S configuration, After a slave establishes a link, adv can continue to send,
 	                         but after disabling adv, adv can no longer be enbled. */
-    LEG_ADV_STRATEGY_2 = 2, /*!< Advertiser. eg: if  1M1S configuration,
+    LEG_ADV_STRATEGY_2 = 2, /* !< Advertiser. eg: if  1M1S configuration,
 	                         After a slave establishes a link, adv can still be switched on and off normally.
 	                         It should be noted that: adv will be closed every time the link is established.
-	                         If you need to send adv, you need to manually enable adv (HCI_LE_Set_Adv_Enable_Cmd)*/
+	                         If you need to send adv, you need to manually enable adv (HCI_LE_Set_Adv_Enable_Cmd) */
 };
 
 /**
  * @brief      for user to initialize legacy advertising module
- * 			   notice that only one module can be selected between legacy advertising module and extended advertising module
+ * 			   notice that only one module can be selected between
+ *             legacy advertising module and extended advertising module
  * @param	   none
  * @return     none
  */
@@ -105,7 +106,8 @@ ble_sts_t blc_ll_setAdvParam(adv_inter_t intervalMin, adv_inter_t intervalMax, a
 ble_sts_t blc_ll_setAdvEnable(adv_en_t adv_enable);
 
 /**
- * @brief      this function is used to set whether to continue sending broadcast packets when receiving scan request in the current adv interval.
+ * @brief      this function is used to set whether to continue sending broadcast packets
+ *             when receiving scan request in the current adv interval.
  * @param[in]  enable - enable:continue sending broadcast packets when receiving scan request.
  * @return     none.
  */

@@ -72,21 +72,21 @@
 typedef struct
 {
 
-    //0
+    // 0
     u32 timestamp;
     u16 offset;
     u16 sn_offset;
 
-    //8
+    // 8
     u16 connHandle : 12;
     u16 pb : 2;
     u16 ts : 1;
     u16 RFU2 : 1;
-    //10
-    u16 iso_dl_len : 14;  //iso_data_load_length
+    // 10
+    u16 iso_dl_len : 14;  // iso_data_load_length
     u16 RFU3 : 2;
 
-    //11
+    // 11
     u8 data[1];
 
 } iso_data_packet_t;

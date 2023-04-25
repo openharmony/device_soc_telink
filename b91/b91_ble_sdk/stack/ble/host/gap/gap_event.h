@@ -53,7 +53,7 @@
 #ifndef GAP_EVENT_H_
 #define GAP_EVENT_H_
 
-/*****************************************  SMP message sequence and event chart  *******************************************************
+/*****************************************  SMP message sequence and event chart  *************************************
 
 																							  GAP_SMP EVENT
 Situation 1:   SMP Standard Pair																    |
@@ -76,7 +76,7 @@ Situation 1:   SMP Standard Pair																    |
 	|		|			        (Optional)Security_Request		    	|	    |					|
 	|		|<----------------------------------------------------------|	    |					|
 	|		|						Pairing_Req							|	    |
-	| 		|---------------------------------------------------------->|=======|=====>>>  GAP_EVT_SMP_PAIRING_BEGIN
+	| 		|---------------------------------------------------------->|=======|=>>> GAP_EVT_SMP_PAIRING_BEGIN
 	|		|						Pairing_Rsp					    	|	    |
 	|  		|<----------------------------------------------------------|       |					|
 	|		|						....... 							|	    |					|
@@ -95,7 +95,7 @@ Situation 1:   SMP Standard Pair																    |
 	|		|					 LL_START_ENC_RSP						|	    |					|
 	|		|---------------------------------------------------------->|	    |					|
 	|       |				     LL_START_ENC_RSP	 					|	    |
-	|		|<----------------------------------------------------------|=======|=====>>>  GAP_EVT_SMP_CONN_ENCRYPTION_DONE(re_connect = SMP_STANDARD_PAIR)
+	|		|<----------------------------------------------------------|=======|=>>> GAP_EVT_SMP_CONN_ENCRYPTION_DONE
 	|_______|___________________________________________________________|_______|
 			|															|							|
 			|															|							|
@@ -114,8 +114,8 @@ Situation 1:   SMP Standard Pair																    |
 	| 		|---------------------------------------------------------->|	    |					|
 	|		|				           ....... 					        |	    |					|
 	|  		|															|       |
-	|		|				 All Key Distribution Finish				|=======|=====>>>  GAP_EVT_SMP_PAIRING_SUCCESS
-	|		|				 											|=======|=====>>>  GAP_EVT_SMP_SECURITY_PROCESS_DONE(re_connect = SMP_STANDARD_PAIR)
+	|		|				 All Key Distribution Finish				|=======|=>>> GAP_EVT_SMP_PAIRING_SUCCESS
+	|		|				 											|=======|=>>> GAP_EVT_SMP_SECURITY_PROCESS_DONE
 	|_______|___________________________________________________________|_______|
 																									|
 																									|
@@ -145,8 +145,8 @@ Situation 2:   SMP Fast Connect																		|
 	|		|					 LL_START_ENC_RSP						|	    |					|
 	|		|---------------------------------------------------------->|	    |					|
 	|       |				     LL_START_ENC_RSP	 					|	    |					|
-	|		|<----------------------------------------------------------|=======|=====>>>  GAP_EVT_SMP_CONN_ENCRYPTION_DONE (re_connect = SMP_FAST_CONNECT)
-	|		|				 											|=======|=====>>>  GAP_EVT_SMP_SECURITY_PROCESS_DONE(re_connect = SMP_FAST_CONNECT)
+	|		|<----------------------------------------------------------|=======|=>>> GAP_EVT_SMP_CONN_ENCRYPTION_DONE
+	|		|				 											|=======|=>>> GAP_EVT_SMP_SECURITY_PROCESS_DONE
 	|_______|___________________________________________________________|_______|
 
 

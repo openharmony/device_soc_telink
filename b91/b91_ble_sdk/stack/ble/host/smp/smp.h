@@ -64,7 +64,7 @@
 #define PAIRING_FAIL_REASON_CONFIRM_FAILED           0x04
 #define PAIRING_FAIL_REASON_PAIRING_NOT_SUPPORTED    0x05
 #define PAIRING_FAIL_REASON_ENCRYPT_KEY_SIZE         0x06
-#define PAIRING_FAIL_REASON_CMD_NOT_SUPPORT          0x07  //-- core 4.2
+#define PAIRING_FAIL_REASON_CMD_NOT_SUPPORT          0x07  // -- core 4.2
 #define PAIRING_FAIL_REASON_UNSPECIFIED_REASON       0x08
 #define PAIRING_FAIL_REASON_REPEATED_ATTEMPT         0x09
 #define PAIRING_FAIL_REASON_INVAILD_PARAMETER        0x0A
@@ -72,18 +72,19 @@
 #define PAIRING_FAIL_REASON_NUMUERIC_FAILED          0x0C
 #define PAIRING_FAIL_REASON_BREDR_PAIRING            0x0D
 #define PAIRING_FAIL_REASON_CROSS_TRANSKEY_NOT_ALLOW 0x0E
-#define PAIRING_FAIL_REASON_PAIRING_TIEMOUT          0x80  //TLK defined
-#define PAIRING_FAIL_REASON_CONN_DISCONNECT          0x81  //TLK defined
-#define PAIRING_FAIL_REASON_SUPPORT_NC_ONLY          0x82  //TLK defined
+#define PAIRING_FAIL_REASON_PAIRING_TIEMOUT          0x80  // TLK defined
+#define PAIRING_FAIL_REASON_CONN_DISCONNECT          0x81  // TLK defined
+#define PAIRING_FAIL_REASON_SUPPORT_NC_ONLY          0x82  // TLK defined
 /** @} end of group SMP pairing fail reasone */
 
 // "SecReq" refer to "security request"
 typedef enum {
     SecReq_NOT_SEND = 0,  // do not send "security request" after link layer connection established
     SecReq_IMM_SEND = BIT(
-        0),  //"IMM" refer to immediate, send "security request" immediately after link layer connection established
+        0),  // "IMM" refer to immediate, send "security request" immediately after link layer connection established
     SecReq_PEND_SEND = BIT(
-        1),  //"PEND" refer to pending,  pending "security request" for some time after link layer connection established, when pending time arrived. send it
+        1),  // "PEND" refer to pending,  pending "security request" for some time
+             // after link layer connection established, when pending time arrived. send it
 } secReq_cfg;
 
 // "PairReq" refer to "pairing request"
@@ -92,7 +93,7 @@ typedef enum {
     PairReq_AUTO_SEND = 1,         // master send "pairing request" automatically, regardless of "security request"
 } PairReq_cfg;
 
-//See the Core_v5.0(Vol 3/Part C/10.2, Page 2067) for more information.
+// See the Core_v5.0(Vol 3/Part C/10.2, Page 2067) for more information.
 typedef enum {
     LE_Security_Mode_1_Level_1 = BIT(0),
     No_Authentication_No_Encryption = BIT(0),
@@ -140,7 +141,8 @@ typedef enum {
 } io_capability_t;
 
 /**
- * @brief      This function is used to initialize each parameter configuration of SMP, including the initialization of the binding area FLASH.
+ * @brief      This function is used to initialize each parameter configuration of SMP,
+ *             including the initialization of the binding area FLASH.
  * @param[in]  none
  * @return     none
  */
@@ -182,8 +184,8 @@ void blc_smp_setSecurityLevel_slave(le_security_mode_level_t mode_level);
  * @return     none.
  */
 void blc_smp_setPairingMethods(pairing_methods_t method);
-void blc_smp_setPairingMethods_master(pairing_methods_t method);  //select pairing methods
-void blc_smp_setPairingMethods_slave(pairing_methods_t method);   //select pairing methods
+void blc_smp_setPairingMethods_master(pairing_methods_t method);  // select pairing methods
+void blc_smp_setPairingMethods_slave(pairing_methods_t method);   // select pairing methods
 
 /**
  * @brief      This function is used to set device's IO capability.
@@ -286,7 +288,7 @@ u8 blc_smp_setTK_by_PasskeyEntry(u16 connHandle, u32 pinCodeInput);
  *                         0: numeric compare confirm NO.
  * @return     none.
  */
-void blc_smp_setNumericComparisonResult(u16 connHandle, bool YES_or_NO);  //numeric compare confirm, 1: YES  0: NO
+void blc_smp_setNumericComparisonResult(u16 connHandle, bool YES_or_NO);  // numeric compare confirm, 1: YES  0: NO
 
 /**
  * @brief      This function is used to check if the pairing is busy.

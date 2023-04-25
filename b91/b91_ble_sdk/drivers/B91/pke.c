@@ -259,7 +259,7 @@ unsigned char pke_opr_cal(pke_microcode_e addr, pke_exe_cfg_e cfg)
     pke_opr_start();
 
     while (!pke_get_irq_status(FLD_PKE_STAT_DONE)) {
-    }  //0(in progress) 1(done))
+    }  // 0(in progress) 1(done))
 
     return (pke_check_rt_code());
 }
@@ -293,7 +293,7 @@ unsigned char pke_calc_pre_mont(const unsigned int *modulus, unsigned int wordLe
 
     pke_set_operand_width(wordLen << 5);
 
-    pke_load_operand((unsigned int *)reg_pke_b_ram(3), (unsigned int *)modulus, wordLen);  //B3 modulus
+    pke_load_operand((unsigned int *)reg_pke_b_ram(3), (unsigned int *)modulus, wordLen);  // B3 modulus
 
     ret = pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
 

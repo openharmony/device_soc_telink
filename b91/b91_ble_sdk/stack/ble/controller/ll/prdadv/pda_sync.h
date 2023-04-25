@@ -57,7 +57,8 @@ void blc_ll_initPeriodicAdvertisingSynchronization_module(void);
 /**
  * @brief      this function is used to synchronize with a periodic advertising train from an advertiser and begin
 			   receiving periodic advertising packets.
- * @param[in]  options - used to determine whether the Periodic Advertiser List is used and whether HCI_Periodic_Advertising_Report events
+ * @param[in]  options - used to determine whether the Periodic Advertiser List is used and whether
+                         HCI_Periodic_Advertising_Report events
  *  					 for this periodic advertising train are initially enabled or disabled.
  * @param[in]  adv_sid - Advertising SID subfield in the ADI field used to identify the Periodic Advertising
  * @param[in]  adv_adrType - Advertiser Address Type

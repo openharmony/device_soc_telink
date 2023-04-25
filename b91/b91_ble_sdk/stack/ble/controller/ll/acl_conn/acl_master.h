@@ -69,8 +69,10 @@ ble_sts_t blc_ll_setAclMasterConnectionInterval(conn_inter_t conn_interval);
  * @param[in]  conn_max - the maximum allowed connection interval.
  * @param[in]  conn_latency - the maximum allowed connection latency.
  * @param[in]  timeout - the link supervision timeout for the LE link.
- * @param[in]  ce_min - information parameters providing the Controller with a hint about the expected minimum length of the connection events.
- * @param[in]  ce_max - information parameters providing the Controller with a hint about the expected maximum length of the connection events.
+ * @param[in]  ce_min - information parameters providing the Controller with a hint about the expected minimum length
+ *                      of the connection events.
+ * @param[in]  ce_max - information parameters providing the Controller with a hint about the expected maximum length
+ *                      of the connection events.
  * @return     status, 0x00:  succeed
  * 			           other: failed
  */

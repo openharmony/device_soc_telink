@@ -46,7 +46,7 @@
 #ifndef CIS_SLAVE_H_
 #define CIS_SLAVE_H_
 
-//#if (LL_FEATURE_ENABLE_CONNECTED_ISOCHRONOUS_STREAM_SLAVE)
+// #if (LL_FEATURE_ENABLE_CONNECTED_ISOCHRONOUS_STREAM_SLAVE)
 
 #define CIG_SLV_PARAM_LEN (416)  //Note: user can't modify this value,and this value must 4 byte aligned
 
@@ -83,4 +83,4 @@ ble_sts_t blc_hci_le_rejectCisReq(u16 cisHandle, u8 reason, u8 *pRetParam);
 
 #endif
 
-//#endif /* CIS_MASTER_H_ */
+// #endif /* CIS_MASTER_H_ */

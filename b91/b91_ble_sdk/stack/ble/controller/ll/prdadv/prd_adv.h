@@ -73,7 +73,8 @@ ble_sts_t blc_ll_initPeriodicAdvParamBuffer(u8 *pBuff, int num_periodic_adv);
 /**
  * @brief      This function is used by the Host to set the parameters for periodic advertising.
  * @param[in]  adv_handle - - Used to identify a periodic advertising train
- * @param[in]  advInter_min - Periodic_Advertising_Interval_Min(Range: 0x0006 to 0xFFFF, Time = N * 1.25 ms Time Range: 7.5 ms to 81.91875 s)
+ * @param[in]  advInter_min - Periodic_Advertising_Interval_Min
+ *                            (Range: 0x0006 to 0xFFFF, Time = N * 1.25 ms Time Range: 7.5 ms to 81.91875 s)
  * @param[in]  advInter_max - Periodic_Advertising_Interval_Max
  * @param[in]  property - Periodic_Advertising_Properties
  * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed

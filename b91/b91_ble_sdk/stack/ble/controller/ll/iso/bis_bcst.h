@@ -46,8 +46,8 @@
 #ifndef BIS_BCST_H_
 #define BIS_BCST_H_
 
-//Note: user can't modify this value,and this value must 4 byte aligned
-#define BIG_BCST_PARAM_LENGTH (672)  //4B aligned
+// Note: user can't modify this value,and this value must 4 byte aligned
+#define BIG_BCST_PARAM_LENGTH (672)  // 4B aligned
 
 /**
  * @brief      This function is used to initialize BIG broadcast module.
@@ -83,7 +83,7 @@ ble_sts_t blc_hci_le_createBigParamsTest(hci_le_createBigParamsTest_t *pCmdParam
  * @return     none
  */
 ble_sts_t
-blc_hci_le_terminateBig(hci_le_terminateBigParams_t *pCmdParam);  //TODO: BIG BCST and BIG SYNC use common BIG CB
+blc_hci_le_terminateBig(hci_le_terminateBigParams_t *pCmdParam);  // TODO: BIG BCST and BIG SYNC use common BIG CB
 
 /**
  * @brief      Used to enable private ExtADV to send BIGINFO

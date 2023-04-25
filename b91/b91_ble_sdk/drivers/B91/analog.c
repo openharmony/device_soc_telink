@@ -287,11 +287,11 @@ _attribute_ram_code_sec_noinline_ void analog_write_buff(unsigned char addr, uns
             if (wr_idx == 4) {
                 wr_idx = 0;
                 while ((reg_ana_irq_sta & FLD_ANA_TXBUFF_IRQ) == 0)
-                    ;  //tx_buf_irq
+                    ;  // tx_buf_irq
             }
         }
     }
-    analog_wait();  //busy
+    analog_wait();  // busy
     reg_ana_ctrl = 0x00;
     core_restore_interrupt(r);
 }

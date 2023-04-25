@@ -46,7 +46,7 @@
 #ifndef CIS_H_
 #define CIS_H_
 
-//Note: user can't modify this value,and this value must 4 byte aligned
+// Note: user can't modify this value,and this value must 4 byte aligned
 #define CIS_CONN_PARAM_LENGTH (344)
 
 ble_sts_t blc_ll_initCisConnectionParameters(u8 *pCisConnPara, u32 master_cis_num, u32 slave_cis_num);

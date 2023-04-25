@@ -84,7 +84,7 @@ typedef struct
 typedef struct
 {
     u8 numHandles;
-    numCmpPktParamRet_t retParams[1];  //TODO
+    numCmpPktParamRet_t retParams[1];  // TODO
 } hci_numOfCmpPktEvt_t;
 
 typedef struct
@@ -347,8 +347,8 @@ typedef struct
     u8 data[1];
 } le_periodAdvReportEvt_t;
 
-#define EXTADV_INFO_LENGTH      24   //byte number from "event_type" to "data_length"
-#define EXTADV_RPT_DATA_LEN_MAX 229  //253 - 24 = 229
+#define EXTADV_INFO_LENGTH      24   // byte number from "event_type" to "data_length"
+#define EXTADV_RPT_DATA_LEN_MAX 229  // 253 - 24 = 229
 
 typedef struct
 {
@@ -357,7 +357,7 @@ typedef struct
     u8 advEvtInfo[1];
 } hci_le_extAdvReportEvt_t;
 
-/* Extended Advertising Report Event Event_Type mask*/
+/* Extended Advertising Report Event Event_Type mask */
 typedef enum {
     EXTADV_RPT_EVT_MASK_CONNECTABLE = BIT(0),
     EXTADV_RPT_EVT_MASK_SCANNABLE = BIT(1),
@@ -376,7 +376,7 @@ typedef enum {
 
 /* Extended Advertising Report Event_Type */
 typedef enum {
-    //Legacy
+    // Legacy
     EXTADV_RPT_EVTTYPE_LEGACY_ADV_IND = 0x0013,                  //  0001 0011'b
     EXTADV_RPT_EVTTYPE_LEGACY_ADV_DIRECT_IND = 0x0015,           //  0001 0101'b
     EXTADV_RPT_EVTTYPE_LEGACY_ADV_SCAN_IND = 0x0012,             //  0001 0010'b
@@ -384,7 +384,7 @@ typedef enum {
     EXTADV_RPT_EVTTYPE_LEGACY_SCAN_RSP_2_ADV_IND = 0x001B,       //  0001 1011'b
     EXTADV_RPT_EVTTYPE_LEGACY_SCAN_RSP_2_ADV_SCAN_IND = 0x001A,  //  0001 1010'b
 
-    //Extended
+    // Extended
     EXTADV_RPT_EVTTYPE_EXT_NON_CONN_NON_SCAN_UNDIRECTED =
         0x0000,                                                  // Extended, Non_Connectable Non_Scannable Undirected
     EXTADV_RPT_EVTTYPE_EXT_CONNECTABLE_UNDIRECTED = 0x0001,      // Extended, Connectable Undirected
@@ -393,7 +393,7 @@ typedef enum {
     EXTADV_RPT_EVTTYPE_EXT_CONNECTABLE_DIRECTED = 0x0005,        // Extended, Connectable Directed
     EXTADV_RPT_EVTTYPE_EXT_SCANNABLE_DIRECTED = 0x0006,          // Extended, Scannable Directed
     EXTADV_RPT_EVTTYPE_EXT_SCAN_RESPONSE = 0x0008,               // Extended, AUX_SCAN_RESPONSE
-} extAdvRptEvtType_t;                                            //extended advertising report event type
+} extAdvRptEvtType_t;                                            // extended advertising report event type
 
 /* Address type */
 typedef enum {
@@ -452,7 +452,7 @@ typedef struct
 
 typedef struct
 {
-    //TODO
+    // TODO
 } hci_le_scanTimeoutEvt_t;
 
 /**
@@ -472,7 +472,7 @@ typedef struct
  */
 typedef struct
 {
-    //TODO
+    // TODO
 } hci_le_scanReqRcvdEvt_t;
 
 /**
@@ -539,7 +539,7 @@ typedef struct
     u16 maxPDU;
     u16 isoIntvl;
     u8 numBis;
-    u16 bisHandles[1];  //LL_BIS_IN_PER_BIG_BCST_NUM_MAX];
+    u16 bisHandles[1];  // LL_BIS_IN_PER_BIG_BCST_NUM_MAX];
 } hci_le_createBigCompleteEvt_t;
 
 /**
@@ -568,7 +568,7 @@ typedef struct
     u16 maxPDU;
     u16 isoIntvl;
     u8 numBis;
-    u16 bisHandles[1];  //BIS_IN_PER_BIG_SYNC_NUM_MAX];
+    u16 bisHandles[1];  // BIS_IN_PER_BIG_SYNC_NUM_MAX];
 } hci_le_bigSyncEstablishedEvt_t;
 
 /**
@@ -594,7 +594,7 @@ typedef struct
     u16 syncHandle;
     u8 numBis;
     u8 nse;
-    u16 IsoItvl;  //in units of 1.25 ms.
+    u16 IsoItvl;  // in units of 1.25 ms.
     u8 bn;
     u8 pto;
     u8 irc;
@@ -608,7 +608,8 @@ typedef struct
 
 int hci_le_periodicAdvSyncEstablished_evt(u8 status, u16 syncHandle, u8 advSID, u8 advAddrType, u8 advAddress[6],
                                           u8 advPHY, u16 perdAdvItvl, u8 advClkAccuracy);
-//int		hci_le_periodicAdvSyncEstablished_evt (u8 status, u16 syncHandle, extadv_id_t *pId, u8 advPHY, u16 perdAdvItvl, u8 advClkAccuracy);
+// int hci_le_periodicAdvSyncEstablished_evt(u8 status, u16 syncHandle, extadv_id_t *pId, u8 advPHY, u16 perdAdvItvl,
+//                                           u8 advClkAccuracy);
 
 int hci_le_periodicAdvReport_evt(u8 subEventCode, u16 syncHandle, u8 txPower, u8 RSSI, u8 cteType, u8 dataStatus,
                                  u8 dataLength, u8 *data);

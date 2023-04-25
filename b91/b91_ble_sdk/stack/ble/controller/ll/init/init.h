@@ -47,10 +47,11 @@
 #define INIT_H_
 
 /**
- * @brief      This function is used to cancel the HCI_LE_Create_Connection or HCI_LE_Extended_Create_Connection commands.
- * 			   This command shall only be issued after the HCI_LE_Create_Connection or HCI_LE_Extended_Create_Connection commands have been issued.
- * @param	   none
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief    This function is used to cancel the HCI_LE_Create_Connection or HCI_LE_Extended_Create_Connection commands.
+ *           This command shall only be issued after the HCI_LE_Create_Connection 
+ *           or HCI_LE_Extended_Create_Connection commands have been issued.
+ * @param	 none
+ * @return   Status - 0x00: command succeeded; 0x01-0xFF: command failed
  */
 ble_sts_t blc_ll_createConnectionCancel(void);
 

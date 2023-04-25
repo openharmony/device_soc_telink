@@ -67,12 +67,13 @@
  * For example, when used as BLE Controller, BLE Host can use either legacy or extended ADV */
 #define MAX_LENGTH_PRIMARY_ADV_PKT          44
 
-#define MAX_LENGTH_SECOND_ADV_PKT 264  //sizeof(rf_pkt_ext_adv_t) = 261
+#define MAX_LENGTH_SECOND_ADV_PKT 264  // sizeof(rf_pkt_ext_adv_t) = 261
 #endif
 
 /**
  * @brief      for user to initialize extended advertising module
- * 			   notice that: 1. only one module can be selected between legacy advertising module and extended advertising module
+ * 			   notice that: 1. only one module can be selected between
+ *                             legacy advertising module and extended advertising module
  *							2. this API must be used before any other extended ADV initialization APIs.
  * @param	   none
  * @return     none
@@ -167,8 +168,8 @@ ble_sts_t blc_ll_setExtAdvData(u8 adv_handle, int advData_len, u8 *advData);
 ble_sts_t blc_ll_setExtScanRspData(u8 adv_handle, int scanRspData_len, u8 *scanRspData);
 
 /**
- * @brief      This function is used to request the Controller to enable or disable one or more advertising sets using the
-			   advertising sets identified by the adv_handle
+ * @brief      This function is used to request the Controller to enable or disable one or more advertising sets
+ *             using the advertising sets identified by the adv_handle
  * @param[in]  enable -
  * @param[in]  adv_handle - Used to identify an advertising set
  * @param[in]  duration -	the duration for which that advertising set is enabled
