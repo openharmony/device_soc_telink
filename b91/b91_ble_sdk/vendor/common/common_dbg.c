@@ -43,46 +43,36 @@
  *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  *******************************************************************************************************/
-#include "tl_common.h"
 #include "common_dbg.h"
-
+#include "tl_common.h"
 
 #if (APP_DUMP_EN)
 
-
-
 MYFIFO_INIT_IRAM(print_fifo, 288, 32);
-
-
 
 void app_dmup_debug_init(void)
 {
-	my_usb_init(0x120, &print_fifo);
-	usb_set_pin_en ();
+    my_usb_init(0x120, &print_fifo);
+    usb_set_pin_en();
 }
 
 #endif
 
-
-
-
-
 #if (UART_LOW_POWER_DEBUG_EN)
 
+#define UART0_DMA_CHANNEL_TX DMA4
+#define UART0_BAUDRATE       1000000  // 115200
 
-#define UART0_DMA_CHANNEL_TX            DMA4
-#define UART0_BAUDRATE                  1000000  //115200
-
-int lp_uart_init = 0;  //attention: can not be retention data !!!
+int lp_uart_init = 0;  // attention: can not be retention data !!!
 void low_power_uart_debug_init(void)
 {
 #if (UART_LOW_POWER_DEBUG_EN)
-	uart0_init(UART0_BAUDRATE);
-	uart_set_tx_dma_config(UART0, UART0_DMA_CHANNEL_TX);
-	uart_clr_tx_done(UART0);
-	dma_clr_irq_mask(UART0_DMA_CHANNEL_TX,TC_MASK|ABT_MASK|ERR_MASK);
+    uart0_init(UART0_BAUDRATE);
+    uart_set_tx_dma_config(UART0, UART0_DMA_CHANNEL_TX);
+    uart_clr_tx_done(UART0);
+    dma_clr_irq_mask(UART0_DMA_CHANNEL_TX, TC_MASK | ABT_MASK | ERR_MASK);
 
-	lp_uart_init = 1;
+    lp_uart_init = 1;
 #endif
 }
 

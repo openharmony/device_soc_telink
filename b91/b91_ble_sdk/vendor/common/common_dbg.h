@@ -46,49 +46,31 @@
 #ifndef COMMON_DBG_H_
 #define COMMON_DBG_H_
 
-
-
 #include "common/utility.h"
 #include "vendor/common/user_config.h"
 
-
 #ifndef APP_DUMP_EN
-#define APP_DUMP_EN         						0
+#define APP_DUMP_EN 0
 #endif
-
 
 #if (APP_DUMP_EN)
 
 extern my_fifo_t print_fifo;
-extern	unsigned char 	print_fifo_b[];
-
-
+extern unsigned char print_fifo_b[];
 
 void app_dmup_debug_init(void);
 
 #endif
 
-
-
-
-
-
-
 #ifndef UART_LOW_POWER_DEBUG_EN
-#define UART_LOW_POWER_DEBUG_EN									0
+#define UART_LOW_POWER_DEBUG_EN 0
 #endif
 
-
-
-
-#if(UART_LOW_POWER_DEBUG_EN)
+#if (UART_LOW_POWER_DEBUG_EN)
 
 extern int lp_uart_init;
 void low_power_uart_debug_init(void);
 
 #endif
-
-
-
 
 #endif /* COMMON_DBG_H_ */

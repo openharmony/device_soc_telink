@@ -55,7 +55,7 @@
 typedef struct
 {
     u8 manual_pair;
-    u8 mac_type;  //address type
+    u8 mac_type;  // address type
     u8 mac[6];
     u32 pair_tick;
 } man_pair_t;

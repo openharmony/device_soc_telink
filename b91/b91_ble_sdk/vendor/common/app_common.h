@@ -47,7 +47,6 @@
 #ifndef VENDOR_COMMON_APP_COMMON_H_
 #define VENDOR_COMMON_APP_COMMON_H_
 
-
 #include "blt_common.h"
 
 #include "device_manage.h"

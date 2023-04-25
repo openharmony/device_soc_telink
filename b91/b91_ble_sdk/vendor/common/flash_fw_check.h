@@ -46,9 +46,7 @@
 #ifndef _FLASH_FW_CHECK_H_
 #define _FLASH_FW_CHECK_H_
 
-
 #include "../../common/types.h"
-
 
 /**
  * @brief		This function is used to check the firmware is ok or not
@@ -56,8 +54,6 @@
  * @return		0 - CRC is check success
  * 				1 - CRC is check fail
  */
-bool flash_fw_check( u32 crc_init_value );
-
-
+bool flash_fw_check(u32 crc_init_value);
 
 #endif

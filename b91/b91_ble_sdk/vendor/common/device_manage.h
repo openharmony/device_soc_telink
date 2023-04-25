@@ -46,30 +46,24 @@
 #ifndef APP_DEVICE_H_
 #define APP_DEVICE_H_
 
-
-#include "vendor/common/user_config.h"
 #include "stack/ble/ble_common.h"
 #include "stack/ble/hci/hci_event.h"
+#include "vendor/common/user_config.h"
+
 
 #ifndef MASTER_MAX_NUM
-#define MASTER_MAX_NUM         						4
+#define MASTER_MAX_NUM 4
 #endif
 
 #ifndef SLAVE_MAX_NUM
-#define SLAVE_MAX_NUM     							4
+#define SLAVE_MAX_NUM 4
 #endif
 
+#define INVALID_CONN_IDX 0xFF
 
+#define DEVICE_CHAR_INFO_MAX_NUM (MASTER_MAX_NUM + SLAVE_MAX_NUM)  // 4 master, 3 slave most
 
-#define INVALID_CONN_IDX     						0xFF
-
-
-
-#define DEVICE_CHAR_INFO_MAX_NUM		(MASTER_MAX_NUM + SLAVE_MAX_NUM)    //4 master, 3 slave most
-
-
-
-#define CHAR_HANDLE_MAX					8
+#define CHAR_HANDLE_MAX 8
 /***************** connection character device information ****************************
  *
  * Demo master device char_handle(ATT handle) define as follows, assuming that peer device(BLE slave) is TELINK HID device
@@ -83,41 +77,38 @@
  *   char_handle[7] :  BLE Module, SPP Client to Server
  *************************************************************************************/
 
-typedef struct {
-	u8 id_adrType;					//identity address type
-	u8 id_addr[6];					//identity address
-	u8 reserved;
-	u8 irk[16];
-} rpa_addr_t;
-
-
-
-//Attention: manual set 4 byte aligned
 typedef struct
 {
-	u16 	conn_handle;
-	u8		conn_role;				// 0: master; 1: slave
-	u8 		conn_state;				// 1: connect;  0: disconnect
+    u8 id_adrType;  // identity address type
+    u8 id_addr[6];  // identity address
+    u8 reserved;
+    u8 irk[16];
+} rpa_addr_t;
 
-	u8		char_handle_valid;      // 1: peer device's attHandle is available;   0: peer device's attHandle not available
-	u8		rsvd[3];  				// for 4 Byte align
+// Attention: manual set 4 byte aligned
+typedef struct
+{
+    u16 conn_handle;
+    u8 conn_role;   // 0: master; 1: slave
+    u8 conn_state;  // 1: connect;  0: disconnect
 
-	u8		peer_adrType;
-	u8		peer_addr[6];
-	u8		peer_RPA;         //RPA: resolvable private address
+    u8 char_handle_valid;  // 1: peer device's attHandle is available;   0: peer device's attHandle not available
+    u8 rsvd[3];            // for 4 Byte align
 
-	//rpa_addr_t *pPeer_RPA;    //only when peer  mac_address is RPA, this pointer is useful
+    u8 peer_adrType;
+    u8 peer_addr[6];
+    u8 peer_RPA;  // RPA: resolvable private address
 
-	u16		char_handle[CHAR_HANDLE_MAX];
+    // rpa_addr_t *pPeer_RPA;    // only when peer  mac_address is RPA, this pointer is useful
 
-}dev_char_info_t;
+    u16 char_handle[CHAR_HANDLE_MAX];
 
+} dev_char_info_t;
 
-extern dev_char_info_t	conn_dev_list[];
+extern dev_char_info_t conn_dev_list[];
 
-
-extern int	conn_master_num;
-extern int	conn_slave_num;
+extern int conn_master_num;
+extern int conn_slave_num;
 
 /**
  * @brief       Used for add device information to conn_dev_list.
@@ -125,9 +116,7 @@ extern int	conn_slave_num;
  * @return      0 ~ DEVICE_CHAR_INFO_MAX_NUM - 1: new connection index, insert success
  *              0xFF: insert failed
  */
-int 	dev_char_info_insert (dev_char_info_t* dev_char_info);
-
-
+int dev_char_info_insert(dev_char_info_t *dev_char_info);
 
 /**
  * @brief       Used for add device information to conn_dev_list.
@@ -135,8 +124,7 @@ int 	dev_char_info_insert (dev_char_info_t* dev_char_info);
  * @return      0 ~ DEVICE_CHAR_INFO_MAX_NUM - 1: new connection index, insert success
  *              0xFF: insert failed
  */
-int 	dev_char_info_insert_by_conn_event(hci_le_connectionCompleteEvt_t* pConnEvt);
-
+int dev_char_info_insert_by_conn_event(hci_le_connectionCompleteEvt_t *pConnEvt);
 
 /**
  * @brief       Used for add device information to conn_dev_list.
@@ -144,8 +132,7 @@ int 	dev_char_info_insert_by_conn_event(hci_le_connectionCompleteEvt_t* pConnEvt
  * @return      0 ~ DEVICE_CHAR_INFO_MAX_NUM - 1: new connection index, insert success
  *              0xFF: insert failed
  */
-int dev_char_info_insert_by_enhanced_conn_event(hci_le_enhancedConnCompleteEvt_t* pConnEvt);
-
+int dev_char_info_insert_by_enhanced_conn_event(hci_le_enhancedConnCompleteEvt_t *pConnEvt);
 
 /**
  * @brief       Used for delete device information from conn_dev_list by connHandle
@@ -153,7 +140,7 @@ int dev_char_info_insert_by_enhanced_conn_event(hci_le_enhancedConnCompleteEvt_t
  * @return      0: success
  *              1: no find
  */
-int 	dev_char_info_delete_by_connhandle (u16 connhandle);
+int dev_char_info_delete_by_connhandle(u16 connhandle);
 
 /**
  * @brief       Used for delete device information from conn_dev_list by peer mac_address
@@ -162,8 +149,7 @@ int 	dev_char_info_delete_by_connhandle (u16 connhandle);
  * @return      0: success
  *              1: no find
  */
-int 	dev_char_info_delete_by_peer_mac_address (u8 adr_type, u8* addr);
-
+int dev_char_info_delete_by_peer_mac_address(u8 adr_type, u8 *addr);
 
 /**
  * @brief       Get device information by  peer device address.
@@ -172,7 +158,7 @@ int 	dev_char_info_delete_by_peer_mac_address (u8 adr_type, u8* addr);
  * @return      0: no find
  *             !0: found
  */
-dev_char_info_t* 	dev_char_info_search_by_peer_mac_address (u8 adr_type, u8* addr);
+dev_char_info_t *dev_char_info_search_by_peer_mac_address(u8 adr_type, u8 *addr);
 
 /**
  * @brief       Get device information by connection handle.
@@ -180,18 +166,14 @@ dev_char_info_t* 	dev_char_info_search_by_peer_mac_address (u8 adr_type, u8* add
  * @return      0: no find
  *             !0: found
  */
-dev_char_info_t* 	dev_char_info_search_by_connhandle (u16 connhandle);
-
-
+dev_char_info_t *dev_char_info_search_by_connhandle(u16 connhandle);
 
 /**
  * @brief       Used for judge if current device conn_handle
  * @param[in]   connhandle       - connection handle.
  * @return
  */
-bool	dev_char_info_is_connection_state_by_conn_handle(u16 connhandle);
-
-
+bool dev_char_info_is_connection_state_by_conn_handle(u16 connhandle);
 
 /**
  * @brief       Get ACL connection role by connection handle.
@@ -200,11 +182,7 @@ bool	dev_char_info_is_connection_state_by_conn_handle(u16 connhandle);
  * 				1: LL_ROLE_SLAVE
  * 				2: connection handle invalid
  */
-int dev_char_get_conn_role_by_connhandle (u16 connhandle);
-
-
-
-
+int dev_char_get_conn_role_by_connhandle(u16 connhandle);
 
 /**
  * @brief       Get ACL connection index by connection handle.
@@ -212,10 +190,6 @@ int dev_char_get_conn_role_by_connhandle (u16 connhandle);
  * @return      0xFF: 	  no connection index match
  * 				others:   connection index
  */
-int dev_char_get_conn_index_by_connhandle (u16 connhandle);
-
-
-
-
+int dev_char_get_conn_index_by_connhandle(u16 connhandle);
 
 #endif /* APP_DEVICE_H_ */
