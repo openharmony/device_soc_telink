@@ -51,7 +51,7 @@
 #define reg_ana_addr  REG_ADDR8(ALG_BASE_ADDR)
 #define reg_ana_ctrl  REG_ADDR8(ALG_BASE_ADDR + 0x02)
 enum {
-    //FLD_ANA_TX_EN         = BIT(0),
+    // FLD_ANA_TX_EN         = BIT(0),
     FLD_ANA_RX_EN = BIT(1),
     FLD_ANA_MASKX_TX_DONE = BIT(2),
     FLD_ANA_MASKX_RX_DONE = BIT(3),

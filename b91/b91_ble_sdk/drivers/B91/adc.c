@@ -47,25 +47,25 @@
 #include "audio.h"
 #include "compiler.h"
 
-_attribute_data_retention_sec_ unsigned short g_adc_vref = 1175;  //default ADC ref voltage (unit:mV)
+_attribute_data_retention_sec_ unsigned short g_adc_vref = 1175;  // default ADC ref voltage (unit:mV)
 volatile unsigned char g_adc_pre_scale;
 volatile unsigned char g_adc_vbat_divider;
 
 dma_chn_e adc_dma_chn;
 dma_config_t adc_rx_dma_config = {
     .dst_req_sel = 0,
-    .src_req_sel = DMA_REQ_AUDIO1_RX,  //adc use the audio1 interface
+    .src_req_sel = DMA_REQ_AUDIO1_RX,  // adc use the audio1 interface
     .dst_addr_ctrl = DMA_ADDR_INCREMENT,
     .src_addr_ctrl = DMA_ADDR_FIX,
     .dstmode = DMA_NORMAL_MODE,
     .srcmode = DMA_HANDSHAKE_MODE,
-    .dstwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .src_burst_size = 0,             //must 0
+    .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .src_burst_size = 0,             // must 0
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 /**
  * @brief     This function serves to config adc_dma_chn channel.
@@ -79,7 +79,7 @@ void adc_set_dma_config(dma_chn_e chn)
     dma_clr_irq_mask(adc_dma_chn, TC_MASK | ERR_MASK | ABT_MASK);
     dma_set_irq_mask(adc_dma_chn, TC_MASK);
 
-    audio_data_fifo1_path_sel(SAR_ADC_DATA_IN_FIFO, OUT_NO_USE);  //connect DMA and ADC by audio input fifo1.
+    audio_data_fifo1_path_sel(SAR_ADC_DATA_IN_FIFO, OUT_NO_USE);  // connect DMA and ADC by audio input fifo1.
 }
 /**
  * @brief     This function serves to start sample with adc DMA channel.
@@ -146,7 +146,8 @@ void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin)
     }
 }
 /**
- * @brief This function is used to set two IO port configuration and set it as input channel of ADC difference IO port voltage sampling.
+ * @brief This function is used to set two IO port configuration 
+ * and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
  * @param[in]  n_pin - enum variable of ADC analog negative input IO.
  * @return none
@@ -166,13 +167,13 @@ void adc_set_ref_voltage(adc_ref_vol_e v_ref)
 {
     analog_write_reg8(areg_adc_vref, v_ref);
     if (v_ref == ADC_VREF_1P2V) {
-        //Vref buffer bias current trimming: 		150%
-        //Comparator preamp bias current trimming:  100%
+        // Vref buffer bias current trimming: 		150%
+        // Comparator preamp bias current trimming:  100%
         analog_write_reg8(areg_ain_scale, (analog_read_reg8(areg_ain_scale) & (0xC0)) | 0x3d);
         g_adc_vref = 1175;
     } else if (v_ref == ADC_VREF_0P9V) {
-        //Vref buffer bias current trimming: 		100%
-        //Comparator preamp bias current trimming:  100%
+        // Vref buffer bias current trimming: 		100%
+        // Comparator preamp bias current trimming:  100%
         analog_write_reg8(areg_ain_scale, (analog_read_reg8(areg_ain_scale) & (0xC0)) | 0x15);
         g_adc_vref = 900;  // v_ref = ADC_VREF_0P9V,
     }
@@ -233,16 +234,16 @@ void adc_set_vbat_divider(adc_vbat_div_e vbat_div)
  */
 void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e sample_freq)
 {
-    adc_power_off();                          //power off sar adc
-    adc_reset();                              //reset whole digital adc module
-    adc_clk_en();                             //enable signal of 24M clock to sar adc
-    adc_set_clk(5);                           //default adc_clk 4M = 24M/(1+div),
-    adc_set_ref_voltage(v_ref);               //set channel Vref
-    adc_set_scale_factor(pre_scale);          //set Analog input pre-scaling
-    adc_set_sample_rate(sample_freq);         //set sample frequency.
-    adc_set_resolution(ADC_RES14);            //default adc_resolution set as 14bit ,BIT(13) is sign bit
-    adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  //6 adc clocks for sample cycle
-    adc_set_m_chn_en();                       //enable adc channel.
+    adc_power_off();                          // power off sar adc
+    adc_reset();                              // reset whole digital adc module
+    adc_clk_en();                             // enable signal of 24M clock to sar adc
+    adc_set_clk(5);                           // default adc_clk 4M = 24M/(1+div),
+    adc_set_ref_voltage(v_ref);               // set channel Vref
+    adc_set_scale_factor(pre_scale);          // set Analog input pre-scaling
+    adc_set_sample_rate(sample_freq);         // set sample frequency.
+    adc_set_resolution(ADC_RES14);            // default adc_resolution set as 14bit ,BIT(13) is sign bit
+    adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  // 6 adc clocks for sample cycle
+    adc_set_m_chn_en();                       // enable adc channel.
 }
 /**
  * @brief This function serves to ADC gpio sample init.
@@ -317,10 +318,10 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
     /******get adc sample data and sort these data ********/
     for (int i = 0; i < sample_num; i++) {
         if (sample_buffer[i] &
-            BIT(13)) {  //14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
+            BIT(13)) {  // 14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
             sample_buffer[i] = 0;
         } else {
-            sample_buffer[i] = (sample_buffer[i] & 0x1fff);  //BIT(12..0) is valid adc code
+            sample_buffer[i] = (sample_buffer[i] & 0x1fff);  // BIT(12..0) is valid adc code
         }
     }
 }
@@ -370,6 +371,6 @@ unsigned short adc_calculate_voltage(unsigned short adc_code)
 unsigned short adc_calculate_temperature(unsigned short adc_code)
 {
     //////////////// adc sample data convert to temperature(Celsius) ////////////////
-    //adc_temp_value = 564 - ((adc_code * 819)>>13)
+    // adc_temp_value = 564 - ((adc_code * 819)>>13)
     return 564 - ((adc_code * 819) >> 13);
 }

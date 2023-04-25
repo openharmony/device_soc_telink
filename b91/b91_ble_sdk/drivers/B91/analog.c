@@ -79,7 +79,7 @@ dma_config_t analog_tx_dma_config = {
     .auto_en = 0, /* < must 0 */
 };
 dma_config_t analog_rx_dma_config = {
-    .dst_req_sel = 0,  //tx req
+    .dst_req_sel = 0,  // tx req
     .src_req_sel = DMA_REQ_ALGM_RX,
     .dst_addr_ctrl = DMA_ADDR_INCREMENT,
     .src_addr_ctrl = DMA_ADDR_FIX,
@@ -91,7 +91,7 @@ dma_config_t analog_rx_dma_config = {
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 /**********************************************************************************************************************
  *                                              local variable                                                     *
@@ -313,7 +313,7 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
     reg_ana_ctrl = FLD_ANA_CYC;
     if (len_t > 4) {
         while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0)
-            ;  //rx_buf_irq
+            ;  // rx_buf_irq
         while (len_t--) {
             (*buff++) = reg_ana_data(rd_idx++);
             if (rd_idx == 4) {
@@ -322,7 +322,7 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
                     break;
                 else
                     while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0)
-                        ;  //rx_buf_irq
+                        ;  // rx_buf_irq
             }
         }
     }

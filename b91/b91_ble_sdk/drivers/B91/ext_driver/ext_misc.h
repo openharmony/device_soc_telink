@@ -65,7 +65,6 @@
 #include "compiler.h"
 #include "types.h"
 
-
 /* for debug */
 #define DBG_SRAM_ADDR 0x00014
 
@@ -100,7 +99,7 @@ typedef enum {
 static inline void systimer_irq_enable(void)
 {
     reg_irq_src0 |= BIT(IRQ1_SYSTIMER);
-    //plic_interrupt_enable(IRQ1_SYSTIMER);
+    // plic_interrupt_enable(IRQ1_SYSTIMER);
 }
 
 /**
@@ -110,7 +109,7 @@ static inline void systimer_irq_enable(void)
 static inline void systimer_irq_disable(void)
 {
     reg_irq_src0 &= ~BIT(IRQ1_SYSTIMER);
-    //plic_interrupt_disable(IRQ1_SYSTIMER);
+    // plic_interrupt_disable(IRQ1_SYSTIMER);
 }
 
 static inline void systimer_set_irq_mask(void)
@@ -216,7 +215,7 @@ void generateRandomNum(int len, unsigned char *data);
  */
 #define CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct) (((maxTxOct + 10) + 15) / 16 * 16)
 
-/*HCI TX RX buffer len = uart_fifo+ dma 4byte */
+/* HCI TX RX buffer len = uart_fifo+ dma 4byte */
 #define HCI_FIFO_SIZE(n) (((n + 2 + 4) + 15) / 16 * 16)
 
 /*
@@ -237,15 +236,15 @@ void generateRandomNum(int len, unsigned char *data);
 * DMA_LEN(4B)+Hdr(2B)+PLD(251B)+MIC(4B)+CRC(3B)+TLK_PKT_INFO(12B)
 *             **use 2B enough**
 */
-#define ISO_BIS_RX_PDU_SIZE_ALLIGN16(n) (((n + 25) + 15) / 16 * 16)  //4+2+4+2+4+3+12
+#define ISO_BIS_RX_PDU_SIZE_ALLIGN16(n) (((n + 25) + 15) / 16 * 16)  // 4+2+4+2+4+3+12
 
-//12 = 4(struct bis_rx_pdu_tag	*next) + 4(u32 payloadNum) + 4(u32 idealPldAnchorTick) in bis_rx_pdu_t
+// 12 = 4(struct bis_rx_pdu_tag	*next) + 4(u32 payloadNum) + 4(u32 idealPldAnchorTick) in bis_rx_pdu_t
 #define BIS_LL_RX_PDU_FIFO_SIZE(n) (CAL_LL_ISO_RX_FIFO_SIZE(n) + 12)
 
 /******************************* dma_end ********************************************************************/
 
 /******************************* plic_start ******************************************************************/
-enum {  //todo
+enum {  // todo
     FLD_IRQ_EXCEPTION_EN,
     FLD_IRQ_SYSTIMER_EN,
     FLD_IRQ_ALG_EN,
@@ -263,7 +262,7 @@ enum {  //todo
     FLD_IRQ_ZB_BT_EN,
     FLD_IRQ_ZB_RT_EN,
     FLD_IRQ_PWM_EN,
-    FLD_IRQ_PKE_EN,  //add
+    FLD_IRQ_PKE_EN,  // add
     FLD_IRQ_UART1_EN,
     FLD_IRQ_UART0_EN,
     FLD_IRQ_DFIFO_EN,

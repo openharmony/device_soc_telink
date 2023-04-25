@@ -58,7 +58,7 @@
  * @brief	available wake-up source for customer
  */
 typedef enum {
-    //not available wake-up source for customer
+    // not available wake-up source for customer
     PM_TIM_RECOVER_START = BIT(14),
     PM_TIM_RECOVER_END = BIT(15),
 } pm_tim_recover_wakeup_src_e;
@@ -92,7 +92,7 @@ typedef enum {
  */
 typedef struct
 {
-    unsigned char ext_cap_en;  //24xtal  cap
+    unsigned char ext_cap_en;  // 24xtal  cap
     unsigned char pad32k_en;
     unsigned char pm_enter_en;
     unsigned char rsvd;
@@ -112,22 +112,22 @@ void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
  * 	      when MCU wakeup from deepsleep, read the information by by calling analog_read function
  * 	      Reset these analog registers only by power cycle
  */
-#define DEEP_ANA_REG0 0x39  //initial value =0x00
-#define DEEP_ANA_REG1 0x3a  //initial value =0x00
-#define DEEP_ANA_REG2 0x3b  //initial value =0x00
-#define DEEP_ANA_REG3 0x3c  //initial value =0x00
-#define DEEP_ANA_REG4 0x3d  //initial value =0x00
-#define DEEP_ANA_REG5 0x3e  //initial value =0x00
-#define DEEP_ANA_REG6 0x3f  //initial value =0x0f
+#define DEEP_ANA_REG0 0x39  // initial value =0x00
+#define DEEP_ANA_REG1 0x3a  // initial value =0x00
+#define DEEP_ANA_REG2 0x3b  // initial value =0x00
+#define DEEP_ANA_REG3 0x3c  // initial value =0x00
+#define DEEP_ANA_REG4 0x3d  // initial value =0x00
+#define DEEP_ANA_REG5 0x3e  // initial value =0x00
+#define DEEP_ANA_REG6 0x3f  // initial value =0x0f
 
 /**
  * @brief these analog register can store data in deepsleep mode or deepsleep with SRAM retention mode.
  * 	      Reset these analog registers by watchdog, chip reset, RESET Pin, power cycle
  */
 
-#define DEEP_ANA_REG7 0x38  //initial value =0xff
+#define DEEP_ANA_REG7 0x38  // initial value =0xff
 
-//ana3e system used, user can not use
+// ana3e system used, user can not use
 #define SYS_DEEP_ANA_REG PM_ANA_REG_POWER_ON_CLR_BUF0
 
 /**
@@ -272,6 +272,6 @@ extern unsigned int g_sleep_stimer_tick;
 extern unsigned int ota_program_bootAddr;
 extern unsigned int ota_program_offset;
 
-#define PM_MIN_SLEEP_US 1500  //eagle
+#define PM_MIN_SLEEP_US 1500  // eagle
 
 #endif /* DRIVERS_B91_DRIVER_EXT_EXT_PM_H_ */

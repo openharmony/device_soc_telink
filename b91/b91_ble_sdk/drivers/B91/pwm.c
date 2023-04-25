@@ -46,15 +46,15 @@
 #include "pwm.h"
 
 dma_config_t pwm_tx_dma_config = {
-    .dst_req_sel = DMA_REQ_PWM_TX,  //tx req
+    .dst_req_sel = DMA_REQ_PWM_TX,  // tx req
     .src_req_sel = 0,
     .dst_addr_ctrl = DMA_ADDR_FIX,
-    .src_addr_ctrl = DMA_ADDR_INCREMENT,  //increment
-    .dstmode = DMA_HANDSHAKE_MODE,        //handshake
+    .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
+    .dstmode = DMA_HANDSHAKE_MODE,        // handshake
     .srcmode = DMA_NORMAL_MODE,
-    .dstwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .src_burst_size = 0,             //must 0
+    .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .src_burst_size = 0,             // must 0
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,

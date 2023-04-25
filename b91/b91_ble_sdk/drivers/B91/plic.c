@@ -52,7 +52,8 @@ unsigned char g_plic_preempt_en = 0;
 /**
  * @brief    This function serves to config plic when enter some function process such as flash.
  * @param[in]   preempt_en - 1 can disturb by interrupt, 0 can't disturb by interrupt.
- * @param[in]   threshold  - interrupt threshold.when the interrupt priority> interrupt threshold,the function process will be disturb by interrupt.
+ * @param[in]   threshold  - interrupt threshold.when the interrupt priority> interrupt threshold,
+ *                           the function process will be disturb by interrupt.
  * @return  none
 */
 _attribute_ram_code_sec_noinline_ unsigned int plic_enter_critical_sec(unsigned char preempt_en,
@@ -488,8 +489,8 @@ void entry_irq28(void)
 _attribute_ram_code_sec_noinline_ void entry_irq29(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq29(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus0_irq_handler,IRQ29_NPE_BUS0);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus0_irq_handler,IRQ29_NPE_BUS0);
 }
 /**
  * @brief npe bus1 interrupt handler.
@@ -498,8 +499,8 @@ void entry_irq29(void)
 _attribute_ram_code_sec_noinline_ void entry_irq30(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq30(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus1_irq_handler,IRQ30_NPE_BUS1);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus1_irq_handler,IRQ30_NPE_BUS1);
 }
 /**
  * @brief npe bus2 interrupt handler.
@@ -508,8 +509,8 @@ void entry_irq30(void)
 _attribute_ram_code_sec_noinline_ void entry_irq31(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq31(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus2_irq_handler,IRQ31_NPE_BUS2);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus2_irq_handler,IRQ31_NPE_BUS2);
 }
 /**
  * @brief npe bus3 interrupt handler.
@@ -518,8 +519,8 @@ void entry_irq31(void)
 _attribute_ram_code_sec_noinline_ void entry_irq32(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq32(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus3_irq_handler,IRQ32_NPE_BUS3);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus3_irq_handler,IRQ32_NPE_BUS3);
 }
 
 /**
@@ -529,8 +530,8 @@ void entry_irq32(void)
 _attribute_ram_code_sec_noinline_ void entry_irq33(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq33(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus4_irq_handler,IRQ33_NPE_BUS4);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus4_irq_handler,IRQ33_NPE_BUS4);
 }
 /**
  * @brief usb 250us interrupt handler.
@@ -539,8 +540,8 @@ void entry_irq33(void)
 _attribute_ram_code_sec_noinline_ void entry_irq34(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq34(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(usb_250us_irq_handler,IRQ34_USB_250US);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(usb_250us_irq_handler,IRQ34_USB_250US);
 }
 /**
  * @brief usb reset interrupt handler.
@@ -549,8 +550,8 @@ void entry_irq34(void)
 _attribute_ram_code_sec_noinline_ void entry_irq35(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq35(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(usb_reset_irq_handler,IRQ35_USB_RESET);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(usb_reset_irq_handler,IRQ35_USB_RESET);
 }
 /**
  * @brief npe bus7 interrupt handler.
@@ -559,8 +560,8 @@ void entry_irq35(void)
 _attribute_ram_code_sec_noinline_ void entry_irq36(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq36(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus7_irq_handler,IRQ36_NPE_BUS7);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus7_irq_handler,IRQ36_NPE_BUS7);
 }
 /**
  * @brief npe bus8 interrupt handler.
@@ -569,8 +570,8 @@ void entry_irq36(void)
 _attribute_ram_code_sec_noinline_ void entry_irq37(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq37(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus8_irq_handler,IRQ37_NPE_BUS8);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus8_irq_handler,IRQ37_NPE_BUS8);
 }
 
 _attribute_ram_code_sec_noinline_ void entry_irq38(void) __attribute__((interrupt("machine"), aligned(4)));
@@ -596,8 +597,8 @@ void entry_irq41(void)
 _attribute_ram_code_sec_noinline_ void entry_irq42(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq42(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus13_irq_handler,IRQ42_NPE_BUS13);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus13_irq_handler,IRQ42_NPE_BUS13);
 }
 /**
  * @brief npe bus14 interrupt handler.
@@ -606,8 +607,8 @@ void entry_irq42(void)
 _attribute_ram_code_sec_noinline_ void entry_irq43(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq43(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus14_irq_handler,IRQ43_NPE_BUS14);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus14_irq_handler,IRQ43_NPE_BUS14);
 }
 
 /**
@@ -617,8 +618,8 @@ void entry_irq43(void)
 _attribute_ram_code_sec_noinline_ void entry_irq44(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq44(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus15_irq_handler,IRQ44_NPE_BUS15);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus15_irq_handler,IRQ44_NPE_BUS15);
 }
 _attribute_ram_code_sec_noinline_ void entry_irq45(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq45(void)
@@ -631,8 +632,8 @@ void entry_irq45(void)
 _attribute_ram_code_sec_noinline_ void entry_irq46(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq46(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus17_irq_handler,IRQ46_NPE_BUS17);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus17_irq_handler,IRQ46_NPE_BUS17);
 }
 
 _attribute_ram_code_sec_noinline_ void entry_irq47(void) __attribute__((interrupt("machine"), aligned(4)));
@@ -656,8 +657,8 @@ void entry_irq49(void)
 _attribute_ram_code_sec_noinline_ void entry_irq50(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq50(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus21_irq_handler,IRQ50_NPE_BUS21);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus21_irq_handler,IRQ50_NPE_BUS21);
 }
 /**
  * @brief npe bus22 interrupt handler.
@@ -666,8 +667,8 @@ void entry_irq50(void)
 _attribute_ram_code_sec_noinline_ void entry_irq51(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq51(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus22_irq_handler,IRQ51_NPE_BUS22);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus22_irq_handler,IRQ51_NPE_BUS22);
 }
 /**
  * @brief npe bus23 interrupt handler.
@@ -676,8 +677,8 @@ void entry_irq51(void)
 _attribute_ram_code_sec_noinline_ void entry_irq52(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq52(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus23_irq_handler,IRQ52_NPE_BUS23);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus23_irq_handler,IRQ52_NPE_BUS23);
 }
 /**
  * @brief npe bus24 interrupt handler.
@@ -686,8 +687,8 @@ void entry_irq52(void)
 _attribute_ram_code_sec_noinline_ void entry_irq53(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq53(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus24_irq_handler,IRQ53_NPE_BUS24);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus24_irq_handler,IRQ53_NPE_BUS24);
 }
 /**
  * @brief npe bus25 interrupt handler.
@@ -696,8 +697,8 @@ void entry_irq53(void)
 _attribute_ram_code_sec_noinline_ void entry_irq54(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq54(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus25_irq_handler,IRQ54_NPE_BUS25);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus25_irq_handler,IRQ54_NPE_BUS25);
 }
 /**
  * @brief npe bus26 interrupt handler.
@@ -706,8 +707,8 @@ void entry_irq54(void)
 _attribute_ram_code_sec_noinline_ void entry_irq55(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq55(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus26_irq_handler,IRQ55_NPE_BUS26);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus26_irq_handler,IRQ55_NPE_BUS26);
 }
 /**
  * @brief npe bus27 interrupt handler.
@@ -716,8 +717,8 @@ void entry_irq55(void)
 _attribute_ram_code_sec_noinline_ void entry_irq56(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq56(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus27_irq_handler,IRQ56_NPE_BUS27);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus27_irq_handler,IRQ56_NPE_BUS27);
 }
 /**
  * @brief npe bus28 interrupt handler.
@@ -726,8 +727,8 @@ void entry_irq56(void)
 _attribute_ram_code_sec_noinline_ void entry_irq57(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq57(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus28_irq_handler,IRQ57_NPE_BUS28);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus28_irq_handler,IRQ57_NPE_BUS28);
 }
 /**
  * @brief npe bus29 interrupt handler.
@@ -736,8 +737,8 @@ void entry_irq57(void)
 _attribute_ram_code_sec_noinline_ void entry_irq58(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq58(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus29_irq_handler,IRQ58_NPE_BUS29);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus29_irq_handler,IRQ58_NPE_BUS29);
 }
 /**
  * @brief npe bus30 interrupt handler.
@@ -746,8 +747,8 @@ void entry_irq58(void)
 _attribute_ram_code_sec_noinline_ void entry_irq59(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq59(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus30_irq_handler,IRQ59_NPE_BUS30);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus30_irq_handler,IRQ59_NPE_BUS30);
 }
 /**
  * @brief npe bus31 interrupt handler.
@@ -756,8 +757,8 @@ void entry_irq59(void)
 _attribute_ram_code_sec_noinline_ void entry_irq60(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq60(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_bus31_irq_handler,IRQ60_NPE_BUS31);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_bus31_irq_handler,IRQ60_NPE_BUS31);
 }
 /**
  * @brief npe comb interrupt handler.
@@ -766,8 +767,8 @@ void entry_irq60(void)
 _attribute_ram_code_sec_noinline_ void entry_irq61(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq61(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(npe_comb_irq_handler,IRQ61_NPE_COMB);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(npe_comb_irq_handler,IRQ61_NPE_COMB);
 }
 /**
  * @brief pm interrupt handler.An interrupt will be generated after wake-up
@@ -776,8 +777,8 @@ void entry_irq61(void)
 _attribute_ram_code_sec_noinline_ void entry_irq62(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq62(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(pm_irq_handler,IRQ62_PM_TM);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(pm_irq_handler,IRQ62_PM_TM);
 }
 /**
  * @brief eoc interrupt handler.
@@ -786,8 +787,8 @@ void entry_irq62(void)
 _attribute_ram_code_sec_noinline_ void entry_irq63(void) __attribute__((interrupt("machine"), aligned(4)));
 void entry_irq63(void)
 {
-    //disable unused interrupt modules to save ram_code
-    //	plic_isr(eoc_irq_handler,IRQ63_EOC);
+    // disable unused interrupt modules to save ram_code
+    // plic_isr(eoc_irq_handler,IRQ63_EOC);
 }
 
 /// @} DRIVERS

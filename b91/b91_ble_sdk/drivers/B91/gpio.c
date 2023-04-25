@@ -181,9 +181,9 @@ void gpio_shutdown(gpio_pin_e pin)
     unsigned char bit = pin & 0xff;
     switch (group) {
         case GPIO_GROUPA:
-            reg_gpio_pa_oen |= bit;     //disable output
-            reg_gpio_pa_out &= (~bit);  //set low level
-            reg_gpio_pa_ie &= (~bit);   //disable input
+            reg_gpio_pa_oen |= bit;     // disable output
+            reg_gpio_pa_out &= (~bit);  // set low level
+            reg_gpio_pa_ie &= (~bit);   // disable input
             break;
         case GPIO_GROUPB:
             reg_gpio_pb_oen |= bit;
@@ -208,29 +208,29 @@ void gpio_shutdown(gpio_pin_e pin)
             break;
 
         case GPIO_ALL: {
-            //as gpio
+            // as gpio
             reg_gpio_pa_gpio = 0x7f;
             reg_gpio_pb_gpio = 0xff;
             reg_gpio_pc_gpio = 0xff;
             reg_gpio_pd_gpio = 0xff;
             reg_gpio_pe_gpio = 0xff;
 
-            //output disable
+            // output disable
             reg_gpio_pa_oen = 0xff;
             reg_gpio_pb_oen = 0xff;
             reg_gpio_pc_oen = 0xff;
             reg_gpio_pd_oen = 0xff;
             reg_gpio_pe_oen = 0xff;
 
-            //set low level
+            // set low level
             reg_gpio_pa_out = 0x00;
             reg_gpio_pb_out = 0x00;
             reg_gpio_pc_out = 0x00;
             reg_gpio_pd_out = 0x00;
             reg_gpio_pe_out = 0x00;
 
-            //disable input
-            reg_gpio_pa_ie = 0x80;  //SWS
+            // disable input
+            reg_gpio_pa_ie = 0x80;  // SWS
             reg_gpio_pb_ie = 0x00;
             analog_write_reg8(areg_gpio_pc_ie, 0);
             analog_write_reg8(areg_gpio_pd_ie, 0);
@@ -270,7 +270,7 @@ void gpio_set_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_type)
             break;
     }
     reg_gpio_irq_ctrl |= FLD_GPIO_CORE_INTERRUPT_EN;
-    reg_gpio_irq_clr = FLD_GPIO_IRQ_CLR;  //must clear cause to unexpected interrupt.
+    reg_gpio_irq_clr = FLD_GPIO_IRQ_CLR;  // must clear cause to unexpected interrupt.
     BM_SET(reg_gpio_irq_risc_mask, FLD_GPIO_IRQ_MASK_GPIO);
 }
 
@@ -301,7 +301,7 @@ void gpio_set_gpio2risc0_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_typ
             BM_SET(reg_gpio_irq_risc_mask, FLD_GPIO_IRQ_LVL_GPIO2RISC0);
             break;
     }
-    reg_gpio_irq_clr = FLD_GPIO_IRQ_GPIO2RISC0_CLR;  //must clear cause to unexpected interrupt.
+    reg_gpio_irq_clr = FLD_GPIO_IRQ_GPIO2RISC0_CLR;  // must clear cause to unexpected interrupt.
     BM_SET(reg_gpio_irq_risc_mask, FLD_GPIO_IRQ_MASK_GPIO2RISC0);
 }
 
@@ -331,7 +331,7 @@ void gpio_set_gpio2risc1_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_typ
             BM_SET(reg_gpio_irq_risc_mask, FLD_GPIO_IRQ_LVL_GPIO2RISC1);
             break;
     }
-    reg_gpio_irq_clr = FLD_GPIO_IRQ_GPIO2RISC1_CLR;  //must clear cause to unexpected interrupt.
+    reg_gpio_irq_clr = FLD_GPIO_IRQ_GPIO2RISC1_CLR;  // must clear cause to unexpected interrupt.
     BM_SET(reg_gpio_irq_risc_mask, FLD_GPIO_IRQ_MASK_GPIO2RISC1);
 }
 
@@ -345,7 +345,7 @@ void gpio_set_up_down_res(gpio_pin_e pin, gpio_pull_type_e up_down_res)
 {
     unsigned char r_val = up_down_res & 0x03;
 
-    unsigned char base_ana_reg = 0x0e + ((pin >> 8) << 1) + ((pin & 0xf0) ? 1 : 0);  //group = gpio>>8;
+    unsigned char base_ana_reg = 0x0e + ((pin >> 8) << 1) + ((pin & 0xf0) ? 1 : 0);  // group = gpio>>8;
     unsigned char shift_num, mask_not;
 
     if (pin & 0x11) {

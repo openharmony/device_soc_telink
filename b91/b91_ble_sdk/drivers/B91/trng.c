@@ -62,25 +62,25 @@ _attribute_data_retention_sec_ unsigned int g_rnd_m_z = 0;
  */
 void trng_init(void)
 {
-    //TRNG module Reset clear
+    // TRNG module Reset clear
     reg_rst2 |= FLD_RST2_TRNG;
-    //turn on TRNG clock
+    // turn on TRNG clock
     reg_clk_en2 |= FLD_CLK2_TRNG_EN;
 
-    reg_trng_cr0 &= ~(FLD_TRNG_CR0_RBGEN);  //disable
-    reg_trng_rtcr = 0x00;                   //TCR_MSEL
-    reg_trng_cr0 |= (FLD_TRNG_CR0_RBGEN);   //enable
+    reg_trng_cr0 &= ~(FLD_TRNG_CR0_RBGEN);  // disable
+    reg_trng_rtcr = 0x00;                   // TCR_MSEL
+    reg_trng_cr0 |= (FLD_TRNG_CR0_RBGEN);   // enable
 
     while (!(reg_rbg_sr & FLD_RBG_SR_DRDY))
         ;
-    g_rnd_m_w = reg_rbg_dr;  //get the random number
+    g_rnd_m_w = reg_rbg_dr;  // get the random number
     while (!(reg_rbg_sr & FLD_RBG_SR_DRDY))
         ;
     g_rnd_m_z = reg_rbg_dr;
 
-    //Reset TRNG module
+    // Reset TRNG module
     reg_rst2 &= (~FLD_RST2_TRNG);
-    //turn off TRNG module clock
+    // turn off TRNG module clock
     reg_clk_en2 &= ~(FLD_CLK2_TRNG_EN);
 
     reg_trng_cr0 &=
@@ -91,7 +91,7 @@ void trng_init(void)
  * @brief     This function performs to get one random number.
  * @return    the value of one random number.
  */
-_attribute_ram_code_sec_noinline_ unsigned int trng_rand(void)  //16M clock, code in flash 23us, code in sram 4us
+_attribute_ram_code_sec_noinline_ unsigned int trng_rand(void)  // 16M clock, code in flash 23us, code in sram 4us
 {
 
     g_rnd_m_w = 18000 * (g_rnd_m_w & 0xffff) + (g_rnd_m_w >> 16);

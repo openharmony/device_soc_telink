@@ -49,9 +49,9 @@
 
 ///*******************************      RF      ******************************/
 #define APBADDR        0x140000
-#define BBADDR         APBADDR + 0x800  //0x140800
-#define RADIOADDR      APBADDR + 0xe00  //0x140e00
-#define MODEMADDR      APBADDR + 0xc00  //0x140c00
+#define BBADDR         APBADDR + 0x800  // 0x140800
+#define RADIOADDR      APBADDR + 0xe00  // 0x140e00
+#define MODEMADDR      APBADDR + 0xc00  // 0x140c00
 #define CHNADDR        0x100400
 #define APBRG_BASE     0x140000
 #define APBRG_APB_BASE (APBRG_BASE + 0x0000)
@@ -452,7 +452,7 @@ enum {
     FLD_RF_RX_TIMEOUT_EN = BIT(2),
     FLD_RF_CRC_2_EN = BIT(3),
 
-    //BLE mode
+    // BLE mode
     FLD_RF_BRX_SN_INIT = BIT(4),
     FLD_RF_BRX_NESN_INIT = BIT(5),
     FLD_RF_BTX_SN_INIT = BIT(6),

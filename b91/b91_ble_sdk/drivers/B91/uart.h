@@ -175,14 +175,15 @@ typedef enum {
 } uart_rx_pin_e;
 
 /**
- *  @brief  Define UART IRQ MASK.The enumeration variable is just a index, and actually needs to be operated registers behind.
+ *  @brief  Define UART IRQ MASK.The enumeration variable is just a index,
+ *          and actually needs to be operated registers behind.
  */
 typedef enum {
-    UART_RX_IRQ_MASK = BIT(0),   //reg_uart_ctrl0(uart_num)       BIT(6)
-    UART_TX_IRQ_MASK = BIT(1),   //reg_uart_ctrl0(uart_num)       BIT(7)
-    UART_RXDONE_MASK = BIT(2),   //reg_uart_rx_timeout1(uart_num) BIT(2)
-    UART_TXDONE_MASK = BIT(3),   //reg_uart_rx_timeout1(uart_num) BIT(6)
-    UART_ERR_IRQ_MASK = BIT(4),  //reg_uart_rx_timeout1(uart_num) BIT(7)
+    UART_RX_IRQ_MASK = BIT(0),   // reg_uart_ctrl0(uart_num)       BIT(6)
+    UART_TX_IRQ_MASK = BIT(1),   // reg_uart_ctrl0(uart_num)       BIT(7)
+    UART_RXDONE_MASK = BIT(2),   // reg_uart_rx_timeout1(uart_num) BIT(2)
+    UART_TXDONE_MASK = BIT(3),   // reg_uart_rx_timeout1(uart_num) BIT(6)
+    UART_ERR_IRQ_MASK = BIT(4),  // reg_uart_rx_timeout1(uart_num) BIT(7)
 } uart_irq_mask_e;
 
 /**
@@ -407,7 +408,8 @@ void uart_set_rtx_pin(uart_rx_pin_e rx_pin);
  * @brief     	This function serves to send data by DMA, this function tell the DMA to get data from the RAM and start.
  * @param[in]  	uart_num - UART0 or UART1.
  * @param[in] 	addr     - pointer to the buffer containing data need to send.
- * @param[in] 	len      - DMA transmission length.The maximum transmission length of DMA is 0xFFFFFC bytes, so dont'n over this length.
+ * @param[in] 	len      - DMA transmission length.The maximum transmission length of DMA is 0xFFFFFC bytes,
+ *                         so dont'n over this length.
  * @return      1  dma start send.
  *              0  the length is error.
  */
@@ -423,14 +425,18 @@ unsigned char uart_send_dma(uart_num_e uart_num, unsigned char *addr, unsigned i
 unsigned char uart_send(uart_num_e uart_num, unsigned char *addr, unsigned char len);
 
 /**
- * @brief     	This function serves to receive data function by DMA, this  function tell the DMA to get data from the uart data fifo.
+ * @brief     	This function serves to receive data function by DMA,
+ *              this  function tell the DMA to get data from the uart data fifo.
  * @param[in]  	uart_num - UART0 or UART1.
  * @param[in] 	addr     - pointer to the buffer  receive data.
- * @param[in]   rev_size - the receive length of DMA.The maximum transmission length of DMA is 0xFFFFFC bytes, so dont'n over this length.
+ * @param[in]   rev_size - the receive length of DMA.The maximum transmission length of DMA is 0xFFFFFC bytes,
+ *                         so dont'n over this length.
  * @note        The DMA version of A0  has some limitians.
- *              1:The receive length should be greater or equal to the data you want to receive,then the data won't be lost.
- *              2:You have to estimate the data-length that you want to receive.If the data length you set isn't the multiple
- *              of 4(the DMA carry 4-byte one time),like 5,it will carry 8 byte,while the last 3-byte data is random.
+ *              1:The receive length should be greater or equal to the data you want to receive,
+ *              then the data won't be lost.
+ *              2:You have to estimate the data-length that you want to receive.
+ *              If the data length you set isn't the multiple of 4(the DMA carry 4-byte one time),like 5,
+ *              it will carry 8 byte,while the last 3-byte data is random.
  *              The DMA version of A1 can receive any length of data,the rev_size is useless.
  * @return    	none
  */
@@ -534,7 +540,7 @@ static inline void uart_set_rts_en(uart_num_e uart_num)
  */
 static inline void uart_set_rts_dis(uart_num_e uart_num)
 {
-    reg_uart_ctrl2(uart_num) &= (~FLD_UART_RTS_EN);  //disable RTS function
+    reg_uart_ctrl2(uart_num) &= (~FLD_UART_RTS_EN);  // disable RTS function
 }
 
 /**
@@ -544,7 +550,7 @@ static inline void uart_set_rts_dis(uart_num_e uart_num)
  */
 static inline void uart_set_cts_en(uart_num_e uart_num)
 {
-    reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_ENABLE;  //enable CTS function
+    reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_ENABLE;  // enable CTS function
 }
 
 /**
@@ -554,7 +560,7 @@ static inline void uart_set_cts_en(uart_num_e uart_num)
  */
 static inline void uart_set_cts_dis(uart_num_e uart_num)
 {
-    reg_uart_ctrl1(uart_num) &= (~FLD_UART_TX_CTS_ENABLE);  //disable CTS function
+    reg_uart_ctrl1(uart_num) &= (~FLD_UART_TX_CTS_ENABLE);  // disable CTS function
 }
 
 /**

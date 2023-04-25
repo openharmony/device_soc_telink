@@ -46,8 +46,6 @@
 #ifndef TL_COMMON_H_
 #define TL_COMMON_H_
 
-
-
 #include <string.h>
 #include <stdio.h>
 

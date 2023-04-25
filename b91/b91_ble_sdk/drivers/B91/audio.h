@@ -70,9 +70,9 @@ typedef enum {
 } i2s_pin_e;
 
 typedef enum {
-    DMIC_B2_DAT_B3_CLK,  //mono B3 clk1
-    DMIC_C1_DAT_C2_CLK,  //mono C2 clk1
-    DMIC_D4_DAT_D5_CLK,  //mono D5 clk1
+    DMIC_B2_DAT_B3_CLK,  // mono B3 clk1
+    DMIC_C1_DAT_C2_CLK,  // mono C2 clk1
+    DMIC_D4_DAT_D5_CLK,  // mono D5 clk1
     DMIC_GROUPB_B2_DAT_B3_B4_CLK,
     DMIC_GROUPC_C1_DAT_C2_C3_CLK,
     DMIC_GROUPD_D4_DAT_D5_D6_CLK,
@@ -363,7 +363,7 @@ typedef enum {
     CODEC_OUT_A_GAIN_m19_DB,
 } codec_out_path_analog_gain_e;
 
-/*The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
+/* The Wind Noise filter (WNF) is a programmable high pass filter feature enabling to reduce wind noise .
 The wind noise filter is a 1st order filter.
                    Mode1  -3dB   59Hz
 corner frequency   Mode2  -3dB   117Hz
@@ -378,7 +378,7 @@ typedef enum {
 
 typedef enum {
     INNER_CODEC,
-    EXT_CODEC,  //wm8731
+    EXT_CODEC,  // wm8731
 } codec_type_e;
 
 typedef enum {

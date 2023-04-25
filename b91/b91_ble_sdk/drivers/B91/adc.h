@@ -253,14 +253,15 @@ static inline void adc_set_resolution(adc_res_e res)
 }
 
 /**
- * @brief      This function serves to set ADC sample time(the number of adc clocks for sample cycles) for the misc channel.
+ * @brief      This function serves to set ADC sample time (the number of adc clocks for sample cycles) 
+ * for the misc channel.
  * @param[in]  sample_cycle - enum variable of adc sample cycles.
  * @return     none
  */
 static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
 {
     //ana_ee<7:4> is reserved, so no need care its value
-    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  //optimize, <7:4> not cared
+    analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  // optimize, <7:4> not cared
 }
 /**
  * @brief      This function open temperature sensor power.
@@ -322,7 +323,8 @@ void adc_start_sample_dma(unsigned short *adc_data_buf, unsigned int data_byte_l
  */
 void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin);
 /**
- * @brief This function is used to set two IO port configuration and set it as input channel of ADC difference IO port voltage sampling.
+ * @brief This function is used to set two IO port configuration 
+ * and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
  * @param[in]  n_pin - enum variable of ADC analog negative input IO.
  * @return none
@@ -347,8 +349,8 @@ void adc_set_sample_rate(adc_sample_freq_e sample_freq);
  */
 void adc_set_scale_factor(adc_pre_scale_e pre_scale);
 /**
- * @brief This function servers to initialized ADC temperature sensor.When the reference voltage is set to 1.2V, and
- * at the same time, the division factor is set to 1 the most accurate.
+ * @brief This function servers to initialized ADC temperature sensor.
+ * When the reference voltage is set to 1.2V, and at the same time, the division factor is set to 1 the most accurate.
  * @return     none.
  * @attention  Temperature sensor suggested initial setting are Vref = 1.2V, pre_scale = 1.
  * 			The user don't need to change it.
@@ -421,7 +423,8 @@ unsigned short adc_calculate_voltage(unsigned short adc_code);
  * @brief This function serves to calculate temperature from temperature sensor adc sample code.
  * @param[in]   adc_code	 		- the temperature sensor adc sample code.
  * @return 		adc_temp_value	 	- the of temperature value.
- * attention   Temperature and adc_code are linearly related. We test four chips between -40~130 (Celsius) and got an average relationship:
+ * attention   Temperature and adc_code are linearly related. 
+ * We test four chips between -40~130 (Celsius) and got an average ratio:
  * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */
 unsigned short adc_calculate_temperature(unsigned short adc_code);

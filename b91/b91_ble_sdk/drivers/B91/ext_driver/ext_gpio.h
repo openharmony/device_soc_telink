@@ -65,7 +65,6 @@
 #include "../timer.h"
 #include "../trng.h"
 
-
 /**
  * @brief     This function read a pin's cache from the buffer.
  * @param[in] pin - the pin needs to read.

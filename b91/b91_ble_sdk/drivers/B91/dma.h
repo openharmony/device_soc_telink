@@ -133,20 +133,20 @@ typedef enum {
 
 typedef struct
 {
-    unsigned int dst_req_sel : 5;    /*DstReqSel   :8:4   */
-    unsigned int src_req_sel : 5;    /*SrcReqSel   :13:9 */
-    unsigned int dst_addr_ctrl : 2;  /*DstAddrCtrl :15:14  0:increment address 1: decrement address 2: fixed address */
-    unsigned int src_addr_ctrl : 2;  /*SrcAddrCtrl :17:16  0:increment address 1: decrement address 2: fixed address */
-    unsigned int dstmode : 1;        /*DstMode:18   0 normal mode  1 handshake*/
-    unsigned int srcmode : 1;        /*SrcMode :19   0 normal mode  1 handshake*/
-    unsigned int dstwidth : 2;       /*DstWidth :21:20 00:byte 01:hword 02:word*/
-    unsigned int srcwidth : 2;       /*SrcWidth :23:22  00:byte 01:hword 02:word*/
-    unsigned int src_burst_size : 3; /*SrcBurstSize: 26:24*/
-    unsigned int vacant_bit : 1;     /*vacant:27*/
-    unsigned int read_num_en : 1;    /*Rnum_en :28*/
-    unsigned int priority : 1;       /*Pri :29*/
-    unsigned int write_num_en : 1;   /*wnum_en : 30*/
-    unsigned int auto_en : 1;        /*/*auto_en : 31*/
+    unsigned int dst_req_sel : 5;    /* DstReqSel   :8:4 */
+    unsigned int src_req_sel : 5;    /* SrcReqSel   :13:9 */
+    unsigned int dst_addr_ctrl : 2;  /* DstAddrCtrl :15:14 0:increment address 1: decrement address 2: fixed address */
+    unsigned int src_addr_ctrl : 2;  /* SrcAddrCtrl :17:16 0:increment address 1: decrement address 2: fixed address */
+    unsigned int dstmode : 1;        /* DstMode:18   0 normal mode  1 handshake */
+    unsigned int srcmode : 1;        /* SrcMode :19   0 normal mode  1 handshake */
+    unsigned int dstwidth : 2;       /* DstWidth :21:20 00:byte 01:hword 02:word */
+    unsigned int srcwidth : 2;       /* SrcWidth :23:22  00:byte 01:hword 02:word */
+    unsigned int src_burst_size : 3; /* SrcBurstSize: 26:24 */
+    unsigned int vacant_bit : 1;     /* vacant:27 */
+    unsigned int read_num_en : 1;    /* Rnum_en :28 */
+    unsigned int priority : 1;       /* Pri :29 */
+    unsigned int write_num_en : 1;   /* wnum_en : 30 */
+    unsigned int auto_en : 1;        /* auto_en : 31 */
 } dma_config_t;
 
 typedef struct
@@ -273,7 +273,8 @@ static inline void dma_clr_abt_irq_status(dma_irq_chn_e abt_chn)
 /**
  * @brief   this  function set  the DMA to tx/rx size byte.
  * @param[in] chn - DMA channel
- * @param[in] size_byte  - the address of dma tx/rx size .The maximum transmission length of DMA is 0xFFFFFC bytes  and cannot exceed this length.
+ * @param[in] size_byte  - the address of dma tx/rx size.
+ * The maximum transmission length of DMA is 0xFFFFFC bytes and cannot exceed this length.
  * @param[in] byte_width -  dma   tx/rx  width
  * @return    none 
  */

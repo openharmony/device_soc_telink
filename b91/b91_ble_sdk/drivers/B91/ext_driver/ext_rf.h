@@ -55,10 +55,10 @@
 #define DMA_RFRX_OFFSET_RFLEN  5  // 826x: 13
 #define DMA_RFRX_OFFSET_DATA   6  // 826x: 14
 
-#define DMA_RFRX_OFFSET_CRC24(p)       (p[DMA_RFRX_OFFSET_RFLEN] + 6)   //data len:3
-#define DMA_RFRX_OFFSET_TIME_STAMP(p)  (p[DMA_RFRX_OFFSET_RFLEN] + 9)   //data len:4
-#define DMA_RFRX_OFFSET_FREQ_OFFSET(p) (p[DMA_RFRX_OFFSET_RFLEN] + 13)  //data len:2
-#define DMA_RFRX_OFFSET_RSSI(p)        (p[DMA_RFRX_OFFSET_RFLEN] + 15)  //data len:1, signed
+#define DMA_RFRX_OFFSET_CRC24(p)       (p[DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
+#define DMA_RFRX_OFFSET_TIME_STAMP(p)  (p[DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
+#define DMA_RFRX_OFFSET_FREQ_OFFSET(p) (p[DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
+#define DMA_RFRX_OFFSET_RSSI(p)        (p[DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
 
 #define RF_BLE_RF_PAYLOAD_LENGTH_OK(p)  (p[5] <= reg_rf_rxtmaxlen)
 #define RF_BLE_RF_PACKET_CRC_OK(p)      ((p[p[5] + 5 + 11] & 0x01) == 0x0)
@@ -99,8 +99,8 @@ static inline void rf_tx_settle_adjust(unsigned short txstl_us)
 */
 static inline void rf_reset_baseband(void)
 {
-    REG_ADDR8(0x801404e3) = 0;       //rf_reset_baseband,rf reg need re-setting
-    REG_ADDR8(0x801404e3) = BIT(0);  //release reset signal
+    REG_ADDR8(0x801404e3) = 0;       // rf_reset_baseband,rf reg need re-setting
+    REG_ADDR8(0x801404e3) = BIT(0);  // release reset signal
 }
 
 /**
@@ -236,13 +236,13 @@ static inline void zb_rt_irq_enable(void)
     plic_interrupt_enable(IRQ15_ZB_RT);
 }
 
-#if RF_RX_SHORT_MODE_EN  //open rx dly
-                         //TX settle time
+#if RF_RX_SHORT_MODE_EN  // open rx dly
+                         // TX settle time
 
 #define LL_SCAN_TX_SETTLE    63
-#define LL_SCANRSP_TX_SETTLE 78  //63+15=78
+#define LL_SCANRSP_TX_SETTLE 78  // 63+15=78
 
-//TODO: need debug
+// TODO: need debug
 #define LL_TX_STL_TIFS_1M    63
 #define LL_TX_STL_TIFS_2M    (LL_TX_STL_TIFS_1M + 24)
 #define LL_TX_STL_TIFS_CODED (LL_TX_STL_TIFS_1M + 40)
@@ -283,7 +283,7 @@ static inline void rf_ble_set_1m_phy(void)
     write_reg16(0x140c38, 0x71c4);
     write_reg8(0x140c73, 0x01);
 #if RF_RX_SHORT_MODE_EN
-    write_reg8(0x140c79, 0x38);  //default:0x00;RX_DIS_PDET_BLANK
+    write_reg8(0x140c79, 0x38);  // default:0x00;RX_DIS_PDET_BLANK
 #else
     write_reg8(0x140c79, 0x08);
 #endif
@@ -305,7 +305,7 @@ static inline void rf_ble_set_2m_phy(void)
     write_reg16(0x140c38, 0x71c4);
     write_reg8(0x140c73, 0x01);
 #if RF_RX_SHORT_MODE_EN
-    write_reg8(0x140c79, 0x30);  //default:0x00;RX_DIS_PDET_BLANK
+    write_reg8(0x140c79, 0x30);  // default:0x00;RX_DIS_PDET_BLANK
 #else
     write_reg8(0x140c79, 0x00);
 #endif

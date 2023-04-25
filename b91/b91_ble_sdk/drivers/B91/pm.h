@@ -59,7 +59,11 @@
  * 				This is currently included in the H file for compatibility with other SDKs.
  *******************************************************************************************************/
 
-//When the watchdog comes back, the Eagle chip does not clear 0x7f[0]. To avoid this problem, this macro definition is added.
+/**
+ * When the watchdog comes back, the Eagle chip does not clear 0x7f[0].
+ * To avoid this problem, this macro definition is added.
+*/
+
 #ifndef WDT_REBOOT_RESET_ANA7F_WORK_AROUND
 #define WDT_REBOOT_RESET_ANA7F_WORK_AROUND 1
 #endif
@@ -111,23 +115,23 @@ typedef enum {
  * @brief	suspend power weather to power down definition
  */
 typedef enum {
-    PM_POWERON_BASEBAND = BIT(0),  //weather to power on the BASEBAND before suspend.
-    PM_POWERON_USB = BIT(1),       //weather to power on the USB before suspend.
-    PM_POWERON_NPE = BIT(2),       //weather to power on the NPE before suspend.
+    PM_POWERON_BASEBAND = BIT(0),  // weather to power on the BASEBAND before suspend.
+    PM_POWERON_USB = BIT(1),       // weather to power on the USB before suspend.
+    PM_POWERON_NPE = BIT(2),       // weather to power on the NPE before suspend.
 } pm_suspend_power_cfg_e;
 
 /**
  * @brief	sleep mode.
  */
 typedef enum {
-    //available mode for customer
-    SUSPEND_MODE = 0x00,    //The A0 version of the suspend execution process is abnormal and the program restarts.
-    DEEPSLEEP_MODE = 0x30,  //when use deep mode pad wakeup(low or high level), if the high(low) level always in
-    //the pad, system will not enter sleep and go to below of pm API, will reboot by core_6f = 0x20
-    //deep retention also had this issue, but not to reboot.
+    // available mode for customer
+    SUSPEND_MODE = 0x00,    // The A0 version of the suspend execution process is abnormal and the program restarts.
+    DEEPSLEEP_MODE = 0x30,  // when use deep mode pad wakeup(low or high level), if the high(low) level always in
+    // the pad, system will not enter sleep and go to below of pm API, will reboot by core_6f = 0x20
+    // deep retention also had this issue, but not to reboot.
     DEEPSLEEP_MODE_RET_SRAM_LOW32K = 0x21,  //for boot from sram
     DEEPSLEEP_MODE_RET_SRAM_LOW64K = 0x03,  //for boot from sram
-    //not available mode
+    // not available mode
     DEEPSLEEP_RETENTION_FLAG = 0x0F,
 } pm_sleep_mode_e;
 
@@ -164,7 +168,7 @@ typedef enum {
     MCU_STATUS_REBOOT_BACK = BIT(2),
     MCU_STATUS_DEEPRET_BACK = BIT(3),
     MCU_STATUS_DEEP_BACK = BIT(4),
-    MCU_STATUS_REBOOT_DEEP_BACK = BIT(5),  //reboot + deep
+    MCU_STATUS_REBOOT_DEEP_BACK = BIT(5),  // reboot + deep
 } pm_mcu_status;
 
 /**
@@ -173,11 +177,12 @@ typedef enum {
 typedef struct
 {
     unsigned short
-        suspend_early_wakeup_time_us; /**< suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time*/
+        suspend_early_wakeup_time_us; 
+        /** < suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time */
     unsigned short
-        deep_ret_early_wakeup_time_us;        /**< deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time*/
-    unsigned short deep_early_wakeup_time_us; /**< deep_early_wakeup_time_us = suspend_ret_r_delay_us*/
-    unsigned short sleep_min_time_us;         /**< sleep_min_time_us = suspend_early_wakeup_time_us + 200*/
+        deep_ret_early_wakeup_time_us;        /** < deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time */
+    unsigned short deep_early_wakeup_time_us; /** < deep_early_wakeup_time_us = suspend_ret_r_delay_us */
+    unsigned short sleep_min_time_us;         /** < sleep_min_time_us = suspend_early_wakeup_time_us + 200 */
 } pm_early_wakeup_time_us_s;
 
 /**
@@ -185,9 +190,9 @@ typedef struct
  */
 typedef struct
 {
-    unsigned short deep_r_delay_cycle; /**< hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
+    unsigned short deep_r_delay_cycle; /** < hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
     unsigned short
-        suspend_ret_r_delay_cycle; /**< hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
+        suspend_ret_r_delay_cycle; /** < hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
 
 } pm_r_delay_cycle_s;
 
@@ -197,8 +202,8 @@ typedef struct
 typedef struct
 {
     unsigned char is_pad_wakeup;
-    unsigned char
-        wakeup_src;  //The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0.
+    unsigned char wakeup_src;
+        /* The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0 */
     unsigned char mcu_status;
     unsigned char rsvd;
 } pm_status_info_s;
@@ -297,7 +302,8 @@ _attribute_ram_code_sec_noinline_ void pm_wait_bbpll_done(void);
 _attribute_ram_code_sec_noinline_ void pm_stimer_recover(void);
 
 /**
- * @brief		This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief		This function serves to set the working mode of MCU based on 32k crystal,
+ *              e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]	sleep_mode 			- sleep mode type select.
  * @param[in]	wakeup_src 			- wake up source select.
  * 		A0	   	note: The reference current values under different configurations are as followsUnit (uA):
@@ -306,7 +312,8 @@ _attribute_ram_code_sec_noinline_ void pm_stimer_recover(void);
  * 	deep ret 32k	|	1.8		|	2.4		|	2.8			|	2.6		|	2.8		|
  * 	deep ret 64k	|	2.7		|	3.2		|	3.7			|	3.4		|	3.7		|
  * 				A0 chip, the retention current will float up.
- * @param[in]	wakeup_tick_type	- tick type select. For long timer sleep.currently only 16M is supported(PM_TICK_STIMER_16M).
+ * @param[in]	wakeup_tick_type	- tick type select.
+ *                                    For long timer sleep.currently only 16M is supported(PM_TICK_STIMER_16M).
  * @param[in]	wakeup_tick			- the time of short sleep, which means MCU can sleep for less than 5 minutes.
  * @return		indicate whether the cpu is wake up successful.
  */

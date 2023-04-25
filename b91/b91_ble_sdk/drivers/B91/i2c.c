@@ -49,19 +49,19 @@ static unsigned char i2c_dma_tx_chn;
 static unsigned char i2c_dma_rx_chn;
 
 dma_config_t i2c_tx_dma_config = {
-    .dst_req_sel = DMA_REQ_I2C_TX,  //tx req
+    .dst_req_sel = DMA_REQ_I2C_TX,  // tx req
     .src_req_sel = 0,
     .dst_addr_ctrl = DMA_ADDR_FIX,
-    .src_addr_ctrl = DMA_ADDR_INCREMENT,  //increment
-    .dstmode = DMA_HANDSHAKE_MODE,        //handshake
+    .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
+    .dstmode = DMA_HANDSHAKE_MODE,        // handshake
     .srcmode = DMA_NORMAL_MODE,
-    .dstwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .src_burst_size = 0,             //must 0
+    .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .src_burst_size = 0,             // must 0
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 dma_config_t i2c_rx_dma_config = {
     .dst_req_sel = DMA_REQ_AUDIO0_TX,
@@ -70,13 +70,13 @@ dma_config_t i2c_rx_dma_config = {
     .src_addr_ctrl = DMA_ADDR_FIX,
     .dstmode = DMA_NORMAL_MODE,
     .srcmode = DMA_HANDSHAKE_MODE,
-    .dstwidth = DMA_CTR_WORD_WIDTH,  //must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  ////must word
+    .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
     .src_burst_size = 0,
     .read_num_en = 0,
     .priority = 0,
     .write_num_en = 0,
-    .auto_en = 0,  //must 0
+    .auto_en = 0,  // must 0
 };
 
 /*
@@ -86,8 +86,10 @@ dma_config_t i2c_rx_dma_config = {
 unsigned char g_i2c_stop_en = 0x20;
 
 /**
- * @brief      The function of this interface is equivalent to that after the user finishes calling the write or read interface, the stop signal is not sent,
- * 			   and then the write or read command is executed again. The driver defaults that every write or read API will send a stop command at the end
+ * @brief      The function of this interface is equivalent to 
+ *             that after the user finishes calling the write or read interface, the stop signal is not sent,
+ * 			   and then the write or read command is executed again. 
+ *             The driver defaults that every write or read API will send a stop command at the end
  * @param[in]  en - Input parameters.Decide whether to disable the stop function after each write or read interface
  * @return     none
  */
@@ -112,11 +114,11 @@ void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
     unsigned char val = 0;
     unsigned char mask = 0xff;
 
-    //disable sda_pin and scl_pin gpio function.
+    // disable sda_pin and scl_pin gpio function.
     gpio_function_dis(scl_pin);
     gpio_function_dis(sda_pin);
 
-    //enable gpio as i2c sda function.
+    // enable gpio as i2c sda function.
     if (sda_pin == I2C_GPIO_SDA_B3) {
         mask = (unsigned char)~(BIT(7) | BIT(6));
         val = BIT(6);
@@ -133,7 +135,7 @@ void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
 
     reg_gpio_func_mux(sda_pin) = (reg_gpio_func_mux(sda_pin) & mask) | val;
 
-    //enable gpio as i2c scl function.
+    // enable gpio as i2c scl function.
     if (scl_pin == I2C_GPIO_SCL_B2) {
         mask = (unsigned char)~(BIT(5) | BIT(4));
         val = BIT(4);
@@ -152,8 +154,8 @@ void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
 
     gpio_set_up_down_res(sda_pin, GPIO_PIN_PULLUP_10K);
     gpio_set_up_down_res(scl_pin, GPIO_PIN_PULLUP_10K);
-    gpio_input_en(sda_pin);  //enable sda input
-    gpio_input_en(scl_pin);  //enable scl input
+    gpio_input_en(sda_pin);  // enable sda input
+    gpio_input_en(scl_pin);  // enable scl input
 }
 
 /**
@@ -163,7 +165,7 @@ void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
  */
 void i2c_master_init(void)
 {
-    reg_i2c_sct0 |= FLD_I2C_MASTER;  //i2c master enable.
+    reg_i2c_sct0 |= FLD_I2C_MASTER;  // i2c master enable.
 }
 
 /**
@@ -175,10 +177,10 @@ void i2c_master_init(void)
 void i2c_set_master_clk(unsigned char clock)
 {
 
-    //i2c frequency = system_clock/(4*clock)
+    // i2c frequency = system_clock/(4*clock)
     reg_i2c_sp = clock;
 
-    //set enable flag.
+    // set enable flag.
     reg_clk_en0 |= FLD_CLK0_I2C_EN;
 }
 
@@ -190,9 +192,9 @@ void i2c_set_master_clk(unsigned char clock)
  */
 void i2c_slave_init(unsigned char id)
 {
-    reg_i2c_sct0 &= (~FLD_I2C_MASTER);  //enable slave mode.
+    reg_i2c_sct0 &= (~FLD_I2C_MASTER);  // enable slave mode.
 
-    reg_i2c_id = id;  //defaul eagle slave ID is 0x5a
+    reg_i2c_id = id;  // defaul eagle slave ID is 0x5a
 }
 
 /**
@@ -204,9 +206,9 @@ void i2c_slave_init(unsigned char id)
  */
 unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned char len)
 {
-    BM_SET(reg_i2c_status, FLD_I2C_TX_CLR);  //clear index
-    //set i2c master write.
-    reg_i2c_data_buf(0) = id & (~FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High  W:Low;
+    BM_SET(reg_i2c_status, FLD_I2C_TX_CLR);  // clear index
+    // set i2c master write.
+    reg_i2c_data_buf(0) = id & (~FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High  W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
     while (i2c_master_busy())
         ;
@@ -217,14 +219,14 @@ unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned c
         return 0;
     }
     reg_i2c_len = len;
-    //write data
+    // write data
     unsigned int cnt = 0;
     while (cnt < len) {
         if (i2c_get_tx_buf_cnt() < 8) {
-            reg_i2c_data_buf(cnt % 4) = data[cnt];  //write data
+            reg_i2c_data_buf(cnt % 4) = data[cnt];  // write data
             cnt++;
             if (cnt == 1) {
-                reg_i2c_sct1 = (FLD_I2C_LS_DATAW | g_i2c_stop_en);  //launch stop cycle
+                reg_i2c_sct1 = (FLD_I2C_LS_DATAW | g_i2c_stop_en);  // launch stop cycle
             }
         }
     }
@@ -239,14 +241,15 @@ unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned c
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  data - Store the read data
  * @param[in]  len - The total length of the data read back.
- * @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master receive the data successfully.
+ * @return     0 : the master receive NACK after sending out the id and then send stop.
+ *             1: the master receive the data successfully.
  */
 unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned char len)
 {
-    //set i2c master read.
-    BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               //clear index
-    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      //i2c rnck enable.
-    reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High  W:Low;
+    // set i2c master read.
+    BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               // clear index
+    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      // i2c rnck enable.
+    reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High  W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
     while (i2c_master_busy())
         ;
@@ -274,17 +277,19 @@ unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned ch
  * @brief      This function serves to write data and restart read data.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  wr_data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
+ * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address 
+ *             and the length of the data to be sent.
  * @param[in]  rd_data - Store the read data
  * @param[in]  rd_len -  The total length of the data read back.
- * @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master receive the data successfully.
+ * @return     0 : the master receive NACK after sending out the id and then send stop.
+ *             1: the master receive the data successfully.
  */
 unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, unsigned char wr_len,
                                     unsigned char *rd_data, unsigned char rd_len)
 {
-    BM_SET(reg_i2c_status, FLD_I2C_TX_CLR);  //clear index
-    //set i2c master write.
-    reg_i2c_data_buf(0) = id & (~FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High W:Low;
+    BM_SET(reg_i2c_status, FLD_I2C_TX_CLR);  // clear index
+    // set i2c master write.
+    reg_i2c_data_buf(0) = id & (~FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
     while (i2c_master_busy())
         ;
@@ -295,11 +300,11 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
         return 0;
     }
     reg_i2c_len = wr_len;
-    //write data
+    // write data
     unsigned int cnt = 0;
     while (cnt < wr_len) {
         if (i2c_get_tx_buf_cnt() < 8) {
-            reg_i2c_data_buf(cnt % 4) = wr_data[cnt];  //write data
+            reg_i2c_data_buf(cnt % 4) = wr_data[cnt];  // write data
             cnt++;
             if (cnt == 1) {
                 reg_i2c_sct1 = (FLD_I2C_LS_DATAW);
@@ -308,10 +313,10 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
     }
     while (i2c_master_busy())
         ;
-    //set i2c master read.
-    BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               //clear index
-    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      //i2c rnck enable.
-    reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High W:Low;
+    // set i2c master read.
+    BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               // clear index
+    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      // i2c rnck enable.
+    reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
     while (i2c_master_busy())
         ;
@@ -334,14 +339,15 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
  * @brief      The function of this API is just to write data to the i2c tx_fifo by DMA.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  data - The data to be sent, The first three bytes represent the RAM address of the slave.
- * @param[in]  len - This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
+ * @param[in]  len - This length is the total length, including both the length of the slave RAM address
+ *             and the length of the data to be sent.
  * @return     none.
  */
 void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char len)
 {
 
-    //set id.
-    reg_i2c_id = (id & (~FLD_I2C_WRITE_READ_BIT));  //BIT(0):R:High  W:Low
+    // set id.
+    reg_i2c_id = (id & (~FLD_I2C_WRITE_READ_BIT));  // BIT(0):R:High  W:Low
 
     dma_set_size(i2c_dma_tx_chn, len, DMA_WORD_WIDTH);
     dma_set_address(i2c_dma_tx_chn, (unsigned int)convert_ram_addr_cpu2bus(data), reg_i2c_data_buf0_addr);
@@ -361,10 +367,10 @@ void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char l
 void i2c_master_read_dma(unsigned char id, unsigned char *rx_data, unsigned char len)
 {
 
-    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;  //i2c rnck enable
+    reg_i2c_sct0 |= FLD_I2C_RNCK_EN;  // i2c rnck enable
 
-    //set i2c master read.
-    reg_i2c_id = (id | FLD_I2C_WRITE_READ_BIT);  //BIT(0):R:High  W:Low
+    // set i2c master read.
+    reg_i2c_id = (id | FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High  W:Low
 
     dma_set_size(i2c_dma_rx_chn, len, DMA_WORD_WIDTH);
     dma_set_address(i2c_dma_rx_chn, reg_i2c_data_buf0_addr, (unsigned int)convert_ram_addr_cpu2bus(rx_data));
@@ -375,7 +381,8 @@ void i2c_master_read_dma(unsigned char id, unsigned char *rx_data, unsigned char
 }
 
 /**
- * @brief      This function serves to send a packet of data to master device.It will trigger after the master sends the read sequence.
+ * @brief      This function serves to send a packet of data to master device.
+ *             It will trigger after the master sends the read sequence.
  * @param[in]  data - the pointer of tx_buff.
  * @param[in]  len - The total length of the data .
  * @return     none.
@@ -388,7 +395,8 @@ void i2c_slave_set_tx_dma(unsigned char *data, unsigned char len)
 }
 
 /**
- * @brief      This function serves to receive a packet of data from master device,It will trigger after the master sends the write sequence.
+ * @brief      This function serves to receive a packet of data from master device,
+ *             It will trigger after the master sends the write sequence.
  * @param[in]  data - the pointer of rx_buff.
  * @param[in]  len  - The total length of the data.
  * @return     none.

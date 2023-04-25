@@ -137,7 +137,7 @@ typedef enum {
 } irq_source_e;
 
 typedef enum {
-    IRQ_PRI_LEV0,  //Never interrupt
+    IRQ_PRI_LEV0,  // Never interrupt
     IRQ_PRI_LEV1,
     IRQ_PRI_LEV2,
     IRQ_PRI_LEV3,
@@ -150,7 +150,7 @@ typedef enum {
  */
 static inline void plic_set_feature(feature_e feature)
 {
-    reg_irq_feature = feature;  //enable vectored in PLIC
+    reg_irq_feature = feature;  // enable vectored in PLIC
 }
 
 /**
@@ -184,7 +184,8 @@ static inline void plic_set_pending(irq_source_e src)
 }
 
 /**
- * @brief    This function serves to set Priority Threshold,Only active interrupts with priorities strictly greater than the threshold will cause interrupt.
+ * @brief    This function serves to set Priority Threshold,
+ *           Only active interrupts with priorities strictly greater than the threshold will cause interrupt.
  * @param[in]   threshold -  threshold level.
  * @return  none
  */
@@ -194,8 +195,9 @@ static inline void plic_set_threshold(unsigned char threshold)
 }
 
 /**
- * @brief    This function serves to set preemptive priority level,The priority value 0 is reserved to mean "never interrupt".
- * the larger the priority value, the higher the interrupt priority.
+ * @brief    This function serves to set preemptive priority level,
+ *           the priority value 0 is reserved to mean "never interrupt".
+ *           The larger the priority value, the higher the interrupt priority.
  * @param[in]   src- interrupt source.
  * @param[in]   priority-  priority level.
  * @return  none
@@ -247,7 +249,8 @@ static inline unsigned int plic_interrupt_claim(void)
 /**
  * @brief    This function serves to config plic when enter some function process such as flash.
  * @param[in]   preempt_en - 1 can disturb by interrupt, 0 can't disturb by interrupt.
- * @param[in]   threshold  - interrupt threshold.when the interrupt priority> interrupt threshold,the function process will be disturb by interrupt.
+ * @param[in]   threshold  - interrupt threshold.when the interrupt priority> interrupt threshold,
+ *                           the function process will be disturb by interrupt.
  * @return  none
 */
 _attribute_ram_code_sec_noinline_ unsigned int plic_enter_critical_sec(unsigned char preempt_en,
