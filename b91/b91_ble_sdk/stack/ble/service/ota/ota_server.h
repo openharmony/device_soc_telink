@@ -67,7 +67,7 @@ typedef void (*ota_resIndicateCb_t)(int result);
 
 /**
  * @brief      this function is used for user to initialize OTA server module.
- * 			   //attention: this API must called before any other OTA relative settings.
+ * 			   // attention: this API must called before any other OTA relative settings.
  * @param	   none
  * @return     none
  */
@@ -93,7 +93,8 @@ void blc_ota_setFirmwareVersionNumber(u16 version_number);
 /**
  * @brief      This function is used to register OTA start command callback.
  * 			   when local device receive OTA command  "CMD_OTA_START" and  "CMD_OTA_START_EXT"  form peer device,
- * 			   after checking all parameters are correct, local device will enter OTA update and trigger OTA start command callback.
+ * 			   after checking all parameters are correct, local device will enter OTA update
+ *             and trigger OTA start command callback.
  * @param[in]  cb - callback function
  * @return     none
  */

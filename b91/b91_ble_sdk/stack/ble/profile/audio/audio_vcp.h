@@ -159,6 +159,6 @@ static int blt_audio_vcpWriteVocs(blt_audio_handle_t *pHandle, blt_audio_vocs_t 
                                   u8 *pData);
 #endif
 
-#endif  //#if (BLC_AUDIO_VCP_ENABLE)
+#endif  // #if (BLC_AUDIO_VCP_ENABLE)
 
 #endif

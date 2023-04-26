@@ -118,6 +118,6 @@ static int blt_audio_micpWriteAics(blt_audio_handle_t *pHandle, blt_audio_aics_t
                                    u8 *pData);
 #endif
 
-#endif  //#if (BLC_AUDIO_MICP_ENABLE)
+#endif  // #if (BLC_AUDIO_MICP_ENABLE)
 
-#endif  //_AUDIO_MICP_H_
+#endif  // _AUDIO_MICP_H_

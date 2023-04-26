@@ -61,6 +61,6 @@ blt_audio_server_t *blt_audio_findServer(u16 connHandle);
 blt_audio_handle_t *blt_audio_findHandleByRole(u16 connHandle, u8 role);
 blt_audio_handle_t *blt_audio_findHandleByCisHandle(u16 cisHandle, u8 role);
 
-#endif  //#if (BLC_AUDIO_PROFILE_EN)
+#endif  // #if (BLC_AUDIO_PROFILE_EN)
 
-#endif  //_AUDIO_HANDLE_H_
+#endif  // _AUDIO_HANDLE_H_

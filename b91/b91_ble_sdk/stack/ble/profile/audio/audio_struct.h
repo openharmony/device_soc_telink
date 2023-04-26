@@ -70,7 +70,7 @@ typedef struct
     u8 aseID;
     u8 reason;
     u8 reserve;
-    u8 errorCode;  //0-success, other-fail
+    u8 errorCode;  // 0-success, other-fail
     u16 aclHandle;
     u16 attHandle;
 } blc_audio_aseEnableEvt_t;
@@ -176,7 +176,7 @@ typedef struct
 #if (BLC_AUDIO_ASCS_ENABLE)
     u8 aseID[BLC_AUDIO_ASE_PER_HANDLE];
     u8 aseState[BLC_AUDIO_ASE_PER_HANDLE];
-#endif  //#if (BLC_AUDIO_ASCS_ENABLE)
+#endif  // #if (BLC_AUDIO_ASCS_ENABLE)
 } blc_audio_ascpServiceReadyEvt_t;
 
 typedef struct
@@ -272,7 +272,7 @@ typedef struct
 {
     u16 aclHandle;
     u16 attHandle;
-    u8 opcode;  //Refer to BLC_AUDIO_MCP_OPCODE_ENUM
+    u8 opcode;  // Refer to BLC_AUDIO_MCP_OPCODE_ENUM
     u8 dataLen;
     u8 *pData;
 } blc_audio_mcpCtrlEvt_t;
@@ -280,7 +280,7 @@ typedef struct
 {
     u16 aclHandle;
     u16 attHandle;
-    u8 state;  //Refer to BLC_AUDIO_MEDIA_STATE_ENUM
+    u8 state;  // Refer to BLC_AUDIO_MEDIA_STATE_ENUM
 } blc_audio_mcpStateEvt_t;
 
 typedef struct
@@ -303,6 +303,6 @@ typedef struct
     u8 callFlags;
 } blc_audio_tbpCallStateEvt_t;
 
-#endif  //#if (BLC_AUDIO_PROFILE_EN)
+#endif  // #if (BLC_AUDIO_PROFILE_EN)
 
 #endif  //

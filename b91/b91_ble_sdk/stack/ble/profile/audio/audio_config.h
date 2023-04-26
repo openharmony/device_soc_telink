@@ -60,8 +60,8 @@
 #define BLC_AUDIO_ASSISTANT_ENABLE 1
 #define BLC_AUDIO_DELEGATOR_ENABLE 1
 
-//Assistant
-//Delegator
+// Assistant
+// Delegator
 
 #if (!BLC_AUDIO_SERVER_ENABLE && !BLC_AUDIO_CLIENT_ENABLE)
 #error "Server & Client must be supported one or more!"
@@ -172,16 +172,16 @@
 #define BLC_AUDIO_CFG_PHY_SUPPORTED     0x03      // BIT(0)-1M, BIT(1)-2M, BIT(2)-Coded
 #define BLC_AUDIO_CFG_PHY_TYPE          0x01      // BIT(0)-1M, BIT(1)-2M, BIT(2)-Coded
 #define BLC_AUDIO_CFG_SDU_MAX           240       // Range: 0x0000-0x0FFF
-//#define BLC_AUDIO_CFG_SDU_TYPE                 240 // Range: 0x0000-0x0FFF
+// #define BLC_AUDIO_CFG_SDU_TYPE                 240 // Range: 0x0000-0x0FFF
 #define BLC_AUDIO_CFG_RETRANSMIT_NUM_MIN    0
 #define BLC_AUDIO_CFG_RETRANSMIT_NUM_MAX    15
 #define BLC_AUDIO_CFG_RETRANSMIT_NUM_TYPE   3   // Range: 0x00-0x0F
 #define BLC_AUDIO_CFG_TRANSPORT_LATENCY_MAX 80  // Range: 0x0005-0x0FA0    Units:ms
-//#define BLC_AUDIO_CFG_TRANSPORT_LATENCY_TYPE   40
+// #define BLC_AUDIO_CFG_TRANSPORT_LATENCY_TYPE   40
 #define BLC_AUDIO_CFG_PRESENTATION_DELAY_MIN  0x002EE0  // 12ms // Range: 0x000000-0xFFFFFF,   Units:us
 #define BLC_AUDIO_CFG_PRESENTATION_DELAY_MAX  0x004E20  // 20ms // Range: 0x000000-0xFFFFFF,   Units:us
 #define BLC_AUDIO_CFG_PRESENTATION_DELAY_TYPE 0x003A98  // 15ms
-#endif                                                  //BLC_AUDIO_ASCP_ENABLE
+#endif                                                  // BLC_AUDIO_ASCP_ENABLE
 
 #endif  // BLC_AUDIO_PROFILE_EN
 

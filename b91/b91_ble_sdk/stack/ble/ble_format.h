@@ -95,30 +95,30 @@ typedef struct
     u32 maxSduS2M : 12;
     u32 rfu1 : 4;
 
-    u8 sduIntvlM2S[3];  //SDU_Interval_M_To_S(20 bits) + RFU(4 bits)
-    u8 sduIntvlS2M[3];  //SDU_Interval_S_To_M(20 bits) + RFU(4 bits)
+    u8 sduIntvlM2S[3];  // SDU_Interval_M_To_S(20 bits) + RFU(4 bits)
+    u8 sduIntvlS2M[3];  // SDU_Interval_S_To_M(20 bits) + RFU(4 bits)
 
     u16 maxPduM2S;
     u16 maxPduS2M;
     u8 nse;
-    u8 subIntvl[3];  //unit: uS
+    u8 subIntvl[3];  // unit: uS
 
     u8 bnM2S : 4;
     u8 bnS2M : 4;
     u8 ftM2S;
     u8 ftS2M;
-    u16 isoIntvl;  //unit: 1.25 mS
+    u16 isoIntvl;  // unit: 1.25 mS
 
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
-    u16 connEventCnt;  //similar to instant
+    u16 connEventCnt;  // similar to instant
 
 } rf_packet_ll_cis_req_t;
 
 typedef struct
 {
-    u8 type;    //RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  //LEN(6)_RFU(2)
+    u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
+    u8 rf_len;  // LEN(6)_RFU(2)
     u8 opcode;
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
@@ -128,9 +128,9 @@ typedef struct
 typedef struct
 {
     u8 type;    //RA(1)_TA(1)_RFU(2)_TYPE(4)
-    u8 rf_len;  //LEN(6)_RFU(2)
+    u8 rf_len;  // LEN(6)_RFU(2)
     u8 opcode;
-    u32 cisAccessAddr;  //Access Address of the CIS
+    u32 cisAccessAddr;  // Access Address of the CIS
     u8 cisOffset[3];
     u8 cigSyncDly[3];
     u8 cisSyncDly[3];

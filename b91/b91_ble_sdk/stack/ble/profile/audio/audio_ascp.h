@@ -51,7 +51,7 @@
 typedef enum {
     BLT_AUDIO_ASCP_FLAG_NONE = 0x0000,
     BLT_AUDIO_ASCP_FLAG_FIRST = 0x0001,
-    BLT_AUDIO_ASCP_FLAG_RASE = 0x0002,  //Read Ase Attribute
+    BLT_AUDIO_ASCP_FLAG_RASE = 0x0002,  // Read Ase Attribute
     BLT_AUDIO_ASCP_FLAG_CCC = 0x0004,
 } BLT_AUDIO_ASCP_FLAGS_ENUM;
 
@@ -143,22 +143,22 @@ typedef enum {
 
 typedef struct
 {                 // 42Bytes
-    u8 direction; /*<! audio sink and audio source*/
+    u8 direction; /* <! audio sink and audio source */
 
-    u8 prefSDUMinInterval[3]; /*<! Range: 0x0000FF - 0xFFFFFF */
-    u8 prefSDUMaxInterval[3]; /*<! Range: 0x0000FF - 0xFFFFFF */
-    u8 prefFraming;           /*<! Preferred Frame            */
-    u8 prefPHY;               /*<! Preferred PHY              */
+    u8 prefSDUMinInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
+    u8 prefSDUMaxInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
+    u8 prefFraming;           /* <! Preferred Frame            */
+    u8 prefPHY;               /* <! Preferred PHY              */
     u16 prefMaxSDU;
-    u8 prefRetransmitNum;           /*<! Range: 0x00 - 0xFF         */
-    u16 prefMaxTransportLatency;    /*<! Range: 0x0005-0x0FA0       */
-    u8 prefMinPresentationDelay[3]; /*<! Unit: us                   */
-    u8 prefMaxPresentationDelay[3]; /*<! Unit: us                   */
+    u8 prefRetransmitNum;           /* <! Range: 0x00 - 0xFF         */
+    u16 prefMaxTransportLatency;    /* <! Range: 0x0005-0x0FA0       */
+    u8 prefMinPresentationDelay[3]; /* <! Unit: us                   */
+    u8 prefMaxPresentationDelay[3]; /* <! Unit: us                   */
 
     u8 codecId[5];
     u8 codecSpecificCfgLen;
     u8 codecSpecificCfg
-        [16]; /*<! max = 16Byte. Shall exist only if the Codec_Specific_Configuration_Length field is not 0x00. */
+        [16]; /* <! max = 16Byte. Shall exist only if the Codec_Specific_Configuration_Length field is not 0x00. */
 } blt_audio_ascpCodecParam_t;
 typedef struct
 {  // 15Bytes
@@ -167,10 +167,10 @@ typedef struct
     u8 SDUInterval[3];
     u8 framing;              // refer AUDIO_FRAMING_UNFRAMED
     u8 PHY;                  // refer AUDIO_PHY_FLAG_1M
-    u16 maxSDU;              /*<! Range: 0x00C0xFFF        */
-    u8 retransmitNum;        /*<! Range: 0x00C0x0F          */
-    u16 maxTransportLatency; /*<! Range: 0x0005C0x0FA0      */
-    u8 presentationDelay[3]; /*<! Unit: us                  */
+    u16 maxSDU;              /* <! Range: 0x00C0xFFF        */
+    u8 retransmitNum;        /* <! Range: 0x00C0x0F          */
+    u16 maxTransportLatency; /* <! Range: 0x0005C0x0FA0      */
+    u8 presentationDelay[3]; /* <! Unit: us                  */
 } blt_audio_ascpQosParam_t;
 typedef struct
 {  // 7Bytes
@@ -195,15 +195,15 @@ typedef struct
 
 typedef struct
 {
-    u8 SDUMinInterval[3]; /*<! Range: 0x0000FF - 0xFFFFFF */
-    u8 SDUMaxInterval[3]; /*<! Range: 0x0000FF - 0xFFFFFF */
-    u8 framing;           /*<! Preferred Frame            */
-    u8 PHY;               /*<! Preferred PHY              */
+    u8 SDUMinInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
+    u8 SDUMaxInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
+    u8 framing;           /* <! Preferred Frame            */
+    u8 PHY;               /* <! Preferred PHY              */
     u16 maxSDU;
-    u8 retransmitNum;           /*<! Range: 0x00 - 0x0F         */
-    u16 maxTransportLatency;    /*<! Range: 0x0005C0x0FA0      */
-    u8 minPresentationDelay[3]; /*<! Unit: us                   */
-    u8 maxPresentationDelay[3]; /*<! Unit: us                   */
+    u8 retransmitNum;           /* <! Range: 0x00 - 0x0F         */
+    u16 maxTransportLatency;    /* <! Range: 0x0005C0x0FA0      */
+    u8 minPresentationDelay[3]; /* <! Unit: us                   */
+    u8 maxPresentationDelay[3]; /* <! Unit: us                   */
 } blt_audio_ascpPreferredParam_t;
 typedef struct
 {
@@ -270,6 +270,6 @@ static void blt_audio_ascpSendDisableEvt(blt_audio_handle_t *pHandle, blt_audio_
 static void blt_audio_ascpSendStopEvt(blt_audio_handle_t *pHandle, blt_audio_ascpAse_t *pAse);
 static void blt_audio_ascpSendReleaseEvt(blt_audio_handle_t *pHandle, blt_audio_ascpAse_t *pAse);
 
-#endif  //#if (BLC_AUDIO_ASCS_ENABLE)
+#endif  // #if (BLC_AUDIO_ASCS_ENABLE)
 
-#endif  //_AUDIO_BAP_H_
+#endif  // _AUDIO_BAP_H_

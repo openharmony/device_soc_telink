@@ -101,79 +101,79 @@ typedef enum {
 typedef enum {
     BLC_AUDIO_EVTID_NONE,
 
-    //SDP
+    // SDP
     BLC_AUDIO_EVTID_SDP_OVER,
 
-    ///ASCS Event
+    // ASCS Event
     BLC_AUDIO_EVTID_ASE_ENABLE,
     BLC_AUDIO_EVTID_ASE_UPDATE,
     BLC_AUDIO_EVTID_ASE_DISABLE,
     BLC_AUDIO_EVTID_ASE_RELEASE,
-    BLC_AUDIO_EVTID_RECV_START,  //For Server and Client
-    BLC_AUDIO_EVTID_RECV_STOP,   //For Server and Client
+    BLC_AUDIO_EVTID_RECV_START,  // For Server and Client
+    BLC_AUDIO_EVTID_RECV_STOP,   // For Server and Client
 
-    //CSIS Event
+    // CSIS Event
     BLC_AUDIO_EVTID_CSIS_READY,
 
-    ///MICP Event
-    BLC_AUDIOC_EVTID_MICS_READY,       //For Audio Client
-    BLC_AUDIO_EVTID_MICS_MUTE,         //For Server and Client
-    BLC_AUDIO_EVTID_MICS_AICS_STATE,   //For Server and Client
-    BLC_AUDIO_EVTID_MICS_AICS_STATUS,  //For Server and Client
+    // MICP Event
+    BLC_AUDIOC_EVTID_MICS_READY,       // For Audio Client
+    BLC_AUDIO_EVTID_MICS_MUTE,         // For Server and Client
+    BLC_AUDIO_EVTID_MICS_AICS_STATE,   // For Server and Client
+    BLC_AUDIO_EVTID_MICS_AICS_STATUS,  // For Server and Client
 
-    ///VCS Event
-    BLC_AUDIOC_EVTID_VCS_READY,          //For Audio Client
-    BLC_AUDIO_EVTID_VCS_STATE,           //For Server and Client
-    BLC_AUDIO_EVTID_VCS_FLAG,            //For Server and Client
-    BLC_AUDIO_EVTID_VCS_AICS_STATE,      //For Server and Client
-    BLC_AUDIO_EVTID_VCS_VOCS_STATE,      //For Server and Client
-    BLC_AUDIO_EVTID_VCS_AICS_STATUS,     //For Server and Client
-    BLC_AUDIO_EVTID_VCS_VOCS_LOCATION,   //For Server and Client
-    BLC_AUDIO_EVTID_VCS_VOCS_DESCRIBLE,  //For Server and Client
-    BLC_AUDIO_EVTID_VCS_AICS_DESCRIBLE,  //For Server and Client
+    // VCS Event
+    BLC_AUDIOC_EVTID_VCS_READY,          // For Audio Client
+    BLC_AUDIO_EVTID_VCS_STATE,           // For Server and Client
+    BLC_AUDIO_EVTID_VCS_FLAG,            // For Server and Client
+    BLC_AUDIO_EVTID_VCS_AICS_STATE,      // For Server and Client
+    BLC_AUDIO_EVTID_VCS_VOCS_STATE,      // For Server and Client
+    BLC_AUDIO_EVTID_VCS_AICS_STATUS,     // For Server and Client
+    BLC_AUDIO_EVTID_VCS_VOCS_LOCATION,   // For Server and Client
+    BLC_AUDIO_EVTID_VCS_VOCS_DESCRIBLE,  // For Server and Client
+    BLC_AUDIO_EVTID_VCS_AICS_DESCRIBLE,  // For Server and Client
 
-    ///MCP Event
-    BLC_AUDIOS_EVTID_MCS_READY,  //For server
-    BLC_AUDIOS_EVTID_MCS_STATE,  //For Server
-    BLC_AUDIOS_EVTID_MCS_NOTY,   //For Server
-    BLC_AUDIOC_EVTID_MCP_CTRL,   //For Client
+    // MCP Event
+    BLC_AUDIOS_EVTID_MCS_READY,  // For server
+    BLC_AUDIOS_EVTID_MCS_STATE,  // For Server
+    BLC_AUDIOS_EVTID_MCS_NOTY,   // For Server
+    BLC_AUDIOC_EVTID_MCP_CTRL,   // For Client
 
-    ///PACP Event
-    BLC_AUDIOC_EVTID_PACS_READY,  //For Audio Client
+    // PACP Event
+    BLC_AUDIOC_EVTID_PACS_READY,  // For Audio Client
 
-    ///ASCP Event
-    BLC_AUDIOC_EVTID_ASCS_READY,  //For Audio Client
+    // ASCP Event
+    BLC_AUDIOC_EVTID_ASCS_READY,  // For Audio Client
 
-    //TBS Event
+    // TBS Event
     BLC_AUDIOS_EVTID_TBS_READY,
     BLC_AUDIOS_EVTID_TBS_CALL_STATE,
 
-    //OTS Event
+    // OTS Event
     BLC_AUDIOS_EVTID_OTS_READY,
 
 } BLC_AUDIO_EVTID_ENUM;
 
 // TODO: TBD
 // PACS Service & Characteristic
-#define SERVICE_UUID_PUBLISHED_AUDIO_CAPABILITIES        0x2310  //PACS
-#define CHARACTERISTIC_UUID_PACS_SINK_PAC                0x2311  //Mandatory:Read; Optional:Notify
-#define CHARACTERISTIC_UUID_PACS_SINK_AUDIO_LOCATION     0x2312  //Mandatory:Read; Optional:Notify,Write
-#define CHARACTERISTIC_UUID_PACS_SOURCE_PAC              0x2313  //Mandatory:Read; Optional:Notify
-#define CHARACTERISTIC_UUID_PACS_SOURCE_AUDIO_LOCATION   0x2314  //Mandatory:Read; Optional:Notify,Write
-#define CHARACTERISTIC_UUID_PACS_AVAILABLE_AUDIO_CONTEXT 0x2315  //Mandatory:Read,Notify; Optional:
-#define CHARACTERISTIC_UUID_PACS_SUPPORTED_AUDIO_CONTEXT 0x2316  //Mandatory:Read; Optional:Notify
+#define SERVICE_UUID_PUBLISHED_AUDIO_CAPABILITIES        0x2310  // PACS
+#define CHARACTERISTIC_UUID_PACS_SINK_PAC                0x2311  // Mandatory:Read; Optional:Notify
+#define CHARACTERISTIC_UUID_PACS_SINK_AUDIO_LOCATION     0x2312  // Mandatory:Read; Optional:Notify,Write
+#define CHARACTERISTIC_UUID_PACS_SOURCE_PAC              0x2313  // Mandatory:Read; Optional:Notify
+#define CHARACTERISTIC_UUID_PACS_SOURCE_AUDIO_LOCATION   0x2314  // Mandatory:Read; Optional:Notify,Write
+#define CHARACTERISTIC_UUID_PACS_AVAILABLE_AUDIO_CONTEXT 0x2315  // Mandatory:Read,Notify; Optional:
+#define CHARACTERISTIC_UUID_PACS_SUPPORTED_AUDIO_CONTEXT 0x2316  // Mandatory:Read; Optional:Notify
 // ASCS Service & Characteristic
 #define SERVICE_UUID_AUDIO_STREAM_CONTROL           0x2320
-#define CHARACTERISTIC_UUID_ASCS_ASE                0x2321  //Read, Notify
-#define CHARACTERISTIC_UUID_ASCS_ASE_CONTROL_PPOINT 0x2322  //WriteWithoutResponse, Notify
+#define CHARACTERISTIC_UUID_ASCS_ASE                0x2321  // Read, Notify
+#define CHARACTERISTIC_UUID_ASCS_ASE_CONTROL_PPOINT 0x2322  // WriteWithoutResponse, Notify
 // BACS Service & Characteristic
-#define SERVICE_UUID_BROADCAST_AUDIO_SCAN 0x2330  //PACS
+#define SERVICE_UUID_BROADCAST_AUDIO_SCAN 0x2330  // PACS
 // CSIS Service & Characteristic -- ok
 #define SERVICE_UUID_COPRDINATED_SET_IDENTIFICATION 0x1846
-#define CHARACTERISTIC_UUID_CSIS_SIRK               0x2B84  //M  Mandatory:Read; Optional:Notify
-#define CHARACTERISTIC_UUID_CSIS_SIZE               0x2B85  //O  Mandatory:Read; Optional:Notify
-#define CHARACTERISTIC_UUID_CSIS_LOCK               0x2B86  //O  Mandatory:Read,Write,Notify; Optional:
-#define CHARACTERISTIC_UUID_CSIS_RANK               0x2B87  //O  Mandatory:Read; Optional:
+#define CHARACTERISTIC_UUID_CSIS_SIRK               0x2B84  // M  Mandatory:Read; Optional:Notify
+#define CHARACTERISTIC_UUID_CSIS_SIZE               0x2B85  // O  Mandatory:Read; Optional:Notify
+#define CHARACTERISTIC_UUID_CSIS_LOCK               0x2B86  // O  Mandatory:Read,Write,Notify; Optional:
+#define CHARACTERISTIC_UUID_CSIS_RANK               0x2B87  // O  Mandatory:Read; Optional:
 // RAAS Service & Characteristic
 #define SERVICE_UUID_ROUTING_ACTIVE_AUDIO           0x2350
 #define CHARACTERISTIC_UUID_RAAS_SELECTABLE_ARE     0x2351  // Selectable Audio Route Endpoint List
@@ -182,23 +182,23 @@ typedef enum {
 #define CHARACTERISTIC_UUID_RAAS_MODIFY_ARC         0x2354  // Modify Audio Routing Control Point
 
 // AICS Service & Characteristic -- ok
-#define SERVICE_UUID_AUDIO_INPUT_CONTROL       0x1843  //O
-#define CHARACTERISTIC_UUID_AICS_INPUT_STATE   0x2B77  //M Mandatory:Read,Notify;   Optional:
-#define CHARACTERISTIC_UUID_AICS_GAIN_SETTING  0x2B78  //M Mandatory:Read;   Optional:
-#define CHARACTERISTIC_UUID_AICS_INPUT_TYPE    0x2B79  //M Mandatory:Read;   Optional:
-#define CHARACTERISTIC_UUID_AICS_INPUT_STATUS  0x2B7A  //M Mandatory:Read,Notify;   Optional:
-#define CHARACTERISTIC_UUID_AICS_INPUT_CONTROL 0x2B7B  //M Mandatory:Write;   Optional:
-#define CHARACTERISTIC_UUID_AICS_INPUT_DESCRIP 0x2B7C  //M Mandatory:Read;   Optional:Write Without Response, Notify
+#define SERVICE_UUID_AUDIO_INPUT_CONTROL       0x1843  // O
+#define CHARACTERISTIC_UUID_AICS_INPUT_STATE   0x2B77  // M Mandatory:Read,Notify;   Optional:
+#define CHARACTERISTIC_UUID_AICS_GAIN_SETTING  0x2B78  // M Mandatory:Read;   Optional:
+#define CHARACTERISTIC_UUID_AICS_INPUT_TYPE    0x2B79  // M Mandatory:Read;   Optional:
+#define CHARACTERISTIC_UUID_AICS_INPUT_STATUS  0x2B7A  // M Mandatory:Read,Notify;   Optional:
+#define CHARACTERISTIC_UUID_AICS_INPUT_CONTROL 0x2B7B  // M Mandatory:Write;   Optional:
+#define CHARACTERISTIC_UUID_AICS_INPUT_DESCRIP 0x2B7C  // M Mandatory:Read;   Optional:Write Without Response, Notify
 
 // MICS Service & Characteristic   -- ok
 #define SERVICE_UUID_MICROPHONE_CONTROL 0x184D
-#define CHARACTERISTIC_UUID_MICS_MUTE   0x2BC3  //M Mandatory:Read,Write,Notify;   Optional:
+#define CHARACTERISTIC_UUID_MICS_MUTE   0x2BC3  // M Mandatory:Read,Write,Notify;   Optional:
 
 // VCS  Service & Characteristic -- ok
 #define SERVICE_UUID_VOLUME_CONTROL           0x1844
-#define CHARACTERISTIC_UUID_VCS_STATE         0x2B7D  //Mandatory:Read,Notify;   Optional:
-#define CHARACTERISTIC_UUID_VCS_CONTROL_POINT 0x2B7E  //Mandatory:Write;   Optional:
-#define CHARACTERISTIC_UUID_VCS_FLAGS         0x2B7F  //Mandatory:Read,Notify;   Optional:
+#define CHARACTERISTIC_UUID_VCS_STATE         0x2B7D  // Mandatory:Read,Notify;   Optional:
+#define CHARACTERISTIC_UUID_VCS_CONTROL_POINT 0x2B7E  // Mandatory:Write;   Optional:
+#define CHARACTERISTIC_UUID_VCS_FLAGS         0x2B7F  // Mandatory:Read,Notify;   Optional:
 // VOCS  Service & Characteristic -- ok
 #define SERVICE_UUID_VOLUME_OFFSET_CONTROL 0x1845
 #define CHARACTERISTIC_UUID_VOCS_STATE     0x2B80
@@ -235,43 +235,43 @@ typedef enum {
 #define SERVICE_UUID_CALL_CONTROL 0x2430
 
 // TBS  Service & Characteristic -- ok
-#define SERVICE_UUID_TELEPHONE_BEARER             0x184B  //Telephone Bearer Service
-#define SERVICE_UUID_GENERIC_TELEPHONE_BEARER     0x184C  //Generic Telephone Bearer Service
-#define CHARACTERISTIC_UUID_TBS_PROVIDER_NAME     0x2BB3  //M Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CALLER_IDENTIFIER 0x2BB4  //M Mandatory:Read;   Optional:
-#define CHARACTERISTIC_UUID_TBS_TECHNOLOGY        0x2BB5  //M Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_URI_LIST          0x2BB6  //M Mandatory:Read;   Optional:Notify
-#define CHARACTERISTIC_UUID_TBS_SIGNAL_STRENGTH   0x2BB7  //O Mandatory:Read, Notify;   Optional:
+#define SERVICE_UUID_TELEPHONE_BEARER             0x184B  // Telephone Bearer Service
+#define SERVICE_UUID_GENERIC_TELEPHONE_BEARER     0x184C  // Generic Telephone Bearer Service
+#define CHARACTERISTIC_UUID_TBS_PROVIDER_NAME     0x2BB3  // M Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CALLER_IDENTIFIER 0x2BB4  // M Mandatory:Read;   Optional:
+#define CHARACTERISTIC_UUID_TBS_TECHNOLOGY        0x2BB5  // M Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_URI_LIST          0x2BB6  // M Mandatory:Read;   Optional:Notify
+#define CHARACTERISTIC_UUID_TBS_SIGNAL_STRENGTH   0x2BB7  // O Mandatory:Read, Notify;   Optional:
 #define CHARACTERISTIC_UUID_TBS_SIGNAL_REPORT_INTERVAL                                                                \
-    0x2BB8  //O Mandatory:Read, Write, Write Without Response;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CURRENT_CALL_LIST 0x2BB9  //M Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CCID              0x2BBA  //M Mandatory:Read;   Optional:
-#define CHARACTERISTIC_UUID_TBS_STATUS_FLAGS      0x2BBB  //M Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_INCOMING_CALL_URI 0x2BBC  //O Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CALL_STATE        0x2BBD  //M Mandatory:Read, Notify;   Optional:
+    0x2BB8  // O Mandatory:Read, Write, Write Without Response;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CURRENT_CALL_LIST 0x2BB9  // M Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CCID              0x2BBA  // M Mandatory:Read;   Optional:
+#define CHARACTERISTIC_UUID_TBS_STATUS_FLAGS      0x2BBB  // M Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_INCOMING_CALL_URI 0x2BBC  // O Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CALL_STATE        0x2BBD  // M Mandatory:Read, Notify;   Optional:
 #define CHARACTERISTIC_UUID_TBS_CALL_CONTROL_POINT                                                                    \
-    0x2BBE  //M Mandatory:Write, Write Without Response, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CCP_OPTIONAL_OPCODES 0x2BBF  //M Mandatory:Read;   Optional:
-#define CHARACTERISTIC_UUID_TBS_TERMINATIONO_REASON  0x2BC0  //M Mandatory:Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_INCOMING_CALL        0x2BC1  //M Mandatory:Read, Notify;   Optional:
-#define CHARACTERISTIC_UUID_TBS_CALL_FREIENDLY_NAME  0x2BC2  //O Mandatory:Read, Notify;   Optional:
+    0x2BBE  // M Mandatory:Write, Write Without Response, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CCP_OPTIONAL_OPCODES 0x2BBF  // M Mandatory:Read;   Optional:
+#define CHARACTERISTIC_UUID_TBS_TERMINATIONO_REASON  0x2BC0  // M Mandatory:Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_INCOMING_CALL        0x2BC1  // M Mandatory:Read, Notify;   Optional:
+#define CHARACTERISTIC_UUID_TBS_CALL_FREIENDLY_NAME  0x2BC2  // O Mandatory:Read, Notify;   Optional:
 
 // OTS  Service & Characteristic -- ok
-#define SERVICE_UUID_OBJECT_TRANSFER                        0x1825  //Object Transfer Service
-#define CHARACTERISTIC_UUID_OTS_FEATURE                     0x2ABD  //M Mandatory:Read; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_NAME                 0x2ABE  //M Mandatory:Read; Optional:Write
-#define CHARACTERISTIC_UUID_OTS_OBJECT_TYPE                 0x2ABF  //M Mandatory:Read; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_SIZE                 0x2AC0  //M Mandatory:Read; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_FIRST_CREATED        0x2AC1  //O Mandatory:Read; Optional:Write
-#define CHARACTERISTIC_UUID_OTS_OBJECT_LAST_CREATED         0x2AC2  //O Mandatory:Read; Optional:Write
-#define CHARACTERISTIC_UUID_OTS_OBJECT_ID                   0x2AC3  //O Mandatory:Read; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_PROPERTIES           0x2AC4  //M Mandatory:Read; Optional:Write
-#define CHARACTERISTIC_UUID_OTS_OBJECT_ACTION_CONTROL_POINT 0x2AC5  //M Mandatory:Write,Indicate; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_LIST_CONTROL_POINT   0x2AC6  //O Mandatory:Write,Indicate; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_LIST_FILTER          0x2AC7  //O Mandatory:Read,Write; Optional:
-#define CHARACTERISTIC_UUID_OTS_OBJECT_CHANGED              0x2AC8  //O Mandatory:Indicate; Optional:
+#define SERVICE_UUID_OBJECT_TRANSFER                        0x1825  // Object Transfer Service
+#define CHARACTERISTIC_UUID_OTS_FEATURE                     0x2ABD  // M Mandatory:Read; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_NAME                 0x2ABE  // M Mandatory:Read; Optional:Write
+#define CHARACTERISTIC_UUID_OTS_OBJECT_TYPE                 0x2ABF  // M Mandatory:Read; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_SIZE                 0x2AC0  // M Mandatory:Read; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_FIRST_CREATED        0x2AC1  // O Mandatory:Read; Optional:Write
+#define CHARACTERISTIC_UUID_OTS_OBJECT_LAST_CREATED         0x2AC2  // O Mandatory:Read; Optional:Write
+#define CHARACTERISTIC_UUID_OTS_OBJECT_ID                   0x2AC3  // O Mandatory:Read; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_PROPERTIES           0x2AC4  // M Mandatory:Read; Optional:Write
+#define CHARACTERISTIC_UUID_OTS_OBJECT_ACTION_CONTROL_POINT 0x2AC5  // M Mandatory:Write,Indicate; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_LIST_CONTROL_POINT   0x2AC6  // O Mandatory:Write,Indicate; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_LIST_FILTER          0x2AC7  // O Mandatory:Read,Write; Optional:
+#define CHARACTERISTIC_UUID_OTS_OBJECT_CHANGED              0x2AC8  // O Mandatory:Indicate; Optional:
 
-///BAP
+// BAP
 ////////////////////////////////////////////////////////////////////
 
 // Context Type
@@ -292,7 +292,8 @@ typedef enum {
     BIT(7)  // Emergency alerts as, for example, with fire alarms or other urgent alerts.
 #define BLC_AUDIO_CONTEXT_TYPE_RINGTONE BIT(8)  // Ringtone as in a call alert.
 #define BLC_AUDIO_CONTEXT_TYPE_TV                                                                                     \
-    BIT(9)  // Audio associated with a television program and/or with metadata conforming to the Bluetooth Broadcast TV profile.
+    BIT(9)  // Audio associated with a television program
+            // and/or with metadata conforming to the Bluetooth Broadcast TV profile.
 
 // Codec ID
 #define BLC_AUDIO_CODECID_LC3 0x00000001
@@ -314,8 +315,8 @@ typedef enum {
 #define BLC_AUDIO_METATYPE_STREAMING_CONTEXTS 0x02  // Streaming_Audio_Contexts
 
 // Audio Direction
-#define BLC_AUDIO_DIRECTION_SINK   0x01  //Server is Audio Sink
-#define BLC_AUDIO_DIRECTION_SOURCE 0x02  //Server is Audio Source
+#define BLC_AUDIO_DIRECTION_SINK   0x01  // Server is Audio Sink
+#define BLC_AUDIO_DIRECTION_SOURCE 0x02  // Server is Audio Source
 
 // Audio Support Location (bitfield, for PACS or ASCS)
 #define BLC_AUDIO_LOCATION_FLAG_FL    BIT(0)   // Front Left
@@ -382,13 +383,13 @@ typedef enum {
 #define BLC_AUDIO_CHANNEL_COUNTS_8 BIT(7)
 
 // Audio PHY (bitfield, for ASCS)
-#define BLC_AUDIO_PHY_FLAG_1M    BIT(0)  //LE 1M PHY preferred
-#define BLC_AUDIO_PHY_FLAG_2M    BIT(1)  //LE 2M PHY preferred
-#define BLC_AUDIO_PHY_FLAG_CODED BIT(2)  //LE Coded PHY preferred
+#define BLC_AUDIO_PHY_FLAG_1M    BIT(0)  // LE 1M PHY preferred
+#define BLC_AUDIO_PHY_FLAG_2M    BIT(1)  // LE 2M PHY preferred
+#define BLC_AUDIO_PHY_FLAG_CODED BIT(2)  // LE Coded PHY preferred
 
 // Audio Framing (bitfield, for ASCS)
-#define BLC_AUDIO_FRAMING_UNFRAMED 0x00  //Unframed ISOAL PDUs preferred
-#define BLC_AUDIO_FRAMING_FRAMED   0x01  //framed ISOAL PDUs preferred
+#define BLC_AUDIO_FRAMING_UNFRAMED 0x00  // Unframed ISOAL PDUs preferred
+#define BLC_AUDIO_FRAMING_FRAMED   0x01  // framed ISOAL PDUs preferred
 
 // The Value Of Mute field
 #define BLC_AUDIO_MUTE_NOT_MUTED 0x00
@@ -506,30 +507,30 @@ typedef enum {
 // TBS   Call Flags
 typedef enum {
     BLC_AUDIO_TBP_CALL_FLAG_OUTCOMING =
-        BIT(0),  //Incoming/Outgoing: 0=Call is an incoming call; 1=Call is an outgoing call
+        BIT(0),  // Incoming/Outgoing: 0=Call is an incoming call; 1=Call is an outgoing call
     BLC_AUDIO_TBP_CALL_FLAG_INCOMING = 0x00,
-    BLC_AUDIO_TBP_CALL_FLAG_WITHHELD_BY_SERVER = BIT(1),  //Information withheld by server: 0=Not withheld; 1=Withheld
+    BLC_AUDIO_TBP_CALL_FLAG_WITHHELD_BY_SERVER = BIT(1),  // Information withheld by server: 0=Not withheld; 1=Withheld
     BLC_AUDIO_TBP_CALL_FLAG_NOT_WITHHELD_BY_SERVER = 0x00,
     BLC_AUDIO_TBP_CALL_FLAG_WITHHELD_BY_NETWORK =
-        BIT(2),  //Information withheld by network: 0 = Provided by network; 1 = Withheld by network
+        BIT(2),  // Information withheld by network: 0 = Provided by network; 1 = Withheld by network
     BLC_AUDIO_TBP_CALL_FLAG_PROVIDED_BY_NETWORK = 0x00,
 } BLC_AUDIO_TBP_CALL_FLAGS_ENUM;
 // TBS	 Status Flags
 typedef enum {
-    BLC_AUDIO_TBP_STATUS_FLAG_INBAND_RINGTONE = BIT(0),  //0=inband ringtone disabled; 1=inband ringtone enabled
-    BLC_AUDIO_TBP_STATUS_FLAG_SILENT_MODE = BIT(1),  //0 = Server is not in silent mode; 1 = Server is in silent mode
+    BLC_AUDIO_TBP_STATUS_FLAG_INBAND_RINGTONE = BIT(0),  // 0=inband ringtone disabled; 1=inband ringtone enabled
+    BLC_AUDIO_TBP_STATUS_FLAG_SILENT_MODE = BIT(1),  // 0 = Server is not in silent mode; 1 = Server is in silent mode
 } BLC_AUDIO_TBP_STATUS_FLAGS_ENUM;
 
 // OTS   Opcode for Action Control Point
 typedef enum {
     BLC_AUDIO_OTP_OACP_OPCODE_CREATE = 0x01,
     BLC_AUDIO_OTP_OACP_OPCODE_DELETE = 0x02,
-    BLC_AUDIO_OTP_OACP_OPCODE_CALC_CHECKSUM = 0x03,  //Calculate Checksum
+    BLC_AUDIO_OTP_OACP_OPCODE_CALC_CHECKSUM = 0x03,  // Calculate Checksum
     BLC_AUDIO_OTP_OACP_OPCODE_EXECUTE = 0x04,
     BLC_AUDIO_OTP_OACP_OPCODE_READ = 0x05,
     BLC_AUDIO_OTP_OACP_OPCODE_WRITE = 0x06,
     BLC_AUDIO_OTP_OACP_OPCODE_ABORT = 0x07,
-    BLC_AUDIO_OTP_OACP_OPCODE_RSPCODE = 0x60,  //Response Code
+    BLC_AUDIO_OTP_OACP_OPCODE_RSPCODE = 0x60,  // Response Code
 } BLC_AUDIO_OTP_OACP_OPCODE_ENUM;
 // OTS	 Opcode for Action Control Point
 typedef enum {
@@ -544,6 +545,6 @@ typedef enum {
     BLC_AUDIO_OTP_OLCP_OPCODE_RSPCODE = 0x70,
 } BLC_AUDIO_OTP_OLCP_OPCODE_ENUM;
 
-#endif  //#if (BLC_AUDIO_PROFILE_EN)
+#endif  // #if (BLC_AUDIO_PROFILE_EN)
 
-#endif  //_AUDIO_DEFINE_H_
+#endif  // _AUDIO_DEFINE_H_

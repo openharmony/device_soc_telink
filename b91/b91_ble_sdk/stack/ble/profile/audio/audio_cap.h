@@ -173,6 +173,6 @@ extern int blc_audio_otpSendActionCtrl(u16 connHandle, u8 opcode, u8 *pData, u8 
 extern int blc_audio_otpSendListCtrl(u16 connHandle, u8 opcode, u8 *pData, u8 dataLen);
 #endif
 
-#endif  //#if (BLC_AUDIO_PROFILE_EN)
+#endif  // #if (BLC_AUDIO_PROFILE_EN)
 
-#endif  //_AUDIO_CAP_H_
+#endif  // _AUDIO_CAP_H_

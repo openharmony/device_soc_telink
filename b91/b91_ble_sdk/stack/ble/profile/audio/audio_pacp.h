@@ -80,6 +80,6 @@ void blt_audio_setAvalibleContext(blt_audio_handle_t *pHandle, u8 type, u16 cont
 u8 *blt_audio_getRecord(blt_audio_handle_t *pHandle, u8 type, u8 *pCodecId);
 u8 blt_audio_getRecordParam(blt_audio_handle_t *pHandle, u8 type, u8 *pCodecId, blt_audio_pacpRecordParam_t *pParam);
 
-#endif  //#if (BLC_AUDIO_PACS_ENABLE)
+#endif  // #if (BLC_AUDIO_PACS_ENABLE)
 
-#endif  //_AUDIO_PACP_H_
+#endif  // _AUDIO_PACP_H_

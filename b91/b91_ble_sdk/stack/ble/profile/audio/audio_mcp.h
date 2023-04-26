@@ -110,6 +110,6 @@ int blc_audioMcpLastGroup(u16 connHandle);
 int blc_audioMcpGotoGroup(u16 connHandle, s32 number);
 int blc_audio_mcpSendCtrl(u16 connHandle, u8 opcode, u8 *pData, u16 dataLen);
 
-#endif  //#if (BLC_AUDIO_MCP_ENABLE)
+#endif  // #if (BLC_AUDIO_MCP_ENABLE)
 
-#endif  //_AUDIO_MCP_H_
+#endif  // _AUDIO_MCP_H_

@@ -106,15 +106,15 @@ typedef struct
 typedef struct
 {  // 12Bytes
     u16 charUUID;
-    u16 dHandle;  //data handle
+    u16 dHandle;  // data handle
     u16 othrUUID[BLT_AUDIO_SDP_OTHR_COUNT];
     u16 othrHandle[BLT_AUDIO_SDP_OTHR_COUNT];
 } blt_audio_char_t;
 struct blt_audio_srv_s
 {
-    u8 used;     //Adapter to multi same ServiceUUID.
-    u8 mode;     //Refer to BLT_AUDIO_CHAR_MODE_ENUM.
-    u8 flags;    //Refer to BLT_AUDIO_SRV_FLAG_ENUM.
+    u8 used;     // Adapter to multi same ServiceUUID.
+    u8 mode;     // Refer to BLT_AUDIO_CHAR_MODE_ENUM.
+    u8 flags;    // Refer to BLT_AUDIO_SRV_FLAG_ENUM.
     u8 curChar;  //
     u16 srvUUID;
     u16 sHandle;
@@ -132,16 +132,16 @@ struct blt_audio_sdp_s
     u8 flags;
     u8 other;
     u8 curSrv;
-    u16 handle;  //Connect Handle
+    u16 handle;  // Connect Handle
     u16 sHandle;
     u16 eHandle;
     u16 oHandle;
     u32 startTimer;
     blt_audio_srv_t *servPtr[BLT_AUDIO_SDP_SRV_COUNT];
     blt_audio_inc_t includes[BLT_AUDIO_SDP_INC_COUNT];
-    blt_audio_char_t charact[BLT_AUDIO_SDP_CHAR_COUNT];  //This will be Shared by multiple services
+    blt_audio_char_t charact[BLT_AUDIO_SDP_CHAR_COUNT];  // This will be Shared by multiple services
 };
-#endif  //#if (BLC_AUDIO_SDP_ENABLE)
+#endif  // #if (BLC_AUDIO_SDP_ENABLE)
 
 #if (BLC_AUDIO_AICS_ENABLE)
 typedef struct
@@ -177,7 +177,7 @@ typedef struct
     u8 desc[BLC_AUDIO_AICS_DESC_SIZE];
 #endif
 } blt_audio_aics_t;
-#endif  //BLC_AUDIO_AICS_ENABLE
+#endif  // BLC_AUDIO_AICS_ENABLE
 #if (BLC_AUDIO_VOCS_ENABLE)
 typedef struct
 {
@@ -203,7 +203,7 @@ typedef struct
     u8 desc[BLC_AUDIO_VOCS_DESC_SIZE];
 #endif
 } blt_audio_vocs_t;
-#endif  //BLC_AUDIO_VOCS_ENABLE
+#endif  // BLC_AUDIO_VOCS_ENABLE
 
 #if (BLC_AUDIO_PACP_ENABLE)
 typedef struct
@@ -222,7 +222,7 @@ typedef struct
     u8 *pAvaCtx;   // avaliable Context
     u8 *pSupCtx;   // supported Context
 } blt_audio_pacpCtrl_t;
-#endif  //#if (BLC_AUDIO_PACP_ENABLE)
+#endif  // #if (BLC_AUDIO_PACP_ENABLE)
 #if (BLC_AUDIO_ASCP_ENABLE)
 typedef struct
 {  // 36Bytes
@@ -239,7 +239,7 @@ typedef struct
     u8 cigID;
     u8 cisID;
     u8 PHY;
-    u8 RTN;  //Retransmission_Number
+    u8 RTN;  // Retransmission_Number
     u16 maxSDU;
     u16 latency;
     u8 framing;
@@ -251,32 +251,32 @@ typedef struct
 {  // 4Bytes
     u16 attHandle;
     u16 cisHandle;
-    u16 flags;  //Refer to BLT_AUDIO_ASE_FLAGS_ENUM
+    u16 flags;  // Refer to BLT_AUDIO_ASE_FLAGS_ENUM
     u16 ready;
     u8 aseID;
-    u8 state;  //Refer to BLT_AUDIO_ASE_STATE_ENUM
+    u8 state;  // Refer to BLT_AUDIO_ASE_STATE_ENUM
     u16 reserve;
     u8 *pAseCCC;
     blt_audio_aseParam_t param;
 } blt_audio_ascpAse_t;
 typedef struct
 {
-    u8 flags;  //For client, this is SdpExFlags.
+    u8 flags;  // For client, this is SdpExFlags.
     u8 aseCount;
     u16 ctrlHandle;
     blt_audio_ascpAse_t ase[BLC_AUDIO_ASE_PER_HANDLE];
 } blt_audio_ascpCtrl_t;
-#endif  //#if (BLC_AUDIO_ASCP_ENABLE)
+#endif  // #if (BLC_AUDIO_ASCP_ENABLE)
 
 #if (BLC_AUDIO_CSIP_ENABLE)
 typedef struct
 {
     u8 flags;
-    u8 isInLock;  //Is Inner Lock
+    u8 isInLock;  // Is Inner Lock
     u8 sdpFlags;
     u8 reserve0;
     u32 lockTimer;
-    u32 lockTimeout;  //us
+    u32 lockTimeout;  // us
 
     u16 sirkHandle;
     u16 sizeHandle;
@@ -289,7 +289,7 @@ typedef struct
     u8 lockCCC;
     u8 SIRK[16];
 } blt_audio_csipCtrl_t;
-#endif  //#if (BLC_AUDIO_CSIP_ENABLE)
+#endif  // #if (BLC_AUDIO_CSIP_ENABLE)
 #if (BLC_AUDIO_MICP_ENABLE)
 typedef struct
 {
@@ -305,7 +305,7 @@ typedef struct
     blt_audio_aics_t aics[BLC_AUDIO_MICS_AICS_COUNT];
 #endif
 } blt_audio_micpCtrl_t;
-#endif  //#if (BLC_AUDIO_MICP_ENABLE)
+#endif  // #if (BLC_AUDIO_MICP_ENABLE)
 
 #if (BLC_AUDIO_VCP_ENABLE)
 typedef struct
@@ -333,9 +333,9 @@ typedef struct
 #endif
 #if (BLC_AUDIO_VOCS_ENABLE)
     blt_audio_vocs_t vocs[BLC_AUDIO_VCS_VOCS_COUNT];
-#endif  //BLC_AUDIO_VOCS_ENABLE
+#endif  // BLC_AUDIO_VOCS_ENABLE
 } blt_audio_vcpCtrl_t;
-#endif  //#if (BLC_AUDIO_VCP_ENABLE)
+#endif  // #if (BLC_AUDIO_VCP_ENABLE)
 
 #if (BLC_AUDIO_MCP_ENABLE)
 typedef struct
@@ -344,7 +344,7 @@ typedef struct
     u8 enable;
     u8 serial;
     u8 isValid;
-    u8 cpOpcode;  //Control Point Opcode
+    u8 cpOpcode;  // Control Point Opcode
     u8 resultCode;
     u8 mediaState;
     u8 trackIsStart;
@@ -360,7 +360,7 @@ typedef struct
     u16 CCIDHandle;
 
     u16 trackDurationValue;
-    u32 trackPositionValue;  //Should be in [0,trackDurationValue]
+    u32 trackPositionValue;  // Should be in [0,trackDurationValue]
 
 #if (BLC_AUDIO_MCS_EXTEND_SUPPORT_ENABLE)
     u8 seekingSpeedValue;
@@ -371,20 +371,20 @@ typedef struct
     u8 searchObjectID[6];
 #endif
 } blt_audio_mcpCtrl_t;
-#endif  //BLC_AUDIO_MCP_ENABLE
+#endif  // BLC_AUDIO_MCP_ENABLE
 
-//#define CHARACTERISTIC_UUID_TBS_PROVIDER_NAME          //M Mandatory:Read, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_CALLER_IDENTIFIER      //M Mandatory:Read;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_TECHNOLOGY             //M Mandatory:Read, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_URI_LIST               //M Mandatory:Read;   Optional:Notify
-//#define CHARACTERISTIC_UUID_TBS_CURRENT_CALL_LIST      //M Mandatory:Read, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_CCID                   //M Mandatory:Read;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_STATUS_FLAGS           //M Mandatory:Read, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_CALL_STATE             //M Mandatory:Read, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_CALL_CONTROL_POINT     //M Mandatory:Write, Write Without Response, Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_CCP_OPTIONAL_OPCODES   //M Mandatory:Read;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_TERMINATIONO_REASON    //M Mandatory:Notify;   Optional:
-//#define CHARACTERISTIC_UUID_TBS_INCOMING_CALL          //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_PROVIDER_NAME         //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_CALLER_IDENTIFIER     //M Mandatory:Read;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_TECHNOLOGY            //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_URI_LIST              //M Mandatory:Read;   Optional:Notify
+// #define CHARACTERISTIC_UUID_TBS_CURRENT_CALL_LIST     //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_CCID                  //M Mandatory:Read;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_STATUS_FLAGS          //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_CALL_STATE            //M Mandatory:Read, Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_CALL_CONTROL_POINT    //M Mandatory:Write, Write Without Response, Notify; Optional:
+// #define CHARACTERISTIC_UUID_TBS_CCP_OPTIONAL_OPCODES  //M Mandatory:Read;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_TERMINATIONO_REASON   //M Mandatory:Notify;   Optional:
+// #define CHARACTERISTIC_UUID_TBS_INCOMING_CALL         //M Mandatory:Read, Notify;   Optional:
 
 #if (BLC_AUDIO_TBS_ENABLE)
 typedef struct
@@ -404,7 +404,7 @@ typedef struct
 typedef struct
 {
     u16 flags;
-    u8 cpOpcode;  //Control Point Opcode
+    u8 cpOpcode;  // Control Point Opcode
     u8 callIndex;
     u8 resultCode;
     u8 callCount;
@@ -436,11 +436,11 @@ typedef struct
     u16 callFriendlyNameHandle;
 #endif
 } blt_audio_tbpCtrl_t;
-#endif  //BLC_AUDIO_TBS_ENABLE
+#endif  // BLC_AUDIO_TBS_ENABLE
 #if (BLC_AUDIO_OTP_ENABLE)
-//#define BLC_AUDIO_OTP_FEATURE_BUFFER_LEN   32
-//#define BLC_AUDIO_OTP_NAME_BUFFER_LEN      16
-//#define BLC_AUDIO_OTP_FILTER_BUFFER_LEN    32
+// #define BLC_AUDIO_OTP_FEATURE_BUFFER_LEN   32
+// #define BLC_AUDIO_OTP_NAME_BUFFER_LEN      16
+// #define BLC_AUDIO_OTP_FILTER_BUFFER_LEN    32
 #define BLC_AUDIO_OTP_FEATURE_BUFFER_LEN 64
 #define BLC_AUDIO_OTP_NAME_BUFFER_LEN    64
 #define BLC_AUDIO_OTP_FILTER_BUFFER_LEN  64
@@ -480,22 +480,22 @@ typedef struct
     u8 olcpOpcode;
     u8 olcpStatus;
 
-    u8 firstCreatedValue[8];  //Valid:7
-    u8 lastCreatedValue[8];   //Valid:7
-    u8 objectIDValue[8];      //Valid:6
+    u8 firstCreatedValue[8];  // Valid:7
+    u8 lastCreatedValue[8];   // Valid:7
+    u8 objectIDValue[8];      // Valid:6
     u8 listFilterValue[BLC_AUDIO_OTP_FILTER_BUFFER_LEN];
-#endif  //BLC_AUDIO_OTS_EXTEND_SUPPORT_ENABLE
+#endif  // BLC_AUDIO_OTS_EXTEND_SUPPORT_ENABLE
 
 } blt_audio_otpCtrl_t;
-#endif  //BLC_AUDIO_OTP_ENABLE
+#endif  // BLC_AUDIO_OTP_ENABLE
 
 typedef struct
 {
-    u8 role;     //Refer to BLC_AUDIO_ROLE_ENUM
-    u8 conn;     //True if used, false if not used
-    u16 busy;    //Refer to BLT_AUDIO_BUSY_ENUM
-    u16 handle;  //Connect Handle
-    u16 gFlags;  //Global flags (this is not change). Refer to BLT_AUDIO_GFLAGS_ENUM
+    u8 role;     // Refer to BLC_AUDIO_ROLE_ENUM
+    u8 conn;     // True if used, false if not used
+    u16 busy;    // Refer to BLT_AUDIO_BUSY_ENUM
+    u16 handle;  // Connect Handle
+    u16 gFlags;  // Global flags (this is not change). Refer to BLT_AUDIO_GFLAGS_ENUM
     BlcAudioEventCB evtCB;
 #if (BLC_AUDIO_PACP_ENABLE)
     blt_audio_pacpCtrl_t pacp;
@@ -527,28 +527,28 @@ typedef struct
 #if !(BLC_AUDIO_MCP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_MCS_ENABLE)
     blt_audio_srv_t mcsSrv;
-#endif  //BLC_AUDIO_MCS_ENABLE
-#endif  //BLC_AUDIO_MCP_ROLE_SWICH_ENABLE
+#endif  // BLC_AUDIO_MCS_ENABLE
+#endif  // BLC_AUDIO_MCP_ROLE_SWICH_ENABLE
 #if !(BLC_AUDIO_TBP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_TBS_ENABLE)
     blt_audio_srv_t tbsSrv;
-#endif  //BLC_AUDIO_TBS_ENABLE
-#endif  //BLC_AUDIO_TBP_ROLE_SWICH_ENABLE
+#endif  // BLC_AUDIO_TBS_ENABLE
+#endif  // BLC_AUDIO_TBP_ROLE_SWICH_ENABLE
 #if !(BLC_AUDIO_OTP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_OTS_ENABLE)
     blt_audio_srv_t otsSrv;
-#endif  //BLC_AUDIO_OTS_ENABLE
-#endif  //BLC_AUDIO_OTP_ROLE_SWICH_ENABLE
+#endif  // BLC_AUDIO_OTS_ENABLE
+#endif  // BLC_AUDIO_OTP_ROLE_SWICH_ENABLE
 #endif
 } blt_audio_server_t;
 
 typedef struct
 {
-    u8 role;     //Refer to BLC_AUDIO_ROLE_ENUM
-    u8 conn;     //True if used, false if not used
-    u16 busy;    //Refer to BLT_AUDIO_BUSY_ENUM
-    u16 handle;  //Connect Handle
-    u16 gFlags;  //Global flags. Refer to BLT_AUDIO_GFLAGS_ENUM
+    u8 role;     // Refer to BLC_AUDIO_ROLE_ENUM
+    u8 conn;     // True if used, false if not used
+    u16 busy;    // Refer to BLT_AUDIO_BUSY_ENUM
+    u16 handle;  // Connect Handle
+    u16 gFlags;  // Global flags. Refer to BLT_AUDIO_GFLAGS_ENUM
     BlcAudioEventCB evtCB;
 #if (BLC_AUDIO_PACP_ENABLE)
     blt_audio_pacpCtrl_t pacp;
@@ -579,44 +579,44 @@ typedef struct
     blt_audio_sdp_t sdp;
 #if (BLC_AUDIO_PACS_ENABLE)
     blt_audio_srv_t pacsSrv;
-#endif  //BLC_AUDIO_PACS_ENABLE
+#endif  // BLC_AUDIO_PACS_ENABLE
 #if (BLC_AUDIO_ASCS_ENABLE)
     blt_audio_srv_t ascsSrv;
-#endif  //BLC_AUDIO_ASCS_ENABLE
+#endif  // BLC_AUDIO_ASCS_ENABLE
 #if (BLC_AUDIO_CSIS_ENABLE)
     blt_audio_srv_t csisSrv;
-#endif  //BLC_AUDIO_CSIS_ENABLE
+#endif  // BLC_AUDIO_CSIS_ENABLE
 #if (BLC_AUDIO_MICS_ENABLE)
     blt_audio_srv_t micsSrv;
-#endif  //BLC_AUDIO_CSIS_ENABLE
+#endif  // BLC_AUDIO_CSIS_ENABLE
 #if (BLC_AUDIO_VCS_ENABLE)
     blt_audio_srv_t vcsSrv;
-#endif  //BLC_AUDIO_VCS_ENABLE
+#endif  // BLC_AUDIO_VCS_ENABLE
 #if (BLC_AUDIO_MCP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_MCS_ENABLE)
     blt_audio_srv_t mcsSrv;
-#endif  //BLC_AUDIO_MCS_ENABLE
+#endif  // BLC_AUDIO_MCS_ENABLE
 #endif
 #if (BLC_AUDIO_TBP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_TBS_ENABLE)
     blt_audio_srv_t tbsSrv;
-#endif  //BLC_AUDIO_TBS_ENABLE
+#endif  // BLC_AUDIO_TBS_ENABLE
 #endif
 #if (BLC_AUDIO_OTP_ROLE_SWICH_ENABLE)
 #if (BLC_AUDIO_OTS_ENABLE)
     blt_audio_srv_t otsSrv;
-#endif  //BLC_AUDIO_OTS_ENABLE
+#endif  // BLC_AUDIO_OTS_ENABLE
 #endif
 #endif
 } blt_audio_client_t;
 
 typedef struct
 {
-    u8 role;     //Refer to BLC_AUDIO_ROLE_ENUM
-    u8 conn;     //True if used, false if not used
-    u16 busy;    //Refer to BLT_AUDIO_BUSY_ENUM
-    u16 handle;  //Connect Handle
-    u16 gFlags;  //Global flags. Refer to BLT_AUDIO_GFLAGS_ENUM
+    u8 role;     // Refer to BLC_AUDIO_ROLE_ENUM
+    u8 conn;     // True if used, false if not used
+    u16 busy;    // Refer to BLT_AUDIO_BUSY_ENUM
+    u16 handle;  // Connect Handle
+    u16 gFlags;  // Global flags. Refer to BLT_AUDIO_GFLAGS_ENUM
     BlcAudioEventCB evtCB;
 #if (BLC_AUDIO_PACP_ENABLE)
     blt_audio_pacpCtrl_t pacp;
@@ -653,6 +653,6 @@ typedef struct
     void (*Process)(blt_audio_handle_t *pHandle);
 } blt_audio_func_t;
 
-#endif  //BLC_AUDIO_PROFILE_EN
+#endif  // BLC_AUDIO_PROFILE_EN
 
-#endif  //_AUDIO_INNER_H_
+#endif  // _AUDIO_INNER_H_

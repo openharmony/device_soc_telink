@@ -62,17 +62,17 @@ typedef enum {
 } BLT_AUDIO_CSIP_FLAGS_ENUM;
 
 typedef enum {
-    BLT_AUDIO_CSIP_ERRCODE_LOCK_DENIED = 0x80,  //The lock cannot be granted because the server is already locked.
+    BLT_AUDIO_CSIP_ERRCODE_LOCK_DENIED = 0x80,  // The lock cannot be granted because the server is already locked.
     BLT_AUDIO_CSIP_ERRCODE_RELEASE_NOT_ACLLOWED = 0x81,
     BLT_AUDIO_CSIP_ERRCODE_INVALID_LOCK_VALUE = 0x82,
     BLT_AUDIO_CSIP_ERRCODE_OOB_SIRK_ONLY = 0x83,
     BLT_AUDIO_CSIP_ERRCODE_LOCK_ALREADY_GRANTED =
-        0x84,  //The client that made the request is the current owner of thelock.
+        0x84,  // The client that made the request is the current owner of thelock.
 } BLT_AUDIO_CSIP_ERRCODE_ENUM;
 
-//readyEvt.size = pCsip->size;
-//	readyEvt.lock = pCsip->lock;
-//	readyEvt.rank = pCsip->rank;
+// readyEvt.size = pCsip->size;
+// readyEvt.lock = pCsip->lock;
+// readyEvt.rank = pCsip->rank;
 
 typedef enum {
     BLT_AUDIO_CSIP_SDP_FLAG_NONE = 0x00,
@@ -92,6 +92,6 @@ void blc_audio_csisSih(u8 sirk[16], u8 prand[3], u8 hash[3]);
 void blc_audio_csisGeneratePsri(u8 sirk[16], u8 prand[3], u8 psri[6]);
 bool blc_audio_csisPsriIsValid(u8 sirk[16], u8 psri[6]);
 
-#endif  //#if (BLC_AUDIO_CSIP_ENABLE)
+#endif  // #if (BLC_AUDIO_CSIP_ENABLE)
 
-#endif  //_AUDIO_CSIP_H_
+#endif  // _AUDIO_CSIP_H_

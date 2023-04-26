@@ -57,6 +57,6 @@ static int blt_audio_raapSetServ(blt_audio_handle_t *pHandle, attribute_t *pServ
 static void blt_audio_raapSetConn(blt_audio_handle_t *pHandle, BLC_AUDIO_STATE_ENUM state);
 static void blt_audio_raapProcess(blt_audio_handle_t *pHandle);
 
-#endif  //#if (BLC_AUDIO_RAAP_ENABLE)
+#endif  // #if (BLC_AUDIO_RAAP_ENABLE)
 
-#endif  //_AUDIO_RAAP_H_
+#endif  // _AUDIO_RAAP_H_

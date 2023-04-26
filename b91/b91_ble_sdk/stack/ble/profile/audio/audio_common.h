@@ -83,7 +83,7 @@
 #define send_dbgmsg_warn(datalen, pData)  blt_audio_sendDbgMsg(CONSOLE_DBGID_WARN, datalen, pData)
 #define send_dbgmsg_trace(datalen, pData) blt_audio_sendDbgMsg(CONSOLE_DBGID_TRACE, datalen, pData)
 void blt_audio_sendDbgMsg(u8 dbgId, u8 datalen, u8 *pData);
-#endif  //BLC_AUDIO_DEBUG_ENABLE
+#endif  // BLC_AUDIO_DEBUG_ENABLE
 
 typedef struct
 {
@@ -168,6 +168,6 @@ ble_sts_t blt_audio_pushWriteRsp(u16 connHandle);
 
 int blt_audio_sendEvent(blt_audio_handle_t *pHandle, u16 evtID, u16 dataLen, u8 *pData);
 
-#endif  //#if (BLC_AUDIO_PROFILE_EN)
+#endif  // #if (BLC_AUDIO_PROFILE_EN)
 
-#endif  //_AUDIO_COMMON_H_
+#endif  // _AUDIO_COMMON_H_
