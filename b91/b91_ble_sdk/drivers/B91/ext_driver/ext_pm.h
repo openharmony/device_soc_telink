@@ -90,8 +90,7 @@ typedef enum {
 /**
  * @brief   deepsleep wakeup by external xtal
  */
-typedef struct
-{
+typedef struct {
     unsigned char ext_cap_en;  // 24xtal  cap
     unsigned char pad32k_en;
     unsigned char pm_enter_en;
@@ -131,7 +130,8 @@ void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
 #define SYS_DEEP_ANA_REG PM_ANA_REG_POWER_ON_CLR_BUF0
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode,
+ *             deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.
@@ -140,7 +140,8 @@ void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
 int cpu_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick);
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g.
+ *             suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.

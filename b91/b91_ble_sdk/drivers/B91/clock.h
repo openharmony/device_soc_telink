@@ -85,8 +85,7 @@
 /**
  *  @brief  Define sys_clk struct.
  */
-typedef struct
-{
+typedef struct {
     unsigned short pll_clk; /**< pll clk */
     unsigned char cclk;     /**< cpu clk */
     unsigned char hclk;     /**< hclk */

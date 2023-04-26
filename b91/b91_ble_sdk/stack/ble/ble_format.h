@@ -48,8 +48,7 @@
 
 #include "stack/ble/ble_common.h"
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 nesn : 1;
     u8 sn : 1;
@@ -58,8 +57,7 @@ typedef struct
     u8 rf_len;
 } rf_acl_data_head_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 nesn : 1;
     u8 sn : 1;
@@ -70,8 +68,7 @@ typedef struct
     u8 rf_len;
 } rf_cis_data_hdr_t;
 
-typedef struct
-{
+typedef struct {
     u8 llid : 2;
     u8 cssn : 3;
     u8 cstf : 1;
@@ -79,8 +76,7 @@ typedef struct
     u8 rf_len;
 } rf_bis_data_hdr_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -115,8 +111,7 @@ typedef struct
 
 } rf_packet_ll_cis_req_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
     u8 rf_len;  // LEN(6)_RFU(2)
     u8 opcode;
@@ -125,9 +120,8 @@ typedef struct
     u16 connEventCnt;
 } rf_packet_ll_cis_rsp_t;
 
-typedef struct
-{
-    u8 type;    //RA(1)_TA(1)_RFU(2)_TYPE(4)
+typedef struct {
+    u8 type;    // RA(1)_TA(1)_RFU(2)_TYPE(4)
     u8 rf_len;  // LEN(6)_RFU(2)
     u8 opcode;
     u32 cisAccessAddr;  // Access Address of the CIS
@@ -137,8 +131,7 @@ typedef struct
     u16 connEventCnt;
 } rf_packet_ll_cis_ind_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u8 opcode;
@@ -147,10 +140,8 @@ typedef struct
     u8 errorCode;
 } rf_packet_ll_cis_terminate_t;
 
-typedef struct
-{
-    union
-    {
+typedef struct {
+    union {
         rf_bis_data_hdr_t bisPduHdr;
         rf_cis_data_hdr_t cisPduHdr;
         rf_acl_data_head_t aclPduHdr;
@@ -163,14 +154,12 @@ typedef struct
     u8 llPayload[1]; /* Max LL Payload length: 251 */
 } llPhysChnPdu_t;
 
-typedef struct
-{
+typedef struct {
     u32 dma_len;
     llPhysChnPdu_t llPhysChnPdu;
 } rf_packet_ll_data_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -180,8 +169,7 @@ typedef struct
     u8 dat[20];
 } rf_packet_att_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2cap;

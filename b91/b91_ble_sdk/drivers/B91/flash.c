@@ -649,13 +649,11 @@ _attribute_ram_code_sec_noinline_ void flash_read_uid_ram(unsigned char idcmd, u
 
     mspi_stop_xip();
     flash_send_cmd(idcmd);
-    if (idcmd == FLASH_GD_PUYA_READ_UID_CMD)  // < GD/puya
-    {
+    if (idcmd == FLASH_GD_PUYA_READ_UID_CMD) {  // < GD/puya
         flash_send_addr(0x00);
         mspi_write(0x00); /* dummy,  to issue clock */
         mspi_wait();
-    } else if (idcmd == FLASH_XTX_READ_UID_CMD)  //< XTX
-    {
+    } else if (idcmd == FLASH_XTX_READ_UID_CMD) {  // < XTX
         flash_send_addr(0x80);
         mspi_write(0x00); /* dummy,  to issue clock */
         mspi_wait();
