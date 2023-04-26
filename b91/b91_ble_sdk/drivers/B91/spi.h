@@ -140,8 +140,7 @@ typedef enum {
     SPI_MODE_WR_DUMMY_RD = 5,  // write_dummy_read
 } spi_wr_rd_tans_mode_e;
 
-typedef struct
-{
+typedef struct {
     hspi_single_dual_quad_mode_e hspi_io_mode;  // set spi interface mode
     unsigned char hspi_dummy_cnt;               // set dummy cnt if tans_mode have dummy .
     unsigned char hspi_cmd_en;                  // enable cmd phase
@@ -151,8 +150,7 @@ typedef struct
     unsigned char hspi_addr_fmt_en;             // if addr_en enable addr fmt will follow the interface (dual/quad)
 } hspi_config_t;
 
-typedef struct
-{
+typedef struct {
     pspi_single_dual_mode_e pspi_io_mode;  // set spi interface mode
     unsigned char pspi_dummy_cnt;          // set dummy cnt if tans_mode have dummy .
     _Bool pspi_cmd_en;                     // enable cmd phase
@@ -278,8 +276,7 @@ typedef enum {
     HSPI_NONE_PIN = 0xfff,
 } hspi_pin_def_e;
 
-typedef struct
-{
+typedef struct {
     hspi_clk_pin_def_e hspi_clk_pin;
     hspi_csn_pin_def_e hspi_csn_pin;
     hspi_mosi_io0_pin_def_e hspi_mosi_io0_pin;
@@ -331,8 +328,7 @@ typedef enum {
     PSPI_NONE_PIN = 0xfff,
 } pspi_pin_def_e;
 
-typedef struct
-{
+typedef struct {
     pspi_clk_pin_def_e pspi_clk_pin;
     pspi_csn_pin_def_e pspi_csn_pin;
     pspi_mosi_io0_pin_def_e pspi_mosi_io0_pin;

@@ -23,20 +23,17 @@ typedef uint8_t UWord8;
 typedef uint16_t UWord16;
 typedef uint32_t UWord32;
 #endif
-typedef struct
-{
+typedef struct {
     Word16 r;
     Word16 i;
 } lc3_cpx;
 
-typedef struct
-{
+typedef struct {
     Word32 r;
     Word32 i;
 } kiss_fft_cpx;
 
-struct kiss_fft_state
-{
+struct kiss_fft_state {
     int nfft;
     int inverse;
     int factors[2 * 32];  //  32->MAXFACTORS

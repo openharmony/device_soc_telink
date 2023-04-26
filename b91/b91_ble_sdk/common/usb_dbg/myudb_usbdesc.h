@@ -155,8 +155,7 @@
 	 *
 	 *  \see The USB 2.0 specification for more information on standard control requests.
 	 */
-typedef struct
-{
+typedef struct {
     u8 bmRequestType; /**< Type of the request. */
     u8 bRequest;      /**< Request command code. */
     u16 wValue;       /**< wValue parameter of the request. */
@@ -397,8 +396,7 @@ enum USB_Descriptor_ClassSubclassProtocol_t {
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 Size; /**< Size of the descriptor, in bytes. */
     u8 Type; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	               *   given by the specific class.
@@ -414,8 +412,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;         /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                          *   given by the specific class.
@@ -431,8 +428,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u16 USBSpecification; /**< BCD of the supported USB specification. */
@@ -482,8 +478,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;            /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;    /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                              *   given by the specific class.
@@ -530,8 +525,7 @@ typedef struct
  *
  *  \see \ref USB_StdDescriptor_DeviceQualifier_t for the version of this type with standard element names.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u16 USBSpecification; /**< BCD of the supported USB specification. */
@@ -553,8 +547,7 @@ typedef struct
  *
  *  \see \ref USB_Descriptor_DeviceQualifier_t for the version of this type with non-standard LUFA specific element names.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;            /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;    /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                              *   given by the specific class.
@@ -579,8 +572,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u16 TotalConfigurationSize; /**< Size of the configuration descriptor header,
@@ -610,8 +602,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;             /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;     /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                              *   given by the specific class.
@@ -640,8 +631,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u8 InterfaceNumber;  /**< Index of the interface in the current configuration. */
@@ -668,8 +658,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;            /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;    /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                          *   given by the specific class.
@@ -704,8 +693,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u8 FirstInterfaceIndex; /**< Index of the first associated interface. */
@@ -736,8 +724,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;           /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;   /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 	                          *   given by the specific class.
@@ -761,8 +748,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
     u8 EndpointAddress;   /**< Logical address of the endpoint within the device for the current
@@ -789,8 +775,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;          /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType;  /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a
 	                           *   value given by the specific class.
@@ -829,8 +814,7 @@ typedef struct
 #pragma warning(disable : 4200)  // none standard zero length array
 #endif
 
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
     wchar_t UnicodeString[];        /**< String data, as unicode characters (alternatively,
 	                           *   string language IDs). If normal ASCII characters are
@@ -862,8 +846,7 @@ typedef struct
  *
  *  \note Regardless of CPU architecture, these values should be stored as little endian.
  */
-typedef struct
-{
+typedef struct {
     u8 bLength;         /**< Size of the descriptor, in bytes. */
     u8 bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t
 	                          *   or a value given by the specific class.
@@ -918,8 +901,7 @@ enum {
     MYUDB_USB_STRING_SERIAL,
 };
 
-typedef struct
-{
+typedef struct {
     USB_Descriptor_Configuration_Header_t Config;
     USB_Descriptor_Interface_t intf0;
     USB_Descriptor_Endpoint_t endpi0;
