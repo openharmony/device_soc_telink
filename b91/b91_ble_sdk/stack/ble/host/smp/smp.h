@@ -124,8 +124,8 @@ typedef enum {
     Bondable_Mode = 1,
 } bonding_mode_t;
 
-//Pairing Methods select
-//See the Core_v5.0(Vol 3/Part H/2.3) for more information.
+// Pairing Methods select
+// See the Core_v5.0(Vol 3/Part H/2.3) for more information.
 typedef enum {
     LE_Legacy_Pairing = 0,     // BLE 4.0/4.2
     LE_Secure_Connection = 1,  // BLE 4.2/5.0/5.1
@@ -271,7 +271,7 @@ void blc_smp_setSecurityParameters_slave(bonding_mode_t bond_mode, int MITM_en, 
  * @param[in]  oobData - TK's value, size: 16 byte.
  * @return     none.
  */
-u8 blc_smp_setTK_by_OOB(u16 connHandle, u8 *oobData);  //used for set oob data
+u8 blc_smp_setTK_by_OOB(u16 connHandle, u8 *oobData);  // used for set oob data
 
 /**
  * @brief      This function is used to set TK by passkey entry method.

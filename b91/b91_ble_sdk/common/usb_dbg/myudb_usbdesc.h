@@ -83,7 +83,7 @@
 #define CONTROL_REQTYPE_RECIPIENT 0x1F
 
 /** \name Control Request Data Direction Masks */
-//@{
+// @{
 /** Request data direction mask, indicating that the request data will flow from host to device.
 	 *
 	 *  \see \ref CONTROL_REQTYPE_DIRECTION macro.
@@ -95,10 +95,10 @@
 	 *  \see \ref CONTROL_REQTYPE_DIRECTION macro.
 	 */
 #define REQDIR_DEVICETOHOST       (1 << 7)
-//@}
+// @}
 
 /** \name Control Request Type Masks */
-//@{
+// @{
 /** Request type mask, indicating that the request is a standard request.
 	 *
 	 *  \see \ref CONTROL_REQTYPE_TYPE macro.
@@ -116,10 +116,10 @@
 	 *  \see \ref CONTROL_REQTYPE_TYPE macro.
 	 */
 #define REQTYPE_VENDOR            (2 << 5)
-//@}
+// @}
 
 /** \name Control Request Recipient Masks */
-//@{
+// @{
 /** Request recipient mask, indicating that the request is to be issued to the device as a whole.
 	 *
 	 *  \see \ref CONTROL_REQTYPE_RECIPIENT macro.
@@ -146,7 +146,7 @@
 	 *  \see \ref CONTROL_REQTYPE_RECIPIENT macro.
 	 */
 #define REQREC_OTHER              (3 << 0)
-//@}
+// @}
 
 /* Type Defines: */
 /** \brief Standard USB Control Request
@@ -280,10 +280,10 @@ enum USB_Feature_Selectors_t {
  *  request.
  */
 #define USB_CONFIG_ATTR_REMOTEWAKEUP     0x20
-//@}
+// @}
 
 /** \name Endpoint Descriptor Attribute Masks */
-//@{
+// @{
 /** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
  *  \c Attributes value to indicate that the specified endpoint is not synchronized.
  *
@@ -311,10 +311,10 @@ enum USB_Feature_Selectors_t {
  *  \see The USB specification for more details on the possible Endpoint attributes.
  */
 #define ENDPOINT_ATTR_SYNC               (3 << 2)
-//@}
+// @}
 
 /** \name Endpoint Descriptor Usage Masks */
-//@{
+// @{
 /** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
  *  \c Attributes value to indicate that the specified endpoint is used for data transfers.
  *
@@ -335,7 +335,7 @@ enum USB_Feature_Selectors_t {
  *  \see The USB specification for more details on the possible Endpoint usage attributes.
  */
 #define ENDPOINT_USAGE_IMPLICIT_FEEDBACK (2 << 4)
-//@}
+// @}
 
 /* Enums: */
 /** Enum for the possible standard descriptor types, as given in each descriptor's header. */

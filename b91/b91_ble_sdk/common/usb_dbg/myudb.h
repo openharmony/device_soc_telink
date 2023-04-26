@@ -115,10 +115,10 @@ void usb_send_upper_tester_result(u8 err);
 #define LOG_DATA_B1_0       0
 #define LOG_DATA_B1_1       1
 
-//#define			get_systemtick()  	    (clock_time()*3/2)
+// #define			get_systemtick()  	    (clock_time()*3/2)
 #define get_systemtick() stimer_get_tick()
 
-//#define			log_uart(d)				uart_send_byte_dma(0,d)
+// #define			log_uart(d)				uart_send_byte_dma(0,d)
 #define log_uart(d) reg_usb_ep8_dat = d
 
 #define DEBUG_PORT       GPIO_PB2
@@ -148,7 +148,7 @@ void usb_send_upper_tester_result(u8 err);
         log_uart(0);                                                                                                  \
         my_irq_restore();                                                                                             \
     }
-//4-byte (001_id-5bits) id0: timestamp align with hardware gpio output; id1-31: user define
+// 4-byte (001_id-5bits) id0: timestamp align with hardware gpio output; id1-31: user define
 #define log_tick(en, id)                                                                                              \
     if (VCD_EN && en) {                                                                                               \
         my_irq_disable();                                                                                             \
@@ -160,7 +160,7 @@ void usb_send_upper_tester_result(u8 err);
         my_irq_restore();                                                                                             \
     }
 
-//1-byte (000_id-5bits)
+// 1-byte (000_id-5bits)
 #define log_event(en, id)                                                                                             \
     if (VCD_EN && en) {                                                                                               \
         my_irq_disable();                                                                                             \
@@ -168,7 +168,7 @@ void usb_send_upper_tester_result(u8 err);
         my_irq_restore();                                                                                             \
     }
 
-//1-byte (01x_id-5bits) 1-bit data: id0 & id1 reserved for hardware
+// 1-byte (01x_id-5bits) 1-bit data: id0 & id1 reserved for hardware
 #define log_task(en, id, b)                                                                                           \
     if (VCD_EN && en) {                                                                                               \
         my_irq_disable();                                                                                             \
@@ -180,7 +180,7 @@ void usb_send_upper_tester_result(u8 err);
         my_irq_restore();                                                                                             \
     }
 
-//2-byte (10-id-6bits) 8-bit data
+// 2-byte (10-id-6bits) 8-bit data
 #define log_b8(en, id, d)                                                                                             \
     if (VCD_EN && en) {                                                                                               \
         my_irq_disable();                                                                                             \
@@ -189,7 +189,7 @@ void usb_send_upper_tester_result(u8 err);
         my_irq_restore();                                                                                             \
     }
 
-//3-byte (11-id-6bits) 16-bit data
+// 3-byte (11-id-6bits) 16-bit data
 #define log_b16(en, id, d)                                                                                            \
     if (VCD_EN && en) {                                                                                               \
         my_irq_disable();                                                                                             \

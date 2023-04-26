@@ -133,7 +133,7 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
             delay_ms(100);
 
             // 4.Xtal 32k output
-            analog_write_reg8(0x03, 0x4f);  //<7:6>current select
+            analog_write_reg8(0x03, 0x4f);  // <7:6>current select
 
             // 5.Recover PD0 as Xtal pin
             write_reg8(0x1401d8, pwm_clk);

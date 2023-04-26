@@ -255,7 +255,7 @@ typedef struct
 typedef struct
 {
     u8 subEventCode;
-    u16 connHandle;  //no aligned, can not be used as pointer
+    u16 connHandle;  // no aligned, can not be used as pointer
     u16 maxTxOct;
     u16 maxTxtime;
     u16 maxRxOct;

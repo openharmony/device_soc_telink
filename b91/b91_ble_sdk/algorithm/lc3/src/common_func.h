@@ -38,6 +38,6 @@ void shift_q15(Word16 x[],       /* i/o: signal to scale                 Qx     
 );
 void set_q31(Word32 val, Word32 *dst, Word32 size);
 
-#endif  //#if  (ALG_LC3_ENABLE)
+#endif  // #if  (ALG_LC3_ENABLE)
 
 #endif

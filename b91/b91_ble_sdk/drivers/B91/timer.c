@@ -122,8 +122,8 @@ void timer_set_mode(timer_type_e type, timer_mode_e mode)
 void timer_gpio_init(timer_type_e type, gpio_pin_e pin, gpio_pol_e pol)
 {
     gpio_function_en(pin);
-    gpio_output_dis(pin);  //disable output
-    gpio_input_en(pin);    //enable input
+    gpio_output_dis(pin);  // disable output
+    gpio_input_en(pin);    // enable input
     switch (type) {
         case TIMER0:
             if (pol == POL_FALLING) {

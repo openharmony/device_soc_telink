@@ -649,8 +649,8 @@ _attribute_ram_code_ void usb_send_upper_tester_result(u8 err)
     *((u32 *)ps) = 3;
     u8 *pd = (ps + 4);
 
-    *pd++ = 0x04;  //HCI_TYPE_EVENT;
-    *pd++ = 0xF0;  //HCI_EVT_HT_ERR_FLAG;
+    *pd++ = 0x04;  // HCI_TYPE_EVENT;
+    *pd++ = 0xF0;  // HCI_EVT_HT_ERR_FLAG;
     *pd++ = err;
 
     myudb_print_fifo->wptr++;

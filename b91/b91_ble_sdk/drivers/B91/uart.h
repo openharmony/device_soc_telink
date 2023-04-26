@@ -530,7 +530,7 @@ static inline void uart_clr_irq_status(uart_num_e uart_num, uart_irq_status_clr_
  */
 static inline void uart_set_rts_en(uart_num_e uart_num)
 {
-    reg_uart_ctrl2(uart_num) |= FLD_UART_RTS_EN;  //enable RTS function
+    reg_uart_ctrl2(uart_num) |= FLD_UART_RTS_EN;  // enable RTS function
 }
 
 /**

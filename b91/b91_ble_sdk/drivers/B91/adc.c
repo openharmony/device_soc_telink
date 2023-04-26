@@ -314,7 +314,7 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
     /******stop dma smaple********/
     adc_stop_sample_dma();
     /******clear adc sample finished status********/
-    adc_clr_sample_status_dma();  //must
+    adc_clr_sample_status_dma();  // must
     /******get adc sample data and sort these data ********/
     for (int i = 0; i < sample_num; i++) {
         if (sample_buffer[i] &

@@ -555,7 +555,7 @@ void spi_master_write(spi_sel_e spi_sel, unsigned char *data, unsigned int len)
     spi_tx_fifo_clr(spi_sel);
     spi_tx_cnt(spi_sel, len);
     spi_set_transmode(spi_sel, SPI_MODE_WRITE_ONLY);
-    spi_set_cmd(spi_sel, 0x00);  //when  cmd  disable that  will not sent cmd,just trigger spi send .
+    spi_set_cmd(spi_sel, 0x00);  // when  cmd  disable that  will not sent cmd,just trigger spi send .
     spi_write(spi_sel, (unsigned char *)data, len);
     while (spi_is_busy(spi_sel))
         ;

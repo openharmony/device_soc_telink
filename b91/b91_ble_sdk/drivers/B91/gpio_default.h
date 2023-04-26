@@ -800,7 +800,7 @@
 #define PF4_INPUT_ENABLE 1  // MSPI
 #endif
 #ifndef PF5_INPUT_ENABLE
-#define PF5_INPUT_ENABLE 1  //MSPI
+#define PF5_INPUT_ENABLE 1  // MSPI
 #endif
 #ifndef PF0_OUTPUT_ENABLE
 #define PF0_OUTPUT_ENABLE 0

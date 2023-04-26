@@ -90,7 +90,7 @@ extern "C" {
 
 /*! \brief Assert on best-fit buffer allocation failure */
 #ifndef MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT
-#define MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT TRUE  //FALSE
+#define MY_BUF_ALLOC_BEST_FIT_FAIL_ASSERT TRUE  // FALSE
 #endif
 
 /*! \brief Assert on buffer allocation failure */
@@ -100,7 +100,7 @@ extern "C" {
 
 /*! \brief Buffer histogram stats */
 #ifndef MY_BUF_STATS_HIST
-#define MY_BUF_STATS_HIST FALSE  //TRUE//
+#define MY_BUF_STATS_HIST FALSE  // TRUE
 #endif
 
 /**************************************************************************************************
@@ -118,7 +118,7 @@ extern "C" {
 
 #ifndef MY_BUF_STATS
 /*! \brief Enable buffer allocation statistics. */
-#define MY_BUF_STATS FALSE  //TRUE//
+#define MY_BUF_STATS FALSE  // TRUE
 #endif
 
 /**************************************************************************************************

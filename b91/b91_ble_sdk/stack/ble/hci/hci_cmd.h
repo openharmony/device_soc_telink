@@ -245,10 +245,10 @@ typedef enum {
 
 /* Scanning_Filter_Policy */
 typedef enum {
-    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  //except direct adv address not match
-    SCAN_FP_ALLOW_ADV_WL = 0x01,                   //except direct adv address not match
-    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             //and direct adv address match initiator's resolvable private MAC
-    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  //and direct adv address match initiator's resolvable private MAC
+    SCAN_FP_ALLOW_ADV_ANY = 0x00,                  // except direct adv address not match
+    SCAN_FP_ALLOW_ADV_WL = 0x01,                   // except direct adv address not match
+    SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             // and direct adv address match initiator's resolvable private MAC
+    SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  // and direct adv address match initiator's resolvable private MAC
 
 } scan_fp_type_t;
 
@@ -274,7 +274,7 @@ typedef struct
 {
     u16 scan_inter;
     u16 scan_wind;
-    u8 fp;  //init_filter_policy
+    u8 fp;  // init_filter_policy
     u8 peerAddr_type;
     u8 peer_addr[6];
     u8 ownAddr_type;
@@ -288,8 +288,8 @@ typedef struct
 
 /* Initiator_Filter_Policy */
 typedef enum {
-    INITIATE_FP_ADV_SPECIFY = 0x00,  //connect ADV specified by host
-    INITIATE_FP_ADV_WL = 0x01,       //connect ADV in whiteList
+    INITIATE_FP_ADV_SPECIFY = 0x00,  // connect ADV specified by host
+    INITIATE_FP_ADV_WL = 0x01,       // connect ADV in whiteList
 } init_fp_t;
 
 /* Connection_Interval, Time = N * 1.25 ms,
@@ -449,17 +449,17 @@ typedef enum {
 } le_phy_prefer_type_t;
 
 typedef enum {
-    PHY_TRX_PREFER = 0,                     //has 	 preference among TX & RX PHYs
-    PHY_TX_NO_PREFER = BIT(0),              //has no preference among TX PHYs
-    PHY_RX_NO_PREFER = BIT(1),              //has no preference among RX PHYs
-    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  //has no preference among TX & RX PHYs
+    PHY_TRX_PREFER = 0,                     // has 	 preference among TX & RX PHYs
+    PHY_TX_NO_PREFER = BIT(0),              // has no preference among TX PHYs
+    PHY_RX_NO_PREFER = BIT(1),              // has no preference among RX PHYs
+    PHY_TRX_NO_PREFER = (BIT(0) | BIT(1)),  // has no preference among TX & RX PHYs
 } le_phy_prefer_mask_t;
 
 typedef enum {
     CODED_PHY_PREFER_NONE = 0,
     CODED_PHY_PREFER_S2 = 1,
     CODED_PHY_PREFER_S8 = 2,
-} le_ci_prefer_t;  //LE coding indication prefer
+} le_ci_prefer_t;  // LE coding indication prefer
 
 /**
  *  @brief  Command Parameters for "7.8.53 LE Set Extended Advertising Parameters command"
@@ -527,9 +527,9 @@ typedef enum {
     ADV_EVT_PROP_EXTENDED_SCANNABLE_DIRECTED = 0x0006,    //  0000 0110'b		ADV_EXT_IND + AUX_ADV_IND/AUX_CHAIN_IND
 
     ADV_EVT_PROP_EXTENDED_MASK_ANONYMOUS_ADV =
-        0x0020,  //if this mask on(only extended ADV event can mask it), anonymous advertising
+        0x0020,  // if this mask on(only extended ADV event can mask it), anonymous advertising
     ADV_EVT_PROP_EXTENDED_MASK_TX_POWER_INCLUDE =
-        0x0040,  //if this mask on(only extended ADV event can mask it), TX power include
+        0x0040,  // if this mask on(only extended ADV event can mask it), TX power include
 
 } advEvtProp_type_t;
 
@@ -701,7 +701,7 @@ typedef struct
     u8 ownAddress_type;
     u8 scan_filter_policy;
     u8 scan_PHYs;
-    ext_scan_cfg_t scanCfg[2];  //at most 2 kind of PHY: 1M and Coded
+    ext_scan_cfg_t scanCfg[2];  // at most 2 kind of PHY: 1M and Coded
 } hci_le_setExtScanParam_cmdParam_t;
 
 /* Scanning_PHYs */
@@ -801,7 +801,7 @@ typedef struct
 
 typedef struct
 {
-    u8 fp;  //init_filter_policy
+    u8 fp;  // init_filter_policy
     u8 ownAddr_type;
     u8 peerAddr_type;
     u8 peer_addr[6];
@@ -809,13 +809,14 @@ typedef struct
     ext_init_cfg_t initCfg[3];
 } hci_le_ext_createConn_cmdParam_t;
 
-#define EXT_CREATE_CONN_CMD_PARAM_MAX_LENGTH (10 + 16 * 3)  //10 + sizeof(ext_init_cfg_t) * 3
+#define EXT_CREATE_CONN_CMD_PARAM_MAX_LENGTH (10 + 16 * 3)  // 10 + sizeof(ext_init_cfg_t) * 3
 
 /* Initiating_PHYs */
 typedef enum {
     INIT_PHY_1M = BIT(0),
     INIT_PHY_2M = BIT(
-        1),  //can not use this, at least one bit set for a PHY allowed for scanning on the primary advertising physical channel
+        1),  // can not use this,
+             // at least one bit set for a PHY allowed for scanning on the primary advertising physical channel
     INIT_PHY_CODED = BIT(2),
     INIT_PHY_1M_2M = (INIT_PHY_1M | INIT_PHY_2M),
     INIT_PHY_1M_CODED = (INIT_PHY_1M | INIT_PHY_CODED),
@@ -1028,8 +1029,8 @@ typedef struct
     u8 sca;
     u8 packing;
     u8 framing;
-    u8 cis_count;                     //15 B above
-    cigParamTest_cisCfg_t cisCfg[1];  //14 B for one CIS configuration
+    u8 cis_count;                     // 15 B above
+    cigParamTest_cisCfg_t cisCfg[1];  // 14 B for one CIS configuration
 } hci_le_setCigParamTest_cmdParam_t;
 
 /**
@@ -1040,7 +1041,7 @@ typedef struct
     u8 status;
     u8 cig_id;
     u8 cis_count;
-    u16 cis_connHandle[1];  //not 4 byte aligned, but no problem
+    u16 cis_connHandle[1];  // not 4 byte aligned, but no problem
 } hci_le_setCigParam_retParam_t;
 
 /* ISO_Interval, Time = N * 1.25 ms,
@@ -1106,8 +1107,8 @@ typedef struct
     u16 max_trans_lat;       /* Maximum time, in milliseconds, for transmitting an SDU */
     u8 rtn;                  /* The maximum number of times that every BIS Data PDU should be retransmitted */
     u8 phy;                  /* The transmitter PHY of packets */
-    packing_type_t packing;  //type same as u8
-    framing_t framing;       //type same as u8
+    packing_type_t packing;  // type same as u8
+    framing_t framing;       // type same as u8
     u8 enc;                  /* Encryption flag */
     u8 broadcast_code
         [16]; /* The code used to derive the session key that is used to encrypt and decrypt BIS payloads */

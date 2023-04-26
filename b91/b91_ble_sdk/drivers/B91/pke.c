@@ -406,8 +406,8 @@ unsigned char pke_eccp_point_verify(eccp_curve_t *curve, unsigned int *Px, unsig
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
     if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
-        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  //A3 p_h
-        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       //B4 p_n1
+        pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
+        pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
         pke_opr_cal(PKE_MICROCODE_CAL_PRE_MON, 0x00);
     }

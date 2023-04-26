@@ -132,7 +132,7 @@ enum {
     FLD_RF_PN_AUTO = BIT(7),
 };
 
-//#define    reg_rf_acclen			    REG_ADDR8(REG_BASEBAND_BASE_ADDR+0x05)
+// #define    reg_rf_acclen			    REG_ADDR8(REG_BASEBAND_BASE_ADDR+0x05)
 #define reg_rf_acc_len REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x05)
 enum {
     FLD_RF_ACC_LEN = BIT_RNG(0, 2),
@@ -638,7 +638,7 @@ enum {
     FLD_RF_RX_PRIO = BIT(6),
 };
 #define CLEAR_ALL_RFIRQ_STATUS (reg_rf_irq_status = 0xffff)
-#define REG_TL_MODEM_BASE_ADDR 0x140c00  //140c00
+#define REG_TL_MODEM_BASE_ADDR 0x140c00  // 140c00
 
 #define reg_rf_modem_mode_cfg_rx1_0 REG_ADDR8(REG_TL_MODEM_BASE_ADDR + 0x20)
 enum {

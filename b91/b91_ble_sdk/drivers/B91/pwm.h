@@ -361,7 +361,7 @@ static inline void pwm_clr_irq_status(pwm_irq_e status)
  */
 static inline void pwm_set_pwm0_mode(pwm_mode_e mode)
 {
-    reg_pwm0_mode = mode;  //only PWM0 has count/IR/fifo IR mode
+    reg_pwm0_mode = mode;  // only PWM0 has count/IR/fifo IR mode
 }
 
 /**
@@ -411,7 +411,7 @@ static inline void pwm_clr_pwm0_ir_fifo(void)
  * @brief     This fuction serves to get the number of data in fifo.
  * @return	  the number of data in fifo
  */
-static inline unsigned char pwm_get_pwm0_ir_fifo_data_num(void)  //????TODO
+static inline unsigned char pwm_get_pwm0_ir_fifo_data_num(void)  // ????TODO
 {
     return (reg_pwm_ir_fifo_data_status & FLD_PWM0_IR_FIFO_DATA_NUM);
 }
