@@ -79,7 +79,7 @@
 #define ROUND_INT(x, r)     (((x) + (r)-1) / (r) * (r))
 #define ROUND_TO_POW2(x, r) (((x) + (r)-1) & ~((r)-1))
 
-//  direct memory access
+// direct memory access
 #define U8_GET(addr)  (*(volatile unsigned char *)(addr))
 #define U16_GET(addr) (*(volatile unsigned short *)(addr))
 #define U32_GET(addr) (*(volatile unsigned int *)(addr))
@@ -126,7 +126,8 @@
 #define COMPARE(x, y) (((x) > (y)) - ((x) < (y)))
 #define SIGN(x)       COMPARE(x, 0)
 
-// better than xor swap:  http://stackoverflow.com/questions/3912699/why-swap-with-xor-works-fine-in-c-but-in-java-doesnt-some-puzzle
+// better than xor swap:
+// http://stackoverflow.com/questions/3912699/why-swap-with-xor-works-fine-in-c-but-in-java-doesnt-some-puzzle
 #define SWAP(x, y, T)                                                                                                 \
     do {                                                                                                              \
         T tmp = (x);                                                                                                  \
@@ -174,7 +175,7 @@ void flip_addr(u8 *dest, u8 *src);
 
 static inline u64 mul64_32x32(u32 u, u32 v)
 {
-#if 0  //Eagle HW support this process
+#if 0  // Eagle HW support this process
     u32  u0,   v0,   w0;
     u32  u1,   v1,   w1,   w2,   t;
     u32  x, y;
@@ -189,7 +190,7 @@ static inline u64 mul64_32x32(u32 u, u32 v)
     w2   =   t >> 16;
     w1   =   u0 * v1 + w1;
 
-    //x is high 32 bits, y is low 32 bits
+    // x is high 32 bits, y is low 32 bits
 
     x = u1 * v1 + w2 + (w1 >> 16);
     y = u * v;
@@ -223,7 +224,7 @@ u8 *my_fifo_get(my_fifo_t *f);
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
 #define MYFIFO_INIT_IRAM(name, size, n)                                                                               \
-    u8 name##_b[size * n] __attribute__((aligned(4))) /*={0}*/;                                                       \
+    u8 name##_b[size * n] __attribute__((aligned(4))) /* ={0} */;                                                     \
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
 #define DATA_LENGTH_ALLIGN4(n)  ((n + 3) / 4 * 4)

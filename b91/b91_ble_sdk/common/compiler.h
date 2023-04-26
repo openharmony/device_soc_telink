@@ -57,7 +57,7 @@
 
 #define _attribute_aligned_(s) __attribute__((aligned(s)))
 
-/// Pack a structure field
+// Pack a structure field
 #define __PACKED __attribute__((__packed__))
 
 /*******************************      BLE Stack Use     ******************************/
@@ -68,7 +68,7 @@
 #define _attribute_custom_code_ _attribute_session_(".custom") volatile
 #define _attribute_no_inline_   __attribute__((noinline))
 #define _inline_                inline
-#define _attribute_data_dlm_    _attribute_session_(".dlm_data")  //dlm:Data Local Memory
+#define _attribute_data_dlm_    _attribute_session_(".dlm_data")  // dlm:Data Local Memory
 
 #if (BLC_PM_DEEP_RETENTION_MODE_EN)
 #define _attribute_data_retention_sec_ __attribute__((section(".retention_data")))
@@ -84,43 +84,43 @@
 
 #define _attribute_text_code_ __attribute__((section(".text")))
 
-/// define the static keyword for this compiler
+// define the static keyword for this compiler
 #define __STATIC static
 
-/// define the force inlining attribute for this compiler
+// define the force inlining attribute for this compiler
 #define __INLINE static __attribute__((__always_inline__)) inline
 
-/// define the IRQ handler attribute for this compiler
+// define the IRQ handler attribute for this compiler
 #define __IRQ __attribute__((interrupt("machine"), aligned(4)))
 
-/// define the BLE IRQ handler attribute for this compiler
+// define the BLE IRQ handler attribute for this compiler
 #define __BTIRQ
 
-/// define the BLE IRQ handler attribute for this compiler
+// define the BLE IRQ handler attribute for this compiler
 #define __BLEIRQ
 
-/// define the FIQ handler attribute for this compiler
+// define the FIQ handler attribute for this compiler
 #define __FIQ __attribute__((__interrupt__("FIQ")))
 
-/// define size of an empty array (used to declare structure with an array size not defined)
+// define size of an empty array (used to declare structure with an array size not defined)
 #define __ARRAY_EMPTY
 
-/// Function returns struct in registers (4 in rvds, var with gnuarm).
-/// With Gnuarm, feature depends on command line options and
-/// impacts ALL functions returning 2-words max structs
-/// (check -freg-struct-return and -mabi=xxx)
+// Function returns struct in registers (4 in rvds, var with gnuarm).
+// With Gnuarm, feature depends on command line options and
+// impacts ALL functions returning 2-words max structs
+// (check -freg-struct-return and -mabi=xxx)
 #define __VIR
 
-/// function has no side effect and return depends only on arguments
+// function has no side effect and return depends only on arguments
 #define __PURE __attribute__((const))
 
-/// Align instantiated lvalue or struct member on 4 bytes
+// Align instantiated lvalue or struct member on 4 bytes
 #define __ALIGN4 __attribute__((aligned(4)))
 
-/// __MODULE__ comes from the RVDS compiler that supports it
+// __MODULE__ comes from the RVDS compiler that supports it
 #define __MODULE__ __BASE_FILE__
 
-/// Put a variable in a memory maintained during deep sleep
+// Put a variable in a memory maintained during deep sleep
 #define __LOWPOWER_SAVED
 
 #define ASSERT_ERR(x)

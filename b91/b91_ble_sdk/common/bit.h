@@ -88,14 +88,14 @@
 #define BIT_MASK_LEN(len)    (BIT(len) - 1)
 #define BIT_MASK(start, len) (BIT_MASK_LEN(len) << (start))
 
-//! Prepare a bitmask for insertion or combining.
+// ! Prepare a bitmask for insertion or combining.
 #define BIT_PREP(x, start, len) ((x)&BIT_MASK(start, len))
 
-//! Extract a bitfield of length \a len starting at bit \a start from \a y.
+// ! Extract a bitfield of length \a len starting at bit \a start from \a y.
 #define BIT_GET(x, start, len) (((x) >> (start)) & BIT_MASK_LEN(len))
 #define BIT_GET_LOW(x, len)    ((x)&BIT_MASK_LEN(len))
 
-//! Insert a new bitfield value \a x into \a y.
+// ! Insert a new bitfield value \a x into \a y.
 #define BIT_MERGE(y, x, start, len) (y = ((y) & ~BIT_MASK(start, len)) | BIT_PREP(x, start, len))
 
 #define BIT_IS_EVEN(x)     (((x)&1) == 0)
@@ -232,13 +232,13 @@
 #endif
 
 #if 0
-	//! Massage \a x for use in bitfield \a name.
+	// ! Massage \a x for use in bitfield \a name.
 #define BFN_PREP(x, name)   (((x) << name##_SHIFT) & name##_MASK)
 
-	//! Get the value of bitfield \a name from \a y. Equivalent to (var=) y.name
+	// ! Get the value of bitfield \a name from \a y. Equivalent to (var=) y.name
 #define BFN_GET(y, name)    (((y)&name##_MASK) >> name##_SHIFT)
 
-	//! Set bitfield \a name from \a y to \a x: y.name= x.
+	// ! Set bitfield \a name from \a y to \a x: y.name= x.
 #define BFN_SET(y, x, name) (y = ((y) & ~name##_MASK) | BFN_PREP(x, name))
 
 	// Usage: prio get/set like before:

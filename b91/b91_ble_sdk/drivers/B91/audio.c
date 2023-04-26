@@ -291,7 +291,7 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 7))) | ((2 << 2) | (2 << 4) | (2 << 6));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2 | GPIO_PC3);
 
-    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK)  //can not use in A0
+    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK)  // can not use in A0
     {
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 5))) | ((1 << 0) | (1 << 2) | (1 << 4));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5 | GPIO_PD6);
@@ -303,7 +303,7 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
         reg_gpio_pad_mul_sel = BIT(0);
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 5))) | ((2 << 2) | (2 << 4));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2);
-    } else if (pin_gp == DMIC_D4_DAT_D5_CLK)  //can not use in A0
+    } else if (pin_gp == DMIC_D4_DAT_D5_CLK)  // can not use in A0
     {
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 3))) | ((1 << 0) | (1 << 2));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5);
@@ -430,16 +430,16 @@ void audio_tx_dma_add_list_element(dma_chain_config_t *config_addr, dma_chain_co
 void audio_init(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_channel_wl_mode_e channel_wl)
 {
     aduio_set_chn_wl(channel_wl);
-    audio_set_codec_clk(1, 16);  //from ppl 192/16=12M
+    audio_set_codec_clk(1, 16);  // from ppl 192/16=12M
     audio_mux_config(CODEC_I2S, audio_i2s_codec_config.audio_in_mode, audio_i2s_codec_config.audio_in_mode,
                      audio_i2s_codec_config.audio_out_mode);
     audio_i2s_config(I2S_I2S_MODE, audio_i2s_codec_config.i2s_data_select, audio_i2s_codec_config.i2s_codec_m_s_mode,
                      audio_i2s_codec_config.i2s_data_invert_select);
     audio_set_i2s_clock(rate, AUDIO_RATE_EQUAL, 0);
     audio_clk_en(1, 1);
-    reg_audio_codec_vic_ctr = FLD_AUDIO_CODEC_SLEEP_ANALOG;  //active analog sleep mode
+    reg_audio_codec_vic_ctr = FLD_AUDIO_CODEC_SLEEP_ANALOG;  // active analog sleep mode
     while (!(reg_audio_codec_stat_ctr & FLD_AUDIO_CODEC_PON_ACK))
-        ;  //wait codec can be configed
+        ;  // wait codec can be configed
     if (flow_mode < BUF_TO_LINE_OUT) {
         audio_codec_adc_config(audio_i2s_codec_config.i2s_codec_m_s_mode, (flow_mode % 3), rate,
                                audio_i2s_codec_config.codec_data_select, MCU_WREG);

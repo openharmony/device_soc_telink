@@ -49,8 +49,7 @@
 #if (BLC_AUDIO_PROFILE_EN)
 
 #if (BLC_AUDIO_ASCS_ENABLE)
-typedef struct
-{
+typedef struct {
     u8 cigID;
     u8 cisID;
     u8 codecId[5];
@@ -65,8 +64,7 @@ typedef struct
 
 typedef int (*BlcAudioEventCB)(u16 connHandle, u16 evtID, u16 dataLen, u8 *pData);
 
-typedef struct
-{
+typedef struct {
     u8 aseID;
     u8 reason;
     u8 reserve;
@@ -74,31 +72,27 @@ typedef struct
     u16 aclHandle;
     u16 attHandle;
 } blc_audio_aseEnableEvt_t;
-typedef struct
-{
+typedef struct {
     u8 aseID;
     u16 aclHandle;
     u16 cisHandle;
     u16 attHandle;
     u16 context;
 } blc_audio_aseUpdateEvt_t;
-typedef struct
-{
+typedef struct {
     u8 aseID;
     u16 aclHandle;
     u16 cisHandle;
     u16 attHandle;
 } blc_audio_aseDisableEvt_t, blc_audio_aseReleaseEvt_t;
-typedef struct
-{
+typedef struct {
     u8 aseID;
     u16 aclHandle;
     u16 cisHandle;
     u16 attHandle;
 } blc_audio_aseStartEvt_t, blc_audio_aseStopEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 gainValue;
@@ -106,70 +100,60 @@ typedef struct
     u8 gainMode;
     u8 gainCounter;
 } blc_audio_aicsStateChangeEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 status;  // 0-Inactive, 1-Active
 } blc_audio_aicsStatusChangeEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u32 dataLen;
     u8 *pData;
 } blc_audio_aicsDescribleChangeEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     s16 voffset;
     u8 counter;
 } blc_audio_vocsStateChangeEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u32 location;
 } blc_audio_vocpLocationChangeEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u32 dataLen;
     u8 *pData;
 } blc_audio_vocpDescribleChangeEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 mute;
     u8 volume;
 } blc_audio_vcpStateChangeEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 flag;
 } blc_audio_vcpFlagChangeEvt_t;
 
-typedef struct
-{
+typedef struct {
     u8 numb;
     u8 mute;
     u8 volume;
     u16 aclHandle;
 } blc_audio_micVolumeChangeEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
 } blc_audio_pacpServiceReadyEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 ctlHandle;
     u8 aseCount;
@@ -179,8 +163,7 @@ typedef struct
 #endif  // #if (BLC_AUDIO_ASCS_ENABLE)
 } blc_audio_ascpServiceReadyEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 sirkHandle;
     u16 sizeHandle;
@@ -194,8 +177,7 @@ typedef struct
 } blc_audio_csipServiceReadyEvt_t;
 
 #if (BLC_AUDIO_MICS_ENABLE || BLC_AUDIO_VCS_ENABLE)
-typedef struct
-{
+typedef struct {
     u16 ctrlHandle;
     u16 stateHandle;
     u16 propeHandle;
@@ -213,8 +195,7 @@ typedef struct
     u8 gainStatus;
 } blc_audio_aicsServiceReadyEvt_t;
 #endif
-typedef struct
-{
+typedef struct {
     u16 stateHandle;
     u16 ctrlHandle;
     u16 locaHandle;
@@ -224,8 +205,7 @@ typedef struct
     u32 location;
 } blc_audio_vocsServiceReadyEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 muteHandle;
 
@@ -235,15 +215,13 @@ typedef struct
     blc_audio_aicsServiceReadyEvt_t aics[BLC_AUDIO_VCS_AICS_COUNT];
 #endif
 } blc_audio_micpServiceReadyEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 muteHandle;
     u8 muteValue;
 } blc_audio_micpMuteChangeEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 ctlHandle;
     u16 statHandle;
@@ -263,28 +241,24 @@ typedef struct
 #endif
 } blc_audio_vcpServiceReadyEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 cisHandle;
 } blc_audio_mcpServiceReadyEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 opcode;  // Refer to BLC_AUDIO_MCP_OPCODE_ENUM
     u8 dataLen;
     u8 *pData;
 } blc_audio_mcpCtrlEvt_t;
-typedef struct
-{
+typedef struct {
     u16 aclHandle;
     u16 attHandle;
     u8 state;  // Refer to BLC_AUDIO_MEDIA_STATE_ENUM
 } blc_audio_mcpStateEvt_t;
 
-typedef struct
-{
+typedef struct {
     u16 CCIDHandle;
     u16 inCallHandle;
     u16 callCtrlHandle;
@@ -296,8 +270,7 @@ typedef struct
     u16 termReasonHandle;
     u16 curCallListHandle;
 } blc_audio_tbpServiceReadyEvt_t;
-typedef struct
-{
+typedef struct {
     u8 index;
     u8 state;
     u8 callFlags;

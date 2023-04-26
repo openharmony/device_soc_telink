@@ -111,8 +111,8 @@ inline Word32 L_shr(Word32 L_var1, Word16 var2)
 /*
 inline Word16 lshr(Word16 var1, Word16 var2)
 {
-	//printf("\ninput=%d %d",var1,var2);
-	//printf("\noutput=%d",__nds__srl16(var1, var2));
+	// printf("\ninput=%d %d",var1,var2);
+	// printf("\noutput=%d",__nds__srl16(var1, var2));
     return (Word16)__nds__srl16(var1, var2);
 
 }*/
@@ -310,13 +310,13 @@ inline Word32 L_shl(Word32 L_var1, Word16 var2)
 {
 
     Word32 L_var_out = 0L;
-    //int Overflow = 0;
+    // int Overflow = 0;
 
     if (var2 <= 0) {
         if (var2 < -32)
             var2 = -32;
         var2 = -var2;
-        //L_var_out = L_shr(L_var1, var2);
+        // L_var_out = L_shr(L_var1, var2);
         if (var2 >= 31) {
             L_var_out = (L_var1 < 0L) ? -1 : 0;
         } else {
@@ -329,12 +329,12 @@ inline Word32 L_shl(Word32 L_var1, Word16 var2)
     } else {
         for (; var2 > 0; var2--) {
             if (L_var1 > (Word32)0X3fffffffL) {
-                //Overflow = 1;
+                // Overflow = 1;
                 L_var_out = MAX_32;
                 break;
             } else {
                 if (L_var1 < (Word32)0xc0000000L) {
-                    //Overflow = 1;
+                    // Overflow = 1;
                     L_var_out = MIN_32;
                     break;
                 }
@@ -385,7 +385,7 @@ inline Word32 L_add(Word32 L_var1, Word32 L_var2)
         }
     }
     if (Overflow == 1) {
-        //printf("Ladd���\n");
+        // printf("Ladd���\n");
     }
     return (L_var_out);
 }
@@ -399,7 +399,7 @@ inline Word32 L_sub(Word32 L_var1, Word32 L_var2)
     if (((L_var1 ^ L_var2) & MIN_32) != 0) {
         if ((L_var_out ^ L_var1) & MIN_32) {
             L_var_out = (L_var1 < 0L) ? MIN_32 : MAX_32;
-            //printf("Lsub���\n");
+            // printf("Lsub���\n");
         }
     }
     return (L_var_out);
@@ -652,7 +652,7 @@ inline Word16 lshr(Word16 var1, Word16 var2)
     var_out = var_out & 0x7fff;
     var_out = var_out >> (var2 - 1);
 
-    //printf("\noutput=%d %d\n", (Word16)__nds__srl16(var1, var2), var_out);
+    // printf("\noutput=%d %d\n", (Word16)__nds__srl16(var1, var2), var_out);
     return (var_out);
 }
 #define cplxMult32_16_32(r, i, a, b, c, d)                                                                            \
@@ -661,6 +661,6 @@ inline Word16 lshr(Word16 var1, Word16 var2)
         i = ((((mult_32_16_32(a, d))) + ((mult_32_16_32(b, c)))));                                                    \
     } while (0)
 
-#endif  //#if  (ALG_LC3_ENABLE)
+#endif  // #if  (ALG_LC3_ENABLE)
 
 #endif

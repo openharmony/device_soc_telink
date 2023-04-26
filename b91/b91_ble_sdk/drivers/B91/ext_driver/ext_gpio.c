@@ -54,7 +54,6 @@
 void gpio_setup_up_down_resistor(gpio_pin_e gpio, gpio_pull_type up_down)
 {
     unsigned char r_val = up_down & 0x03;
-
     unsigned char base_ana_reg = 0x0e + ((gpio >> 8) << 1) + ((gpio & 0xf0) ? 1 : 0);  // group = gpio>>8;
     unsigned char shift_num, mask_not;
 

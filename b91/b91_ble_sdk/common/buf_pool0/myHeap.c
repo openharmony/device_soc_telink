@@ -70,7 +70,6 @@
 #include "common\compiler.h"
 #include "common\types.h"
 
-
 /**************************************************************************************************
   Macros
 **************************************************************************************************/
@@ -80,14 +79,14 @@
   Global Variables
 **************************************************************************************************/
 
-/*! Free memory for pool buffers. */
+/* ! Free memory for pool buffers. */
 _attribute_data_retention_ static u8 myBufMem[HEAP_MEM_SIZE_CFG];
 
 _attribute_data_retention_ static u8 *SystemHeapStart = myBufMem;
 _attribute_data_retention_ static u32 SystemHeapSize = HEAP_MEM_SIZE_CFG;
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief      Reserve heap memory.
  *
  *  \param      size    Number of bytes of heap memory used.
@@ -115,7 +114,7 @@ void *myHeapGetFreeStartAddress(void)
 }
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief      Get heap available.
  *
  *  \return     Number of bytes of heap memory available.
@@ -127,7 +126,7 @@ u32 myHeapCountAvailable(void)
 }
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief      Get heap used.
  *
  *  \return     Number of bytes of heap memory used.

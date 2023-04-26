@@ -204,6 +204,6 @@
 #endif
 */
 
-#endif  //#if (ALG_LC3_ENABLE)
+#endif  // #if (ALG_LC3_ENABLE)
 
 #endif

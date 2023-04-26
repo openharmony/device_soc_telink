@@ -51,27 +51,24 @@
 #include "user_config.h"
 #include <string.h>
 
-
 #ifdef WIN32
 #include <malloc.h>
 #endif
 
-#if (1)
+#if 1
 
 #define DEFAULT_BUFFER_GROUP_NUM 3
 
 /**************************** Private Variable Definitions *******************/
 
-typedef struct
-{
+typedef struct {
     mem_pool_t *qHead;
     u16 size;
     u8 availBufNum;
     u8 reserved;
 } ev_buf_groups_t;
 
-typedef struct bufm_vars
-{
+typedef struct bufm_vars {
     ev_buf_groups_t bufGroups[DEFAULT_BUFFER_GROUP_NUM];
 } ev_buf_vars_t;
 
@@ -233,7 +230,7 @@ buf_sts_t ev_buf_free(u8 *pBuf)
         T_DBG_evFreeBufLine = line;
 #endif
 
-        //TODO: Throw exceptions to the application layer
+        // TODO: Throw exceptions to the application layer
     }
 
     ev_bufItem_t *pDelBuf = ev_buf_getHead(pBuf);
@@ -246,7 +243,7 @@ buf_sts_t ev_buf_free(u8 *pBuf)
         T_DBG_evFreeBufLine = line;
 #endif
 
-        //TODO: Throw exceptions to the application layer
+        // TODO: Throw exceptions to the application layer
 
         irq_restore(r);
         return BUFFER_DUPLICATE_FREE;

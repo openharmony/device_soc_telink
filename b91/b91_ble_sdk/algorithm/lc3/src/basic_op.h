@@ -7,14 +7,14 @@
 #if (ALG_LC3_ENABLE)
 
 /* short logical shift */
-//Word16 lshr(Word16 var1, Word16 var2);
-/* int shift*/
-//Word32 L_shl(Word32 L_var1, Word16 var2);
-//Word32 L_shr(Word32 L_var1, Word16 var2);
-/* short shift*/
+// Word16 lshr(Word16 var1, Word16 var2);
+/* int shift */
+// Word32 L_shl(Word32 L_var1, Word16 var2);
+// Word32 L_shr(Word32 L_var1, Word16 var2);
+/* short shift */
 Word16 shr(Word16 var1, Word16 var2);
 Word16 shl(Word16 var1, Word16 var2);
-/* short shift and rounding*/
+/* short shift and rounding */
 Word16 shr_r(Word16 var1, Word16 var2);
 
 /* if x==0 return 0 */
@@ -206,7 +206,7 @@ Word32 Mpy_32_32(Word32 x, Word32 y);
     } while (0)
 #endif
 
-#endif  //#if  (ALG_LC3_ENABLE)
+#endif  // #if  (ALG_LC3_ENABLE)
 
 #endif  // !BASIC_OP_H
 

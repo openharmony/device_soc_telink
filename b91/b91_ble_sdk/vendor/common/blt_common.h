@@ -98,13 +98,16 @@
  * 			CFG_ADR_CALIBRATION:  some calibration data stored in flash, can not change this value
  * 			FLASH_ADR_SMP_PAIRING & FLASH_SMP_PAIRING_MAX_SIZE:
  * 									If Slave or Master SMP enable, use 16K flash for SMP pairing information storage.
- * 									First 8K is for normal use, second 8K is a backup to guarantee SMP information never lose.
- * 									use API blc_smp_configPairingSecurityInfoStorageAddressAndSize(FLASH_ADR_SMP_PAIRING, FLASH_SMP_PAIRING_MAX_SIZE)
- * 									to set the two value.
+ * 									First 8K is for normal use,
+ *                                  second 8K is a backup to guarantee SMP information never lose.
+ * 									use API blc_smp_configPairingSecurityInfoStorageAddressAndSize
+ *                                  (FLASH_ADR_SMP_PAIRING, FLASH_SMP_PAIRING_MAX_SIZE) to set the two value.
  * 			FLASH_ADR_CUSTOM_PAIRING & FLASH_CUSTOM_PAIRING_MAX_SIZE:
- * 									If master role is used but master SMP not used, use this flash area to store bonding slave information for custom pair.
+ * 									If master role is used but master SMP not used,
+ *                                  use this flash area to store bonding slave information for custom pair.
  * 			FLASH_SDP_ATT_ADRRESS & FLASH_SDP_ATT_MAX_SIZE
- * 									If master role use service discovery, use this flash area to store some critical information of peer GATT server.
+ * 									If master role use service discovery,
+ *                                  use this flash area to store some critical information of peer GATT server.
 
  */
 #if (FLASH_SIZE_CONFIG == FLASH_SIZE_512K)
@@ -230,7 +233,7 @@ extern u32 flash_sector_calibration;
 static inline void blc_app_setExternalCrystalCapEnable(u8 en)
 {
     blt_miscParam.ext_cap_en = en;
-    analog_write(0x8a, analog_read(0x8a) | 0x80);  //disable internal cap
+    analog_write(0x8a, analog_read(0x8a) | 0x80);  // disable internal cap
 }
 
 /**

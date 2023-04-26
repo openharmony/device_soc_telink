@@ -49,37 +49,32 @@
 
 #define AES_BLOCK_SIZE 16
 
-//#define		SUCCESS			0
+// #define		SUCCESS			0
 enum {
     AES_SUCC = SUCCESS,
     AES_NO_BUF,
     AES_FAIL,
 };
 
-typedef struct
-{
+typedef struct {
     u32 pkt;
     u8 dir;
     u8 iv[8];
 } ble_cyrpt_nonce_t;
 
-typedef struct
-{
+typedef struct {
     u64 enc_pno;
     u64 dec_pno;
-    u8 sk[16];  //session key
+    u8 sk[16];  // session key
     ble_cyrpt_nonce_t nonce;
     u8 st;
-    u8 enable;  //1: slave enable; 2: master enable
+    u8 enable;  // 1: slave enable; 2: master enable
     u8 mic_fail;
 } ble_crypt_para_t;
 
-struct CCM_FLAGS_TAG
-{
-    union
-    {
-        struct
-        {
+struct CCM_FLAGS_TAG {
+    union {
+        struct {
             u8 L : 3;
             u8 M : 3;
             u8 aData : 1;
@@ -91,10 +86,8 @@ struct CCM_FLAGS_TAG
 
 typedef struct CCM_FLAGS_TAG ccm_flags_t;
 
-typedef struct
-{
-    union
-    {
+typedef struct {
+    union {
         u8 A[AES_BLOCK_SIZE];
         u8 B[AES_BLOCK_SIZE];
     } bf;
@@ -139,7 +132,7 @@ void aes_ll_ccm_encryption_init(u8 *ltk, u8 *skdm, u8 *skds, u8 *ivm, u8 *ivs, b
  * @param[in]   pd - Reference structure ble_crypt_para_t
  * @return  	none
  */
-//void aes_ll_ccm_encryption(u8 *pkt, int master, ble_crypt_para_t *pd);
+// void aes_ll_ccm_encryption(u8 *pkt, int master, ble_crypt_para_t *pd);
 
 /**
  * @brief   	this function is used to encrypt the aes_ccm value, version2
@@ -156,7 +149,7 @@ void aes_ll_ccm_encryption(llPhysChnPdu_t *pllPhysChnPdu, u8 role, u8 ll_type, b
  * @param[in]   pd - Reference structure ble_crypt_para_t
  * @return  	0: decryption succeeded; 1: decryption failed
  */
-//int  aes_ll_ccm_decryption(u8 *pkt, int master, ble_crypt_para_t *pd);
+// int  aes_ll_ccm_decryption(u8 *pkt, int master, ble_crypt_para_t *pd);
 
 /**
  * @brief   	this function is used to decrypt the aes_ccm value, version2

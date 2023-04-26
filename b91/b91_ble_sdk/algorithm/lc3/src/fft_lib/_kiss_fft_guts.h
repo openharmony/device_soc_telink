@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
    and defines
    typedef struct { kiss_fft_scalar r; kiss_fft_scalar i; }kiss_fft_cpx; */
 #include "kiss_fft.h"
-//#include <limits.h>
+// #include <limits.h>
 #include "../../inc/config.h"
 #include "../intrinsic.h"
 #define MAXFACTORS 32
@@ -193,7 +193,7 @@ struct kiss_fft_state{
 #define KISS_FFT_TMP_FREE(ptr)     KISS_FFT_FREE(ptr)
 #endif
 
-#endif  //#if (ALG_LC3_ENABLE)
+#endif  // #if (ALG_LC3_ENABLE)
 
 #endif
 #endif

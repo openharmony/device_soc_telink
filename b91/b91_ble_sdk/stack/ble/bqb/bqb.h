@@ -50,7 +50,6 @@
 typedef int (*callback_testcase_t)(int, void *);
 
 typedef enum {
-
     TP_STATUS_ACL_CONN_PKT_MAX = 0,
     TP_STATUS_CIS_CONN_PKT_MAX,
 

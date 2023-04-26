@@ -47,7 +47,7 @@
 #include "stack/ble/ble.h"
 #include "tl_common.h"
 
-#if (BLT_SOFTWARE_TIMER_ENABLE)
+#if BLT_SOFTWARE_TIMER_ENABLE
 
 _attribute_ble_data_retention_ blt_soft_timer_t blt_timer;
 

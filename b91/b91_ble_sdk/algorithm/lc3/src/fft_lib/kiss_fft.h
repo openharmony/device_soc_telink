@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 #ifdef FIXED_POINT
-//#include <sys/types.h>
+// #include <sys/types.h>
 #if (FIXED_POINT == 32)
 #define kiss_fft_scalar Word32
 #else
@@ -119,7 +119,7 @@ int kiss_fft_next_fast_size(int n);
 }
 #endif
 
-#endif  //#if (ALG_LC3_ENABLE)
+#endif  // #if (ALG_LC3_ENABLE)
 
 #endif
 #endif  // !1

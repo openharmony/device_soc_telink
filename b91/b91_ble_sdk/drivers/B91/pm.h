@@ -129,8 +129,8 @@ typedef enum {
     DEEPSLEEP_MODE = 0x30,  // when use deep mode pad wakeup(low or high level), if the high(low) level always in
     // the pad, system will not enter sleep and go to below of pm API, will reboot by core_6f = 0x20
     // deep retention also had this issue, but not to reboot.
-    DEEPSLEEP_MODE_RET_SRAM_LOW32K = 0x21,  //for boot from sram
-    DEEPSLEEP_MODE_RET_SRAM_LOW64K = 0x03,  //for boot from sram
+    DEEPSLEEP_MODE_RET_SRAM_LOW32K = 0x21,  // for boot from sram
+    DEEPSLEEP_MODE_RET_SRAM_LOW64K = 0x03,  // for boot from sram
     // not available mode
     DEEPSLEEP_RETENTION_FLAG = 0x0F,
 } pm_sleep_mode_e;

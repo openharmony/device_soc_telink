@@ -73,13 +73,11 @@ enum {
     FLD_SYSTEM_TIMER_AUTO = BIT(2),
     FLD_SYSTEM_32K_TRACK_EN = BIT(3),
     FLD_SYSTEM_32K_CAL_MODE = BIT_RNG(4, 7),
-
 };
 
 #define reg_system_st REG_ADDR8(STIMER_BASE_ADDR + 0xb)
 
 enum {
-
     FLD_SYSTEM_CMD_STOP = BIT(1),
     FLD_SYSTEM_CMD_SYNC = BIT(3),
     FLD_SYSTEM_CLK_32K = BIT(4),
@@ -97,7 +95,6 @@ enum {
 
 #define reg_system_up_32k REG_ADDR32(STIMER_BASE_ADDR + 0x18)
 enum {
-
     FLD_SYSTEM_UPDATE_UPON_32K = BIT(0),
     FLD_SYSTEM_RUN_UPON_NXT_32K = BIT(1),
 };

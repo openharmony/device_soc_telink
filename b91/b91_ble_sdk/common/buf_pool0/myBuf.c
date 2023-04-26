@@ -79,11 +79,11 @@
   Global Variables
 **************************************************************************************************/
 
-/*! \brief  Critical section nesting level. */
+/* ! \brief  Critical section nesting level. */
 _attribute_data_retention_ static u8 myCsNesting = 0;
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief  Enter a critical section.
  */
 /*************************************************************************************************/
@@ -96,7 +96,7 @@ void myCsEnter(void)
 }
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief  Exit a critical section.
  */
 /*************************************************************************************************/
@@ -113,7 +113,7 @@ void myCsExit(void)
 /**************************************************************************************************
   Macros
 **************************************************************************************************/
-#define DEBUG_INFO  //printf //debug use
+#define DEBUG_INFO  // printf // debug use
 
 /* Magic number used to check for free buffer. */
 #define MY_BUF_FREE_NUM 0xFAABD00D
@@ -123,8 +123,7 @@ void myCsExit(void)
 **************************************************************************************************/
 
 /* Unit of memory storage-- a structure containing a pointer. */
-typedef struct myBufMem_tag
-{
+typedef struct myBufMem_tag {
     struct myBufMem_tag *pNext;
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
     u32 free;
@@ -132,8 +131,7 @@ typedef struct myBufMem_tag
 } myBufMem_t;
 
 /* Internal buffer pool. */
-typedef struct
-{
+typedef struct {
     myBufPoolDesc_t desc; /* Number of buffers and length. */
     myBufMem_t *pStart;   /* Start of pool. */
     myBufMem_t *pFree;    /* First free buffer in pool. */
@@ -239,11 +237,11 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
     u16 len;
     u8 i;
 
-    myBufMem = (myBufMem_t *)myHeapGetFreeStartAddress();  //ȡsystemHeapStartAddr
+    myBufMem = (myBufMem_t *)myHeapGetFreeStartAddress();
     pPool = (myBufPool_t *)myBufMem;
 
     /* Buffer storage starts after the pool structs. */
-    pStart = (myBufMem_t *)(pPool + numPools);  //ڴͷnumPoolspStartָڴ0ĵһ(num=0)ʼַ
+    pStart = (myBufMem_t *)(pPool + numPools);
 
     myBufNumPools = numPools;
 
@@ -261,10 +259,10 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
         }
 
         /* Adjust pool lengths for minimum size and alignment. */
-        if (pDesc->len < sizeof(myBufMem_t))  //һڴس < sizeof(myBufMem_t)
+        if (pDesc->len < sizeof(myBufMem_t))
         {
             pPool->desc.len = sizeof(myBufMem_t);
-        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0)  //ȡsizeof(myBufMem_t)ֽڶ
+        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0)
         {
             pPool->desc.len = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
         } else {
@@ -291,8 +289,8 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
                 return 0;
             }
             /* Pointer to the next free buffer is stored in the buffer itself. */
-            pStart->pNext = pStart + len;  //ָһ
-            pStart += len;                 //pStartָǰڴصһʼַ(/ǰڴضӦnum++)
+            pStart->pNext = pStart + len;
+            pStart += len;
         }
 
         /* Verify we didn't overrun memory; if we did, abort. */
@@ -301,16 +299,16 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
             return 0;
         }
         /* Last one in list points to NULL. */
-        pStart->pNext = NULL;  //ǰڴصһnumӦһʼַΪNULL
-        pStart += len;         //pStartָһڴصĵһʼַ
+        pStart->pNext = NULL;
+        pStart += len;
 
         /* Next pool. */
-        pPool++;  //ָһڴͷַ
+        pPool++;
     }
 
     myBufMemLen = (u8 *)pStart - (u8 *)myBufMem;
 
-    return myBufMemLen;  //ڴ0ڴnumPools-1ȫʼĵBufferСλByte
+    return myBufMemLen;
 }
 
 /*************************************************************************************************/
@@ -328,7 +326,7 @@ void *myBufAlloc(u16 len)
     myBufMem_t *pBuf;
     u8 i;
 
-    //MY_CS_INIT(cs);
+    // MY_CS_INIT(cs);
 
     assert(len > 0);
 
@@ -422,7 +420,7 @@ void myBufFree(void *pBuf)
     myBufPool_t *pPool;
     myBufMem_t *p = pBuf;
 
-    //MY_CS_INIT(cs);
+    // MY_CS_INIT(cs);
 
     /* Verify pointer is within range. */
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
@@ -528,7 +526,7 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
         return;
     }
 
-    //MY_CS_INIT(cs);
+    // MY_CS_INIT(cs);
     myCsEnter();
 
     pPool = (myBufPool_t *)myBufMem;
@@ -551,7 +549,7 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
 }
 
 /*************************************************************************************************/
-/*!
+/* !
  *  \brief  Called to register the buffer diagnostics callback function.
  *
  *  \param  pCallback   Pointer to the callback function.
@@ -567,7 +565,7 @@ void myBufDiagRegister(myBufDiagCback_t callback)
 #endif
 }
 
-#if 0  //demo test
+#if 0  // demo test
 	u8* AAA = NULL;
 	u8* ABB = NULL;
 	u8* ACC = NULL;

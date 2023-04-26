@@ -101,12 +101,14 @@ void app_service_discovery(void)
         cur_sdp_device.char_handle[2] = blm_att_findHandleOfUuid128(db128, my_OtaUUID);  //OTA
         cur_sdp_device.char_handle[3] = blm_att_findHandleOfUuid16(
             db16, CHARACTERISTIC_UUID_HID_REPORT,
-            HID_REPORT_ID_CONSUME_CONTROL_INPUT | (HID_REPORT_TYPE_INPUT << 8));  //consume report(media key report)
+            HID_REPORT_ID_CONSUME_CONTROL_INPUT | (HID_REPORT_TYPE_INPUT << 8));  // consume report(media key report)
         cur_sdp_device.char_handle[4] = blm_att_findHandleOfUuid16(
             db16, CHARACTERISTIC_UUID_HID_REPORT,
-            HID_REPORT_ID_KEYBOARD_INPUT | (HID_REPORT_TYPE_INPUT << 8));  //normal key report
-        // cur_sdp_device.char_handle[6] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataServer2ClientUUID);		//BLE Module, SPP Server to Client
-        // cur_sdp_device.char_handle[7] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataClient2ServerUUID);		//BLE Module, SPP Client to Server
+            HID_REPORT_ID_KEYBOARD_INPUT | (HID_REPORT_TYPE_INPUT << 8));  // normal key report
+        // cur_sdp_device.char_handle[6] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataServer2ClientUUID);
+        // BLE Module, SPP Server to Client
+        // cur_sdp_device.char_handle[7] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataClient2ServerUUID);
+        // BLE Module, SPP Client to Server
 
         /* add the peer device att_handle value to conn_dev_list after service discovery is correctly finished */
         dev_char_info_add_peer_att_handle(&cur_sdp_device);
@@ -298,7 +300,7 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
     ps16->num = i16;
     ps128->num = i128;
 
-    //--------- use att_find_info to find the reference property for hid ----------
+    // --------- use att_find_info to find the reference property for hid ----------
     p16 = ps16;
     for (int i = 0; i < i16; i++) {
         if (p16->uuid == CHARACTERISTIC_UUID_HID_REPORT)  // find reference
@@ -320,7 +322,7 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
                     }
 
                     if (pd[2] == U16_LO(GATT_UUID_REPORT_REF) && pd[3] == U16_HI(GATT_UUID_REPORT_REF)) {
-                        //-----------		read attribute ----------------
+                        // -----------		read attribute ----------------
                         dat[6] = ATT_OP_READ_REQ;
                         if (app_read_char_value(dat, handle, pd[0])) {
                             return GATT_ERR_SERVICE_DISCOVERY_TIEMOUT;  // timeout
@@ -337,7 +339,7 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
                     pd += 4;
                 }
             }
-        }  //----- end for if CHARACTERISTIC_UUID_HID_REPORT
+        }  // ----- end for if CHARACTERISTIC_UUID_HID_REPORT
 
         p16++;
     }
@@ -395,18 +397,18 @@ int dev_char_info_store_peer_att_handle(dev_char_info_t *pdev_char)
 
 #if (PEER_SLAVE_USE_RPA_EN)
             if (IS_RESOLVABLE_PRIVATE_ADDR(pdev_char->peer_adrType, pdev_char->peer_addr)) {
-                //TODO, store irk to flash
+                // TODO, store irk to flash
             }
 #endif
 
-            //			 char_handle[0] :  MIC
-            //			 char_handle[1] :  Speaker
-            //			 char_handle[2] :  OTA
-            //			 char_handle[3] :  Consume Report
-            //			 char_handle[4] :  Key Report
-            //			 char_handle[5] :
-            //			 char_handle[6] :  BLE Module, SPP Server to Client
-            //			 char_handle[7] :  BLE Module, SPP Client to Server
+            // char_handle[0] :  MIC
+            // char_handle[1] :  Speaker
+            // char_handle[2] :  OTA
+            // char_handle[3] :  Consume Report
+            // char_handle[4] :  Key Report
+            // char_handle[5] :
+            // char_handle[6] :  BLE Module, SPP Server to Client
+            // char_handle[7] :  BLE Module, SPP Client to Server
             flash_write_page(current_flash_adr + OFFSETOF(dev_att_t, char_handle) + 2 * 2, 2,
                              (u8 *)&pdev_char->char_handle[2]);  // save OTA att_handle
             flash_write_page(current_flash_adr + OFFSETOF(dev_att_t, char_handle) + 3 * 2, 2,
@@ -460,7 +462,7 @@ int dev_char_info_search_peer_att_handle_by_peer_mac(u8 adr_type, u8 *addr, dev_
             } else
 #endif
             {
-                if (adr_type == pdev_att->adr_type && !memcmp(addr, pdev_att->addr, 6)) {  //match
+                if (adr_type == pdev_att->adr_type && !memcmp(addr, pdev_att->addr, 6)) {  // match
                     addr_match = 1;
                 }
             }

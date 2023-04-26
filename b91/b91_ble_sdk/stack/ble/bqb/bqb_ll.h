@@ -46,9 +46,7 @@
 #ifndef BQB_LL_H_
 #define BQB_LL_H_
 
-typedef struct
-{
-
+typedef struct {
     u16 testAclConnEvent_cnt;
     u16 testAclConnEvent_numMax;
 

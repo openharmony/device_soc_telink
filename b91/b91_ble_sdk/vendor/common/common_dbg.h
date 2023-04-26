@@ -53,7 +53,7 @@
 #define APP_DUMP_EN 0
 #endif
 
-#if (APP_DUMP_EN)
+#if APP_DUMP_EN
 
 extern my_fifo_t print_fifo;
 extern unsigned char print_fifo_b[];

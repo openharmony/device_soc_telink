@@ -94,7 +94,7 @@ extern int blc_audio_ascpReleaseAse(u16 connHandle, u8 aseID);
 extern int blc_audio_ascpSendCtrlData(u16 connHandle, u8 aseID, u8 *pData, u16 dataLen);
 #endif
 extern int blc_audio_ascpRelease(u16 connHandle, u8 aseID);
-#endif  //#if (BLC_AUDIO_ASCS_ENABLE)
+#endif  // #if (BLC_AUDIO_ASCS_ENABLE)
 
 #if (BLC_AUDIO_CSIS_ENABLE)
 extern int blc_audio_csipAttRead(u16 connHandle, void *p);

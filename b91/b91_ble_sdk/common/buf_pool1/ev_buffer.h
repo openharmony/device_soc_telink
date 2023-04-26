@@ -98,8 +98,7 @@
 /**
  *  @brief Definition of a buffer item, it is internal used.
  */
-typedef struct ev_bufItem
-{
+typedef struct ev_bufItem {
     struct ev_bufItem *next;
 #if EV_BUFFER_DEBUG
     u8 groupIndex;
@@ -117,8 +116,8 @@ typedef struct ev_bufItem
 typedef enum buf_sts_e {
     // SUCCESS always be ZERO
     BUFFER_SUCC,
-    BUFFER_INVALID_PARAMETER = 1,  //!< Invalid parameter passed to the buffer API
-    BUFFER_DUPLICATE_FREE          //!< The same buffer is freed more than once
+    BUFFER_INVALID_PARAMETER = 1,  // !< Invalid parameter passed to the buffer API
+    BUFFER_DUPLICATE_FREE          // !< The same buffer is freed more than once
 } buf_sts_t;
 
 /**  @} end of group EV_BUFFER_TYPE */

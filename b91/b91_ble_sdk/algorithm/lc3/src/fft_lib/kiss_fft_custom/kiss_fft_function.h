@@ -51,7 +51,7 @@ static inline short spx_ilog4(unsigned int x)
     return r;
 }
 
-/** Generate a pseudo-random number */
+/* * Generate a pseudo-random number */
 static inline short speex_rand(short std, int *seed)
 {
     int res;
@@ -61,10 +61,11 @@ static inline short speex_rand(short std, int *seed)
 }
 
 /* sqrt(x) ~= 0.22178 + 1.29227*x - 0.77070*x^2 + 0.25723*x^3 (for .25 < x < 1) */
-/*#define C0 3634
-#define C1 21173
-#define C2 -12627
-#define C3 4215*/
+/* #define C0 3634
+ * #define C1 21173
+ * #define C2 -12627
+ * #define C3 4215 
+ */
 
 /* sqrt(x) ~= 0.22178 + 1.29227*x - 0.77070*x^2 + 0.25659*x^3 (for .25 < x < 1) */
 #define C0 3634
@@ -104,7 +105,7 @@ static inline short spx_acos(short x)
     sq = MULT16_16_Q13(x, ADD16(A1, MULT16_16_Q13(x, ADD16(A2, MULT16_16_Q13(x, (A3))))));
     ret = spx_sqrt(SHL32(EXTEND32(sq), 13));
 
-    /*ret = spx_sqrt(67108864*(-1.6129e-04 + 2.0104e+00*f + 2.7373e-01*f*f + 1.8136e-01*f*f*f));*/
+    /* ret = spx_sqrt(67108864*(-1.6129e-04 + 2.0104e+00*f + 2.7373e-01*f*f + 1.8136e-01*f*f*f)); */
     if (s)
         ret = SUB16(25736, ret);
     return ret;
@@ -166,11 +167,11 @@ static inline short spx_cos_norm(int x)
 }
 
 /*
- K0 = 1
- K1 = log(2)
- K2 = 3-4*log(2)
- K3 = 3*log(2) - 2
-*/
+ * K0 = 1
+ * K1 = log(2)
+ *  K2 = 3-4*log(2)
+ *  K3 = 3*log(2) - 2
+ */
 #define D0 16384
 #define D1 11356
 #define D2 3726
@@ -235,6 +236,6 @@ static inline short spx_atan(int x)
         (x)->i = spx_cos_norm((phase)-32768);                                                                         \
     } while (0)
 
-#endif  //#if (ALG_LC3_ENABLE)
+#endif  // #if (ALG_LC3_ENABLE)
 
 #endif  // KISS_FFT_FUNCTION_H
