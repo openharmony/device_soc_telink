@@ -141,8 +141,7 @@ typedef struct {
 } rf_packet_ll_cis_terminate_t;
 
 typedef struct {
-    union
-    {
+    union {
         rf_bis_data_hdr_t bisPduHdr;
         rf_cis_data_hdr_t cisPduHdr;
         rf_acl_data_head_t aclPduHdr;

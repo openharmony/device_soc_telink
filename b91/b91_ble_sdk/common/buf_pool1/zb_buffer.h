@@ -55,8 +55,7 @@
    Packet buffer header.
  */
 
-typedef struct
-{
+typedef struct {
     u8 id;  // primitive id
     u8 handle;
     s8 rssi;
@@ -89,8 +88,7 @@ typedef struct
 #endif
 #endif
 
-typedef struct
-{
+typedef struct {
     u16 allocLine;
     u16 freeLine;
     u8 handler;
@@ -103,8 +101,7 @@ typedef struct
 #define ZB_BUFF_DBG_NUM 16
 #endif
 
-typedef struct zb_buf_s
-{
+typedef struct zb_buf_s {
     u8 buf[ZB_BUF_SIZE];
     zb_buf_hdr_t hdr;
     struct zb_buf_s *next;
@@ -115,8 +112,7 @@ typedef struct zb_buf_s
 #endif
 } zb_buf_t;
 
-typedef struct
-{
+typedef struct {
     zb_buf_t *head;
     u32 usedNum;
 #if ZB_BUFFER_DEBUG

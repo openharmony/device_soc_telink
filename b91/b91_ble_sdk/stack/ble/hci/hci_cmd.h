@@ -51,8 +51,7 @@
 /**
  *  @brief  Command Parameters for "7.1.6 Disconnect command"
  */
-typedef struct
-{
+typedef struct {
     u16 connection_handle;
     u8 reason;
 } hci_disconnect_cmdParam_t;
@@ -60,8 +59,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "7.4.6 Read BD_ADDR command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 bd_addr[6];
 } hci_readBdAddr_retParam_t;
@@ -69,8 +67,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "7.8.2 LE Read Buffer Size command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 acl_data_pkt_len;  // LE_ACL_Data_Packet_Length
     u8 num_le_data_pkt;    // Total_Num_LE_ACL_Data_Packets
@@ -80,8 +77,7 @@ typedef struct
  *  @brief  Command Parameters for "7.8.5 LE Set Advertising Parameters command"
  */
 /* Advertising Parameters structure */
-typedef struct
-{
+typedef struct {
     u16 intervalMin;  // Minimum advertising interval for non-directed advertising, time = N * 0.625ms
     u16 intervalMax;  // Maximum advertising interval for non-directed advertising, time = N * 0.625ms
     u8 advType;       // Advertising
@@ -270,8 +266,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.12 LE Create Connection command"
  */
-typedef struct
-{
+typedef struct {
     u16 scan_inter;
     u16 scan_wind;
     u8 fp;  // init_filter_policy
@@ -381,8 +376,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.16 LE Add Device To White List command"
  */
-typedef struct
-{
+typedef struct {
     u8 adr_type;
     u8 addr[6];
 } hci_le_addDeviceWhitelist_cmdParam_t;
@@ -390,8 +384,7 @@ typedef struct
 /**
  *  @brief  Command Parameters for "7.8.17 LE Remove Device From White List command"
  */
-typedef struct
-{
+typedef struct {
     u8 adr_type;
     u8 addr[6];
 } hci_le_removeDeviceWhitelist_cmdParam_t;
@@ -399,8 +392,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "7.8.46 LE Read Maximum Data Length command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u16 support_max_tx_oct;
     u16 support_max_tx_time;
@@ -411,8 +403,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "7.8.47 LE Read PHY command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 handle[2];
     u8 tx_phy;
@@ -427,8 +418,7 @@ typedef struct
  *  @brief  Command Parameters for "7.8.49 LE Set PHY command"
  */
 
-typedef struct
-{
+typedef struct {
     u16 connHandle;
     u8 all_phys;
     u8 tx_phys;
@@ -464,8 +454,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.53 LE Set Extended Advertising Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 adv_handle;
     u16 advEvt_props;
     u8 pri_advIntMin[3];
@@ -579,15 +568,13 @@ typedef enum {
  *  @brief  Command Parameters for "7.8.56 LE Set Extended Advertising Enable command"
  */
 
-typedef struct
-{
+typedef struct {
     u8 adv_handle;
     u16 duration;
     u8 max_ext_adv_evts;
 } extAdvEn_Cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 enable;
     u8 num_sets;
     extAdvEn_Cfg_t cisCfg[3];  // TSKNUM_EXT_ADV
@@ -689,15 +676,13 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.64 LE Set Extended Scan Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 scan_type;
     u16 scan_interval;
     u16 scan_window;
 } ext_scan_cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 ownAddress_type;
     u8 scan_filter_policy;
     u8 scan_PHYs;
@@ -714,8 +699,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.65 LE Set Extended Scan Enable command"
  */
-typedef struct
-{
+typedef struct {
     u8 Enable;
     u8 Filter_Duplicates;
     u16 Duration;
@@ -787,8 +771,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.66 LE Extended Create Connection command"
  */
-typedef struct
-{
+typedef struct {
     u16 scan_inter;
     u16 scan_wind;
     u16 conn_min;
@@ -799,8 +782,7 @@ typedef struct
     u16 ceLen_max;
 } ext_init_cfg_t;
 
-typedef struct
-{
+typedef struct {
     u8 fp;  // init_filter_policy
     u8 ownAddr_type;
     u8 peerAddr_type;
@@ -814,9 +796,8 @@ typedef struct
 /* Initiating_PHYs */
 typedef enum {
     INIT_PHY_1M = BIT(0),
-    INIT_PHY_2M = BIT(
-        1),  // can not use this,
-             // at least one bit set for a PHY allowed for scanning on the primary advertising physical channel
+    INIT_PHY_2M = BIT(1),  // can not use this,
+    // at least one bit set for a PHY allowed for scanning on the primary advertising physical channel
     INIT_PHY_CODED = BIT(2),
     INIT_PHY_1M_2M = (INIT_PHY_1M | INIT_PHY_2M),
     INIT_PHY_1M_CODED = (INIT_PHY_1M | INIT_PHY_CODED),
@@ -827,8 +808,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.67 LE Periodic Advertising Create Sync command"
  */
-typedef struct
-{
+typedef struct {
     u8 Options;
     u8 Advertising_SID;
     u8 Advertiser_Address_Type;
@@ -841,8 +821,7 @@ typedef struct
 /**
  * @brief  Command Parameters for "7.8.80 LE Set Connectionless CTE Transmit Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 Advertising_Handle;
     u8 CTE_length;
     u8 CTE_type;
@@ -852,14 +831,12 @@ typedef struct
     u8 Antenna_IDs[1];
 } hci_le_setConnectionless_CTETransmitParam_t;
 
-typedef struct
-{
+typedef struct {
     adv_handle_t adv_handle;
     u8 CTE_enable;
 } hci_le_CTE_enable_type;
 
-typedef struct
-{
+typedef struct {
     u16 Sync_Handle;
     u8 Sampling_Enable;
     u8 Slot_Duration;
@@ -869,8 +846,7 @@ typedef struct
     u8 Antenna_IDs[1];
 } hci_le_setConnectionless_IQsampleEn_t;
 
-typedef struct
-{
+typedef struct {
     u8 conn_handle;
     u8 sampling_en;
     u8 slot_duration;
@@ -879,16 +855,14 @@ typedef struct
     u8 antenna_ids[1];
 } hci_le_setConnection_CTERevParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 conn_handle;
     u8 CTE_type;
     u8 switching_pattern_len;
     u8 antenna_IDs[1];
 } hci_le_setConnection_CTETransmitParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 support_switch_sample_rate;
     u8 antenna_num;
@@ -898,8 +872,7 @@ typedef struct
 
 } cte_antenna_infor_t;
 
-typedef struct
-{
+typedef struct {
     u8 conn_handle;
     u8 cte_req_en;
     u16 cte_req_intvl;
@@ -908,8 +881,7 @@ typedef struct
     u8 req_cte_type;
 } hci_le_cteReqEn_t;
 
-typedef struct
-{
+typedef struct {
     u8 conn_handle;
     u8 rsp_enable;
 } hci_le_cteRspEn_t;
@@ -963,8 +935,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.97 LE Set CIG Parameters command"
  */
-typedef struct
-{
+typedef struct {
     u8 cig_id;
     u8 sdu_int_m2s[3];
     u8 sdu_int_s2m[3];
@@ -977,8 +948,7 @@ typedef struct
     u8 restparam[1];
 } hci_le_setCigParam_cmdParam_t;
 
-typedef struct
-{
+typedef struct {
     u8 cis_id;
     u8 nse;
     u16 max_sdu_m2s;
@@ -1018,8 +988,7 @@ typedef enum {
 /**
  *  @brief  Command Parameters for "7.8.98 LE Set CIG Parameters Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 cig_id;
     u8 sdu_int_m2s[3];
     u8 sdu_int_s2m[3];
@@ -1036,8 +1005,7 @@ typedef struct
 /**
  *  @brief  Return Parameters for "LE Set CIG Parameters command" and "LE Set CIG Parameters Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 status;
     u8 cig_id;
     u8 cis_count;
@@ -1071,14 +1039,12 @@ typedef enum {
 /**
  *	@brief  Command Parameters for "7.8.99 LE Create CIS command"
  */
-typedef struct
-{
+typedef struct {
     u16 cis_handle;
     u16 acl_handle;
 } cisConnParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 cis_count;
     cisConnParams_t cisConn[1];
 } hci_le_CreateCisParams_t;
@@ -1097,8 +1063,7 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.103 LE Create BIG command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;           /* Used to identify the BIG */
     u8 adv_handle;           /* Used to identify the periodic advertising train */
     u8 num_bis;              /* Total number of BISes in the BIG */
@@ -1117,8 +1082,7 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.104 LE Create BIG Test command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;   /* Used to identify the BIG */
     u8 adv_handle;   /* Used to identify the periodic advertising train */
     u8 num_bis;      /* Total number of BISes in the BIG */
@@ -1141,14 +1105,12 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.105 LE Terminate BIG command"
  */
-typedef struct
-{
+typedef struct {
     u8 big_handle;
     u8 reason;
 } hci_le_terminateBigParams_t;
 
-typedef struct
-{
+typedef struct {
     u8 big_handle;   /* Used to identify the BIG */
     u16 sync_handle; /* Identifier of the periodic advertising train */
     u8 enc;          /* Encryption flag */
@@ -1163,8 +1125,7 @@ typedef struct
 /**
  *	@brief  Command Parameters for "7.8.109 LE Setup ISO Data Path command"
  */
-typedef struct
-{
+typedef struct {
     u16 conn_handle;
     u8 data_path_direction;
     u8 data_path_id;
@@ -1180,8 +1141,7 @@ typedef struct
 /**
  * @brief Command Parameters for "7.8.111 LE ISO Transmit Test command"
  */
-typedef struct
-{
+typedef struct {
     u16 handle;
     u8 payload_type;
 } hci_le_isoTransmitTestCmdParams_t;
@@ -1189,8 +1149,7 @@ typedef struct
 /**
  * @brief Command Parameters for "7.8.112 LE ISO Receive Test command"
  */
-typedef struct
-{
+typedef struct {
     u16 handle;
     u8 payload_type;
 } hci_le_isoReceiveTestCmdParams_t;

@@ -175,8 +175,7 @@ typedef enum {
     I2S_DATA_INVERT_EN,
 } audio_data_invert_e;
 
-typedef struct
-{
+typedef struct {
     unsigned char audio_in_mode;
     unsigned char audio_out_mode;
     unsigned char i2s_data_select;

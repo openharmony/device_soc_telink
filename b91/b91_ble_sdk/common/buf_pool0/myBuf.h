@@ -126,15 +126,13 @@ extern "C" {
 **************************************************************************************************/
 
 /*! \brief Buffer pool descriptor structure */
-typedef struct
-{
+typedef struct {
     u16 len; /*!< \brief Length of buffers in pool */
     u8 num;  /*!< \brief Number of buffers in pool */
 } myBufPoolDesc_t;
 
 /*! \brief Pool statistics */
-typedef struct
-{
+typedef struct {
     u16 bufSize;   /*!< \brief Pool buffer size. */
     u8 numBuf;     /*!< \brief Total number of buffers. */
     u8 numAlloc;   /*!< \brief Number of outstanding allocations. */
@@ -143,17 +141,14 @@ typedef struct
 } myBufPoolStat_t;
 
 /*! \brief MY buffer diagnostics - buffer allocation failure */
-typedef struct
-{
+typedef struct {
     u8 taskId; /*!< \brief Task handler ID where failure occured */
     u16 len;   /*!< \brief Length of buffer being allocated */
 } myBufDiagAllocFail_t;
 
 /*! \brief MY buffer diagnostics message */
-typedef struct
-{
-    union
-    {
+typedef struct {
+    union {
         myBufDiagAllocFail_t alloc; /*!< \brief Buffer allocation failure */
     } param;                        /*!< \brief Union of diagnostic data types. */
 

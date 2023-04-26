@@ -75,8 +75,7 @@ extern blc_hci_tx_handler_t blc_hci_tx_handler;
 
 extern my_fifo_t hci_tx_iso_fifo;
 
-typedef struct
-{
+typedef struct {
     u32 size;
     u8 num;
     u8 mask;
