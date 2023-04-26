@@ -67,8 +67,7 @@
 /**
  * eccp curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int eccp_p_bitLen;  // bit length of prime p
     unsigned int eccp_n_bitLen;  // bit length of order n
     unsigned int *eccp_p;
@@ -86,8 +85,7 @@ typedef struct
 /**
  * mont curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int mont_p_bitLen;  // bit length of prime p
     unsigned int *mont_p;
     unsigned int *mont_p_h;
@@ -104,8 +102,7 @@ typedef struct
 /**
  * edward curve
  */
-typedef struct
-{
+typedef struct {
     unsigned int edward_p_bitLen;  // bit length of prime p
     unsigned int *edward_p;
     unsigned int *edward_p_h;

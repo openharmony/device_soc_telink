@@ -717,7 +717,7 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
         mask = (unsigned char)~(BIT(5) | BIT(4));
         val = BIT(4);
     }
-    // note: setting pad the function must before setting no_gpio function, 
+    // note: setting pad the function must before setting no_gpio function,
     // cause it will lead to uart transmit extra one byte data at begin.(confirmed by minghai&sunpeng)
     reg_gpio_func_mux(rx_pin) = (reg_gpio_func_mux(rx_pin) & mask) | val;
 

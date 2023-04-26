@@ -131,8 +131,7 @@ typedef enum {
     ABT_MASK = BIT(3),
 } dma_irq_mask_e;
 
-typedef struct
-{
+typedef struct {
     unsigned int dst_req_sel : 5;    /* DstReqSel   :8:4 */
     unsigned int src_req_sel : 5;    /* SrcReqSel   :13:9 */
     unsigned int dst_addr_ctrl : 2;  /* DstAddrCtrl :15:14 0:increment address 1: decrement address 2: fixed address */
@@ -149,8 +148,7 @@ typedef struct
     unsigned int auto_en : 1;        /* auto_en : 31 */
 } dma_config_t;
 
-typedef struct
-{
+typedef struct {
     unsigned int dma_chain_ctl;
     unsigned int dma_chain_src_addr;
     unsigned int dma_chain_dst_addr;

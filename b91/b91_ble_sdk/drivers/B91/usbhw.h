@@ -60,7 +60,6 @@
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
-
 typedef enum {
     USB_IRQ_RESET_MASK = BIT(0),
     USB_IRQ_250US_MASK = BIT(1),

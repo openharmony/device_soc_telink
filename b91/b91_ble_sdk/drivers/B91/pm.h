@@ -50,7 +50,6 @@
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
-
 /********************************************************************************************************
  *											internal
  *******************************************************************************************************/
@@ -199,7 +198,7 @@ typedef struct {
 typedef struct {
     unsigned char is_pad_wakeup;
     unsigned char wakeup_src;
-        /* The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0 */
+    /* The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0 */
     unsigned char mcu_status;
     unsigned char rsvd;
 } pm_status_info_s;

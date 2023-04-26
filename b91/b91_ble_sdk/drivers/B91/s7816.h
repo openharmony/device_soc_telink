@@ -50,7 +50,6 @@
 #include "stimer.h"
 #include "uart.h"
 
-
 #define s7816_en(uart_num)               uart_rtx_en(uart_num)
 #define s7816_set_rtx_pin(s7816_trx_pin) uart_set_rtx_pin(s7816_trx_pin)
 

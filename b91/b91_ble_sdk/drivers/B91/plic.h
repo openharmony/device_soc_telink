@@ -61,9 +61,7 @@
 #include "compiler.h"
 #include "reg_include/register_b91.h"
 
-
-typedef struct
-{
+typedef struct {
     unsigned char preempt_en;
     unsigned char threshold;
 } preempt_config_t;

@@ -175,7 +175,6 @@ void aes_set_em_base_addr(unsigned int addr)
  */
 static inline void aes_wait_done(void)
 {
-    while (FLD_AES_START == (reg_aes_mode & FLD_AES_START))
-    {
-	}
+    while (FLD_AES_START == (reg_aes_mode & FLD_AES_START)) {
+    }
 }

@@ -223,8 +223,7 @@ typedef enum {
 /**
  * @brief command table for special registers
  */
-typedef struct tbl_cmd_set_t
-{
+typedef struct tbl_cmd_set_t {
     unsigned int adr;
     unsigned char dat;
     unsigned char cmd;

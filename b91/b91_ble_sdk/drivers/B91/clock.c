@@ -299,7 +299,7 @@ void clock_init(sys_pll_clk_e pll, sys_clock_src_e src, sys_pll_div_to_cclk_e cc
     /*
     * hclk and pclk should be set ahead of cclk, ensure the hclk and pclk not exceed the max clk
     * (cclk max 96M, hclk max 48M, pclk max 24M)
-    */ 
+    */
     if (CCLK_DIV1_TO_HCLK == hclk_div) {
         write_reg8(0x1401d8, read_reg8(0x1401d8) & ~BIT(2));
     } else {

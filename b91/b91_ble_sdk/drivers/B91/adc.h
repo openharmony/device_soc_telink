@@ -60,7 +60,6 @@
 #include "gpio.h"
 #include "reg_include/register_b91.h"
 
-
 typedef enum {
     ADC_VREF_0P9V = 0x01,
     ADC_VREF_1P2V = 0x02,

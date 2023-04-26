@@ -49,7 +49,6 @@
 #include "compiler.h"
 #include "reg_include/mdec_reg.h"
 
-
 /**
  * @brief		This function is used to initialize the MDEC module,include clock setting and input IO select.
  * @param[in]	pin	- mdec pin.

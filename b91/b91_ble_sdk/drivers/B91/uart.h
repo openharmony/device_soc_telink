@@ -61,7 +61,6 @@
 #include "reg_include/register_b91.h"
 #include "timer.h"
 
-
 extern unsigned char uart_rx_byte_index[2];
 extern unsigned char uart_tx_byte_index[2];
 
