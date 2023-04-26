@@ -260,7 +260,7 @@ static inline void adc_set_resolution(adc_res_e res)
  */
 static inline void adc_set_tsample_cycle(adc_sample_cycle_e sample_cycle)
 {
-    //ana_ee<7:4> is reserved, so no need care its value
+    // ana_ee<7:4> is reserved, so no need care its value
     analog_write_reg8(areg_adc_tsmaple_m, sample_cycle);  // optimize, <7:4> not cared
 }
 /**

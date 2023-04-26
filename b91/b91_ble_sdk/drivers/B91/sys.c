@@ -83,7 +83,7 @@ void sys_init(power_mode_e power_mode, vbat_type_e vbat_v)
                                           // 11:		Y			Y			N			N
     analog_write_reg8(0x0b, 0x3b);        // poweron_dft:	0x7b -> 0x3b.
         // <6>:mscn_pullup_res_enb, default:1, 0 enable 1M pullup resistor for mscn PAD
-    analog_write_reg8(0x05, analog_read_reg8(0x05) & (~BIT(3)));  //poweron_dft:	0x02 -> 0x02.
+    analog_write_reg8(0x05, analog_read_reg8(0x05) & (~BIT(3)));  // poweron_dft:	0x02 -> 0x02.
         // <3>:24M_xtl_pd,		default:0,->0 Power up 24MHz XTL oscillator.
     analog_write_reg8(0x06, analog_read_reg8(0x06) & ~(BIT(0) | vbat_v | BIT(6) | BIT(7)));  // poweron_dft:
                                                                                              // 0xff -> 0x36 or 0x3e.
@@ -107,7 +107,7 @@ void sys_init(power_mode_e power_mode, vbat_type_e vbat_v)
     // code running time between
     // Xtal manual on_off and xo_ready check can be used as Xtal be stable timimg.
     while (BIT(7) != (analog_read_reg8(0x88) & (BIT(7))))
-        ;  //<7>: xo_ready_ana, R, aura xtl ready signal.
+        ;  // <7>: xo_ready_ana, R, aura xtl ready signal.
 
     // When bbpll_ldo_trim is set to the default voltage value, when doing high and low temperature stability tests,
     // it is found that

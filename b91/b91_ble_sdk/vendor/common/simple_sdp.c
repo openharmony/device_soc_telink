@@ -98,7 +98,7 @@ void app_service_discovery(void)
     if (master_sdp_pending && host_att_discoveryService(master_sdp_pending, db16, ATT_DB_UUID16_NUM, db128,
                                                         ATT_DB_UUID128_NUM) == BLE_SUCCESS)  // service discovery OK
     {
-        cur_sdp_device.char_handle[2] = blm_att_findHandleOfUuid128(db128, my_OtaUUID);  //OTA
+        cur_sdp_device.char_handle[2] = blm_att_findHandleOfUuid128(db128, my_OtaUUID);  // OTA
         cur_sdp_device.char_handle[3] = blm_att_findHandleOfUuid16(
             db16, CHARACTERISTIC_UUID_HID_REPORT,
             HID_REPORT_ID_CONSUME_CONTROL_INPUT | (HID_REPORT_TYPE_INPUT << 8));  // consume report(media key report)

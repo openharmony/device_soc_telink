@@ -63,9 +63,8 @@ typedef enum {
 /*
  * smp parameter need save to flash.
  */
-typedef struct
-{
-    //0x00
+typedef struct {
+    // 0x00
     u8 flag;
     u8 role_dev_idx;  // [7]:1 for master, 0 for slave;   [2:0] slave device index
 
@@ -90,9 +89,8 @@ typedef struct
     u8 peer_irk[16];
 
     // 0x40
-    u8 local_irk
-        [16];  // local_csrk can be generated based on this key, to save flash area
-               // (delete this note at last, customers can not see it)
+    u8 local_irk[16];  // local_csrk can be generated based on this key, to save flash area
+                       // (delete this note at last, customers can not see it)
     // 0x50
     u16 ediv;     // 2
     u8 rsvd[14];  // 14  peer_csrk info address if needed(delete this note at last, customers can not see it)

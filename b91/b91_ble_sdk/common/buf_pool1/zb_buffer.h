@@ -57,23 +57,23 @@
 
 typedef struct
 {
-    u8 id;  //primitive id
+    u8 id;  // primitive id
     u8 handle;
     s8 rssi;
     u8 used : 1;
     u8 macTxFifo : 1;
     u8 mgmtLeave : 1;
-    u8 active : 1;   //only for mac command buffer
-    u8 pending : 1;  //only for endDev, if parent has pending data for me
+    u8 active : 1;   // only for mac command buffer
+    u8 pending : 1;  // only for endDev, if parent has pending data for me
     u8 resvHdr : 3;
-} zb_buf_hdr_t;  //4
+} zb_buf_hdr_t;  // 4
 
 /**
    Packet buffer
  */
 #define ZB_BUFFER_DEBUG 0
 
-#define TL_RXPRIMITIVEHDR 32  //To use the in buffer as RX buffer, needs to preallocate primitive fields
+#define TL_RXPRIMITIVEHDR 32  // To use the in buffer as RX buffer, needs to preallocate primitive fields
 
 #define ZB_BUF_SIZE (160 + TL_RXPRIMITIVEHDR)
 
@@ -122,7 +122,7 @@ typedef struct
 #if ZB_BUFFER_DEBUG
     u32 rsv_fill[2];
 #endif
-    zb_buf_t pool[ZB_BUF_POOL_NUM];  //shall be allocated at the last field in the structure of the zb_buf_pool_t
+    zb_buf_t pool[ZB_BUF_POOL_NUM];  // shall be allocated at the last field in the structure of the zb_buf_pool_t
 } zb_buf_pool_t;
 
 extern u8 ZB_BUF_POOL_SIZE;

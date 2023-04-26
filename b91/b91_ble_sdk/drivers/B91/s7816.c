@@ -120,8 +120,8 @@ void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d)
     unsigned short div;
     unsigned char bwpc;
     s7816_clock = clock;
-    s7816_rst_time = 40000 / clock;  //us
-    s7816_atr_time = 40000 / clock;  //us
+    s7816_rst_time = 40000 / clock;  // us
+    s7816_atr_time = 40000 / clock;  // us
 
     int baud = clock * 1000000 * d / f;
     if (clock == S7816_4MHZ) {

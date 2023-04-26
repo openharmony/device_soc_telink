@@ -98,12 +98,12 @@ void timer_set_mode(timer_type_e type, timer_mode_e mode)
 {
     switch (type) {
         case TIMER0:
-            reg_tmr_sta = FLD_TMR_STA_TMR0;  //clear irq status
+            reg_tmr_sta = FLD_TMR_STA_TMR0;  // clear irq status
             reg_tmr_ctrl0 &= (~FLD_TMR0_MODE);
             reg_tmr_ctrl0 |= mode;
             break;
         case TIMER1:
-            reg_tmr_sta = FLD_TMR_STA_TMR1;  //clear irq status
+            reg_tmr_sta = FLD_TMR_STA_TMR1;  // clear irq status
             reg_tmr_ctrl0 &= (~FLD_TMR1_MODE);
             reg_tmr_ctrl0 |= (mode << 4);
             break;

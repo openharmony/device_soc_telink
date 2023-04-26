@@ -80,7 +80,7 @@
  * @brief		This define for ble debug the effect of rx_dly.
  * 				when this function turn on the time of rx_dly will shorten 6.3us,
  */
-#define RF_RX_SHORT_MODE_EN 1  //In order to debug whether the problem is caused by rx_dly.
+#define RF_RX_SHORT_MODE_EN 1  // In order to debug whether the problem is caused by rx_dly.
 
 /******************************************************FOR ESB********************************************************/
 
@@ -491,7 +491,7 @@ static inline void rf_set_tx_dma_fifo_num(unsigned char fifo_num)
  */
 static inline void rf_set_tx_dma_fifo_size(unsigned short fifo_byte_size)
 {
-    reg_rf_bb_tx_size = fifo_byte_size >> 4;  //tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}
+    reg_rf_bb_tx_size = fifo_byte_size >> 4;  // tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}
     // in this setting the max data in one dma buffer is 0x20<<4.
     // And the The product of fifo_dep and bytesize cannot exceed 0xfff.
 }

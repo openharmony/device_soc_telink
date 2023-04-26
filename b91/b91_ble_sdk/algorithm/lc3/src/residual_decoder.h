@@ -13,6 +13,6 @@ LC3DEC_Error dec_residual_fix(Word16 *X_q, Word16 N_E, Word16 *resBits, Word16 *
 
 LC3DEC_Error dec_residual(Word16 *X_q, Word16 N_E, Word16 *resBits, Word16 *nResBits, double *X_q_residual);
 
-#endif  //#if (ALG_LC3_ENABLE)
+#endif  // #if (ALG_LC3_ENABLE)
 
 #endif

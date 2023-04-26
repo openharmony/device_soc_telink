@@ -161,14 +161,14 @@ _attribute_ram_code_sec_ void plic_isr(func_isr_t func, irq_source_e src)
 {
 
 #if SUPPORT_PFT_ARCH
-    core_save_nested_context();     //save csr and  Enable interrupt enable
-    func();                         //irq handler
-    core_restore_nested_context();  //  restore csr and disable interrupt enable
-    plic_interrupt_complete(src);   //complete interrupt
-    fence_iorw;                     //fence instructio
+    core_save_nested_context();     // save csr and  Enable interrupt enable
+    func();                         // irq handler
+    core_restore_nested_context();  // restore csr and disable interrupt enable
+    plic_interrupt_complete(src);   // complete interrupt
+    fence_iorw;                     // fence instructio
 #else
-    func();                        //irq handler
-    plic_interrupt_complete(src);  //complete interrupt
+    func();                        // irq handler
+    plic_interrupt_complete(src);  // complete interrupt
 #endif
 }
 

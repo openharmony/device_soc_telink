@@ -3,7 +3,7 @@
 #include "../inc/lc3_enc.h"
 #if (ALG_LC3_ENABLE)
 #include <stdlib.h>
-//#include<stdio.h>
+// #include<stdio.h>
 #include "../inc/config.h"
 #include "basic_op.h"
 #include "common_func.h"
@@ -112,5 +112,5 @@ void bitstream_encoder(LC3_ENC_STRU *enc,                                       
                        UWord8 *bytes                            // o: bitstream
 );
 #endif  // FIXED_POINT
-#endif  //#if  (ALG_LC3_ENABLE)
+#endif  // #if  (ALG_LC3_ENABLE)
 #endif

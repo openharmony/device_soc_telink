@@ -74,14 +74,14 @@ my_fifo_t *myudb_print_fifo = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //		USB device handling
-//-----------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------
 enum {
     MYUDB_USB_IRQ_SETUP_REQ = 0,
     MYUDB_USB_IRQ_DATA_REQ,
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-//-----------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------
 void myudb_usb_send_response(void)
 {
     u16 n;
@@ -285,7 +285,7 @@ _attribute_ram_code_ void usb_send_status_pkt(u8 status, u8 buffer_num, u8 *pkt,
 
 _attribute_ram_code_ void usb_send_str_data(char *str, u8 *ph, int n)
 {
-    //	if (myudb_print_fifo_full()) return;		//skip if overflow
+    //	if (myudb_print_fifo_full()) return;		// skip if overflow
     u32 rie = core_interrupt_disable();
     u8 *ps = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
     ;
@@ -339,11 +339,11 @@ _attribute_ram_code_ void myudb_to_usb()
 
     if (usbhw_is_ep_busy(MYUDB_EDP_IN_HCI))
         return;
-    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr))  //first packet
+    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr))  // first packet
     {
         p = myudb_print_fifo->p + (myudb_print_fifo->rptr++ & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
         ;
-        //len = p[1] + 3;
+        // len = p[1] + 3;
         len = p[0] + p[1] * 256;
         p += 4;
     }
@@ -393,7 +393,7 @@ int usb_send_str_int(char *str, int w)
     } while (u);
 
     u8 *pd = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
-    len = n + 2 + 1 + 1 + int_len;  //str_len + '0x20' + symbol + int_len
+    len = n + 2 + 1 + 1 + int_len;  // str_len + '0x20' + symbol + int_len
     *pd++ = len;
     *pd++ = len >> 8;
 
@@ -420,7 +420,7 @@ int usb_send_str_int(char *str, int w)
 _attribute_ram_code_ int myudb_usb_get_packet(u8 *p)
 {
     if (reg_usb_irq & USB_ENDPOINT_BULK_OUT_FLAG) {
-        //clear interrupt flag
+        // clear interrupt flag
         reg_usb_irq = USB_ENDPOINT_BULK_OUT_FLAG;
 
         // read data
@@ -429,7 +429,7 @@ _attribute_ram_code_ int myudb_usb_get_packet(u8 *p)
         for (int i = 0; i < n; i++) {
             p[myudb.cmd_len++] = reg_usb_ep_dat(MYUDB_EDP_OUT_HCI);
         }
-        reg_usb_ep_ctrl(MYUDB_EDP_OUT_HCI) = 1;  //ACK
+        reg_usb_ep_ctrl(MYUDB_EDP_OUT_HCI) = 1;  // ACK
         if (n < 64) {
             n = myudb.cmd_len;
             myudb.cmd_len = 0;
@@ -481,7 +481,7 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
             for (int i = 0; i < n; i++) {
                 rsp[i + 6] = analog_read_reg8(adr + i);
             }
-        } else if (type == 2 || type == 3)  //flash
+        } else if (type == 2 || type == 3)  // flash
         {
             flash_read_page(adr, n, rsp + 6);
         }
@@ -497,10 +497,10 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
         u32 adr = p[2] | (p[3] << 8) | (p[4] << 16) | (p[5] << 24);
         int n = len - 6;
 
-        if (type == 0)  //RAM
+        if (type == 0)  // RAM
         {
             memcpy((void *)adr, p + 6, n);
-        } else if (type == 1)  //Analog Register
+        } else if (type == 1)  // Analog Register
         {
             for (int i = 0; i < n; i++) {
                 analog_write_reg8(adr + i, p[i + 6]);
@@ -532,8 +532,8 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
 
             myudb_print_fifo->rptr = myudb_print_fifo->wptr;
 
-            //extern void hci_txfifo_set_rptr_reference (int idx);
-            //hci_txfifo_set_rptr_reference (1);
+            // extern void hci_txfifo_set_rptr_reference (int idx);
+            // hci_txfifo_set_rptr_reference (1);
 
             ret = MYHCI_FW_DOWNLOAD;
         }
@@ -572,7 +572,7 @@ _attribute_ram_code_ int myudb_hci_cmd_from_usb(void)
 /////////////////////////////////////////////////////////////////////////
 void udb_usb_handle_irq(void)
 {
-    if (1) {  //  do nothing when in suspend. Maybe not unnecessary
+    if (1) {  // do nothing when in suspend. Maybe not unnecessary
         u32 irq = usbhw_get_ctrl_ep_irq();
         if (irq & FLD_CTRL_EP_IRQ_SETUP) {
             usbhw_clr_ctrl_ep_irq(FLD_CTRL_EP_IRQ_SETUP);
@@ -591,7 +591,7 @@ void udb_usb_handle_irq(void)
         }
 
         if (reg_usb_irq_mask & FLD_USB_IRQ_RESET_O) {
-            reg_usb_irq_mask |= FLD_USB_IRQ_RESET_O;  //Clear USB reset flag
+            reg_usb_irq_mask |= FLD_USB_IRQ_RESET_O;  // Clear USB reset flag
             myudb_usb_bulkout_ready();
         }
         myudb.stall = 0;
@@ -623,8 +623,8 @@ void myudb_usb_init(u16 id, void *p_print)
     memset(&myudb, 0, sizeof(myudb));
 
     myudb.id = id;
-    //reg_usb_mask = BIT(7);			//audio in interrupt enable
-    //reg_irq_mask |= FLD_IRQ_IRQ4_EN;
+    // reg_usb_mask = BIT(7);			// audio in interrupt enable
+    // reg_irq_mask |= FLD_IRQ_IRQ4_EN;
     reg_usb_ep_max_size = (128 >> 2);
     reg_usb_ep8_send_thre = 0x40;
     reg_usb_ep8_send_max = 128 >> 3;
@@ -632,12 +632,12 @@ void myudb_usb_init(u16 id, void *p_print)
     reg_usb_ep_buf_addr(MYUDB_EDP_OUT_HCI) = 192;
     reg_usb_ep_buf_addr(MYUDB_EDP_IN_VCD) = 0;
     reg_usb_ep8_fifo_mode = 1;
-    reg_usb_mdev &= ~BIT(3);  //vendor command: bRequest[7] = 0
+    reg_usb_mdev &= ~BIT(3);  // vendor command: bRequest[7] = 0
 
     usbhw_enable_manual_interrupt(FLD_CTRL_EP_AUTO_STD | FLD_CTRL_EP_AUTO_DESC);
 
     myudb_usb_bulkout_ready();
-    usbhw_data_ep_ack(MYUDB_EDP_IN_HCI);  //add log 1st log info
+    usbhw_data_ep_ack(MYUDB_EDP_IN_HCI);  // add log 1st log info
 }
 
 _attribute_ram_code_ void usb_send_upper_tester_result(u8 err)
@@ -657,4 +657,4 @@ _attribute_ram_code_ void usb_send_upper_tester_result(u8 err)
     core_restore_interrupt(rie);
 }
 
-#endif  ///ending of #if(VCD_EN || DUMP_STR_EN)
+#endif  // ending of #if(VCD_EN || DUMP_STR_EN)
