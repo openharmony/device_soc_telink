@@ -239,7 +239,7 @@ typedef enum {
     AUDIO_RATE_LT_L1,
 } audio_rate_match_e;
 
-/*[0,+43], 1 dB steps*/
+/* [0,+43], 1 dB steps */
 typedef enum {
     CODEC_IN_D_GAIN_0_DB = 0,
     CODEC_IN_D_GAIN_4_DB = 4,

@@ -12,13 +12,13 @@
 extern int Nms[2];
 /* mdct */
 #ifndef FIXED_POINT
-/* W_10ms_NF for MDCT*/
+/* W_10ms_NF for MDCT */
 extern double w_0_N80[130];
 extern double w_0_N160[260];
 extern double w_0_N240[390];
 extern double w_0_N320[520];
 extern double w_0_N480[780];
-/* W_7.5ms_NF for MDCT*/
+/* W_7.5ms_NF for MDCT */
 extern double w_1_N60[106];
 extern double w_1_N120[212];
 extern double w_1_N180[318];
@@ -38,7 +38,7 @@ extern Word16 RotVector_160[2 * (160 - 20)];
 extern Word16 RotVector_330[330];
 // extern  Word16 RotVector_220[220];
 #endif
-/* W_10ms_NF for MDCT*/
+/* W_10ms_NF for MDCT */
 extern Word16 w_0_N80[130];
 extern Word16 w_0_N160[260];
 #ifndef LC3_16K_ONLY
@@ -46,7 +46,7 @@ extern Word16 w_0_N240[390];
 extern Word16 w_0_N320[520];
 extern Word16 w_0_N480[780];
 #endif
-/* W_7.5ms_NF for MDCT*/
+/* W_7.5ms_NF for MDCT */
 extern Word16 w_1_N60[106];
 extern Word16 w_1_N120[212];
 #ifndef LC3_16K_ONLY
@@ -59,7 +59,7 @@ extern Word16 *w_Nms_NF_all[2][5];
 #else
 extern Word16 *w_Nms_NF_all[2][2];
 #endif
-/* 0x5a82799a*/
+/* 0x5a82799a */
 #define TWIDDLE (0x5a82)
 
 /* twiddle for dct_IV */
@@ -82,7 +82,7 @@ extern Word16 *mdct_twiddle_all[2][5];
 #else
 extern Word16 *mdct_twiddle_all[2][2];
 #endif
-/* sin_twiddle for dct_IV*/
+/* sin_twiddle for dct_IV */
 extern Word16 mdct_sin_twiddle_161[];
 extern Word16 mdct_sin_twiddle_181[];
 extern Word16 mdct_sin_twiddle_241[];
@@ -230,7 +230,7 @@ extern Word16 ac_tns_coef_cumfreq[8][17];
 extern Word32 tnsAcfWindow[8];
 extern Word16 tnsQuantThr[16];
 extern Word16 tnsQuantPts[17];
-/* Long Term Postfiltering*/
+/* Long Term Postfiltering */
 extern Word16 resamp_params[5][4];
 #ifdef FIXED_POINT
 /* extern  Word16 tab_resamp_filter_8k_16k[239];// Q_16k = 15,Q_8k =14

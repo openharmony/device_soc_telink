@@ -115,7 +115,7 @@ inline Word16 lshr(Word16 var1, Word16 var2)
 	// printf("\noutput=%d",__nds__srl16(var1, var2));
     return (Word16)__nds__srl16(var1, var2);
 
-}*/
+} */
 inline Word32 L_add(Word32 L_var1, Word32 L_var2)
 {
     return __nds__kaddw(L_var1, L_var2);
@@ -305,7 +305,7 @@ inline Word32 mac_16_16_32(Word32 vin, Word16 vin1, Word16 vin2)
     Word32 vout = vin + (Word32)vin1 * (Word32)vin2;
     return vout;
 }
-/* 32-bit logical left shift or arithmetic right shift*/
+/* 32-bit logical left shift or arithmetic right shift */
 inline Word32 L_shl(Word32 L_var1, Word16 var2)
 {
 

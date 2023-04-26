@@ -161,14 +161,14 @@ typedef enum {
  *  @brief  Define power list of RF.
  */
 typedef enum {
-    /*VBAT*/
+    /* VBAT */
     RF_POWER_P9p11dBm = 63, /**<  9.1 dbm */
     RF_POWER_P8p57dBm = 45, /**<  8.6 dbm */
     RF_POWER_P8p05dBm = 35, /**<  8.1 dbm */
     RF_POWER_P7p45dBm = 27, /**<  7.5 dbm */
     RF_POWER_P6p98dBm = 23, /**<  7.0 dbm */
     RF_POWER_P5p68dBm = 18, /**<  6.0 dbm */
-    /*VANT*/
+    /* VANT */
     RF_POWER_P4p35dBm = BIT(7) | 63, /**<   4.4 dbm */
     RF_POWER_P3p83dBm = BIT(7) | 50, /**<   3.8 dbm */
     RF_POWER_P3p25dBm = BIT(7) | 41, /**<   3.3 dbm */
@@ -197,14 +197,14 @@ typedef enum {
  *  @brief  Define power index list of RF.
  */
 typedef enum {
-    /*VBAT*/
+    /* VBAT */
     RF_POWER_INDEX_P9p11dBm, /**< power index of 9.1 dbm */
     RF_POWER_INDEX_P8p57dBm, /**< power index of 8.6 dbm */
     RF_POWER_INDEX_P8p05dBm, /**< power index of 8.1 dbm */
     RF_POWER_INDEX_P7p45dBm, /**< power index of 7.5 dbm */
     RF_POWER_INDEX_P6p98dBm, /**< power index of 7.0 dbm */
     RF_POWER_INDEX_P5p68dBm, /**< power index of 6.0 dbm */
-    /*VANT*/
+    /* VANT */
     RF_POWER_INDEX_P4p35dBm, /**< power index of 4.4 dbm */
     RF_POWER_INDEX_P3p83dBm, /**< power index of 3.8 dbm */
     RF_POWER_INDEX_P3p25dBm,
@@ -314,9 +314,9 @@ static inline void rf_clr_irq_mask(rf_irq_e mask)
 }
 
 /**
- *	@brief	  	This function serves to judge whether it is in a certain state.
- *	@param[in]	mask 	- RX/TX irq status.
- *	@return	 	Yes: 1, NO: 0.
+ * @brief	  	This function serves to judge whether it is in a certain state.
+ * @param[in]	mask 	- RX/TX irq status.
+ * @return	 	Yes: 1, NO: 0.
  */
 static inline unsigned short rf_get_irq_status(rf_irq_e status)
 {
@@ -324,12 +324,12 @@ static inline unsigned short rf_get_irq_status(rf_irq_e status)
 }
 
 /**
- *@brief	This function serves to clear the Tx/Rx finish flag bit.
+ * @brief	This function serves to clear the Tx/Rx finish flag bit.
  *			After all packet data are sent, corresponding Tx finish flag bit
  *			will be set as 1.By reading this flag bit, it can check whether
  *			packet transmission is finished. After the check, it is needed to
  *			manually clear this flag bit so as to avoid misjudgment.
- *@return	none.
+ * @return	none.
  */
 static inline void rf_clr_irq_status(rf_irq_e status)
 {

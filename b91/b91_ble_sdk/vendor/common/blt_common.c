@@ -98,9 +98,9 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
 }
 
 /*
- *Kite: 	VVWWXX38C1A4YYZZ
- *Vulture:  VVWWXXD119C4YYZZ
- *Eagle:  	VVWWXX
+ * Kite: 	VVWWXX38C1A4YYZZ
+ * Vulture:  VVWWXXD119C4YYZZ
+ * Eagle:  	VVWWXX
  * public_mac:
  * 				Kite 	: VVWWXX 38C1A4
  * 				Vulture : VVWWXX D119C4

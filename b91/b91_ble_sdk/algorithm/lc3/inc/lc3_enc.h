@@ -14,7 +14,7 @@
 #include "nds_filtering_math.h"
 #endif  // DEBUG
 
-//#define EN_SPEC_INTERMEDIATE
+// #define EN_SPEC_INTERMEDIATE
 /*! LC3 encoder error codes. */
 typedef enum { LC3ENC_OK = 0, LC3ENC_ERROR_INIT = 1, LC3ENC_ERROR_GETPARA, LC3ENC_ERROR_SETPARA } LC3ENC_Error;
 
@@ -32,7 +32,7 @@ typedef struct LC3_ENC
     Word32 len_12k8;
     Word32 D_LTPF;
     double *x_12k8_HP_last;    // input data of last frame
-    double *x_12k8_HP_D_last;  //
+    double *x_12k8_HP_D_last;  
     double *x_i_fr_last;
     double *x_6k4_last;
     Word16 T_prev;  // pirch_lag estimated in previous frame
@@ -54,7 +54,7 @@ typedef struct LC3_ENC
 #else
 
     /* mdct */
-    //kiss_fft_cfg kiss_fft_state;
+    // kiss_fft_cfg kiss_fft_state;
     kiss_fft_state16_ptr kiss_fft_state;
     const Word16 *mdct_twiddle;
     const Word16 *mdct_sin_twiddle;
@@ -86,7 +86,7 @@ typedef struct LC3_ENC
     Word32 stage1;
     Word32 stage2;
     Word16 x_12k8_last[128];         // x_12k8 of last frame
-    Word16 x_12k8_D_buf[232 + 130];  //x_12k8_D_buf[232] is x_12k8_D[0]
+    Word16 x_12k8_D_buf[232 + 130];  // x_12k8_D_buf[232] is x_12k8_D[0]
     Word16 x_12k8_D_last_exp;
     Word16 x_12k8_D_last_3[3];
     Word16 x_6k4_last[114 + 64];

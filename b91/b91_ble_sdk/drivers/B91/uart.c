@@ -192,7 +192,7 @@ void uart_init(uart_num_e uart_num, unsigned short div, unsigned char bwpc, uart
         reg_uart_ctrl1(uart_num) &= (~FLD_UART_PARITY_ENABLE);  // disable parity function
     }
 
-    //stop bit config
+    // stop bit config
     reg_uart_ctrl1(uart_num) &= (~FLD_UART_STOP_SEL);
     reg_uart_ctrl1(uart_num) |= stop_bit;
 }
@@ -601,7 +601,7 @@ void uart_cts_config(uart_num_e uart_num, uart_cts_pin_e cts_pin, unsigned char 
 {
     uart_set_cts_pin(cts_pin);
 
-    gpio_input_en(cts_pin);  //enable input
+    gpio_input_en(cts_pin);  // enable input
 
     if (cts_parity) {
         reg_uart_ctrl1(uart_num) |= FLD_UART_TX_CTS_POLARITY;

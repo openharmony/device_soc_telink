@@ -54,7 +54,7 @@
 /* Note: user can't modify this value,and this value must 4 byte aligned
  *  if use BLUETOOTH_VER_5_2 this value is 680 other than 572
  */
-#define ADV_SET_PARAM_LENGTH 680  //572
+#define ADV_SET_PARAM_LENGTH 680  // 572
 
 #if 0
 /* if use legacy ADV, primary ADV packet maximum length is 44 */
@@ -203,7 +203,7 @@ ble_sts_t blc_ll_removeAdvSet(u8 adv_handle);
  */
 ble_sts_t blc_ll_clearAdvSets(void);
 
-//only for Debug
+// only for Debug
 ble_sts_t blc_ll_setAuxAdvChnIdxByCustomers(u8 aux_chn);
 
 #endif /* LL_EXT_ADV_H_ */

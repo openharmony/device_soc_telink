@@ -216,8 +216,8 @@ typedef enum {
  * 			the bypass is closed, and the vbat voltage passes through an LDO to supply power to the chip.
  */
 typedef enum {
-    VBAT_MAX_VALUE_GREATER_THAN_3V6 = 0x00, /*VBAT may be greater than 3.6V. */
-    VBAT_MAX_VALUE_LESS_THAN_3V6 = BIT(3),  /*VBAT must be below 3.6V. */
+    VBAT_MAX_VALUE_GREATER_THAN_3V6 = 0x00, /* VBAT may be greater than 3.6V. */
+    VBAT_MAX_VALUE_LESS_THAN_3V6 = BIT(3),  /* VBAT must be below 3.6V. */
 } vbat_type_e;
 
 /**

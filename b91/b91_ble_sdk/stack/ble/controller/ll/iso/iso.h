@@ -97,7 +97,7 @@ ble_sts_t blc_ll_initBisTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
  * @return     status, 0x00:  succeed
  * 					   other: failed
  */
-//ble_sts_t	blc_ll_initBisRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
+// ble_sts_t	blc_ll_initBisRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
 ble_sts_t blc_ll_initBisRxFifo(u8 *pRxbuf, int full_size, int fifo_number, u8 bis_sync_num);
 
 /**

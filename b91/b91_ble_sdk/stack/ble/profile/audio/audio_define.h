@@ -77,7 +77,7 @@ typedef enum {
     BLC_AUDIO_EREPEAT,
     BLC_AUDIO_ESTATUS,
     BLC_AUDIO_ELENGTH,
-    BLC_AUDIO_ENOSUPP,  //not supperted
+    BLC_AUDIO_ENOSUPP,  // not supperted
     BLC_AUDIO_ENOREADY,
     BLC_AUDIO_ENOOBJECT,
 } BLC_AUDIO_ERROR_ENUM;

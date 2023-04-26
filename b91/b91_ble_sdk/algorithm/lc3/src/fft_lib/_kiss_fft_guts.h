@@ -107,7 +107,7 @@ struct kiss_fft_state{
         DIVSCALAR((c).i, div);                                                                                        \
     } while (0)
 
-#else /* not FIXED_POINT*/
+#else /* not FIXED_POINT */
 
 #define S_MUL(a, b) ((a) * (b))
 #define C_MUL(m, a, b)                                                                                                \

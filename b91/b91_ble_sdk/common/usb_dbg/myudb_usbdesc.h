@@ -263,7 +263,7 @@ enum USB_Feature_Selectors_t {
 #define LANGUAGE_ID_ENG                  0x0409
 
 /** \name USB Configuration Descriptor Attribute Masks */
-//@{
+// @{
 /** Mask for the reserved bit in the Configuration Descriptor's \c ConfigAttributes field, which must be set on all
  *  devices for historial purposes.
  */

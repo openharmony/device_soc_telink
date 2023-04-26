@@ -491,7 +491,7 @@ typedef enum {
     ADV_HANDLE3 = 0x03,
 } adv_handle_t;
 
-/* Advertising Event Properties mask*/
+/* Advertising Event Properties mask */
 typedef enum {
     ADVEVT_PROP_MASK_CONNECTABLE = BIT(0),
     ADVEVT_PROP_MASK_SCANNABLE = BIT(1),
@@ -509,7 +509,7 @@ typedef enum {
 #define ADVEVT_PROP_MASK_LEGACY_CONNECTABLE_SCANNABLE                                                                 \
     (0x0013)  // ADVEVT_PROP_MASK_LEGACY | ADVEVT_PROP_MASK_CONNECTABLE | ADVEVT_PROP_MASK_SCANNABLE
 
-/* Advertising Event Properties type*/
+/* Advertising Event Properties type */
 typedef enum {
     ADV_EVT_PROP_LEGACY_CONNECTABLE_SCANNABLE_UNDIRECTED = 0x0013,  //  0001 0011'b 	ADV_IND
     ADV_EVT_PROP_LEGACY_CONNECTABLE_DIRECTED_LOW_DUTY = 0x0015,     //  0001 0101'b		ADV_DIRECT_IND(low duty cycle)
@@ -722,7 +722,7 @@ typedef struct
     u16 Period;
 } hci_le_setExtScanEnable_cmdParam_t;
 
-/* Filter_Duplicates for Extended Scan*/
+/* Filter_Duplicates for Extended Scan */
 typedef enum {
     DUPE_FLTR_DISABLE = 0x00,
     DUPE_FLTR_ENABLE = 0x01,

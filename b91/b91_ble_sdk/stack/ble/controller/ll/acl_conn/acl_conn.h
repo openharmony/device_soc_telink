@@ -51,7 +51,7 @@
  * @param[in]  none.
  * @return     The number of currently connected ACLs.
  */
-int blc_ll_getCurrentConnectionNumber(void);  //master + slave connection number
+int blc_ll_getCurrentConnectionNumber(void);  // master + slave connection number
 
 /**
  * @brief      This function is used to obtain the maximum number of connections that can be supported.
@@ -65,14 +65,14 @@ int blc_ll_getSupportedMaxConnNumber(void);
  * @param[in]  none.
  * @return     The number of currently connected master ACLs.
  */
-int blc_ll_getCurrentMasterRoleNumber(void);  //master role number
+int blc_ll_getCurrentMasterRoleNumber(void);  // master role number
 
 /**
  * @brief      This function is used to obtain the number of ACL connections of the Slave role.
  * @param[in]  none.
  * @return     The number of currently connected slave ACLs.
  */
-int blc_ll_getCurrentSlaveRoleNumber(void);  //slave  role number
+int blc_ll_getCurrentSlaveRoleNumber(void);  // slave  role number
 
 /**
  * @brief      This function is used to configure the number of master and slave connections that the protocol stack can support.

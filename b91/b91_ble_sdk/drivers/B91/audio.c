@@ -898,7 +898,7 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                     ;
             }
 
-            if (match == AUDIO_RATE_EQUAL)  //44099.9
+            if (match == AUDIO_RATE_EQUAL)  // 44099.9
             {
                 audio_set_i2s_clk(8, 215);
                 audio_set_i2s_bclk(0);

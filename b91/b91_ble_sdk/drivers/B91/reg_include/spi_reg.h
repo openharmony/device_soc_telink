@@ -81,7 +81,7 @@ enum {
     FLD_SPI_MASTER_MODE = BIT(7),
 };
 
-/*the clock freq ratio between the source_clock and spi_clock.master only
+/* the clock freq ratio between the source_clock and spi_clock.master only
  * spi_clock=source_clock/((spi_clk_div+1)*2)
  * spi_clk_div=reg_hspi_mode1[7:0]. max_value=0xff,spi_clock==source_clock
  */

@@ -221,7 +221,7 @@ void rf_start_fsm(fsm_mode_e mode, void *tx_addr, unsigned int tick);
  */
 void rf_switchPhyTestMode(rf_mode_e mode);
 
-//TODO: merge into driver
+// TODO: merge into driver
 #define STOP_RF_STATE_MACHINE (REG_ADDR8(0x80140a00) = 0x80)
 enum {
     FLD_RF_SN = BIT(0),
