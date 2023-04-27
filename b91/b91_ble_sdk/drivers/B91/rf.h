@@ -65,10 +65,10 @@
  *  @brief According to the packet format find the information of packet through offset.
  */
 
-#define 	rf_pri_tpll_dma_rx_offset_crc(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+5)  //data len:2
-#define 	rf_pri_tpll_dma_rx_offset_time_stamp(p)			(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+7)  //data len:4
-#define 	rf_pri_tpll_dma_rx_offset_freq_offset(p)		(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+11) //data len:2
-#define 	rf_pri_tpll_dma_rx_offset_rssi(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+13) //data len:1, signed
+#define 	rf_pri_tpll_dma_rx_offset_crc(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+5)  // data len:2
+#define 	rf_pri_tpll_dma_rx_offset_time_stamp(p)			(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+7)  // data len:4
+#define 	rf_pri_tpll_dma_rx_offset_freq_offset(p)		(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+11) // data len:2
+#define 	rf_pri_tpll_dma_rx_offset_rssi(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+13) // data len:1, signed
 #define     rf_pri_tpll_packet_crc_ok(p)            		((p[((p[4] & 0x3f) + 11+3)] & 0x01) == 0x00)
 
 /******************************************************FOR ZIGBEE************************************************************/
