@@ -48,8 +48,7 @@
 
 /****************** Macro & Enumeration & Structure Definition for Stack, user can not use!!!!  ******************/
 
-typedef struct
-{
+typedef struct {
     u8 hciType;
     u8 ocf;
     u8 ogf;
@@ -196,7 +195,7 @@ typedef struct
 #define HCI_LE_REMOVE_ADVERTISING_SET_LEN 0x3C  // LE Remove Advertising Set Command - [5] 7.8.59
 #define HCI_LE_CLEAR_ADVERTISING_SETS_LEN 0x3D  // LE Clear Advertising Sets Command - [5] 7.8.60
 #define HCI_LE_SET_PERIODIC_ADVERTISING_PARAMETERS_LEN                                                                \
-    0x3E                                                 // LE Set Periodic Advertising Parameters Command - [5] 7.8.61
+    0x3E  // LE Set Periodic Advertising Parameters Command - [5] 7.8.61
 #define HCI_LE_SET_PERIODIC_ADVERTISING_DATA_LEN    0x3F  // LE Set Periodic Advertising Data Command - [5] 7.8.62
 #define HCI_LE_SET_PERIODIC_ADVERTISING_ENABLE_LEN  0x40  // LE Set Periodic Advertising Enable Command - [5] 7.8.63
 #define HCI_LE_SET_EXTENDED_SCAN_PARAMETERS_LEN     0x41  // LE Set Extended Scan Parameters Command - [5] 7.8.64
@@ -236,7 +235,7 @@ typedef struct
 #define HCI_LE_CONNECTION_RESPONSE_ENABLE_LEN 0x57  // 7.8.86 LE Connection CTE Response Enable command
 #define HCI_LE_READ_ANTENNA_INFORMATION_LEN   0x58  // 7.8.87 LE Read Antenna Information command
 #define HCI_LE_SET_PERIODIC_ADVERTISING_RECEIVE_ENABLE_LEN                                                            \
-    0x59                                                   // 7.8.88 LE Set Periodic Advertising Receive Enable command
+    0x59  // 7.8.88 LE Set Periodic Advertising Receive Enable command
 #define HCI_LE_PERIODIC_ADVERTISING_SYNC_TRANSFOR_LEN 0x5A  // 7.8.89 LE Periodic Advertising Sync Transfer command
 #define HCI_LE_PERIODIC_ADVERTISING_SET_INFO_TRANSFOR_LEN                                                             \
     0x5B  // 7.8.90 LE Periodic Advertising Set Info Transfer command

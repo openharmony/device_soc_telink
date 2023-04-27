@@ -91,9 +91,8 @@ typedef enum {
     BLT_AUDIO_TBP_CP_RSTCODE_OPERATION_NOT_POSSIBLE = 0x02,  // The requested operation cannot be completed.
     BLT_AUDIO_TBP_CP_RSTCODE_INVALID_CALL_INDEX =
         0x03,  // The Call Index used for the Call Control Point write is invalid.
-    BLT_AUDIO_TBP_CP_RSTCODE_STATE_MISMATCH =
-        0x04,  // The opcode written to the Call Control Point was received when
-               // the current Call State for the Call Index was not in the expected state.
+    BLT_AUDIO_TBP_CP_RSTCODE_STATE_MISMATCH = 0x04,  // The opcode written to the Call Control Point was received when
+    // the current Call State for the Call Index was not in the expected state.
     BLT_AUDIO_TBP_CP_RSTCODE_LACK_OF_RESOURCES = 0x05,  // Lack of internal resources to complete the requested action.
     BLT_AUDIO_TBP_CP_RSTCODE_INVALID_OUTGOING_URI =
         0x06,  // The Outgoing URI is incorrect or invalid when an Originate opcode is sent.

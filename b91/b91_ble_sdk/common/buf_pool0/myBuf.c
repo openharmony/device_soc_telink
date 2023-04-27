@@ -259,11 +259,9 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
         }
 
         /* Adjust pool lengths for minimum size and alignment. */
-        if (pDesc->len < sizeof(myBufMem_t))
-        {
+        if (pDesc->len < sizeof(myBufMem_t)) {
             pPool->desc.len = sizeof(myBufMem_t);
-        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0)
-        {
+        } else if ((pDesc->len % sizeof(myBufMem_t)) != 0) {
             pPool->desc.len = pDesc->len + sizeof(myBufMem_t) - (pDesc->len % sizeof(myBufMem_t));
         } else {
             pPool->desc.len = pDesc->len;

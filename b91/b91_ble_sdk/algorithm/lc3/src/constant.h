@@ -4,7 +4,6 @@
 #include "../inc/config.h"
 #include "../inc/lc3_types.h"
 
-
 #if (ALG_LC3_ENABLE)
 
 #define PI 3.1415926

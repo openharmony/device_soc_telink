@@ -292,7 +292,7 @@ typedef enum {
     BIT(7)  // Emergency alerts as, for example, with fire alarms or other urgent alerts.
 #define BLC_AUDIO_CONTEXT_TYPE_RINGTONE BIT(8)  // Ringtone as in a call alert.
 #define BLC_AUDIO_CONTEXT_TYPE_TV                                                                                     \
-    BIT(9)  // Audio associated with a television program
+    BIT(9)  // Audio associated with a television program                                                             \
             // and/or with metadata conforming to the Bluetooth Broadcast TV profile.
 
 // Codec ID

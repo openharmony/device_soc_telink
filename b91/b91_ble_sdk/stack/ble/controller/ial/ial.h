@@ -69,9 +69,7 @@
 /*
  * HCI ISO data packet
  */
-typedef struct
-{
-
+typedef struct {
     // 0
     u32 timestamp;
     u16 offset;

@@ -263,8 +263,7 @@ bool is_zb_buf(void *p)
 
 #if ZB_BUFFER_DEBUG
 volatile u8 T_zbbud_debug_start = 0;
-typedef struct
-{
+typedef struct {
     u8 id;
     u8 handle;
     u16 allocateLine;

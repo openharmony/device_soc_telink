@@ -56,5 +56,4 @@
 #include "algorithm/lc3/inc/lc3_dec.h"
 #include "algorithm/lc3/inc/lc3_enc.h"
 
-
 #endif /* ALGORITHM_H_ */

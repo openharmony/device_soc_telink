@@ -49,30 +49,26 @@
 
 #define ISO_TESt_SUPPORT_MAX_NUM (2)
 
-typedef struct
-{
+typedef struct {
     u32 successCnt;
     u32 missedCnt;
     u32 failedCnt;
     u32 lastPkt;
 } iso_test_receive_infor_t;
 
-typedef struct
-{
+typedef struct {
     u32 send_pkt_cnt;
     u32 isoTestSendTick;
 } iso_test_trasmit_infor_t;
 
-typedef struct
-{
+typedef struct {
 
     u8 occupy;
     u8 isoTestMode;  // 0: test mode disable, 1: transmit  2: receive
     u8 isoTest_payload_type;
     u8 rsvd1;
 
-    union
-    {
+    union {
         iso_test_receive_infor_t recMode;
         iso_test_trasmit_infor_t tranMode;
     };

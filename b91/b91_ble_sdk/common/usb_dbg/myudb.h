@@ -50,7 +50,6 @@
 #include "common/config/user_config.h"
 #include "log_def_stack.h"
 
-
 /* Trace global enable macro */
 #ifndef VCD_EN
 #define VCD_EN 0

@@ -61,64 +61,64 @@
  *                                              global variable                                                       *
  *********************************************************************************************************************/
 dma_config_t uart_tx_dma_config[2] = {{
-                                          .dst_req_sel = DMA_REQ_UART0_TX,  // tx req
+                                          .dst_req_sel = DMA_REQ_UART0_TX,    // tx req
                                           .src_req_sel = 0,
                                           .dst_addr_ctrl = DMA_ADDR_FIX,
-                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
-                                          .dstmode = DMA_HANDSHAKE_MODE,        // handshake
+                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,    // increment
+                                          .dstmode = DMA_HANDSHAKE_MODE,          // handshake
                                           .srcmode = DMA_NORMAL_MODE,
-                                          .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .src_burst_size = 0,             // must be 0
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,               // must be 0
                                           .read_num_en = 0,
                                           .priority = 0,
                                           .write_num_en = 0,
-                                          .auto_en = 0,  // must be 0
+                                          .auto_en = 0,    // must be 0
                                       },
                                       {
-                                          .dst_req_sel = DMA_REQ_UART1_TX,  // tx req
+                                          .dst_req_sel = DMA_REQ_UART1_TX,    // tx req
                                           .src_req_sel = 0,
                                           .dst_addr_ctrl = DMA_ADDR_FIX,
-                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
-                                          .dstmode = DMA_HANDSHAKE_MODE,        // handshake
+                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,    // increment
+                                          .dstmode = DMA_HANDSHAKE_MODE,          // handshake
                                           .srcmode = DMA_NORMAL_MODE,
-                                          .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .src_burst_size = 0,             // must be 0
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,               // must be 0
                                           .read_num_en = 0,
                                           .priority = 0,
                                           .write_num_en = 0,
-                                          .auto_en = 0,  // must be 0
+                                          .auto_en = 0,    // must be 0
                                       }};
 dma_config_t uart_rx_dma_config[2] = {{
-                                          .dst_req_sel = 0,  // tx req
+                                          .dst_req_sel = 0,    // tx req
                                           .src_req_sel = DMA_REQ_UART0_RX,
                                           .dst_addr_ctrl = DMA_ADDR_INCREMENT,
                                           .src_addr_ctrl = DMA_ADDR_FIX,
                                           .dstmode = DMA_NORMAL_MODE,
                                           .srcmode = DMA_HANDSHAKE_MODE,
-                                          .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
                                           .src_burst_size = 0,
                                           .read_num_en = 0,
                                           .priority = 0,
                                           .write_num_en = 0,
-                                          .auto_en = 0,  // must be 0
+                                          .auto_en = 0,    // must be 0
                                       },
                                       {
-                                          .dst_req_sel = 0,  // tx req
+                                          .dst_req_sel = 0,    // tx req
                                           .src_req_sel = DMA_REQ_UART1_RX,
                                           .dst_addr_ctrl = DMA_ADDR_INCREMENT,
                                           .src_addr_ctrl = DMA_ADDR_FIX,
                                           .dstmode = DMA_NORMAL_MODE,
                                           .srcmode = DMA_HANDSHAKE_MODE,
-                                          .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-                                          .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
                                           .src_burst_size = 0,
                                           .read_num_en = 0,
                                           .priority = 0,
                                           .write_num_en = 0,
-                                          .auto_en = 0,  // must be 0
+                                          .auto_en = 0,    // must be 0
                                       }};
 /**********************************************************************************************************************
  *                                              local variable                                                     *

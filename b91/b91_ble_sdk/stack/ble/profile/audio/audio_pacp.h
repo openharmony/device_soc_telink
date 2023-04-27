@@ -58,8 +58,7 @@ typedef enum {
     BLT_AUDIO_PACP_RECORD_TYPE_SOURCE = 0x01,
 } BLT_PACP_RECORD_TYPE_ENUM;
 
-typedef struct
-{
+typedef struct {
     u8 counts;
     u8 duration;
     u16 frequency;

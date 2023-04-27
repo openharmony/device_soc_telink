@@ -5,7 +5,6 @@
 #include "lc3_common.h"
 #include "lc3_types.h"
 
-
 #if (ALG_LC3_ENABLE)
 
 #include "../src/fft_lib/_kiss_fft_guts.h"
@@ -18,8 +17,7 @@
 /*! LC3 encoder error codes. */
 typedef enum { LC3ENC_OK = 0, LC3ENC_ERROR_INIT = 1, LC3ENC_ERROR_GETPARA, LC3ENC_ERROR_SETPARA } LC3ENC_Error;
 
-typedef struct LC3_ENC
-{
+typedef struct LC3_ENC {
 #ifndef FIXED_POINT
     // Spectral quantization
     double nbits_offset_old;
@@ -31,8 +29,8 @@ typedef struct LC3_ENC
     double stage2;
     Word32 len_12k8;
     Word32 D_LTPF;
-    double *x_12k8_HP_last;    // input data of last frame
-    double *x_12k8_HP_D_last;  
+    double *x_12k8_HP_last;  // input data of last frame
+    double *x_12k8_HP_D_last;
     double *x_i_fr_last;
     double *x_6k4_last;
     Word16 T_prev;  // pirch_lag estimated in previous frame

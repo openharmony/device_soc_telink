@@ -90,7 +90,7 @@ typedef enum {
 #define GAP_ADTYPE_SIMPLE_PAIRING_RAND_R256 0x1E  // !< Simple Pairing Randomizer R-256
 #define GAP_ADTYPE_3D_INFORMATION_DATA      0x3D  // !< 3D Synchronization Profile, v1.0 or later
 #define GAP_ADTYPE_MANUFACTURER_SPECIFIC                                                                              \
-    0xFF  // !< Manufacturer Specific Data:
+    0xFF  // !< Manufacturer Specific Data:                                                                           \
           // first 2 octets contain the Company Identifier Code followed by the additional manufacturer specific data
 
 #define GAP_ADTYPE_LE_LIMITED_DISCOVERABLE_MODE_BIT 0x01

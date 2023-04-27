@@ -57,15 +57,12 @@ typedef enum {
 } BLT_AUDIO_OTP_FLAGS_ENUM;
 
 typedef enum {
-    BLT_AUDIO_OTP_ERRCODE_WRITE_REJECTED =
-        0x80,  // Write Request Rejected: An attempt was made to write a value
-               // that is invalid or not supported by this Server for a reason other than the attribute permissions.
-    BLT_AUDIO_OTP_ERRCODE_OBJECT_NOTSEL =
-        0x81,  // Object Not Selected: An attempt was made to read or write to 
-               // an Object Metadata characteristic while the Current Object was an Invalid Object
-    BLT_AUDIO_OTP_ERRCODE_LIMIT_EXCEEDED =
-        0x82,  // Concurrency Limit Exceeded: The Server is unable to service 
-               // the Read Request or Write Request because it exceeds the concurrency limit of the service.
+    BLT_AUDIO_OTP_ERRCODE_WRITE_REJECTED = 0x80,  // Write Request Rejected: An attempt was made to write a value
+    // that is invalid or not supported by this Server for a reason other than the attribute permissions.
+    BLT_AUDIO_OTP_ERRCODE_OBJECT_NOTSEL = 0x81,  // Object Not Selected: An attempt was made to read or write to
+    // an Object Metadata characteristic while the Current Object was an Invalid Object
+    BLT_AUDIO_OTP_ERRCODE_LIMIT_EXCEEDED = 0x82,  // Concurrency Limit Exceeded: The Server is unable to service
+    // the Read Request or Write Request because it exceeds the concurrency limit of the service.
     BLT_AUDIO_OTP_ERRCODE_NAME_EXISTS =
         0x83,  // Object Name Already Exists: The requested object name was rejected because
                // the name was already in use by an existing object on the Server.

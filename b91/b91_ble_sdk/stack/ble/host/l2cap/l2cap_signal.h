@@ -99,8 +99,7 @@ typedef int (*blc_l2cap_coc_evtcb)(u16 evtID, u8 *pData, u16 dataLen);
  */
 typedef int (*blc_l2cap_coc_datacb)(u16 aclHandle, u16 scid, u16 dcid, u16 dataLen, u8 *pData);
 
-typedef struct
-{
+typedef struct {
     u8 stat : 4;
     u8 opts : 4;
     u8 chID;    // channel identifier
@@ -129,8 +128,8 @@ typedef struct
     blc_l2cap_coc_evtcb evtCb;
     blc_l2cap_coc_datacb dataCb;
 } l2cap_coc_service_t;
-typedef struct
-{
+
+typedef struct {
     u8 stat;
     u8 srvNum;
     u16 resv;
@@ -143,8 +142,8 @@ typedef struct
 
     u8 *pSdu;
 } l2cap_coc_channel_t;
-typedef struct
-{
+
+typedef struct {
     u8 isUsed;
     u8 isCocPkt;  // Prev Is COC Packet
     u16 aclHandle;

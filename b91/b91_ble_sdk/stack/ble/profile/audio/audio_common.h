@@ -85,8 +85,7 @@
 void blt_audio_sendDbgMsg(u8 dbgId, u8 datalen, u8 *pData);
 #endif  // BLC_AUDIO_DEBUG_ENABLE
 
-typedef struct
-{
+typedef struct {
     u16 handle;
     u8 uuidLen;
     u8 dataLen;
@@ -94,8 +93,8 @@ typedef struct
     u8 *pUuid;
     u8 *pData;
 } blt_audio_charParam_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -104,8 +103,8 @@ typedef struct
     u8 handle[2];
     u8 value[1];
 } blt_audio_attNotify_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -115,8 +114,8 @@ typedef struct
     u8 handle[2];
     u8 errcode;
 } blt_audio_attResp_t;
-typedef struct
-{
+
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -125,8 +124,7 @@ typedef struct
     u8 value[1];
 } blt_audio_attPkt_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -135,8 +133,7 @@ typedef struct
     u8 handle[2];
 } blt_audio_attReadReq_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;

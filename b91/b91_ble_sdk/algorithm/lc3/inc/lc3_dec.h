@@ -5,7 +5,6 @@
 #include "lc3_common.h"
 #include "lc3_types.h"
 
-
 #if (ALG_LC3_ENABLE)
 
 #include "../src/fft_lib/_kiss_fft_guts.h"  // FIXME
@@ -21,8 +20,7 @@ typedef enum {
     LC3DEC_ERROR_ARITHMATIC,
 } LC3DEC_Error;
 
-typedef struct LC3_DEC
-{
+typedef struct LC3_DEC {
     Word32 nSamplerate;
     Word32 nBitrate;
     Word32 nChannels;

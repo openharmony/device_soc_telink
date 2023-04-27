@@ -333,7 +333,7 @@ _attribute_ram_code_ void myudb_to_usb()
 
     if (usbhw_is_ep_busy(MYUDB_EDP_IN_HCI))
         return;
-    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr)) { // first packet
+    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr)) {  // first packet
         p = myudb_print_fifo->p + (myudb_print_fifo->rptr++ & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
         ;
         // len = p[1] + 3;

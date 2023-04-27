@@ -6,8 +6,7 @@
 
 #if (ALG_LC3_ENABLE)
 
-typedef struct
-{
+typedef struct {
     Word32 low;
     Word32 range;
 } ST_STRU;

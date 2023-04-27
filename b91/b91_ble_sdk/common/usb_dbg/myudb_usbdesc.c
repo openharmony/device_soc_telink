@@ -49,7 +49,6 @@
 #include "drivers.h"
 #include "myudb.h"
 
-
 // request parameters
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
@@ -91,9 +90,9 @@ static const USB_Descriptor_Device_t device_desc = {
     MYUDB_ID_VENDOR,   // VendorID
     MYUDB_ID_PRODUCT,  // ProductID
     MYUDB_ID_VERSION /* 0x0100 */,  // .ReleaseNumber
-    MYUDB_USB_STRING_VENDOR,      // .ManufacturerStrIndex
-    MYUDB_USB_STRING_PRODUCT,     // .ProductStrIndex
-    0,                            // .SerialNumStrIndex, iSerialNumber
+    MYUDB_USB_STRING_VENDOR,        // .ManufacturerStrIndex
+    MYUDB_USB_STRING_PRODUCT,       // .ProductStrIndex
+    0,                              // .SerialNumStrIndex, iSerialNumber
     1};
 
 static const MYUDB_USB_Descriptor_Configuration_t configuration_desc = {

@@ -31,7 +31,6 @@
 #include "algorithm/ecc/ecc_curve.h"
 #include "algorithm/ecc/hw_ecc.h"
 
-
 #if ((MCU_CORE_TYPE == MCU_CORE_827x) || (MCU_CORE_TYPE == MCU_CORE_9518))
 
 /* hECC_RNG_Function type

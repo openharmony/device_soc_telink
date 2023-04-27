@@ -64,6 +64,7 @@ typedef enum {
     BLT_AUDIO_ASE_STATE_DISABLING = 0x05,
     BLT_AUDIO_ASE_STATE_RELEASING = 0x06,
 } BLT_AUDIO_ASE_STATE_ENUM;
+
 typedef enum {
     BLT_AUDIO_ASE_FLAG_NONE = 0x0000,
 
@@ -110,6 +111,7 @@ typedef enum {
     BLT_AUDIO_ASCS_OPCODE_CONFIG_UPDATE_METADATA = 0x07,
     BLT_AUDIO_ASCS_OPCODE_CONFIG_RELEASE = 0x08,
 } BLT_AUDIO_ASCS_OPCODE_ENUM;
+
 typedef enum {
     BLT_AUDIO_ASCS_ERRCODE_NONE = 0x0000,
     BLT_AUDIO_ASCS_ERRCODE_UNSUPPORTED_OPCODE = 0x0001,
@@ -126,6 +128,7 @@ typedef enum {
     BLT_AUDIO_ASCS_ERRCODE_INSUFFICIENT_RESOURCE = 0x000C,
     BLT_AUDIO_ASCS_ERRCODE_UNSPECIFIED_ERROR = 0x000D,
 } BLT_AUDIO_ASCS_ERRCODE_ENUM;
+
 typedef enum {
     BLT_AUDIO_ASCS_REASON_DIRECTION = 0x01,
     BLT_AUDIO_ASCS_REASON_CODEC_ID = 0x02,
@@ -141,8 +144,7 @@ typedef enum {
     BLT_AUDIO_ASCS_REASON_METADATA_LENGTH = 0x0C,
 } BLT_AUDIO_ASCS_REASON_ENUM;
 
-typedef struct
-{                 // 42Bytes
+typedef struct {  // 42Bytes
     u8 direction; /* <! audio sink and audio source */
 
     u8 prefSDUMinInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
@@ -160,8 +162,8 @@ typedef struct
     u8 codecSpecificCfg
         [16]; /* <! max = 16Byte. Shall exist only if the Codec_Specific_Configuration_Length field is not 0x00. */
 } blt_audio_ascpCodecParam_t;
-typedef struct
-{  // 15Bytes
+
+typedef struct {  // 15Bytes
     u8 cigID;
     u8 cisID;
     u8 SDUInterval[3];
@@ -172,19 +174,18 @@ typedef struct
     u16 maxTransportLatency; /* <! Range: 0x0005C0x0FA0      */
     u8 presentationDelay[3]; /* <! Unit: us                  */
 } blt_audio_ascpQosParam_t;
-typedef struct
-{  // 7Bytes
+
+typedef struct {  // 7Bytes
     u8 cigID;
     u8 cisID;
     u8 metaDataLen;
     u8 metaData[4];
 } blt_audio_ascpEnableParam_t, blt_audio_ascpDisableParam_t, blt_audio_ascpStreamParam_t;
-typedef struct
-{
+
+typedef struct {
     u8 aseID;
     u8 state;  // refer ASCS_ASE_STATE_ENUM
-    union
-    {
+    union {
         blt_audio_ascpCodecParam_t codec;
         blt_audio_ascpQosParam_t qos;
         blt_audio_ascpEnableParam_t enable;
@@ -193,8 +194,7 @@ typedef struct
     } u;
 } blt_audio_ascpState_t;
 
-typedef struct
-{
+typedef struct {
     u8 SDUMinInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
     u8 SDUMaxInterval[3]; /* <! Range: 0x0000FF - 0xFFFFFF */
     u8 framing;           /* <! Preferred Frame            */
@@ -205,15 +205,15 @@ typedef struct
     u8 minPresentationDelay[3]; /* <! Unit: us                   */
     u8 maxPresentationDelay[3]; /* <! Unit: us                   */
 } blt_audio_ascpPreferredParam_t;
-typedef struct
-{
+
+typedef struct {
     u8 frequency;
     u8 duration;
     u16 frameOcts;
     u32 allocation;
 } blt_audio_ascpSpecificParam_t;
-typedef struct
-{
+
+typedef struct {
     u16 streamingContext;
 } blt_audio_ascpMetadataParam_t;
 
