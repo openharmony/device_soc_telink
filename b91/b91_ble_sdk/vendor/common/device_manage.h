@@ -50,7 +50,6 @@
 #include "stack/ble/hci/hci_event.h"
 #include "vendor/common/user_config.h"
 
-
 #ifndef MASTER_MAX_NUM
 #define MASTER_MAX_NUM 4
 #endif
@@ -77,8 +76,7 @@
  *   char_handle[7] :  BLE Module, SPP Client to Server
  *************************************************************************************/
 
-typedef struct
-{
+typedef struct {
     u8 id_adrType;  // identity address type
     u8 id_addr[6];  // identity address
     u8 reserved;
@@ -86,8 +84,7 @@ typedef struct
 } rpa_addr_t;
 
 // Attention: manual set 4 byte aligned
-typedef struct
-{
+typedef struct {
     u16 conn_handle;
     u8 conn_role;   // 0: master; 1: slave
     u8 conn_state;  // 1: connect;  0: disconnect

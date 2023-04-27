@@ -50,7 +50,6 @@
 #include "compiler.h"
 #include "nds_intrinsic.h"
 
-
 #include "../analog.h"
 #include "../clock.h"
 #include "../compatibility_pack/cmpt.h"

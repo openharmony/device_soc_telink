@@ -55,8 +55,7 @@
 /**
  * @brief	Configure the parameters for led event
  */
-typedef struct
-{
+typedef struct {
     unsigned short onTime_ms;
     unsigned short offTime_ms;
 
@@ -67,8 +66,7 @@ typedef struct
 /**
  * @brief	the status of led event
  */
-typedef struct
-{
+typedef struct {
     unsigned char isOn;
     unsigned char polar;
     unsigned char repeatCount;

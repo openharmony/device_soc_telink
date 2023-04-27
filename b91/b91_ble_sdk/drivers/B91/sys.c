@@ -142,11 +142,10 @@ void sys_init(power_mode_e power_mode, vbat_type_e vbat_v)
                         (stimer_get_tick() + 100 * SYSTEM_TIMER_TICK_1MS));
     }
     // **When testing AES_demo, it was found that the timing of baseband was wrong when it was powered on,
-	// which caused some of
+    // which caused some of
     // the registers of ceva to go wrong, which caused the program to run abnormally.
-	// (add by weihua.zhang, confirmed by junwen 20200819)
-    else if (0xff == g_chip_version)  // A0
-    {
+    // (add by weihua.zhang, confirmed by junwen 20200819)
+    else if (0xff == g_chip_version) {  // A0
         if (g_pm_status_info.mcu_status == MCU_STATUS_POWER_ON)  // power on
         {
             analog_write_reg8(0x7d, 0x80);  // power on baseband

@@ -57,15 +57,13 @@ man_pair_t blm_manPair;
    method 2: not allow pairing unless unfair happened  */
 #define USER_PAIR_SLAVE_MAX_NUM 4  // telink demo use max 4, you can change this value
 
-typedef struct
-{
+typedef struct {
     u8 bond_mark;
     u8 adr_type;
     u8 address[6];
 } macAddr_t;
 
-typedef struct
-{
+typedef struct {
     u32 bond_flash_idx[USER_PAIR_SLAVE_MAX_NUM];     // mark paired slave mac address in flash
     macAddr_t bond_device[USER_PAIR_SLAVE_MAX_NUM];  // macAddr_t alreay defined in ble stack
     u8 curNum;

@@ -202,8 +202,7 @@ static inline u64 mul64_32x32(u32 u, u32 v)
 #endif
 }
 
-typedef struct
-{
+typedef struct {
     u32 size;
     u16 num;
     u8 wptr;

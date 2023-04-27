@@ -50,7 +50,6 @@
 #include "tl_common.h"
 #include "vendor/common/user_config.h"
 
-
 #ifndef BLE_MASTER_SIMPLE_SDP_ENABLE
 #define BLE_MASTER_SIMPLE_SDP_ENABLE 0
 #endif
@@ -66,8 +65,7 @@ extern dev_char_info_t cur_sdp_device;
 #define ATT_DB_UUID16_NUM  20
 #define ATT_DB_UUID128_NUM 8
 
-typedef struct
-{
+typedef struct {
     u8 num;
     u8 property;
     u16 handle;
@@ -75,16 +73,14 @@ typedef struct
     u16 ref;
 } att_db_uuid16_t;  // 8-byte
 
-typedef struct
-{
+typedef struct {
     u8 num;
     u8 property;
     u16 handle;
     u8 uuid[16];
 } att_db_uuid128_t;  // 20-byte
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -94,8 +90,7 @@ typedef struct
     u8 data[1];  // character_handle / property / value_handle / value
 } ble_att_readByTypeRsp_t;
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;
@@ -107,8 +102,7 @@ typedef struct
 #define ATT_BOND_MARK  0x5A
 #define ATT_ERASE_MARK 0x00
 
-typedef struct
-{
+typedef struct {
     u8 flag;
     u8 adr_type;
     u8 addr[6];

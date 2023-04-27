@@ -73,8 +73,7 @@
 #define CTE_SET_RECEIVE_PARAM_CONNHANDLE2 BIT(2)
 #define CTE_SET_RECEIVE_PARAM_CONNHANDLE3 BIT(3)
 
-typedef struct
-{
+typedef struct {
     u8 AOA_type;
     u8 AOD_type_1us;
     u8 AOD_type_2us;
@@ -108,8 +107,7 @@ enum {
     CTE_RECEIVE = 0x02,
 };
 
-typedef struct
-{
+typedef struct {
     // transmit and receive setting
     u8 cte_switch_pattern_len;
     u8 cte_swtich_pattern[SWITCH_PATTERN_MAX_LEN];

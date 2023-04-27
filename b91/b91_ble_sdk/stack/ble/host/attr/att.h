@@ -63,8 +63,9 @@
 #define ATT_PERMISSIONS_WRITE 0x02                                            // !< Attribute is Writable
 #define ATT_PERMISSIONS_RDWR  (ATT_PERMISSIONS_READ | ATT_PERMISSIONS_WRITE)  // !< Attribute is Readable & Writable
 
-#define ATT_PERMISSIONS_ENCRYPT_READ  (ATT_PERMISSIONS_READ | ATT_PERMISSIONS_ENCRYPT)   // !< Read requires Encryption
-#define ATT_PERMISSIONS_ENCRYPT_WRITE (ATT_PERMISSIONS_WRITE | ATT_PERMISSIONS_ENCRYPT)  // !< Write requires Encryption
+#define ATT_PERMISSIONS_ENCRYPT_READ (ATT_PERMISSIONS_READ | ATT_PERMISSIONS_ENCRYPT)  // !< Read requires Encryption
+#define ATT_PERMISSIONS_ENCRYPT_WRITE                                                                                 \
+    (ATT_PERMISSIONS_WRITE | ATT_PERMISSIONS_ENCRYPT)  // !< Write requires Encryption
 #define ATT_PERMISSIONS_ENCRYPT_RDWR                                                                                  \
     (ATT_PERMISSIONS_RDWR | ATT_PERMISSIONS_ENCRYPT)  // !< Read & Write requires Encryption
 
@@ -110,8 +111,7 @@
 
 typedef int (*att_readwrite_callback_t)(u16 connHandle, void *p);
 
-typedef struct attribute
-{
+typedef struct attribute {
     u16 attNum;
     u8 perm;
     u8 uuidLen;

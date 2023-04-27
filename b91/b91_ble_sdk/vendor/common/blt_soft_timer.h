@@ -82,16 +82,14 @@ static int inline blt_is_timer_expired(u32 t, u32 now)
  */
 typedef int (*blt_timer_callback_t)(void);
 
-typedef struct blt_time_event_t
-{
+typedef struct blt_time_event_t {
     blt_timer_callback_t cb;
     u32 t;
     u32 interval;
 } blt_time_event_t;
 
 // timer table managemnt
-typedef struct blt_soft_timer_t
-{
+typedef struct blt_soft_timer_t {
     blt_time_event_t timer[MAX_TIMER_NUM];  // timer0 - timer3
     u8 currentNum;                          // total valid timer num
 } blt_soft_timer_t;

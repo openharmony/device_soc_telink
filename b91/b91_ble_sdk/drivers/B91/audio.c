@@ -249,9 +249,7 @@ void audio_i2s_set_pin(void)
  */
 void audio_set_codec_supply(codec_volt_supply_e volt)
 {
-
-    if (0xff == g_chip_version)  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
-    {
+    if (0xff == g_chip_version) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
         if (CODEC_2P8V == volt) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
         }
@@ -259,11 +257,9 @@ void audio_set_codec_supply(codec_volt_supply_e volt)
         else if (CODEC_1P8V == volt) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
-
     }
 
-    else  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
-    {
+    else {  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
         if (CODEC_1P8V == volt) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
         }
@@ -291,8 +287,7 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 7))) | ((2 << 2) | (2 << 4) | (2 << 6));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2 | GPIO_PC3);
 
-    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK)  // can not use in A0
-    {
+    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK) {  // can not use in A0
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 5))) | ((1 << 0) | (1 << 2) | (1 << 4));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5 | GPIO_PD6);
     } else if (pin_gp == DMIC_B2_DAT_B3_CLK) {
@@ -303,8 +298,7 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
         reg_gpio_pad_mul_sel = BIT(0);
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 5))) | ((2 << 2) | (2 << 4));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2);
-    } else if (pin_gp == DMIC_D4_DAT_D5_CLK)  // can not use in A0
-    {
+    } else if (pin_gp == DMIC_D4_DAT_D5_CLK) {  // can not use in A0
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 3))) | ((1 << 0) | (1 << 2));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5);
     }

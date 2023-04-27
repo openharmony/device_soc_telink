@@ -1053,10 +1053,9 @@ typedef struct {
 /**
  *	@brief  Command Parameters for "7.8.102 LE Reject CIS Request command"
  */
-typedef struct
-{
-	u16		cis_handle;
-	u8		reason;
+typedef struct {
+    u16 cis_handle;
+    u8 reason;
 } hci_le_rejectCisReqParams_t;
 #endif
 

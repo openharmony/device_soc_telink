@@ -49,11 +49,9 @@
 #include "myudb_usbdesc.h"
 #include <string.h>
 
-
 #if (VCD_EN || DUMP_STR_EN)
 
-typedef struct myudb_cfg
-{
+typedef struct myudb_cfg {
     u16 id;
     u16 response_len;
 
@@ -72,7 +70,6 @@ static USB_Request_Header_t control_request;
 
 my_fifo_t *myudb_print_fifo = 0;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 //		USB device handling
 // -----------------------------------------------------------------------------------------
 enum {
@@ -80,7 +77,6 @@ enum {
     MYUDB_USB_IRQ_DATA_REQ,
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 // -----------------------------------------------------------------------------------------
 void myudb_usb_send_response(void)
 {
@@ -256,8 +252,6 @@ void myudb_usb_handle_ctl_ep_status()
         usbhw_write_ctrl_ep_ctrl(FLD_EP_STA_ACK);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 _attribute_ram_code_ int myudb_print_fifo_full(void)
 {
     u8 n = myudb_print_fifo->wptr - myudb_print_fifo->rptr;
@@ -266,7 +260,7 @@ _attribute_ram_code_ int myudb_print_fifo_full(void)
 
 _attribute_ram_code_ void usb_send_status_pkt(u8 status, u8 buffer_num, u8 *pkt, u16 len)
 {
-    //	if (myudb_print_fifo_full()) return;		//skip if overflow
+    // if (myudb_print_fifo_full()) return;		// skip if overflow
 
     u8 *p = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
     if (len > 272) {
@@ -285,7 +279,7 @@ _attribute_ram_code_ void usb_send_status_pkt(u8 status, u8 buffer_num, u8 *pkt,
 
 _attribute_ram_code_ void usb_send_str_data(char *str, u8 *ph, int n)
 {
-    //	if (myudb_print_fifo_full()) return;		// skip if overflow
+    // if (myudb_print_fifo_full()) return;		// skip if overflow
     u32 rie = core_interrupt_disable();
     u8 *ps = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
     ;
@@ -339,8 +333,7 @@ _attribute_ram_code_ void myudb_to_usb()
 
     if (usbhw_is_ep_busy(MYUDB_EDP_IN_HCI))
         return;
-    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr))  // first packet
-    {
+    if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr)) { // first packet
         p = myudb_print_fifo->p + (myudb_print_fifo->rptr++ & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
         ;
         // len = p[1] + 3;
@@ -497,16 +490,13 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
         u32 adr = p[2] | (p[3] << 8) | (p[4] << 16) | (p[5] << 24);
         int n = len - 6;
 
-        if (type == 0)  // RAM
-        {
+        if (type == 0) {  // RAM
             memcpy((void *)adr, p + 6, n);
-        } else if (type == 1)  // Analog Register
-        {
+        } else if (type == 1) {  // Analog Register
             for (int i = 0; i < n; i++) {
                 analog_write_reg8(adr + i, p[i + 6]);
             }
-        } else if (type == 2)  // flash
-        {
+        } else if (type == 2) {  // flash
             if (fw_download && (adr & 0xfff) == 0) {
                 flash_erase_sector(adr);
             }
@@ -569,7 +559,6 @@ _attribute_ram_code_ int myudb_hci_cmd_from_usb(void)
     return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////
 void udb_usb_handle_irq(void)
 {
     if (1) {  // do nothing when in suspend. Maybe not unnecessary

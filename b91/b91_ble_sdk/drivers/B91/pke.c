@@ -181,8 +181,7 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
         if (!a[i])
             return i;
         return aWordLen;
-    } else  // general method
-    {
+    } else { // general method
         j = n >> 5;
         n &= 31;
         for (i = 0; i < aWordLen - (signed int)j - 1; i++) {

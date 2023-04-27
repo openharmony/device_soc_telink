@@ -251,10 +251,8 @@ void rf_emi_rx_setup(rf_mode_e mode, signed char rf_chn)
  */
 void rf_emi_rx_loop(void)
 {
-    if (rf_get_irq_status(FLD_RF_IRQ_RX))  // rx irq
-    {
-        if ((read_reg8(0x140840) & 0xf0) == 0)  // crc err
-        {
+    if (rf_get_irq_status(FLD_RF_IRQ_RX)) {       // rx irq
+        if ((read_reg8(0x140840) & 0xf0) == 0) {  // crc err
             s_emi_rssibuf += (read_reg8(0x140c5d));
             if (s_emi_rx_cnt) {
                 if (s_emi_rssibuf != 0) {
@@ -326,8 +324,7 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
     unsigned int rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
     write_reg8(0x140a00, 0x80);  // stop SM
     rf_set_txmode();
-    if ((rf_mode == RF_MODE_BLE_1M_NO_PN) || (rf_mode == RF_MODE_BLE_2M))  // ble
-    {
+    if ((rf_mode == RF_MODE_BLE_1M_NO_PN) || (rf_mode == RF_MODE_BLE_2M)) {  // ble
         rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
         emi_ble_tx_packet[4] = 0;
@@ -436,8 +433,9 @@ void rf_emi_tx_burst_setup(rf_mode_e rf_mode, rf_power_level_e power_level, sign
         default:
             break;
     }
-    if (rf_mode != RF_MODE_ZIGBEE_250K)
+    if (rf_mode != RF_MODE_ZIGBEE_250K) {
         rf_access_code_comm(EMI_ACCESS_CODE);  // accesscode
+    }
 
     rf_pn_disable();
     rf_set_power_level(power_level);

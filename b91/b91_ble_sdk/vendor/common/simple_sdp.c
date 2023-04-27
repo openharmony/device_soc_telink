@@ -53,8 +53,7 @@
 
 #if (BLE_MASTER_SIMPLE_SDP_ENABLE)
 
-typedef struct
-{
+typedef struct {
     u8 type;
     u8 rf_len;
     u16 l2capLen;

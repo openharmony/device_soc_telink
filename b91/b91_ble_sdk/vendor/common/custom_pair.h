@@ -52,8 +52,7 @@
 #include "vendor/common/user_config.h"
 
 /*!  Pair parameter manager type */
-typedef struct
-{
+typedef struct {
     u8 manual_pair;
     u8 mac_type;  // address type
     u8 mac[6];
