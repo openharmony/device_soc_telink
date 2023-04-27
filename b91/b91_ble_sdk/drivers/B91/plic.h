@@ -131,7 +131,6 @@ typedef enum {
     IRQ61_NPE_COMB,
     IRQ62_PM_TM,
     IRQ63_EOC,
-
 } irq_source_e;
 
 typedef enum {

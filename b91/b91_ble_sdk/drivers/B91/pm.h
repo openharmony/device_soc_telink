@@ -189,7 +189,6 @@ typedef struct {
     unsigned short deep_r_delay_cycle; /* hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
     unsigned short
         suspend_ret_r_delay_cycle; /* hardware delay time,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
-
 } pm_r_delay_cycle_s;
 
 /**
@@ -220,7 +219,6 @@ typedef struct pm_clock_drift {
     int s0;
     unsigned char calib;
     unsigned char ref_no;
-
 } pm_clock_drift_t;
 
 extern pm_clock_drift_t pmcd;

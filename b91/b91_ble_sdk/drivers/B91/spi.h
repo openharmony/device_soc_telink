@@ -214,7 +214,6 @@ typedef enum {
     PSRAM_REST_CMD = 0x99,
     PSRAM_BURST_LENGTH_TOGGLE_CMD = 0xC0,
     PSRAM_READ_ID_CMD = 0x95,
-
 } spi_xip_cmd_e;
 
 /**

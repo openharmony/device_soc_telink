@@ -95,11 +95,9 @@ void myCsEnter(void)
     myCsNesting++;
 }
 
-/*************************************************************************************************/
 /* !
  *  \brief  Exit a critical section.
  */
-/*************************************************************************************************/
 void myCsExit(void)
 {
     assert(myCsNesting != 0);
@@ -168,7 +166,6 @@ _attribute_data_retention_ u8 myPoolOverFlowCount[MY_BUF_STATS_MAX_POOL];
 _attribute_data_retention_ static myBufDiagCback_t myBufDiagCback = NULL;
 #endif
 
-/*************************************************************************************************/
 /*!
  *  \brief  Calculate size required by the buffer pool.
  *
@@ -177,7 +174,6 @@ _attribute_data_retention_ static myBufDiagCback_t myBufDiagCback = NULL;
  *
  *  \return Amount of pBufMem used.
  */
-/*************************************************************************************************/
 u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc)
 {
     u32 len;
@@ -219,7 +215,6 @@ u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc)
     return (u8 *)pStart - (u8 *)myBufMem;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Initialize the buffer pool service.  This function should only be called once
  *          upon system initialization.
@@ -229,7 +224,6 @@ u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc)
  *
  *  \return Amount of pBufMem used or 0 for failures.
  */
-/*************************************************************************************************/
 u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
 {
     myBufPool_t *pPool;
@@ -309,7 +303,6 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
     return myBufMemLen;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Allocate a buffer.
  *
@@ -317,7 +310,6 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc)
  *
  *  \return Pointer to allocated buffer or NULL if allocation fails.
  */
-/*************************************************************************************************/
 void *myBufAlloc(u16 len)
 {
     myBufPool_t *pPool;
@@ -406,13 +398,11 @@ void *myBufAlloc(u16 len)
     return NULL;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Free a buffer.
  *
  *  \param  pBuf    Buffer to free.
  */
-/*************************************************************************************************/
 void myBufFree(void *pBuf)
 {
     myBufPool_t *pPool;
@@ -463,13 +453,11 @@ void myBufFree(void *pBuf)
     return;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Diagnostic function to get the buffer allocation statistics.
  *
  *  \return Buffer allocation statistics array.
  */
-/*************************************************************************************************/
 u8 *myBufGetAllocStats(void)
 {
 #if MY_BUF_STATS_HIST == TRUE
@@ -479,13 +467,11 @@ u8 *myBufGetAllocStats(void)
 #endif
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Diagnostic function to get the number of overflow times for each pool.
  *
  *  \return Overflow times statistics array
  */
-/*************************************************************************************************/
 u8 *myBufGetPoolOverFlowStats(void)
 {
 #if MY_BUF_STATS_HIST == TRUE
@@ -495,26 +481,22 @@ u8 *myBufGetPoolOverFlowStats(void)
 #endif
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Get number of pools.
  *
  *  \return Number of pools.
  */
-/*************************************************************************************************/
 u8 myBufGetNumPool(void)
 {
     return myBufNumPools;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief  Get statistics for each pool.
  *
  *  \param  pBuf    Buffer to store the statistics.
  *  \param  poolId  Pool ID.
  */
-/*************************************************************************************************/
 void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
 {
     myBufPool_t *pPool;
@@ -546,13 +528,11 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
     ;
 }
 
-/*************************************************************************************************/
 /* !
  *  \brief  Called to register the buffer diagnostics callback function.
  *
  *  \param  pCallback   Pointer to the callback function.
  */
-/*************************************************************************************************/
 void myBufDiagRegister(myBufDiagCback_t callback)
 {
 #if MY_OS_DIAG == TRUE

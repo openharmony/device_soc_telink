@@ -196,7 +196,6 @@ typedef enum {
 
     HCI_ACL_DATA_BUF_PARAM_INVALID,
     HCI_ACL_DATA_BUF_SIZE_NOT_MEET_MAX_TX_OCT,
-
 } ble_sts_t;
 
 /////////////////////////////// BLE  MAC ADDRESS //////////////////////////////////////////////

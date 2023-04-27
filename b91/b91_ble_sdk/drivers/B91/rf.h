@@ -190,7 +190,6 @@ typedef enum {
 
     RF_POWER_N30dBm = 0xff,       /**<  -30 dbm */
     RF_POWER_N50dBm = BIT(7) | 0, /**<  -50 dbm */
-
 } rf_power_level_e;
 
 /**

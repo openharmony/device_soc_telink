@@ -84,7 +84,6 @@ enum {
     FLD_SYSTEM_CLR_RD_DONE = BIT(5),
     FLD_SYSTEM_RD_BUSY = BIT(6),
     FLD_SYSTEM_CMD_SET_DLY_DONE = BIT(7),
-
 };
 
 #define reg_system_timer_set_32k REG_ADDR32(STIMER_BASE_ADDR + 0xc)

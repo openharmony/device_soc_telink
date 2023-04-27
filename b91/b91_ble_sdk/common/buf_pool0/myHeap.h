@@ -79,40 +79,32 @@ extern "C" {
 #include "common/compiler.h"
 #include "common/types.h"
 
-/*************************************************************************************************/
 /*!
  *  \brief      Get heap available.
  *
  *  \return     Number of bytes of heap memory available.
  */
-/*************************************************************************************************/
 u32 myHeapCountAvailable(void);
 
-/*************************************************************************************************/
 /*!
  *  \brief      Get heap used.
  *
  *  \return     Number of bytes of heap memory used.
  */
-/*************************************************************************************************/
 u32 myHeapCountUsed(void);
 
-/*************************************************************************************************/
 /*!
  *  \brief      Reserve heap memory.
  *
  *  \param      size    Number of bytes of heap memory used.
  */
-/*************************************************************************************************/
 void myHeapAlloc(u32 size);
 
-/*************************************************************************************************/
 /*!
  *  \brief      Get next available heap memory.
  *
  *  \return     Address of the start of heap memory.
  */
-/*************************************************************************************************/
 void *myHeapGetFreeStartAddress(void);
 
 /*! \} */ /* MY_HEAP_API */

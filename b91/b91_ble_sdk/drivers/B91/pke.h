@@ -114,7 +114,6 @@ typedef struct {
     unsigned int *edward_n_h;
     unsigned int *edward_n_n1;
     unsigned int *edward_h;
-
 } edward_curve_t;
 
 /**
@@ -154,7 +153,6 @@ typedef enum {
     PKE_MICROCODE_C25519_PMUL = 0x34,
     PKE_MICROCODE_Ed25519_PMUL = 0x38,
     PKE_MICROCODE_Ed25519_PADD = 0x3C,
-
 } pke_microcode_e;
 
 /**

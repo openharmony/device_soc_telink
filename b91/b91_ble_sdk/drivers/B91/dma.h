@@ -99,7 +99,6 @@ typedef enum {
     DMA_REQ_AUDIO0_RX,
     DMA_REQ_AUDIO1_TX,
     DMA_REQ_AUDIO1_RX,
-
 } dma_req_sel_e;
 
 typedef enum {

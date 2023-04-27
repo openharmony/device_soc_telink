@@ -195,7 +195,6 @@ typedef enum {
     FLD_PWM5_FRAME_DONE_IRQ = BIT(7),
 
     FLD_PWM0_IR_FIFO_IRQ = BIT(16),
-
 } pwm_irq_e;
 
 /**
@@ -302,7 +301,6 @@ enum {
 #define reg_pwm_ir_clr_fifo_data REG_ADDR8(0x14044e)
 enum {
     FLD_PWM0_IR_FIFO_CLR_DATA = BIT(0),
-
 };
 
 #endif

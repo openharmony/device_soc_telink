@@ -148,7 +148,6 @@ typedef enum {
     PWM_CLOCK_32K_CHN_PWM3 = 0x08,
     PWM_CLOCK_32K_CHN_PWM4 = 0x10,
     PWM_CLOCK_32K_CHN_PWM5 = 0x20
-
 } pwm_clk_32k_en_chn_e;
 
 /**

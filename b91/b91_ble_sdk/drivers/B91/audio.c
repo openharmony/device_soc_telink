@@ -286,7 +286,6 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
         reg_gpio_pad_mul_sel = BIT(0);
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 7))) | ((2 << 2) | (2 << 4) | (2 << 6));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2 | GPIO_PC3);
-
     } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK) {  // can not use in A0
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 5))) | ((1 << 0) | (1 << 2) | (1 << 4));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5 | GPIO_PD6);
@@ -742,15 +741,12 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
             audio_i2c_codec_write(addr_audio_codec_mic_l_R_gain,
                                   MASK_VAL(FLD_AUDIO_CODEC_AMIC_L_GAIN, audio_i2s_codec_config.in_analog_gain,
                                            FLD_AUDIO_CODEC_AMIC_R_GAIN, audio_i2s_codec_config.in_analog_gain));
-
         } else if (in_mode == DMIC_INPUT) {
             audio_i2c_codec_write(addr_audio_dmic_12,
                                   MASK_VAL(FLD_AUDIO_CODEC_ADC_DMIC_SEL2, 1, FLD_AUDIO_CODEC_ADC_DMIC_SEL1, 1,
                                            FLD_AUDIO_CODEC_DMIC2_SB, CODEC_ITF_AC, FLD_AUDIO_CODEC_DMIC1_SB,
                                            CODEC_ITF_AC));
-        }
-
-        else if (in_mode == LINE_INPUT) {
+        } else if (in_mode == LINE_INPUT) {
             /* analog 0/4/8/12/16/20 dB boost gain */
             audio_i2c_codec_write(addr_audio_codec_mic_l_R_gain,
                                   MASK_VAL(FLD_AUDIO_CODEC_AMIC_L_GAIN, audio_i2s_codec_config.in_analog_gain,

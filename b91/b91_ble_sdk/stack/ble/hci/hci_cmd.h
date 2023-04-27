@@ -245,7 +245,6 @@ typedef enum {
     SCAN_FP_ALLOW_ADV_WL = 0x01,                   // except direct adv address not match
     SCAN_FP_ALLOW_UNDIRECT_ADV = 0x02,             // and direct adv address match initiator's resolvable private MAC
     SCAN_FP_ALLOW_ADV_WL_DIRECT_ADV_MACTH = 0x03,  // and direct adv address match initiator's resolvable private MAC
-
 } scan_fp_type_t;
 
 /**
@@ -519,7 +518,6 @@ typedef enum {
         0x0020,  // if this mask on(only extended ADV event can mask it), anonymous advertising
     ADV_EVT_PROP_EXTENDED_MASK_TX_POWER_INCLUDE =
         0x0040,  // if this mask on(only extended ADV event can mask it), TX power include
-
 } advEvtProp_type_t;
 
 /* Advertising_TX_Power */
@@ -670,7 +668,6 @@ typedef enum {
     PERD_ADV_PROP_MASK_NONE = 0,
 
     PERD_ADV_PROP_MASK_TX_POWER_INCLUDE = BIT(6),
-
 } perd_adv_prop_t;
 
 /**
@@ -869,7 +866,6 @@ typedef struct {
     u8 max_switch_pattern_len;
 
     u8 max_cte_len;
-
 } cte_antenna_infor_t;
 
 typedef struct {
@@ -1134,7 +1130,6 @@ typedef struct {
     u32 codec_configration_length : 8;
 
     u8 codec_config[1];
-
 } hci_le_setupIsoDataPathCmdParams_t;
 
 /**

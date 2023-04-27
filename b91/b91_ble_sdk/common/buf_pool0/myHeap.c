@@ -85,13 +85,11 @@ _attribute_data_retention_ static u8 myBufMem[HEAP_MEM_SIZE_CFG];
 _attribute_data_retention_ static u8 *SystemHeapStart = myBufMem;
 _attribute_data_retention_ static u32 SystemHeapSize = HEAP_MEM_SIZE_CFG;
 
-/*************************************************************************************************/
 /* !
  *  \brief      Reserve heap memory.
  *
  *  \param      size    Number of bytes of heap memory used.
  */
-/*************************************************************************************************/
 void myHeapAlloc(u32 size)
 {
     /* Round up to nearest multiple of 4 for word alignment */
@@ -101,37 +99,31 @@ void myHeapAlloc(u32 size)
     SystemHeapSize -= size;
 }
 
-/*************************************************************************************************/
 /*!
  *  \brief      Get next available heap memory.
  *
  *  \return     Address of the start of heap memory.
  */
-/*************************************************************************************************/
 void *myHeapGetFreeStartAddress(void)
 {
     return (void *)SystemHeapStart;
 }
 
-/*************************************************************************************************/
 /* !
  *  \brief      Get heap available.
  *
  *  \return     Number of bytes of heap memory available.
  */
-/*************************************************************************************************/
 u32 myHeapCountAvailable(void)
 {
     return SystemHeapSize;
 }
 
-/*************************************************************************************************/
 /* !
  *  \brief      Get heap used.
  *
  *  \return     Number of bytes of heap memory used.
  */
-/*************************************************************************************************/
 u32 myHeapCountUsed(void)
 {
     return HEAP_MEM_SIZE_CFG - SystemHeapSize;

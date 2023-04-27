@@ -108,7 +108,6 @@ typedef struct {
     u8 cisOffsetMin[3];
     u8 cisOffsetMax[3];
     u16 connEventCnt;  // similar to instant
-
 } rf_packet_ll_cis_req_t;
 
 typedef struct {
@@ -178,7 +177,6 @@ typedef struct {
     u16 handle;
 
     u8 dat[20];
-
 } rf_packet_att_data_t;
 
 #endif /* BLE_FORMAT_H */

@@ -650,7 +650,6 @@ enum {
     FLD_RF_RX_DATA_CLK_DBG = BIT(5),
     FLD_RF_LR_TRIG_MODE = BIT(6),
     FLD_RF_FDC_DBG_SEL = BIT(7),
-
 };
 #define reg_rf_modem_mode_ctrl_tx1_0 REG_ADDR8(REG_TL_MODEM_BASE_ADDR + 0x22)
 enum {
@@ -674,7 +673,6 @@ enum {
     FLD_RF_TX_IQ_EN = BIT(1),
     FLD_RF_TX_MPSK_EN = BIT(2),
     FLD_RF_TX_TP_ALIGN = BIT(3),
-
 };
 
 #define reg_rf_mode_cfg_rx1_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x20)
@@ -688,7 +686,6 @@ enum {
     FLD_RF_MODE_VANT_RX = BIT(1),
     FLD_RF_FE_RTRIM_RX = BIT_RNG(2, 4),
     FLD_RF_IF_FREQ = BIT_RNG(5, 6),
-
 };
 
 #define reg_rf_mode_cfg_tx1_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x22)
@@ -702,7 +699,6 @@ enum {
 enum {
     FLD_RF_HPMC_EXP_DIFF_COUNT_H = BIT_RNG(0, 4),
     FLD_RF_DAC_TRIM_CFBK = BIT_RNG(5, 6),
-
 };
 
 #define reg_rf_mode_cfg_txrx_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x26)

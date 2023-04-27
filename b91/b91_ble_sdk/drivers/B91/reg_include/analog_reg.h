@@ -78,7 +78,6 @@ enum {
 enum {
     FLD_ANA_CYC1 = BIT(0),
     FLD_ANA_DMA_EN = BIT(1),
-
 };
 
 #endif

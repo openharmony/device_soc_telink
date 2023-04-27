@@ -721,7 +721,6 @@ _attribute_ram_code_sec_noinline_ int flash_read_mid_uid_with_check_ram(unsigned
     }
     if (f_cnt == 16) {  // no uid flash
         return 0;
-
     } else {
         return 1;
     }

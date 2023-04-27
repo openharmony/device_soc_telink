@@ -216,7 +216,6 @@ void blt_soft_timer_process(int type)
         } else {
             blc_pm_setAppWakeupLowPower(0, 0);  // disable
         }
-
     } else {
         blc_pm_setAppWakeupLowPower(0, 0);  // disable
     }

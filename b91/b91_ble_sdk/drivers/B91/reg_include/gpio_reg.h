@@ -172,7 +172,6 @@ enum {
     FLD_GPIO_IRQ_LVL_GPIO = BIT(4),
     FLD_GPIO_IRQ_LVL_GPIO2RISC0 = BIT(5),
     FLD_GPIO_IRQ_LVL_GPIO2RISC1 = BIT(6),
-
 };
 #define reg_gpio_irq_ctrl REG_ADDR8(0x140353)
 enum {

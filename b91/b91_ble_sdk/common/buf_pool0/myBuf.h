@@ -172,7 +172,6 @@ typedef void (*myBufDiagCback_t)(myBufDiag_t *pInfo);
   Function Declarations
 **************************************************************************************************/
 
-/*************************************************************************************************/
 /*!
  *  \brief  Calculate size required by the buffer pool.
  *
@@ -181,10 +180,8 @@ typedef void (*myBufDiagCback_t)(myBufDiag_t *pInfo);
  *
  *  \return Amount of pBufMem used.
  */
-/*************************************************************************************************/
 u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Initialize the buffer pool service.  This function should only be called once
  *          upon system initialization.
@@ -194,10 +191,8 @@ u32 myBufCalcSize(u8 numPools, myBufPoolDesc_t *pDesc);
  *
  *  \return Amount of pBufMem used or 0 for failures.
  */
-/*************************************************************************************************/
 u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Allocate a buffer.
  *
@@ -205,46 +200,36 @@ u32 myBufInit(u8 numPools, myBufPoolDesc_t *pDesc);
  *
  *  \return Pointer to allocated buffer or NULL if allocation fails.
  */
-/*************************************************************************************************/
 void *myBufAlloc(u16 len);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Free a buffer.
  *
  *  \param  pBuf    Buffer to free.
  */
-/*************************************************************************************************/
 void myBufFree(void *pBuf);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Diagnostic function to get the buffer allocation statistics.
  *
  *  \return Buffer allocation statistics array.
  */
-/*************************************************************************************************/
 u8 *myBufGetAllocStats(void);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Diagnostic function to get the number of overflow times for each pool.
  *
  *  \return Overflow times statistics array
  */
-/*************************************************************************************************/
 u8 *myBufGetPoolOverFlowStats(void);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Get number of pools.
  *
  *  \return Number of pools.
  */
-/*************************************************************************************************/
 u8 myBufGetNumPool(void);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Get statistics for each pool.
  *
@@ -253,16 +238,13 @@ u8 myBufGetNumPool(void);
  *
  *  \return Pool statistics.
  */
-/*************************************************************************************************/
 void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 numPool);
 
-/*************************************************************************************************/
 /*!
  *  \brief  Called to register the buffer diagnostics callback function.
  *
  *  \param  callback   Pointer to the callback function.
  */
-/*************************************************************************************************/
 void myBufDiagRegister(myBufDiagCback_t callback);
 
 /*! \} */ /* MY_BUF_API */
