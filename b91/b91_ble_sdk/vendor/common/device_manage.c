@@ -296,7 +296,6 @@ dev_char_info_t *dev_char_info_search_by_connhandle(u16 connhandle)
 dev_char_info_t *dev_char_info_search_by_peer_mac_address(u8 adr_type, u8 *addr)
 {
     foreach (i, DEVICE_CHAR_INFO_MAX_NUM) {
-
         int mac_match = 0;
         if (IS_RESOLVABLE_PRIVATE_ADDR(adr_type, addr)) {
             // TODO

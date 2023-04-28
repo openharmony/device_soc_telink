@@ -238,7 +238,6 @@ static inline unsigned char uart_get_txfifo_num(uart_num_e uart_num)
  */
 static inline void uart_reset(uart_num_e uart_num)
 {
-
     reg_rst0 &= (~((uart_num) ? FLD_RST0_UART1 : FLD_RST0_UART0));
     reg_rst0 |= ((uart_num) ? FLD_RST0_UART1 : FLD_RST0_UART0);
 }

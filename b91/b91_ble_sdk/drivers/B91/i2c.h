@@ -100,7 +100,6 @@ typedef enum {
 } i2c_buff_clr_e;
 
 typedef enum {
-
     I2C_TXDONE_STATUS = BIT(0),
     I2C_TX_BUF_STATUS = BIT(1),
     I2C_RXDONE_STATUS = BIT(2),
@@ -151,7 +150,7 @@ static inline void i2c_rx_irq_trig_cnt(unsigned char cnt)
 }
 
 /**
- * @brief      The function of this interface is equivalent to 
+ * @brief      The function of this interface is equivalent to
  *             that after the user finishes calling the write or read interface, the stop signal is not sent,
  * 			   and then the write or read command is executed again.
  *             The driver defaults that every write or read API will send a stop command at the end
@@ -256,7 +255,7 @@ unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned ch
  * @brief      This function serves to write data and restart read data.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  wr_data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address 
+ * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address
  *             and the length of the data to be sent.
  * @param[in]  rd_data - Store the read data
  * @param[in]  rd_len -  The total length of the data read back.
@@ -304,7 +303,7 @@ void i2c_slave_set_tx_dma(unsigned char *data, unsigned char len);
 void i2c_slave_set_rx_dma(unsigned char *data, unsigned char len);
 
 /**
- * @brief     This function serves to receive data .
+ * @brief     This function serves to receive data.
  * @param[in]  data - the data need read.
  * @param[in]  len - The total length of the data
  * @return    none

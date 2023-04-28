@@ -62,7 +62,6 @@ typedef struct {
 } iso_test_trasmit_infor_t;
 
 typedef struct {
-
     u8 occupy;
     u8 isoTestMode;  // 0: test mode disable, 1: transmit  2: receive
     u8 isoTest_payload_type;

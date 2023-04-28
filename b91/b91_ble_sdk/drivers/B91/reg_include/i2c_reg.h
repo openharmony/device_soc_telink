@@ -75,8 +75,10 @@ enum {
  * this register is to configure i2c master
  * BIT[0] means i2c bus whether busy.
  * BIT[1] means that a start signal is coming, it is 1, and an end signal is coming it will be 0.
- * BIT[2] Indicates the status of master send and receive,bit[2]=1,means have not ability to send or receivebit[2]=0,means have ability to send or receive.
- * BIT_RNG[3:5] Indicate what state the i2c is in when it acts as master, BIT_RNG[3:5] defaule value is 0x06 it means master's state is IDLE.
+ * BIT[2] Indicates the status of master send and receive,bit[2]=1,
+ * means have not ability to send or receivebit[2]=0,means have ability to send or receive.
+ * BIT_RNG[3:5] Indicate what state the i2c is in when it acts as master,
+ * BIT_RNG[3:5] defaule value is 0x06 it means master's state is IDLE.
  * BIT_RNG[6:7] Indicate what state the i2c is in when it acts as slave.
  */
 #define reg_i2c_mst REG_ADDR8(REG_I2C_BASE + 0x02)
@@ -101,9 +103,9 @@ enum {
  *        fifo_data_cnt <= tx_irq_trig_lev, generate interrupt.
  * BIT[4] tx_done.An interrupt is generated when one frame of data is sent.
  * BIT[5] rx_done.An interrupt is generated when one frame of data is received.
- * BIT[6] If the bit is set to 1, when the master reads, the hardware will automatically return ack / nak, 
+ * BIT[6] If the bit is set to 1, when the master reads, the hardware will automatically return ack / nak,
  * no software processing is required.
- *        It is a new feature of eagle.Previously, software processed it through FLD_I2C_LS_ACK. 
+ *        It is a new feature of eagle.Previously, software processed it through FLD_I2C_LS_ACK.
  * Setting this bit to 0 will ack, and setting it to 1 will NAK.
  * BIT[7] means,before master ack, delay sda data bus.
  */
@@ -127,7 +129,7 @@ typedef enum {
  * BIT[3] launch data read cycle.
  * BIT[4] launch start cycle.
  * BIT[5] launch stop cycle.
- * BIT[6] enable if BIT[6]=1,Its role is to convert the SDA from output to input, 
+ * BIT[6] enable if BIT[6]=1,Its role is to convert the SDA from output to input,
  * so that the master can accept the data sent by the slave when it reads.
  * BIT[7] enable ACK in read command.When the master is reading, it needs to return to ack or nak.
  *        If it is in manual mode,when the master is reading, 
@@ -148,9 +150,9 @@ enum {
 
 /**
  * This is the register that configures the i2c trigger interrupt
- * BIT_RNG[0,3] to configure the interrupt trigger level of rx_status, 
+ * BIT_RNG[0,3] to configure the interrupt trigger level of rx_status,
  * for example BIT_RNG[0:3]=0x04,when rx 4bytes,will trigger interrupt.
- * BIT_RNG[4,7] to configure the interrupt trigger level of tx_status, 
+ * BIT_RNG[4,7] to configure the interrupt trigger level of tx_status,
  * for example BIT_RNG[0:3]=0x04,when tx 4bytes,will trigger interrupt.
  */
 #define reg_i2c_trig REG_ADDR8(REG_I2C_BASE + 0x05)
@@ -160,21 +162,21 @@ enum {
 };
 
 /**
- * As a master, you need to configure this length for both sending and receiving, 
+ * As a master, you need to configure this length for both sending and receiving,
  * and the hardware needs to know what the length is.
  */
 #define reg_i2c_len REG_ADDR8(REG_I2C_BASE + 0x06)
 
 /**
  * This register is to configure the slave stretch function.
- * BIT[0] slave auto stretch clk eanble,open this function, use slave to receive data,when data buffer is full, 
+ * BIT[0] slave auto stretch clk eanble,open this function, use slave to receive data,when data buffer is full,
  * scl bus will be low to stop receive data.
- * BIT[1] slave manul stretch clk enable,open this function, use slave to receive data,when data buffer is full, 
+ * BIT[1] slave manul stretch clk enable,open this function, use slave to receive data,when data buffer is full,
  * scl bus will be low to stop receive data.
  * BIT[2] clear slave stretch.
- * BIT[6] in high speed mode,when open slave auto stretch clk function,Suddenly data came over, 
+ * BIT[6] in high speed mode,when open slave auto stretch clk function,Suddenly data came over,
  * to meet the requirements of time setting.
- * BIT[7] in fast speed mode,when open slave auto stretch clk function,Suddenly data came over, 
+ * BIT[7] in fast speed mode,when open slave auto stretch clk function,Suddenly data came over,
  * to meet the requirements of time setting.
  */
 #define reg_i2c_slave_strech_en REG_ADDR8(REG_I2C_BASE + 0x07)
@@ -268,7 +270,7 @@ enum {
 };
 
 /**
- * reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo, it is an accumulated value, 
+ * reg_i2c_rx_fifo_len is the number actually entered in the hardware fifo, it is an accumulated value,
  * and fifo clear will clear.
  */
 #define reg_i2c_rx_fifo_len REG_ADDR8(REG_I2C_BASE + 0x0f)

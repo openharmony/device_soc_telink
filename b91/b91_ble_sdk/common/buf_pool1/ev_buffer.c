@@ -82,7 +82,7 @@ MEMPOOL_DECLARE(size_2_pool, size_2_mem, BUFFER_GROUP_2, BUFFER_NUM_IN_GROUP2);
 /*********************************************************************
  * @fn      ev_buf_isExisted
  *
- * @brief   Return whether the buffer is in the available buffer 
+ * @brief   Return whether the buffer is in the available buffer
  *
  * @param   index
  * @param   block
@@ -153,8 +153,8 @@ void ev_buf_init(void)
  * @fn      ev_buf_allocate
  *
  * @brief   Allocate an available buffer according to the requested size
- *          The allocated buffer will have only three kind of size, defined 
- *          in @ref EV_BUFFER_CONSTANT 
+ *          The allocated buffer will have only three kind of size, defined
+ *          in @ref EV_BUFFER_CONSTANT
  *
  * @param   size - requested size
  *
@@ -208,7 +208,7 @@ u8 *ev_buf_allocate(u16 size)
 /*********************************************************************
  * @fn      ev_buf_free
  *
- * @brief   Free the specified buffer 
+ * @brief   Free the specified buffer
  *
  * @param   pBuf - the pointer to the specified buffer to free.
  *
@@ -237,7 +237,6 @@ buf_sts_t ev_buf_free(u8 *pBuf)
 
     /* check whether the buffer is duplicated release */
     if (ev_buf_isExisted(pDelBuf->groupIndex, (mem_block_t *)pDelBuf)) {
-
 #if EV_BUFFER_DEBUG
         T_DBG_evFreeBuf = (u32)pBuf;
         T_DBG_evFreeBufLine = line;
@@ -264,7 +263,7 @@ buf_sts_t ev_buf_free(u8 *pBuf)
 /*********************************************************************
  * @fn      ev_buf_getHead
  *
- * @brief   Get the header pointer of a buffer item 
+ * @brief   Get the header pointer of a buffer item
  *
  * @param   pd - the pointer of a data, which is previously allocated
  *

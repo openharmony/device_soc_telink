@@ -69,7 +69,6 @@ void device_led_on_off(u8 on)
  */
 void device_led_init(u32 gpio, u8 polarity)
 {  // polarity: 1 for high led on, 0 for low led on
-
 #if (BLT_APP_LED_ENABLE)
     device_led.gpio_led = gpio;
     device_led.polar = !polarity;

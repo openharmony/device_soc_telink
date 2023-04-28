@@ -252,7 +252,7 @@ static inline void adc_set_resolution(adc_res_e res)
 }
 
 /**
- * @brief      This function serves to set ADC sample time (the number of adc clocks for sample cycles) 
+ * @brief      This function serves to set ADC sample time (the number of adc clocks for sample cycles)
  * for the misc channel.
  * @param[in]  sample_cycle - enum variable of adc sample cycles.
  * @return     none
@@ -422,7 +422,7 @@ unsigned short adc_calculate_voltage(unsigned short adc_code);
  * @brief This function serves to calculate temperature from temperature sensor adc sample code.
  * @param[in]   adc_code	 		- the temperature sensor adc sample code.
  * @return 		adc_temp_value	 	- the of temperature value.
- * attention   Temperature and adc_code are linearly related. 
+ * attention   Temperature and adc_code are linearly related.
  * We test four chips between -40~130 (Celsius) and got an average ratio:
  * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */

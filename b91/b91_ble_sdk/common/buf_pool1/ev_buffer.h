@@ -60,7 +60,7 @@
  *  @{
  */
 
-/** @addtogroup ev_buffer_groups EV Buffer Groups 
+/** @addtogroup ev_buffer_groups EV Buffer Groups
  * Definition the length of each buffer group
  * @{
  */
@@ -147,7 +147,7 @@ void ev_buf_init(void);
 
 /**
   * @brief       Allocate an available buffer according to the requested size
-  *              The allocated buffer will have only three kind of size, defined 
+  *              The allocated buffer will have only three kind of size, defined
   *              in @ref EV_BUFFER_CONSTANT
   *
   * @param       size - The requested size
@@ -163,7 +163,7 @@ u8 *ev_buf_allocate(u16 size);
 #endif
 
 /**
-  * @brief       Free the specified buffer 
+  * @brief       Free the specified buffer
   *
   * @param       pBuf - the pointer to the specified buffer to free.
   *
@@ -177,7 +177,7 @@ buf_sts_t ev_buf_free(u8 *pBuf);
 #endif
 
 /**
-  * @brief       Get the header of a buffer item  
+  * @brief       Get the header of a buffer item
   *
   * @param       pd - the pointer of a data, which is previously allocated
   *

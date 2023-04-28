@@ -110,7 +110,6 @@ void rf_emi_stop(void)
  */
 void rf_emi_tx_continue_setup(void)
 {
-
     write_reg8(0x140800, 0x0a);
     write_reg8(0x140808, 0x00);  // access code
 

@@ -140,7 +140,6 @@ typedef enum {
  * @brief  Select the 32K clock source of pwm.
  */
 typedef enum {
-
     PWM_CLOCK_32K_CHN_NONE = 0x00,
     PWM_CLOCK_32K_CHN_PWM0 = 0x01,
     PWM_CLOCK_32K_CHN_PWM1 = 0x02,
@@ -158,7 +157,6 @@ typedef enum {
  */
 static inline void pwm_set_clk(unsigned char pwm_clk_div)
 {
-
     reg_pwm_clkdiv = pwm_clk_div;
 }
 
@@ -172,7 +170,6 @@ static inline void pwm_set_clk(unsigned char pwm_clk_div)
 
 static inline void pwm_32k_chn_en(pwm_clk_32k_en_chn_e pwm_32K_en_chn)
 {
-
     reg_pwm_mode32k = pwm_32K_en_chn;
 }
 
@@ -300,7 +297,6 @@ static inline void pwm_set_polarity_dis(pwm_id_e id)
  */
 static inline void pwm_set_irq_mask(pwm_irq_e mask)
 {
-
     if (mask == FLD_PWM0_IR_FIFO_IRQ) {
         BM_SET(reg_pwm_irq_mask(1), BIT(0));
     } else {
@@ -315,7 +311,6 @@ static inline void pwm_set_irq_mask(pwm_irq_e mask)
  */
 static inline void pwm_clr_irq_mask(pwm_irq_e mask)
 {
-
     if (mask == FLD_PWM0_IR_FIFO_IRQ) {
         BM_SET(reg_pwm_irq_mask(1), BIT(0));
     } else {
@@ -330,7 +325,6 @@ static inline void pwm_clr_irq_mask(pwm_irq_e mask)
  */
 static inline unsigned char pwm_get_irq_status(pwm_irq_e status)
 {
-
     if (status == FLD_PWM0_IR_FIFO_IRQ) {
         return (reg_pwm_irq_sta(1) & BIT(0));
     } else {
@@ -345,7 +339,6 @@ static inline unsigned char pwm_get_irq_status(pwm_irq_e status)
  */
 static inline void pwm_clr_irq_status(pwm_irq_e status)
 {
-
     if (status == FLD_PWM0_IR_FIFO_IRQ) {
         BM_SET(reg_pwm_irq_sta(1), BIT(0));
     } else {

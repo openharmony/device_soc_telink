@@ -282,7 +282,6 @@ void gpio_set_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_type)
  */
 void gpio_set_gpio2risc0_irq(gpio_pin_e pin, gpio_irq_trigger_type_e trigger_type)
 {
-
     switch (trigger_type) {
         case INTR_RISING_EDGE:
             BM_CLR(reg_gpio_pol(pin), pin & 0xff);

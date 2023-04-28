@@ -390,7 +390,6 @@ int dev_char_info_store_peer_att_handle(dev_char_info_t *pdev_char)
         flash_read_page(current_flash_adr, 1, &mark);
 
         if (mark == U8_MAX) {
-
             flash_write_page(current_flash_adr + OFFSETOF(dev_att_t, adr_type), 7,
                              (u8 *)&pdev_char->peer_adrType);  // peer_adrType(1)+peer_addr(6)
 
@@ -435,7 +434,6 @@ int dev_char_info_store_peer_att_handle(dev_char_info_t *pdev_char)
  */
 int dev_char_info_search_peer_att_handle_by_peer_mac(u8 adr_type, u8 *addr, dev_att_t *pdev_att)
 {
-
     u8 mark;
     u32 current_flash_adr;
     for (current_flash_adr = FLASH_SDP_ATT_ADRRESS;

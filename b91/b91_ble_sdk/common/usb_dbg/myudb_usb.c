@@ -103,7 +103,6 @@ void myudb_usb_prepare_desc_data(void)
     myudb.response_len = 0;
 
     switch (value_h) {
-
         case DTYPE_Device:
             myudb.response = myudb_usbdesc_get_device();
             myudb.response_len = sizeof(USB_Descriptor_Device_t);

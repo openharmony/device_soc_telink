@@ -222,7 +222,6 @@ inline Word16 clrs16(Word16 a)
     int i;
     UWord32 cnt = 0;
     for (i = 14; i >= 0; i--) {
-
         if (((a >> i) & 1) == ((a >> 15) & 1)) {
             cnt++;
         } else {
@@ -236,7 +235,6 @@ inline UWord32 clrs32(UWord32 a)
     int i;
     UWord32 cnt = 0;
     for (i = 30; i >= 0; i--) {
-
         if (((a >> i) & 1) == ((a >> 31) & 1)) {
             cnt++;
         } else {
@@ -308,7 +306,6 @@ inline Word32 mac_16_16_32(Word32 vin, Word16 vin1, Word16 vin2)
 /* 32-bit logical left shift or arithmetic right shift */
 inline Word32 L_shl(Word32 L_var1, Word16 var2)
 {
-
     Word32 L_var_out = 0L;
     // int Overflow = 0;
 

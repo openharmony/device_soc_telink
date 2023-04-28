@@ -128,7 +128,6 @@ int user_tbl_slave_mac_add(u8 adr_type, u8 *adr)  // add new mac address to tabl
     }
 
     if (add_new) {
-
         user_bond_slave_flash_cfg_idx += 8;  // inc flash idx to get the new 8 bytes area
 
         if (user_bond_slave_flash_cfg_idx >=
@@ -168,7 +167,6 @@ int user_tbl_slave_mac_search(u8 adr_type, u8 *adr)
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
         if (user_tbl_slaveMac.bond_device[i].adr_type == adr_type &&
             !memcmp(user_tbl_slaveMac.bond_device[i].address, adr, 6)) {  // match
-
             return (i + 1);  // return index+1( 1 - USER_PAIR_SLAVE_MAX_NUM)
         }
     }
@@ -188,7 +186,6 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr)  // remove adr from s
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
         if (user_tbl_slaveMac.bond_device[i].adr_type == adr_type &&
             !memcmp(user_tbl_slaveMac.bond_device[i].address, adr, 6)) {  // match
-
             // erase the match adr
             u8 delete_mark = ADR_ERASE_MARK;
             flash_write_page(FLASH_ADR_CUSTOM_PAIRING + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);

@@ -172,7 +172,6 @@ static inline void stimer_disable(void)
 **/
 static inline unsigned int stimer_get_tick(void)
 {
-
     return reg_system_tick;
 }
 

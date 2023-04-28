@@ -213,7 +213,6 @@ void aduio_set_chn_wl(audio_channel_wl_mode_e chn_wl)
  */
 void audio_i2s_set_pin_mux(i2s_pin_e pin)
 {
-
     unsigned char val = 0;
     unsigned char start_bit = (BIT_LOW_BIT(pin & 0xff) % 4) << 1;
     unsigned char mask = (unsigned char)~BIT_RNG(start_bit, start_bit + 1);
@@ -443,8 +442,8 @@ void audio_init(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_cha
                                audio_i2s_codec_config.codec_data_select, MCU_WREG);
     }
     while (!(reg_audio_codec_stat_ctr ==
-             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK)))
-        ;  // wait codec adc/dac locked
+             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK))) {
+    }  // wait codec adc/dac locked
 
     audio_data_fifo0_path_sel(I2S_DATA_IN_FIFO, I2S_OUT);
 }
@@ -460,18 +459,22 @@ unsigned char audio_i2c_codec_read(unsigned char addr)
     reg_i2c_len = 0x01;  // rx_len
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_ADDR | FLD_I2C_LS_START;
 
-    while (i2c_master_busy())
-        ;  // wait busy=0
-    while (reg_i2c_mst & FLD_I2C_ACK_IN)
-        ;  // wait ack=0
+    while (i2c_master_busy()) {
+    }
+    // wait busy=0
+    while (reg_i2c_mst & FLD_I2C_ACK_IN) {
+    }
+    // wait ack=0
 
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_DATAR | FLD_I2C_LS_START | FLD_I2C_LS_ID_R | FLD_I2C_LS_ACK;
-    while (i2c_master_busy())
-        ;  // wait busy=0
+    while (i2c_master_busy()) {
+    }
+    // wait busy=0
     unsigned char rdat8 = reg_i2c_data_buf(0);
     reg_i2c_sct1 = FLD_I2C_LS_STOP | FLD_I2C_LS_ID_R;
-    while (i2c_master_busy())
-        ;  // wait busy=0
+    while (i2c_master_busy()) {
+    }
+    // wait busy=0
     return rdat8;
 }
 
@@ -482,15 +485,16 @@ unsigned char audio_i2c_codec_read(unsigned char addr)
  */
 void audio_i2c_codec_write(unsigned char addr, unsigned char wdat)
 {
-
     reg_i2c_data_buf(0) = addr << 1;
     reg_i2c_data_buf(1) = wdat;
     reg_i2c_len = 2;  // tx_len
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_DATAW | FLD_I2C_LS_START | FLD_I2C_LS_STOP;
-    while (i2c_master_busy())
-        ;  // wait busy=0
-    while (reg_i2c_mst & FLD_I2C_ACK_IN)
-        ;  // wait ack=0
+    while (i2c_master_busy()) {
+    }
+    // wait busy=0
+    while (reg_i2c_mst & FLD_I2C_ACK_IN) {
+    }
+    // wait ack=0
 }
 
 /**
@@ -523,7 +527,7 @@ void audio_i2c_init(codec_type_e codec_type, i2c_sda_pin_e sda_pin, i2c_scl_pin_
 void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_channel_wl_mode_e channel_wl)
 {
     aduio_set_chn_wl(channel_wl);
-    audio_set_codec_clk(1, 16);  //// from ppl 192/16=12M
+    audio_set_codec_clk(1, 16);  // from ppl 192/16=12M
     audio_mux_config(CODEC_I2S, audio_i2s_codec_config.audio_in_mode, audio_i2s_codec_config.audio_in_mode,
                      audio_i2s_codec_config.audio_out_mode);
     audio_i2s_config(I2S_I2S_MODE, audio_i2s_codec_config.i2s_data_select, audio_i2s_codec_config.i2s_codec_m_s_mode,
@@ -559,7 +563,6 @@ void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio
 void audio_codec_dac_config(i2s_codec_m_s_mode_e mode, audio_sample_rate_e rate, codec_data_select_e data_select,
                             codec_wreg_mode_e wreg_mode)
 {
-
     if (wreg_mode == MCU_WREG) {
         BM_SET(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // dac mute
         if ((audio_i2s_codec_config.audio_out_mode == BIT_16_MONO_FIFO0) ||
@@ -658,7 +661,6 @@ void audio_codec_dac_config(i2s_codec_m_s_mode_e mode, audio_sample_rate_e rate,
 void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mode, audio_sample_rate_e rate,
                             codec_data_select_e data_select, codec_wreg_mode_e wreg_mode)
 {
-
     if (wreg_mode == MCU_WREG) {
         BM_SET(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /* adc mute */
         if ((audio_i2s_codec_config.audio_in_mode == BIT_16_MONO) ||
@@ -800,7 +802,6 @@ void audio_mux_config(audio_flow_e audio_flow, audio_in_mode_e ain0_mode, audio_
 void audio_i2s_config(i2s_mode_select_e i2s_format, i2s_data_select_e wl, i2s_codec_m_s_mode_e m_s,
                       audio_data_invert_e en)
 {
-
     reg_i2s_cfg = MASK_VAL(FLD_AUDIO_I2S_FORMAT, i2s_format, FLD_AUDIO_I2S_WL, wl, FLD_AUDIO_I2S_LRP, 0,
                            FLD_AUDIO_I2S_LRSWAP, en, FLD_AUDIO_I2S_ADC_DCI_MS, m_s, FLD_AUDIO_I2S_DAC_DCI_MS, m_s);
 }

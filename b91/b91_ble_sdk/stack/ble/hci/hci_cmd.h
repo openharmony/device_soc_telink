@@ -664,7 +664,6 @@ typedef enum {
 } periodic_adv_inter_t;
 
 typedef enum {
-
     PERD_ADV_PROP_MASK_NONE = 0,
 
     PERD_ADV_PROP_MASK_TX_POWER_INCLUDE = BIT(6),
@@ -884,7 +883,6 @@ typedef struct {
 
 /* Options */
 typedef enum {
-
     /* BIT(0)
 	 * 0: Use the adv_sid, adv_addr_type, and adv_address parameters to determine which advertiser to listen to.
 	 * 1: Use the Periodic Advertiser List to determine which advertiser to listen to. */

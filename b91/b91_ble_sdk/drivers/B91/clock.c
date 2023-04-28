@@ -265,7 +265,6 @@ void clock_init(sys_pll_clk_e pll, sys_clock_src_e src, sys_pll_div_to_cclk_e cc
                 sys_cclk_div_to_hclk_e hclk_div, sys_hclk_div_to_pclk_e pclk_div,
                 sys_pll_div_to_mspi_clk_e mspi_clk_div)
 {
-
     // pll clk
     analog_write_reg8(0x80, (analog_read_reg8(0x80) & 0xe0) | ((pll >> 2) & 0x1f));
     analog_write_reg8(0x09, (analog_read_reg8(0x09) & 0xf3) | ((pll & 0x03) << 2));

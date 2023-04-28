@@ -69,7 +69,6 @@ u32 fw_crc_init = 0xFFFFFFFF;
  */
 bool flash_fw_check(u32 crc_init_value)
 {
-
     if (!crc_init_value) {
         fw_crc_init = 0xFFFFFFFF;
     } else {
@@ -96,7 +95,6 @@ bool flash_fw_check(u32 crc_init_value)
     u8 fw_tmpdata[FW_READ_SIZE];  //
     u8 ota_dat[FW_READ_SIZE << 1];
     for (i = 0; i < fw_Block; i++) {  // Telink bin must align 16 bytes.
-
         flash_read_page((fw_flashAddr + i * FW_READ_SIZE), FW_READ_SIZE, fw_tmpdata);
 
         // FW_READ_SIZE byte OTA data32  half byteCRC

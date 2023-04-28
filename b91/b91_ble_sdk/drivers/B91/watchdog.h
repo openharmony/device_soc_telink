@@ -54,7 +54,6 @@
  */
 static inline void wd_start(void)
 {
-
     BM_SET(reg_tmr_ctrl2, FLD_TMR_WD_EN);
 }
 

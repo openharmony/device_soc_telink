@@ -141,24 +141,20 @@ int blt_soft_timer_delete_by_index(u8 index)
  */
 int blt_soft_timer_delete(blt_timer_callback_t func)
 {
-
     for (int i = 0; i < blt_timer.currentNum; i++) {
         if (blt_timer.timer[i].cb == func) {
             blt_soft_timer_delete_by_index(i);
 
             if (i == 0) {  // The most recent timer is deleted, and the time needs to be updated
-
                 if ((u32)(blt_timer.timer[0].t - clock_time()) < 3000 * SYSTEM_TIMER_TICK_1MS) {
                     blc_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
                 } else {
                     blc_pm_setAppWakeupLowPower(0, 0);  // disable
                 }
             }
-
             return 1;
         }
     }
-
     return 0;
 }
 
@@ -186,9 +182,7 @@ void blt_soft_timer_process(int type)
     int result;
     for (int i = 0; i < blt_timer.currentNum; i++) {
         if (blt_is_timer_expired(blt_timer.timer[i].t, now)) {  // timer trigger
-
             if (blt_timer.timer[i].cb == NULL) {
-
             } else {
                 result = blt_timer.timer[i].cb();
 

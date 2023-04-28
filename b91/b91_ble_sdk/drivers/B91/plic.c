@@ -159,7 +159,6 @@ void eoc_irq_handler(void) __attribute__((weak, alias("default_irq_handler")));
 typedef void (*func_isr_t)(void);
 _attribute_ram_code_sec_ void plic_isr(func_isr_t func, irq_source_e src)
 {
-
 #if SUPPORT_PFT_ARCH
     core_save_nested_context();     // save csr and  Enable interrupt enable
     func();                         // irq handler

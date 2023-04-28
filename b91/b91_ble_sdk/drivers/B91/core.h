@@ -88,7 +88,6 @@ typedef enum {
  */
 static inline unsigned int core_interrupt_disable(void)
 {
-
     unsigned int r = read_csr(NDS_MIE);
     clear_csr(NDS_MIE, BIT(3) | BIT(7) | BIT(11));
     return r;
@@ -102,7 +101,6 @@ static inline unsigned int core_interrupt_disable(void)
  */
 static inline unsigned int core_restore_interrupt(unsigned int en)
 {
-
     set_csr(NDS_MIE, en);
     return 0;
 }

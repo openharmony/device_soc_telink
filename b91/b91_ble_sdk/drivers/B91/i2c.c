@@ -86,9 +86,9 @@ dma_config_t i2c_rx_dma_config = {
 unsigned char g_i2c_stop_en = 0x20;
 
 /**
- * @brief      The function of this interface is equivalent to 
+ * @brief      The function of this interface is equivalent to
  *             that after the user finishes calling the write or read interface, the stop signal is not sent,
- * 			   and then the write or read command is executed again. 
+ * 			   and then the write or read command is executed again.
  *             The driver defaults that every write or read API will send a stop command at the end
  * @param[in]  en - Input parameters.Decide whether to disable the stop function after each write or read interface
  * @return     none
@@ -110,7 +110,6 @@ void i2c_master_send_stop(unsigned char en)
  */
 void i2c_set_pin(i2c_sda_pin_e sda_pin, i2c_scl_pin_e scl_pin)
 {
-
     unsigned char val = 0;
     unsigned char mask = 0xff;
 
@@ -176,7 +175,6 @@ void i2c_master_init(void)
  */
 void i2c_set_master_clk(unsigned char clock)
 {
-
     // i2c frequency = system_clock/(4*clock)
     reg_i2c_sp = clock;
 
@@ -201,8 +199,10 @@ void i2c_slave_init(unsigned char id)
  *  @brief      The function of this API is to ensure that the data can be successfully sent out.
  *  @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  *  @param[in]  data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- *  @param[in]  len - This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
- *  @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master sent the data successfully,(master does not detect NACK in data phase)
+ *  @param[in]  len - This length is the total length, including both the length of the slave RAM address
+ *                    and the length of the data to be sent.
+ *  @return     0 : the master receive NACK after sending out the id and then send stop.
+ *              1: the master sent the data successfully,(master does not detect NACK in data phase)
  */
 unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned char len)
 {
@@ -231,8 +231,9 @@ unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned c
         }
     }
 
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
+
     return 1;
 }
 
@@ -311,15 +312,17 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
             }
         }
     }
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
+
     // set i2c master read.
     BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               // clear index
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      // i2c rnck enable.
     reg_i2c_data_buf(0) = (id | FLD_I2C_WRITE_READ_BIT);  // BIT(0):R:High W:Low;
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
+
     reg_i2c_sct1 = (FLD_I2C_LS_DATAR | FLD_I2C_LS_ID_R | FLD_I2C_LS_STOP);
     reg_i2c_len = rd_len;
     cnt = 0;
@@ -329,8 +332,8 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
             cnt++;
         }
     }
-    while (i2c_master_busy())
-        ;
+    while (i2c_master_busy()) {
+    }
 
     return 1;
 }
@@ -345,7 +348,6 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
  */
 void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char len)
 {
-
     // set id.
     reg_i2c_id = (id & (~FLD_I2C_WRITE_READ_BIT));  // BIT(0):R:High  W:Low
 
@@ -366,7 +368,6 @@ void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char l
  */
 void i2c_master_read_dma(unsigned char id, unsigned char *rx_data, unsigned char len)
 {
-
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;  // i2c rnck enable
 
     // set i2c master read.

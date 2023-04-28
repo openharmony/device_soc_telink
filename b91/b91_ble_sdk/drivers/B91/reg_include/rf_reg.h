@@ -318,45 +318,45 @@ enum {
 
 #if 0
 #define reg_rf_ant_lut_1 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x69)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_2 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6a)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_3 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6b)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_4 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6c)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_5 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6d)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_6 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6e)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 
 #define reg_rf_ant_lut_7 REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x6f)
-enum{
-	FLD_RF_ANT_LUT0              =	BIT_RNG(0,2),
-	FLD_RF_ANT_LUT1              =	BIT_RNG(4,6),
+enum {
+    FLD_RF_ANT_LUT0 = BIT_RNG(0, 2),
+    FLD_RF_ANT_LUT1 = BIT_RNG(4, 6),
 };
 #endif
 
