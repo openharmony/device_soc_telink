@@ -85,13 +85,9 @@ void gpio_input_en(gpio_pin_e pin)
 
     if (group == GPIO_GROUPA || group == GPIO_GROUPB || group == GPIO_GROUPE) {
         BM_SET(reg_gpio_ie(pin), bit);
-    }
-
-    else if (group == GPIO_GROUPC) {
+    } else if (group == GPIO_GROUPC) {
         analog_write_reg8(areg_gpio_pc_ie, analog_read_reg8(areg_gpio_pc_ie) | bit);
-    }
-
-    else if (group == GPIO_GROUPD) {
+    } else if (group == GPIO_GROUPD) {
         analog_write_reg8(areg_gpio_pd_ie, analog_read_reg8(areg_gpio_pd_ie) | bit);
     }
 }
@@ -108,13 +104,9 @@ void gpio_input_dis(gpio_pin_e pin)
 
     if (group == GPIO_GROUPA || group == GPIO_GROUPB || group == GPIO_GROUPE) {
         BM_CLR(reg_gpio_ie(pin), bit);
-    }
-
-    else if (group == GPIO_GROUPC) {
+    } else if (group == GPIO_GROUPC) {
         analog_write_reg8(areg_gpio_pc_ie, analog_read_reg8(areg_gpio_pc_ie) & (~bit));
-    }
-
-    else if (group == GPIO_GROUPD) {
+    } else if (group == GPIO_GROUPD) {
         analog_write_reg8(areg_gpio_pd_ie, analog_read_reg8(areg_gpio_pd_ie) & (~bit));
     }
 }

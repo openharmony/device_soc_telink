@@ -395,7 +395,6 @@ int dev_char_info_store_peer_att_handle(dev_char_info_t *pdev_char)
 
 #if (PEER_SLAVE_USE_RPA_EN)
             if (IS_RESOLVABLE_PRIVATE_ADDR(pdev_char->peer_adrType, pdev_char->peer_addr)) {
-                // TODO, store irk to flash
             }
 #endif
 
@@ -451,7 +450,6 @@ int dev_char_info_search_peer_att_handle_by_peer_mac(u8 adr_type, u8 *addr, dev_
             int addr_match = 0;
 #if (PEER_SLAVE_USE_RPA_EN)
             if (IS_RESOLVABLE_PRIVATE_ADDR(pdev_att->adr_type, pdev_att->addr)) {
-                // TODO, resolve address by irk
                 if (0) {
                     addr_match = 1;
                 }

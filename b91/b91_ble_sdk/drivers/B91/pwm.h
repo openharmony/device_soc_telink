@@ -403,7 +403,7 @@ static inline void pwm_clr_pwm0_ir_fifo(void)
  * @brief     This fuction serves to get the number of data in fifo.
  * @return	  the number of data in fifo
  */
-static inline unsigned char pwm_get_pwm0_ir_fifo_data_num(void)  // ????TODO
+static inline unsigned char pwm_get_pwm0_ir_fifo_data_num(void)
 {
     return (reg_pwm_ir_fifo_data_status & FLD_PWM0_IR_FIFO_DATA_NUM);
 }

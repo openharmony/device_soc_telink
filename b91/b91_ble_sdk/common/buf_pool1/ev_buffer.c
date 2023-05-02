@@ -229,8 +229,6 @@ buf_sts_t ev_buf_free(u8 *pBuf)
         T_DBG_evFreeBuf = (u32)pBuf;
         T_DBG_evFreeBufLine = line;
 #endif
-
-        // TODO: Throw exceptions to the application layer
     }
 
     ev_bufItem_t *pDelBuf = ev_buf_getHead(pBuf);
@@ -241,9 +239,6 @@ buf_sts_t ev_buf_free(u8 *pBuf)
         T_DBG_evFreeBuf = (u32)pBuf;
         T_DBG_evFreeBufLine = line;
 #endif
-
-        // TODO: Throw exceptions to the application layer
-
         irq_restore(r);
         return BUFFER_DUPLICATE_FREE;
     }

@@ -70,7 +70,7 @@ typedef struct {
  */
 #define HCI_CMD_HDR_LEN (4)
 
-// TODO:LEN
+// LEN
 // -- OGF --- 0x01: Link Control Command
 // -- OCF --
 #define HCI_INQUIRY_LEN              0x01

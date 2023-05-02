@@ -79,7 +79,7 @@ typedef struct {
 
 typedef struct {
     u8 numHandles;
-    numCmpPktParamRet_t retParams[1];  // TODO
+    numCmpPktParamRet_t retParams[1];
 } hci_numOfCmpPktEvt_t;
 
 typedef struct {
@@ -421,7 +421,6 @@ typedef struct {
 } hci_le_periodicAdvSyncLostEvt_t;
 
 typedef struct {
-    // TODO
 } hci_le_scanTimeoutEvt_t;
 
 /**
@@ -439,7 +438,6 @@ typedef struct {
  *  @brief  Event Parameters for "7.7.65.19 LE Scan Request Received event"
  */
 typedef struct {
-    // TODO
 } hci_le_scanReqRcvdEvt_t;
 
 /**

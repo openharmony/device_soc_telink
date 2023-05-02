@@ -110,7 +110,7 @@ typedef struct {
     u8 rsvd[8];  // very important: 16 byte aligned, to avoid different flash page write for a sequence data
 
 #if (PEER_SLAVE_USE_RPA_EN)
-    u8 irk[16];  // TODO: if peer device mac_adress is RPA(resolvable private address), IRK will be used
+    u8 irk[16];  // if peer device mac_adress is RPA(resolvable private address), IRK will be used
 #endif
 
     u16 char_handle[CHAR_HANDLE_MAX];

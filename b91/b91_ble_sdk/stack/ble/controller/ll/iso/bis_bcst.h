@@ -83,7 +83,7 @@ ble_sts_t blc_hci_le_createBigParamsTest(hci_le_createBigParamsTest_t *pCmdParam
  * @return     none
  */
 ble_sts_t
-blc_hci_le_terminateBig(hci_le_terminateBigParams_t *pCmdParam);  // TODO: BIG BCST and BIG SYNC use common BIG CB
+blc_hci_le_terminateBig(hci_le_terminateBigParams_t *pCmdParam);
 
 /**
  * @brief      Used to enable private ExtADV to send BIGINFO

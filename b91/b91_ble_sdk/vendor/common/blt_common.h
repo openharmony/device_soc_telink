@@ -117,7 +117,7 @@
 #define CFG_ADR_CALIBRATION CFG_ADR_CALIBRATION_512K_FLASH  // can not change this value
 
 #if (MCU_CORE_TYPE == MCU_CORE_9518)
-// TODO
+
 #else
 /* SMP paring and key information area */
 #ifndef FLASH_ADR_SMP_PAIRING

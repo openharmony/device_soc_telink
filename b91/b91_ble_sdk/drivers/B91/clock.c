@@ -168,8 +168,9 @@ void clock_cal_24m_rc(void)
 
     analog_write_reg8(0xc7, 0x0e);
     analog_write_reg8(0xc7, 0x0f);
-    while ((analog_read_reg8(0xcf) & 0x80) == 0)
-        ;
+    while ((analog_read_reg8(0xcf) & 0x80) == 0) {
+
+    }
     unsigned char cap = analog_read_reg8(0xcb);
     analog_write_reg8(0x52, cap);  // write 24m cap into manual register
 
@@ -189,7 +190,8 @@ void clock_cal_32k_rc(void)
     analog_write_reg8(0xc6, 0xf6);
     analog_write_reg8(0xc6, 0xf7);
     while ((analog_read_reg8(0xcf) & BIT(6)) == 0) {
-    };
+  
+    }
     unsigned char res1 = analog_read_reg8(0xc9);                        // read 32k res[13:6]
     analog_write_reg8(0x51, res1);                                      // write 32k res[13:6] into manual register
     unsigned char res2 = analog_read_reg8(0xca);                        // read 32k res[5:0]

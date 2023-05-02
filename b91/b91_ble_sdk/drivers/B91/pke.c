@@ -602,7 +602,7 @@ unsigned char pke_x25519_point_mul(mont_curve_t *curve, unsigned int *k, unsigne
     pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);                // A4 k
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->mont_p, wordLen);    // B3 p
 
-    if ((NULL != curve->mont_p_h) && (NULL != curve->mont_p_n1)) {
+    if ((curve->mont_p_h != NULL) && (curve->mont_p_n1 != NULL)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->mont_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->mont_p_n1, 1);       // B4 p_n1
     } else {
@@ -732,7 +732,7 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
         memset(c + aWordLen, 0, (bWordLen - aWordLen) << 2);
 
         return PKE_SUCCESS;
-    } else if (0 == ret) {
+    } else if (ret == 0) {
         memset(c, 0, bWordLen << 2);
 
         return PKE_SUCCESS;

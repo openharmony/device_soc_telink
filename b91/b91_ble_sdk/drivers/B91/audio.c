@@ -249,21 +249,21 @@ void audio_i2s_set_pin(void)
 void audio_set_codec_supply(codec_volt_supply_e volt)
 {
     if (g_chip_version == 0xff) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
-        if (CODEC_2P8V == volt) {
+        if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
         }
 
-        else if (CODEC_1P8V == volt) {
+        else if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
     }
 
     else {  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
-        if (CODEC_1P8V == volt) {
+        if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
         }
 
-        else if (CODEC_2P8V == volt) {
+        else if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
     }
@@ -604,9 +604,7 @@ void audio_codec_dac_config(i2s_codec_m_s_mode_e mode, audio_sample_rate_e rate,
         reg_audio_codec_dac_freq_ctr = (FLD_AUDIO_CODEC_DAC_FREQ & (rate == AUDIO_ADC_16K_DAC_48K ? AUDIO_48K : rate));
 
         BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE); /* dac mute */
-    }
-
-    else if (wreg_mode == I2C_WREG) {
+    } else if (wreg_mode == I2C_WREG) {
         /* active DAC power,active left and right channel,dac mute */
         audio_i2c_codec_write(
             addr_audio_codec_dac_ctr,
@@ -694,9 +692,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
             reg_audio_dmic_12 =
                 MASK_VAL(FLD_AUDIO_CODEC_ADC_DMIC_SEL2, 1, FLD_AUDIO_CODEC_ADC_DMIC_SEL1, 1, FLD_AUDIO_CODEC_DMIC2_SB,
                          CODEC_ITF_AC, FLD_AUDIO_CODEC_DMIC1_SB, CODEC_ITF_AC);
-        }
-
-        else if (in_mode == LINE_INPUT) {
+        } else if (in_mode == LINE_INPUT) {
             /* analog 0/4/8/12/16/20 dB boost gain */
             reg_audio_codec_mic_l_R_gain =
                 MASK_VAL(FLD_AUDIO_CODEC_AMIC_L_GAIN, audio_i2s_codec_config.in_analog_gain,
@@ -717,9 +713,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
                                                 rate == AUDIO_ADC_16K_DAC_48K ? AUDIO_16K : rate);
 
         BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /* adc unmute */
-    }
-
-    else if (wreg_mode == I2C_WREG) {
+    } else if (wreg_mode == I2C_WREG) {
 
         /* active adc0 and adc1  channel, if mono only active adc1,adc mute */
         audio_i2c_codec_write(addr_audio_codec_adc12_ctr, MASK_VAL(FLD_AUDIO_CODEC_ADC1_SB, 0, FLD_AUDIO_CODEC_ADC2_SB,
@@ -851,19 +845,15 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                     ;
             }
 
-            if (match == AUDIO_RATE_EQUAL) {  // 48000
-                audio_set_i2s_clk(2, 125);    // i2s clk 3.072 M
-                audio_set_i2s_bclk(0);        // 3.072/1 = 3.072M bclk
-                audio_set_lrclk(64, 64);      // bclk/64=48k
-            }
-
-            else if (match == AUDIO_RATE_GT_L0) {  // 48004
+            if (match == AUDIO_RATE_EQUAL) {         // 48000
+                audio_set_i2s_clk(2, 125);           // i2s clk 3.072 M
+                audio_set_i2s_bclk(0);               // 3.072/1 = 3.072M bclk
+                audio_set_lrclk(64, 64);             // bclk/64=48k
+            } else if (match == AUDIO_RATE_GT_L0) {  // 48004
                 audio_set_i2s_clk(3, 169);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(71, 71);
-            }
-
-            else if (match == AUDIO_RATE_GT_L1) {  // 48012.0
+            } else if (match == AUDIO_RATE_GT_L1) {  // 48012.0
                 audio_set_i2s_clk(4, 129);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(124, 124);
@@ -871,9 +861,7 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 audio_set_i2s_clk(2, 63);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(127, 127);
-            }
-
-            else if (match == AUDIO_RATE_LT_L1) {  // 47985.0
+            } else if (match == AUDIO_RATE_LT_L1) {  // 47985.0
                 audio_set_i2s_clk(4, 165);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(97, 97);
@@ -895,21 +883,15 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 audio_set_i2s_clk(11, 228);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(210, 210);
-            }
-
-            else if (match == AUDIO_RATE_GT_L1) {  // 44117.6
+            } else if (match == AUDIO_RATE_GT_L1) {  // 44117.6
                 audio_set_i2s_clk(5, 170);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(128, 128);
-            }
-
-            else if (match == AUDIO_RATE_LT_L0) {  // 44094.4
+            } else if (match == AUDIO_RATE_LT_L0) {  // 44094.4
                 audio_set_i2s_clk(7, 254);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(120, 120);
-            }
-
-            else if (match == AUDIO_RATE_LT_L1) {  // 44081.6
+            } else if (match == AUDIO_RATE_LT_L1) {  // 44081.6
                 audio_set_i2s_clk(9, 245);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(160, 160);

@@ -479,9 +479,8 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
         }
 
         usb_send_status_pkt(0x82, 8, rsp, n + 6);
-    }
-    //////////////////////////  Memory Write ////////////////////////////////////
-    else if (cmd == 0x2a && len > 6) {
+    } else if (cmd == 0x2a && len > 6) {
+        //////////////////////////  Memory Write ////////////////////////////////////
         usb_send_status_pkt(0x81, 8, p, 12);
         rsp[0] = 0x2b;
         memcpy(rsp + 1, p + 1, 16);

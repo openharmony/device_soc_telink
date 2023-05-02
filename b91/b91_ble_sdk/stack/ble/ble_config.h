@@ -96,7 +96,7 @@
 
 // conn param update/map update
 #ifndef BLS_PROC_MASTER_UPDATE_REQ_IN_IRQ_ENABLE
-#define BLS_PROC_MASTER_UPDATE_REQ_IN_IRQ_ENABLE 0  // TODO:
+#define BLS_PROC_MASTER_UPDATE_REQ_IN_IRQ_ENABLE 0
 #endif
 
 #ifndef LE_AUTHENTICATED_PAYLOAD_TIMEOUT_SUPPORT_EN
@@ -109,7 +109,7 @@
 #endif
 
 #ifndef LL_FEATURE_SUPPORT_LL_PRIVACY
-#define LL_FEATURE_SUPPORT_LL_PRIVACY 0  // TODO: legAdv and slave role conn support now
+#define LL_FEATURE_SUPPORT_LL_PRIVACY 0  // legAdv and slave role conn support now
 #endif
 
 #ifndef LL_FEATURE_SUPPORT_LE_2M_PHY

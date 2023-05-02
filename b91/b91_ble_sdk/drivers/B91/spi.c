@@ -194,11 +194,9 @@ void pspi_set_pin_mux(pspi_pin_def_e pin)
         if ((pin == PSPI_CLK_PC5_PIN) || (pin == PSPI_CSN_PC4_PIN) || (pin == PSPI_MOSI_IO0_PC7_PIN) ||
             (pin == PSPI_MISO_IO1_PC6_PIN)) {
             val = 0;  // function 0
-        }
-
-        else if ((pin == PSPI_CLK_PB5_PIN) || (pin == PSPI_CLK_PD1_PIN) || (pin == PSPI_CSN_PC0_PIN) ||
-                 (pin == PSPI_CSN_PD0_PIN) || (pin == PSPI_MOSI_IO0_PB7_PIN) || (pin == PSPI_MOSI_IO0_PD3_PIN) ||
-                 (pin == PSPI_MISO_IO1_PB6_PIN) || (pin == PSPI_MISO_IO1_PD2_PIN)) {
+        } else if ((pin == PSPI_CLK_PB5_PIN) || (pin == PSPI_CLK_PD1_PIN) || (pin == PSPI_CSN_PC0_PIN) ||
+                   (pin == PSPI_CSN_PD0_PIN) || (pin == PSPI_MOSI_IO0_PB7_PIN) || (pin == PSPI_MOSI_IO0_PD3_PIN) ||
+                   (pin == PSPI_MISO_IO1_PB6_PIN) || (pin == PSPI_MISO_IO1_PD2_PIN)) {
             val = 1 << (start_bit);  // function 1
         }
 
@@ -462,7 +460,7 @@ void hspi_master_config_plus(hspi_config_t *config)
 
     if (config->hspi_cmd_en == 1) {
         spi_cmd_en(HSPI_MODULE);
-    } else if (0 == config->hspi_cmd_en) {
+    } else if (config->hspi_cmd_en == 0) {
         spi_cmd_dis(HSPI_MODULE);
     }
 
@@ -474,7 +472,7 @@ void hspi_master_config_plus(hspi_config_t *config)
 
     if (config->hspi_addr_en == 1) {
         hspi_addr_en();
-    } else if (0 == config->hspi_addr_en) {
+    } else if (config->hspi_addr_en == 0) {
         hspi_addr_dis();
     }
 
