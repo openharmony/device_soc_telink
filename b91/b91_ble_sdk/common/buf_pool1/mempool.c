@@ -48,8 +48,9 @@
 
 mem_pool_t *mempool_init(mem_pool_t *pool, void *mem, int itemsize, int itemcount)
 {
-    if (!pool || !mem)
+    if (!pool || !mem) {
         return (0);
+    }
 
     pool->free_list = (mem_block_t *)mem;
 
@@ -70,8 +71,10 @@ mem_block_t *mempool_header(char *pd)
 
 void *mempool_alloc(mem_pool_t *pool)
 {
-    if (!pool->free_list)
+    if (!pool->free_list) {
         return 0;
+    }
+
     mem_block_t *tmp = pool->free_list;
     pool->free_list = tmp->next_block;
     return &tmp->data;

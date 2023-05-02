@@ -114,7 +114,7 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
     for (unsigned char i = 0; i < xtal_times; i++) {
         if (0xff == g_chip_version) {
             delay_ms(1000);
-        } else { // **Note that the clock is 24M crystal oscillator. PCLK is 24MHZ
+        } else {  // **Note that the clock is 24M crystal oscillator. PCLK is 24MHZ
             // 2.set PD0 as pwm output
             unsigned char pwm_clk = read_reg8(0x1401d8);      // **condition: PCLK is 24MHZ,PCLK = HCLK
             write_reg8(0x1401d8, ((pwm_clk & 0xfc) | 0x01));  // PCLK = 12M
@@ -145,8 +145,8 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
         last_32k_tick = clock_get_32k_tick();  // clock_get_32k_tick()
         delay_us(305);                         // for 32k tick accumulator, tick period: 30.5us, dly 10 ticks
         curr_32k_tick = clock_get_32k_tick();
-        if (last_32k_tick != curr_32k_tick) { // clock_get_32k_tick()
-            return 1;  // pwm kick 32k pad success
+        if (last_32k_tick != curr_32k_tick) {  // clock_get_32k_tick()
+            return 1;                          // pwm kick 32k pad success
         }
     }
     return 0;
@@ -170,7 +170,6 @@ void clock_cal_24m_rc(void)
     analog_write_reg8(0xc7, 0x0e);
     analog_write_reg8(0xc7, 0x0f);
     while ((analog_read_reg8(0xcf) & 0x80) == 0) {
-
     }
     unsigned char cap = analog_read_reg8(0xcb);
     analog_write_reg8(0x52, cap);  // write 24m cap into manual register
@@ -191,7 +190,6 @@ void clock_cal_32k_rc(void)
     analog_write_reg8(0xc6, 0xf6);
     analog_write_reg8(0xc6, 0xf7);
     while ((analog_read_reg8(0xcf) & BIT(6)) == 0) {
-  
     }
     unsigned char res1 = analog_read_reg8(0xc9);                        // read 32k res[13:6]
     analog_write_reg8(0x51, res1);                                      // write 32k res[13:6] into manual register
@@ -209,8 +207,8 @@ void clock_cal_32k_rc(void)
 void clock_set_32k_tick(unsigned int tick)
 {
     reg_system_ctrl |= FLD_SYSTEM_32K_WR_EN;  // r_32k_wr = 1;
-    while (reg_system_st & FLD_SYSTEM_RD_BUSY)
-        ;
+    while (reg_system_st & FLD_SYSTEM_RD_BUSY) {
+    }
     reg_system_timer_set_32k = tick;
 
     reg_system_st = FLD_SYSTEM_CMD_SYNC;  // cmd_sync = 1,trig write
@@ -231,8 +229,8 @@ void clock_set_32k_tick(unsigned int tick)
     __asm__("nop");
     __asm__("nop");
     __asm__("nop");
-    while (reg_system_st & FLD_SYSTEM_CMD_SYNC)
-        ;  // wait wr_busy = 0
+    while (reg_system_st & FLD_SYSTEM_CMD_SYNC) {
+    }  // wait wr_busy = 0
 }
 
 /**
@@ -243,11 +241,13 @@ unsigned int clock_get_32k_tick(void)
 {
     unsigned int timer_32k_tick;
     reg_system_st = FLD_SYSTEM_CLR_RD_DONE;  // clr rd_done
-    while ((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) != 0)
-        ;                                      // wait rd_done = 0;
+    while ((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) != 0) {
+    }
+    // wait rd_done = 0;
     reg_system_ctrl &= ~FLD_SYSTEM_32K_WR_EN;  // 1:32k write mode; 0:32k read mode
-    while ((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) == 0)
-        ;  // wait rd_done = 1;
+    while ((reg_system_st & FLD_SYSTEM_CLR_RD_DONE) == 0) {
+    }
+    // wait rd_done = 1;
     timer_32k_tick = reg_system_timer_read_32k;
     reg_system_ctrl |= FLD_SYSTEM_32K_WR_EN;  // 1:32k write mode; 0:32k read mode
     return timer_32k_tick;
@@ -278,8 +278,8 @@ void clock_init(sys_pll_clk_e pll, sys_clock_src_e src, sys_pll_div_to_cclk_e cc
 
     // wait for PLL stable
     analog_write_reg8(0x81, (analog_read_reg8(0x81) | BIT(6)));
-    while (BIT(5) != (analog_read_reg8(0x88) & BIT(5)))
-        ;
+    while (BIT(5) != (analog_read_reg8(0x88) & BIT(5))) {
+    }
     analog_write_reg8(0x81, (analog_read_reg8(0x81) & ~BIT(6)));
 
     // ensure mspi is not in busy status before change mspi clock

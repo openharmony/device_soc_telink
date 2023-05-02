@@ -114,16 +114,20 @@ signed int big_integer_compare(unsigned int *a, unsigned int aWordLen, unsigned 
     aWordLen = valid_words_get(a, aWordLen);
     bWordLen = valid_words_get(b, bWordLen);
 
-    if (aWordLen > bWordLen)
+    if (aWordLen > bWordLen) {
         return 1;
-    if (aWordLen < bWordLen)
+    }
+    if (aWordLen < bWordLen) {
         return -1;
+    }
 
     for (i = (aWordLen - 1); i >= 0; i--) {
-        if (a[i] > b[i])
+        if (a[i] > b[i]) {
             return 1;
-        if (a[i] < b[i])
+        }
+        if (a[i] < b[i]) {
             return -1;
+        }
     }
 
     return 0;
@@ -168,8 +172,9 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
     signed int i;
     unsigned int j;
 
-    if (!aWordLen)
+    if (!aWordLen) {
         return 0;
+    }
 
     if (n <= 32) {
         for (i = 0; i < aWordLen - 1; i++) {
@@ -178,10 +183,11 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
         }
         a[i] >>= n;
 
-        if (!a[i])
+        if (!a[i]) {
             return i;
+        }
         return aWordLen;
-    } else { // general method
+    } else {  // general method
         j = n >> 5;
         n &= 31;
         for (i = 0; i < aWordLen - (signed int)j - 1; i++) {
@@ -191,8 +197,9 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
         a[i] = a[i + j] >> n;
         memset(a + aWordLen - j, 0, j << 2);
 
-        if (!a[i])
+        if (!a[i]) {
             return i;
+        }
         return aWordLen - j;
     }
 }
@@ -250,8 +257,9 @@ unsigned char pke_opr_cal(pke_microcode_e addr, pke_exe_cfg_e cfg)
 {
     pke_set_microcode(addr);
 
-    if ( cfg != 0x00)
+    if (cfg != 0x00) {
         pke_set_exe_cfg(cfg);
+    }
 
     pke_clr_irq_status(FLD_PKE_STAT_DONE);
 

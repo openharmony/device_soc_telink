@@ -309,8 +309,8 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
     /******start adc sample********/
     adc_start_sample_dma((unsigned short *)sample_buffer, sample_num << 1);
     /******wait for adc sample finish********/
-    while (!adc_get_sample_status_dma())
-        ;
+    while (!adc_get_sample_status_dma()) {
+    }
     /******stop dma smaple********/
     adc_stop_sample_dma();
     /******clear adc sample finished status********/

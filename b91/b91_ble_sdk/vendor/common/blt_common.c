@@ -90,8 +90,8 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
     } else {
         // This SDK do not support flash size other than 512K/1M/2M
         // If code stop here, please check your Flash
-        while (1)
-            ;
+        while (1) {
+        }
     }
 
     flash_set_capacity(flash_cap);

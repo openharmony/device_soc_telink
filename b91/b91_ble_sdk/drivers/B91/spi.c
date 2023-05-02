@@ -519,8 +519,9 @@ void hspi_set_address(unsigned int addr)
 void spi_write(spi_sel_e spi_sel, unsigned char *data, unsigned int len)
 {
     for (unsigned int i = 0; i < len; i++) {
-        while (reg_spi_fifo_state(spi_sel) & FLD_SPI_TXF_FULL)
-            ;
+        while (reg_spi_fifo_state(spi_sel) & FLD_SPI_TXF_FULL) {
+        }
+
         reg_spi_wr_rd_data(spi_sel, i % 4) = data[i];
     }
 }
@@ -535,8 +536,9 @@ void spi_write(spi_sel_e spi_sel, unsigned char *data, unsigned int len)
 void spi_read(spi_sel_e spi_sel, unsigned char *data, unsigned int len)
 {
     for (unsigned int i = 0; i < len; i++) {
-        while (reg_spi_fifo_state(spi_sel) & FLD_SPI_RXF_EMPTY)
-            ;
+        while (reg_spi_fifo_state(spi_sel) & FLD_SPI_RXF_EMPTY) {
+        }
+
         data[i] = reg_spi_wr_rd_data(spi_sel, i % 4);
     }
 }
@@ -555,8 +557,8 @@ void spi_master_write(spi_sel_e spi_sel, unsigned char *data, unsigned int len)
     spi_set_transmode(spi_sel, SPI_MODE_WRITE_ONLY);
     spi_set_cmd(spi_sel, 0x00);  // when  cmd  disable that  will not sent cmd,just trigger spi send .
     spi_write(spi_sel, (unsigned char *)data, len);
-    while (spi_is_busy(spi_sel))
-        ;
+    while (spi_is_busy(spi_sel)) {
+    }
 }
 
 /**
@@ -579,8 +581,8 @@ void spi_master_write_read(spi_sel_e spi_sel, unsigned char *wr_data, unsigned i
     spi_set_cmd(spi_sel, 0x00);  // when  cmd  disable that  will not sent cmd,just trigger spi send .
     spi_write(spi_sel, (unsigned char *)wr_data, wr_len);
     spi_read(spi_sel, (unsigned char *)rd_data, rd_len);
-    while (spi_is_busy(spi_sel))
-        ;
+    while (spi_is_busy(spi_sel)) {
+    }
 }
 
 /**
@@ -605,8 +607,8 @@ void spi_master_write_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned int ad
     spi_tx_cnt(spi_sel, data_len);
     spi_set_cmd(spi_sel, cmd);
     spi_write(spi_sel, (unsigned char *)data, data_len);
-    while (spi_is_busy(spi_sel))
-        ;
+    while (spi_is_busy(spi_sel)) {
+    }
 }
 
 /**
@@ -630,8 +632,8 @@ void spi_master_read_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned int add
     spi_rx_cnt(spi_sel, data_len);
     spi_set_cmd(spi_sel, cmd);
     spi_read(spi_sel, (unsigned char *)data, data_len);
-    while (spi_is_busy(spi_sel))
-        ;
+    while (spi_is_busy(spi_sel)) {
+    }
 }
 
 /**
@@ -657,8 +659,8 @@ void spi_master_write_read_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned c
     spi_set_cmd(spi_sel, cmd);
     spi_write(spi_sel, (unsigned char *)addrs, addr_len);
     spi_read(spi_sel, (unsigned char *)data, data_len);
-    while (spi_is_busy(spi_sel))
-        ;
+    while (spi_is_busy(spi_sel)) {
+    }
 }
 
 /**

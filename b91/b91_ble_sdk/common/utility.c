@@ -62,8 +62,9 @@ void swapN(unsigned char *p, int n)
 void swapX(const u8 *src, u8 *dst, int len)
 {
     int i;
-    for (i = 0; i < len; i++)
+    for (i = 0; i < len; i++) {
         dst[len - 1 - i] = src[i];
+    }
 }
 
 void swap24(u8 dst[3], const u8 src[3])

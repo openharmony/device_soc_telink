@@ -234,8 +234,9 @@ void rf_emi_rx_setup(rf_mode_e mode, signed char rf_chn)
     rf_set_rx_dma(emi_rx_packet, 3, 64);
     rf_pn_disable();
     rf_set_chn(rf_chn);  // set freq
-    if (mode != RF_MODE_ZIGBEE_250K)
-        rf_access_code_comm(EMI_ACCESS_CODE);  // accesscode
+    if (mode != RF_MODE_ZIGBEE_250K) {
+        rf_access_code_comm(EMI_ACCESS_CODE);
+    }  // accesscode
     rf_set_tx_rx_off();
     rf_set_rxmode();
     delay_us(150);
@@ -333,8 +334,9 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
         emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
         emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
         rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
-        while (!(rf_get_irq_status(FLD_RF_IRQ_TX)))
-            ;
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
+
         rf_clr_irq_status(FLD_RF_IRQ_TX);
 
         delay_ms(2);
@@ -350,13 +352,16 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
         emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
         emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
         rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
-        while (!(rf_get_irq_status(FLD_RF_IRQ_TX)))
-            ;
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
+
         rf_clr_irq_status(FLD_RF_IRQ_TX);
 
         delay_ms(2);
-        if (pkt_type == 0)
+        if (pkt_type == 0) {
             rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
+        }
+
     } else if (rf_mode == RF_MODE_LR_S2_500K) {
         rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
@@ -367,13 +372,15 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
         emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
         emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
         rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
-        while (!(rf_get_irq_status(FLD_RF_IRQ_TX)))
-            ;
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
+
         rf_clr_irq_status(FLD_RF_IRQ_TX);
 
         delay_ms(2);
-        if (pkt_type == 0)
+        if (pkt_type == 0) {
             rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
+        }
     } else if (rf_mode == RF_MODE_ZIGBEE_250K) {
         rf_data_len = EMI_TX_PKT_PAYLOAD + 1;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
@@ -383,13 +390,15 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
         emi_zigbee_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
         emi_zigbee_tx_packet[0] = rf_tx_dma_len & 0xff;
         rf_start_stx((void *)emi_zigbee_tx_packet, read_reg32(0x140200) + 10);
-        while (!(rf_get_irq_status(FLD_RF_IRQ_TX)))
-            ;
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
+
         rf_clr_irq_status(FLD_RF_IRQ_TX);
 
         delay_us(625 * 2);
-        if (pkt_type == 0)
+        if (pkt_type == 0) {
             rf_phy_test_prbs9(&emi_zigbee_tx_packet[5], 37);
+        }
     }
 }
 

@@ -55,8 +55,8 @@
   */
 _attribute_ram_code_sec_ static inline void mspi_wait(void)
 {
-    while (reg_mspi_status & FLD_MSPI_BUSY)
-        ;
+    while (reg_mspi_status & FLD_MSPI_BUSY) {
+    }
 }
 
 /**
@@ -143,6 +143,6 @@ _attribute_ram_code_sec_ static inline void mspi_stop_xip(void)
 {
     mspi_wait();  // wait xip busy=0
     mspi_high();  // mspi_cn=1, stop xip read
-    while (gpio_get_level(GPIO_PF3) == 0)
-        ;  // wait cn=1
+    while (gpio_get_level(GPIO_PF3) == 0) {
+    }  // wait cn=1
 }

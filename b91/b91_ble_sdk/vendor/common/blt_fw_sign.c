@@ -62,8 +62,8 @@ void blt_firmware_signature_check(void)
     int flag = flash_read_mid_uid_with_check(&flash_mid, flash_uid);
 
     if (flag == 0) {  // reading flash UID error
-        while (1)
-            ;
+        while (1) {
+        }
     }
 
     firmware_encrypt_based_on_uid(flash_uid, signature_enc_key);
@@ -72,7 +72,8 @@ void blt_firmware_signature_check(void)
     if (memcmp(signature_enc_key,
                (u8 *)(FLASH_R_BASE_ADDR | (flash_sector_calibration + CALIB_OFFSET_FIRMWARE_SIGNKEY)),
                16)) {  // signature not match
-        while (1)
-            ;  // user can change the code here to stop firmware running
+        while (1) {
+        }
+        // user can change the code here to stop firmware running
     }
 }

@@ -280,8 +280,8 @@ void user_master_host_pairing_flash_init(void)
                 user_tbl_slaveMac.curNum++;
             } else {  // slave mac in flash more than max, we think it's code bug
                 irq_disable();
-                while (1)
-                    ;
+                while (1) {
+                }
             }
         } else if (flag == 0xff)  // end
         {
@@ -289,8 +289,8 @@ void user_master_host_pairing_flash_init(void)
         }
     }
 
-    user_bond_slave_flash_cfg_idx -=
-        8;  // back to the newest addr 8 bytes area flash ixd(if no valid addr, will be -8)
+    user_bond_slave_flash_cfg_idx -= 8;
+    // back to the newest addr 8 bytes area flash ixd(if no valid addr, will be -8)
 
     user_bond_slave_flash_clean();
 }

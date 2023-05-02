@@ -293,8 +293,8 @@ unsigned char uart_tx_byte_index[2] = {0};
  */
 void uart_send_byte(uart_num_e uart_num, unsigned char tx_data)
 {
-    while (uart_get_txfifo_num(uart_num) > 7)
-        ;
+    while (uart_get_txfifo_num(uart_num) > 7) {
+    }
 
     reg_uart_data_buf(uart_num, uart_tx_byte_index[uart_num]) = tx_data;
     uart_tx_byte_index[uart_num]++;
@@ -336,8 +336,8 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
 {
     static unsigned char uart_tx_hword_index[2] = {0};
 
-    while (uart_get_txfifo_num(uart_num) > 6)
-        ;
+    while (uart_get_txfifo_num(uart_num) > 6) {
+    }
 
     reg_uart_data_hword_buf(uart_num, uart_tx_hword_index[uart_num]) = data;
     uart_tx_hword_index[uart_num]++;
@@ -352,8 +352,9 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
  */
 void uart_send_word(uart_num_e uart_num, unsigned int data)
 {
-    while (uart_get_txfifo_num(uart_num) > 4)
-        ;
+    while (uart_get_txfifo_num(uart_num) > 4) {
+    }
+
     reg_uart_data_word_buf(uart_num) = data;
 }
 

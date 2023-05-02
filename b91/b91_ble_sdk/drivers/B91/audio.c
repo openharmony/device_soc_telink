@@ -430,8 +430,9 @@ void audio_init(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_cha
     audio_set_i2s_clock(rate, AUDIO_RATE_EQUAL, 0);
     audio_clk_en(1, 1);
     reg_audio_codec_vic_ctr = FLD_AUDIO_CODEC_SLEEP_ANALOG;  // active analog sleep mode
-    while (!(reg_audio_codec_stat_ctr & FLD_AUDIO_CODEC_PON_ACK))
-        ;  // wait codec can be configed
+    while (!(reg_audio_codec_stat_ctr & FLD_AUDIO_CODEC_PON_ACK)) {
+    }
+    // wait codec can be configed
     if (flow_mode < BUF_TO_LINE_OUT) {
         audio_codec_adc_config(audio_i2s_codec_config.i2s_codec_m_s_mode, (flow_mode % 3), rate,
                                audio_i2s_codec_config.codec_data_select, MCU_WREG);
@@ -547,8 +548,8 @@ void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio
                                audio_i2s_codec_config.codec_data_select, I2C_WREG);
     }
     while (!(audio_i2c_codec_read(addr_audio_codec_stat_ctr) ==
-             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK)))
-        ;  // wait codec adc/dac locked
+             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK))) {
+    }  // wait codec adc/dac locked
     audio_data_fifo0_path_sel(I2S_DATA_IN_FIFO, I2S_OUT);
 }
 
@@ -841,8 +842,8 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
         case AUDIO_48K:
             if (match_en) {
                 tx_rptr_old = reg_tx_rptr;
-                while (tx_rptr_old == reg_tx_rptr)
-                    ;
+                while (tx_rptr_old == reg_tx_rptr) {
+                }
             }
 
             if (match == AUDIO_RATE_EQUAL) {         // 48000
@@ -871,8 +872,8 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
         case AUDIO_44EP1K:
             if (match_en) {
                 tx_rptr_old = reg_tx_rptr;
-                while (tx_rptr_old == reg_tx_rptr)
-                    ;
+                while (tx_rptr_old == reg_tx_rptr) {
+                }
             }
 
             if (match == AUDIO_RATE_EQUAL) {  // 44099.9
