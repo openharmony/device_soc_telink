@@ -28,7 +28,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include "../../inc/config.h"
 #include "../intrinsic.h"
 #define MAXFACTORS 32
-/* e.g. an fft of length 128 has 4 factors 
+/* e.g. an fft of length 128 has 4 factors
  as far as kissfft is concerned
  4*4*4*2
  

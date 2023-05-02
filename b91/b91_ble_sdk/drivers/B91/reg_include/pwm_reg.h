@@ -200,7 +200,7 @@ typedef enum {
 /**
  * This register is used to configure the PWM interrupt function.
  * BIT[0]:If this bit is set, an interrupt will be generated after a set of pulses has been sent.
- * When this interrupt is enabled, 
+ * When this interrupt is enabled,
  * you can capture an interrupt after a pulse is sent by detecting whether bit[0] of 0x140431 is set.
  * BIT[1]:Enable ir dma fifo mode interrupt.This bit is usually used with 0x140431BIT[1].
  * BIT[2]:Enable pwm0 frame interrupt.

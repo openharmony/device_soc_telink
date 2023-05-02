@@ -322,7 +322,7 @@ void adc_start_sample_dma(unsigned short *adc_data_buf, unsigned int data_byte_l
  */
 void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin);
 /**
- * @brief This function is used to set two IO port configuration 
+ * @brief This function is used to set two IO port configuration
  * and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
  * @param[in]  n_pin - enum variable of ADC analog negative input IO.

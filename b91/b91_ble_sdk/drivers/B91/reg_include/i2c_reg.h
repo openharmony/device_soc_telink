@@ -95,7 +95,7 @@ enum {
  * BIT[0] i2c master enable.
  * BIT[1] clk stretch enable: suspend transimission by pulling SCL down to low level,
  * and continue transmission after SCL is pelesed to hign level.
- * BIT[2] rx interrupt enable.RX is related to rx_irq_trig_lev function 
+ * BIT[2] rx interrupt enable.RX is related to rx_irq_trig_lev function
  * (this function is always present and does not need any setting to enable).
  *        fifo_data_cnt> = rx_irq_trig_lev generates an interrupt.
  * BIT[3] tx interrupt enable.Related to tx_irq_trig_lev function,

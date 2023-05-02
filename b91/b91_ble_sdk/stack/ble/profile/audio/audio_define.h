@@ -150,7 +150,6 @@ typedef enum {
 
     // OTS Event
     BLC_AUDIOS_EVTID_OTS_READY,
-
 } BLC_AUDIO_EVTID_ENUM;
 
 // TODO: TBD

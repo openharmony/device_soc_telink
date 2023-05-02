@@ -99,7 +99,6 @@ typedef struct {
     // rpa_addr_t *pPeer_RPA;    // only when peer  mac_address is RPA, this pointer is useful
 
     u16 char_handle[CHAR_HANDLE_MAX];
-
 } dev_char_info_t;
 
 extern dev_char_info_t conn_dev_list[];

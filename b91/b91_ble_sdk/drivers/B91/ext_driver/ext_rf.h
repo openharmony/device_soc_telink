@@ -235,7 +235,7 @@ static inline void zb_rt_irq_enable(void)
     plic_interrupt_enable(IRQ15_ZB_RT);
 }
 
-#if RF_RX_SHORT_MODE_EN  // open rx dly                                                                               \
+#if RF_RX_SHORT_MODE_EN  // open rx dly                                                                              \
                          // TX settle time
 
 #define LL_SCAN_TX_SETTLE    63

@@ -213,20 +213,20 @@ enum USB_Control_Request_t {
 		                              *   device mode. */
 };
 
-/** Feature Selector values for Set Feature and Clear Feature standard control requests directed to the device, interface
-	 *  and endpoint recipients.
-	 */
+/* Feature Selector values for Set Feature and Clear Feature standard control requests directed to the device,
+ *  interface and endpoint recipients.
+ */
 enum USB_Feature_Selectors_t {
-    FEATURE_SEL_EndpointHalt = 0x00,       /**< Feature selector for Clear Feature or Set Feature commands. When
-		                                        *   used in a Set Feature or Clear Feature request this indicates that an
-		                                        *   endpoint (whose address is given elsewhere in the request) should have
-		                                        *   its stall condition changed.
-		                                        */
-    FEATURE_SEL_DeviceRemoteWakeup = 0x01, /**< Feature selector for Device level Remote Wakeup enable set or clear.
-	                                            *   This feature can be controlled by the host on devices which indicate
-	                                            *   remote wakeup support in their descriptors to selectively disable or
-	                                            *   enable remote wakeup.
-	                                            */
+    FEATURE_SEL_EndpointHalt = 0x00,       /* < Feature selector for Clear Feature or Set Feature commands. When
+		                                    *   used in a Set Feature or Clear Feature request this indicates that an
+		                                    *   endpoint (whose address is given elsewhere in the request) should have
+		                                    *   its stall condition changed.
+		                                    */
+    FEATURE_SEL_DeviceRemoteWakeup = 0x01, /* < Feature selector for Device level Remote Wakeup enable set or clear.
+	                                        *   This feature can be controlled by the host on devices which indicate
+	                                        *   remote wakeup support in their descriptors to selectively disable or
+	                                        *   enable remote wakeup.
+	                                        */
     FEATURE_SEL_TestMode = 0x02, /**< Feature selector for Test Mode features, used to test the USB controller
 	                                            *   to check for incorrect operation.
 	                                            */
@@ -542,10 +542,11 @@ typedef struct {
 
 /** \brief Standard USB Device Qualifier Descriptor (USB-IF naming conventions).
  *
- *  Type define for a standard Device Qualifier Descriptor. This structure uses the relevant standard's given element names
- *  to ensure compatibility with the standard.
+ *  Type define for a standard Device Qualifier Descriptor. This structure uses the relevant standard's given element
+ *  names to ensure compatibility with the standard.
  *
- *  \see \ref USB_Descriptor_DeviceQualifier_t for the version of this type with non-standard LUFA specific element names.
+ *  \see \ref USB_Descriptor_DeviceQualifier_t for the version of this type with non-standard LUFA specific element
+ * names.
  */
 typedef struct {
     u8 bLength;            /**< Size of the descriptor, in bytes. */
@@ -595,8 +596,8 @@ typedef struct {
 
 /** \brief Standard USB Configuration Descriptor (USB-IF naming conventions).
  *
- *  Type define for a standard Configuration Descriptor header. This structure uses the relevant standard's given element names
- *  to ensure compatibility with the standard.
+ *  Type define for a standard Configuration Descriptor header. This structure uses the relevant standard's given
+ *   element names to ensure compatibility with the standard.
  *
  *  \see \ref USB_Descriptor_Device_t for the version of this type with non-standard LUFA specific element names.
  *

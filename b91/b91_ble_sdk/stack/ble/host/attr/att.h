@@ -122,7 +122,7 @@ typedef struct attribute {
     att_readwrite_callback_t r;
 } attribute_t;
 
-/******************************* User Interface  Begin *****************************************************************/
+/******************************* User Interface  Begin ***************************************************************/
 
 /**
  * @brief		Register ATT table.
@@ -170,4 +170,4 @@ ble_sts_t blc_att_setSlaveRxMTUSize(u16 slave_mtu_size);
  */
 ble_sts_t blc_att_requestMtuSizeExchange(u16 connHandle, u16 mtu_size);
 
-/******************************* User Interface  End  ******************************************************************/
+/******************************* User Interface  End  ****************************************************************/

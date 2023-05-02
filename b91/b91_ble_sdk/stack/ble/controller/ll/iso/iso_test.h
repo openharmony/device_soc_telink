@@ -71,7 +71,6 @@ typedef struct {
         iso_test_receive_infor_t recMode;
         iso_test_trasmit_infor_t tranMode;
     };
-
 } iso_test_param_t;
 
 typedef enum {

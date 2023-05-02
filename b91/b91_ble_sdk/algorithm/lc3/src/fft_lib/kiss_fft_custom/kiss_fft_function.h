@@ -64,7 +64,7 @@ static inline short speex_rand(short std, int *seed)
 /* #define C0 3634
  * #define C1 21173
  * #define C2 -12627
- * #define C3 4215 
+ * #define C3 4215
  */
 
 /* sqrt(x) ~= 0.22178 + 1.29227*x - 0.77070*x^2 + 0.25659*x^3 (for .25 < x < 1) */

@@ -198,7 +198,7 @@ u8 blc_smp_param_getCurrentBondingDeviceNumber(u8 isMasterRole, u8 slaveDevIdx);
 u32 blc_smp_loadBondingInfoFromFlashByIndex(u8 isMaster, u8 slaveDevIdx, u8 index, smp_param_save_t *smp_param_load);
 
 /**
- * @brief      This function is used to delete binding information according 
+ * @brief      This function is used to delete binding information according
  *             to the peer device address and device address type.
  * @param[in]  peer_addr_type - Address type.
  * @param[in]  peer_addr - Address.

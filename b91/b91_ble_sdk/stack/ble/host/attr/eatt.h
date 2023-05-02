@@ -17,7 +17,7 @@
  *
  *           Licensees are granted free, non-transferable use of the information in this
  *           file under Mutual Non-Disclosure Agreement. NO WARRENTY of ANY KIND is provided.
- *           
+ *
  *******************************************************************************************************/
 #ifndef GATT_H_
 #define GATT_H_

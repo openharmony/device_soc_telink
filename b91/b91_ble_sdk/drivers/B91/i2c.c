@@ -278,7 +278,7 @@ unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned ch
  * @brief      This function serves to write data and restart read data.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  wr_data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address 
+ * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address
  *             and the length of the data to be sent.
  * @param[in]  rd_data - Store the read data
  * @param[in]  rd_len -  The total length of the data read back.

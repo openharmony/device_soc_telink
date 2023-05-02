@@ -473,7 +473,6 @@ typedef struct {
     u8 objectIDValue[8];      // Valid:6
     u8 listFilterValue[BLC_AUDIO_OTP_FILTER_BUFFER_LEN];
 #endif  // BLC_AUDIO_OTS_EXTEND_SUPPORT_ENABLE
-
 } blt_audio_otpCtrl_t;
 #endif  // BLC_AUDIO_OTP_ENABLE
 

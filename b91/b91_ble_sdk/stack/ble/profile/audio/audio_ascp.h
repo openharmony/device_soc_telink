@@ -92,7 +92,6 @@ typedef enum {
     BLT_AUDIOC_ASE_FLAG_DESTORY_CIS_WAIT = 0x0002,
 
     BLT_AUDIOS_ASE_FLAG_NOTY_STATE = 0x0001,
-
 } BLT_AUDIO_ASE_FLAGS_ENUM;
 
 typedef enum {

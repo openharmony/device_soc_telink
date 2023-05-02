@@ -745,7 +745,6 @@ enum {
     FLD_RF_BT_BLE_SEL_EN = BIT(3),
     FLD_RF_TXC_PWR_SRL = BIT(4),
     FLD_RF_BW_CODE_BLE = BIT_RNG(5, 7),
-
 };
 
 #define reg_rf_txrx_dbg3_0 REG_ADDR8(REG_TL_RADIO_BASE_ADDR + 0x44)

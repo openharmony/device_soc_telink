@@ -55,7 +55,6 @@ typedef struct {
 
     bool testAclConnPktMaxEnFlg;
     bool testCisConnPktMaxEnFlg;
-
 } st_bqb_ll_t;
 
 extern st_bqb_ll_t bltBQB;

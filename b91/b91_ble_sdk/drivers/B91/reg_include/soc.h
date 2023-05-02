@@ -127,7 +127,6 @@ enum {
     FLD_CLK1_MACHINETIME_EN = BIT(5),
     FLD_CLK1_PSPI_EN = BIT(6),
     FLD_CLK1_SPISLV_EN = BIT(7),
-
 };
 
 #define reg_clk_en2 REG_ADDR8(0x1401e6)

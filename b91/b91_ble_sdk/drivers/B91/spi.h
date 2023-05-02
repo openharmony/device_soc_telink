@@ -177,7 +177,6 @@ typedef enum {
 
     SPI_SLAVE_READ_DATA_AND_ADDR_DUL_4CYC_CMD =
         FLD_SPI_CMD_RD_EN | FLD_SPI_CMD_ADDR_DUAL | FLD_SPI_CMD_DATA_DUAL | FLD_SPI_CMD_RD_DUMMY_4CYCLE,
-
 } spi_slave_read_cmd_e;
 
 typedef enum {

@@ -453,7 +453,6 @@ int dev_char_info_search_peer_att_handle_by_peer_mac(u8 adr_type, u8 *addr, dev_
                 if (0) {
                     addr_match = 1;
                 }
-
             } else
 #endif
             {

@@ -47,10 +47,11 @@
 #define EXT_INIT_H_
 
 /**
- * @brief      for user to initialize extended initiating module
- * 			   notice that only one module can be selected between legacy initiating module and extended initiating module
- * @param	   none
- * @return     none
+ * @brief  for user to initialize extended initiating module
+ * 			   notice that only one module can be selected between legacy initiating module and extended initiating
+ *             module
+ * @param  none
+ * @return  none
  */
 void blc_ll_initExtendedInitiating_module(void);
 

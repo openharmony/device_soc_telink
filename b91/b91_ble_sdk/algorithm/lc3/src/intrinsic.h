@@ -420,7 +420,6 @@ inline Word16 abs16(Word16 x)
         } else {
             return -x;
         }
-
     } else {
         return x;
     }
@@ -433,7 +432,6 @@ inline Word32 abs32(Word32 x)
         } else {
             return -x;
         }
-
     } else {
         return x;
     }

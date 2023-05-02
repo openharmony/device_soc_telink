@@ -63,7 +63,6 @@ enum {
     FLD_IRQ_NPE_BUS3 = BIT(3),
     FLD_IRQ_NPE_BUS4 = BIT(4),
     FLD_IRQ_NPE_BUS7 = BIT(7),
-
 };
 
 #define reg_npe_irq_1 REG_ADDR8(STIMER_BASE_ADDR + 0x21)

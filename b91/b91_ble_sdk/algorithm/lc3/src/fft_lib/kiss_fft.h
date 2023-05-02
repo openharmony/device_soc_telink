@@ -74,7 +74,7 @@ typedef struct kiss_fft_state* kiss_fft_cfg;
  *      and returns mem.
  *
  *  If lenmem is not NULL and ( mem is NULL or *lenmem is not large enough),
- *      then the function returns NULL and places the minimum cfg 
+ *      then the function returns NULL and places the minimum cfg
  *      buffer size in *lenmem.
  * */
 

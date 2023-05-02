@@ -153,12 +153,13 @@ unsigned char clock_kick_32k_xtal(unsigned char xtal_times)
 }
 
 /**
- * @brief     This function performs to select 24M as the system clock source.
- * 			  24M RC is inaccurate, and it is greatly affected by temperature, if need use it so real-time calibration is required
- *			  The 24M RC needs to be calibrated before the pm_sleep_wakeup function,
- *			  because this clock will be used to kick 24m xtal start after wake up,
- *	          The more accurate this time, the faster the crystal will start.Calibration cycle depends on usage
- * @return    none.
+ * @brief  This function performs to select 24M as the system clock source.
+ *         24M RC is inaccurate, and it is greatly affected by temperature, if need use it so real-time calibration
+ *         is required
+ *         The 24M RC needs to be calibrated before the pm_sleep_wakeup function,
+ *         because this clock will be used to kick 24m xtal start after wake up,
+ *         The more accurate this time, the faster the crystal will start.Calibration cycle depends on usage
+ * @return none.
  */
 void clock_cal_24m_rc(void)
 {

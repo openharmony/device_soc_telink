@@ -549,7 +549,7 @@ unsigned char uart_send_dma(uart_num_e uart_num, unsigned char *addr, unsigned i
 void uart_receive_dma(uart_num_e uart_num, unsigned char *addr, unsigned int rev_size)
 {
     dma_chn_dis(uart_dma_rx_chn[uart_num]);
-    /* In order to be able to receive data of unknown length(A0 doesn't suppport), 
+    /* In order to be able to receive data of unknown length(A0 doesn't suppport),
      * the DMA SIZE is set to the longest value 0xffffffff. After entering suspend and wake up,
      * and then continue to receive, DMA will no longer move data from uart fifo,
      * because DMA thinks that the last transmission was not completed and must disable dma_chn first.
@@ -698,7 +698,6 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
     if (rx_pin == UART0_RX_PA4) {
         mask = (unsigned char)~(BIT(1) | BIT(0));
         val = BIT(0);
-
     } else if (rx_pin == UART0_RX_PB3) {
         mask = (unsigned char)~(BIT(7) | BIT(6));
         val = BIT(7);

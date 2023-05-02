@@ -86,16 +86,15 @@ typedef struct {
 
     // 11
     u8 data[1];
-
 } iso_data_packet_t;
 
-/******************************* Macro & Enumeration & Structure Definition for Stack End ******************************/
+/******************************* Macro & Enumeration & Structure Definition for Stack End ****************************/
 
-/******************************* Macro & Enumeration variables for User Begin ******************************************/
+/******************************* Macro & Enumeration variables for User Begin ****************************************/
 
-/******************************* Macro & Enumeration variables for User End ********************************************/
+/******************************* Macro & Enumeration variables for User End ******************************************/
 
-/******************************* User Interface  Begin *****************************************************************/
+/******************************* User Interface  Begin ***************************************************************/
 
 /**
  * @brief      This function is used to initialize the ISOAL module.
@@ -167,6 +166,6 @@ ble_sts_t blc_ial_cis_splitSdu2UnframedPdu(u16 cisHandle, iso_data_packet_t *sdu
  */
 ble_sts_t blc_ial_bis_splitSdu2UnframedPdu(u16 bis_connHandle, iso_data_packet_t *sdu);
 
-/******************************* User Interface  End  ******************************************************************/
+/******************************* User Interface  End  ****************************************************************/
 
 #endif

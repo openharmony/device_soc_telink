@@ -116,7 +116,6 @@ typedef struct LC3_ENC {
     Word16 nbytes;                  // bytes of one frame
     Word32 nbits;                   // bits of one frame
     Word16 input_last[LC3_MAX_NF];  // input data of last frame
-
 } LC3_ENC_STRU;
 
 LC3ENC_Error lc3enc_init(LC3_ENC_STRU *enc, Word32 nSamplerate, Word16 nChannels, Word32 nBitrate, int nMs_mode);

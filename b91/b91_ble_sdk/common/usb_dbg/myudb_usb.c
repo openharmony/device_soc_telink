@@ -61,7 +61,6 @@ typedef struct myudb_cfg {
     u8 stall;
     u8 rptr;
     u16 cmd_len;
-
 } myudb_cfg_t;
 
 myudb_cfg_t myudb = {0x120};
