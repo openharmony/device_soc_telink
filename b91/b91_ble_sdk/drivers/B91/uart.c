@@ -557,7 +557,7 @@ void uart_receive_dma(uart_num_e uart_num, unsigned char *addr, unsigned int rev
      */
     dma_set_address(uart_dma_rx_chn[uart_num], reg_uart_data_buf_adr(uart_num),
                     (unsigned int)convert_ram_addr_cpu2bus(addr));
-    if (0xff == g_chip_version) {
+    if (g_chip_version == 0xff) {
         dma_set_size(uart_dma_rx_chn[uart_num], rev_size, DMA_WORD_WIDTH);
     } else {
         reg_dma_size(uart_dma_rx_chn[uart_num]) = 0xffffffff;

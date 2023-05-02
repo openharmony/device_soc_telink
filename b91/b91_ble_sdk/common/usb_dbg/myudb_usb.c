@@ -176,7 +176,7 @@ void myudb_usb_handle_request(u8 data_request)
             break;
         case (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_INTERFACE):
             if (MYUDB_USB_IRQ_SETUP_REQ == data_request) {
-                if (0xc0 == bRequest) {  // Get board version
+                if (bRequest == 0xc0) {  // Get board version
                     usbhw_reset_ctrl_ep_ptr();
                     usbhw_write_ctrl_ep_data(myudb.id);
                     usbhw_write_ctrl_ep_data(myudb.id >> 8);
@@ -187,7 +187,7 @@ void myudb_usb_handle_request(u8 data_request)
             break;
         case (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE):  // 0xc0
             if (MYUDB_USB_IRQ_SETUP_REQ == data_request) {
-                if (0xc0 == bRequest) {  // Get board version
+                if (bRequest == 0xc0) {  // Get board version
                     usbhw_reset_ctrl_ep_ptr();
                     usbhw_write_ctrl_ep_data(0x40);
                     usbhw_write_ctrl_ep_data(0x25);
@@ -197,7 +197,7 @@ void myudb_usb_handle_request(u8 data_request)
                     usbhw_write_ctrl_ep_data(0x00);
                     usbhw_write_ctrl_ep_data(0x01);
                     usbhw_write_ctrl_ep_data(0x00);
-                } else if (0xc6 == bRequest) {  //
+                } else if (bRequest == 0xc6) {  //
                     usbhw_reset_ctrl_ep_ptr();
                     usbhw_write_ctrl_ep_data(0x04);
                 } else {
@@ -544,7 +544,7 @@ _attribute_ram_code_ int myudb_hci_cmd_from_usb(void)
 
             if (r == MYHCI_FW_DOWNLOAD) {
                 fw_download = MYHCI_FW_DOWNLOAD;
-            } else if (0x11 == buff_usb_cmd[0] && myudb_hci_debug_cb && !fw_download) {
+            } else if (buff_usb_cmd[0] == 0x11 && myudb_hci_debug_cb && !fw_download) {
                 myudb_hci_debug_cb(buff_usb_cmd, n);
             } else if (r && myudb_hci_cmd_cb && !fw_download) {
                 myudb_hci_cmd_cb(buff_usb_cmd, n);

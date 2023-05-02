@@ -188,7 +188,7 @@ void clock_cal_32k_rc(void)
     analog_write_reg8(0x4f, ((analog_read_reg8(0x4f) & 0x3f) | 0x40));
     analog_write_reg8(0xc6, 0xf6);
     analog_write_reg8(0xc6, 0xf7);
-    while (0 == (analog_read_reg8(0xcf) & BIT(6))) {
+    while ((analog_read_reg8(0xcf) & BIT(6)) == 0) {
     };
     unsigned char res1 = analog_read_reg8(0xc9);                        // read 32k res[13:6]
     analog_write_reg8(0x51, res1);                                      // write 32k res[13:6] into manual register

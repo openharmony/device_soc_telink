@@ -147,10 +147,9 @@ zb_buf_t *my_zb_buf_allocate(u16 line)
 _attribute_ram_code_ u8 *tl_getRxBuf()
 {
 #if 0
-	if (g_mPool.usedNum > 8){
-		return NULL;
-
-	}
+    if (g_mPool.usedNum > 8) {
+        return NULL;
+    }
 #endif
     u8 *buf = (u8 *)my_zb_buf_get(90);
     if (buf) {

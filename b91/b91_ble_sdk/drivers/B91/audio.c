@@ -248,7 +248,7 @@ void audio_i2s_set_pin(void)
  */
 void audio_set_codec_supply(codec_volt_supply_e volt)
 {
-    if (0xff == g_chip_version) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
+    if (g_chip_version == 0xff) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
         if (CODEC_2P8V == volt) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
         }

@@ -379,7 +379,7 @@ void spi_set_dual_mode(spi_sel_e spi_sel)
 {
     spi_dual_mode_en(spi_sel);  // quad  precede over dual
     spi_3line_mode_dis(spi_sel);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         hspi_quad_mode_dis(spi_sel);
     }
 }
@@ -405,7 +405,7 @@ void spi_set_3line_mode(spi_sel_e spi_sel)
     /* must disable dual and quad */
     spi_3line_mode_en(spi_sel);
     spi_dual_mode_dis(spi_sel);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         hspi_quad_mode_dis(spi_sel);
     }
 }
@@ -443,7 +443,7 @@ void spi_set_io_mode(spi_sel_e spi_sel, spi_io_mode_e mode)
 void spi_master_config(spi_sel_e spi_sel, spi_nomal_3line_mode_e mode)
 {
     spi_cmd_dis(spi_sel);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         hspi_addr_dis();
     }
     spi_set_io_mode(spi_sel, mode);
@@ -460,27 +460,27 @@ void hspi_master_config_plus(hspi_config_t *config)
     hspi_set_addr_len(config->hspi_addr_len);
     spi_set_dummy_cnt(HSPI_MODULE, config->hspi_dummy_cnt);
 
-    if (1 == config->hspi_cmd_en) {
+    if (config->hspi_cmd_en == 1) {
         spi_cmd_en(HSPI_MODULE);
     } else if (0 == config->hspi_cmd_en) {
         spi_cmd_dis(HSPI_MODULE);
     }
 
-    if (1 == config->hspi_cmd_fmt_en) {
+    if (config->hspi_cmd_fmt_en == 1) {
         hspi_cmd_fmt_en();
-    } else if (0 == config->hspi_cmd_fmt_en) {
+    } else if (config->hspi_cmd_fmt_en == 0) {
         hspi_cmd_fmt_dis();
     }
 
-    if (1 == config->hspi_addr_en) {
+    if (config->hspi_addr_en == 1) {
         hspi_addr_en();
     } else if (0 == config->hspi_addr_en) {
         hspi_addr_dis();
     }
 
-    if (1 == config->hspi_addr_fmt_en) {
+    if (config->hspi_addr_fmt_en == 1) {
         hspi_addr_fmt_en();
-    } else if (0 == config->hspi_addr_fmt_en) {
+    } else if (config->hspi_addr_fmt_en == 0) {
         hspi_addr_fmt_dis();
     }
 }
@@ -494,9 +494,9 @@ void pspi_master_config_plus(pspi_config_t *config)
 {
     spi_set_io_mode(PSPI_MODULE, config->pspi_io_mode);
     spi_set_dummy_cnt(PSPI_MODULE, config->pspi_dummy_cnt);
-    if (1 == config->pspi_cmd_en) {
+    if (config->pspi_cmd_en == 1) {
         spi_cmd_en(PSPI_MODULE);
-    } else if (0 == config->pspi_cmd_en) {
+    } else if (config->pspi_cmd_en == 0) {
         spi_cmd_dis(PSPI_MODULE);
     }
 }
@@ -599,7 +599,7 @@ void spi_master_write_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned int ad
                            unsigned int data_len, spi_wr_tans_mode_e wr_mode)
 {
     spi_tx_fifo_clr(spi_sel);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         hspi_set_address(addr);
     }
     spi_set_transmode(spi_sel, wr_mode);
@@ -625,7 +625,7 @@ void spi_master_read_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned int add
                           unsigned int data_len, spi_rd_tans_mode_e rd_mode)
 {
     spi_rx_fifo_clr(spi_sel);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         hspi_set_address(addr);
     }
     spi_set_transmode(spi_sel, rd_mode);
@@ -730,7 +730,7 @@ void spi_set_dma(dma_chn_e spi_dma_chn, unsigned int src_addr, unsigned int dst_
 void spi_set_tx_dma(spi_sel_e spi_sel, unsigned char *src_addr, unsigned int len)
 {
     unsigned char tx_dma_chn;
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         tx_dma_chn = s_hspi_tx_dma_chn;
     } else {
         tx_dma_chn = s_pspi_tx_dma_chn;
@@ -751,7 +751,7 @@ void spi_set_tx_dma(spi_sel_e spi_sel, unsigned char *src_addr, unsigned int len
 void spi_set_rx_dma(spi_sel_e spi_sel, unsigned char *dst_addr, unsigned int len)
 {
     unsigned char rx_dma_chn;
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         rx_dma_chn = s_hspi_rx_dma_chn;
     } else {
         rx_dma_chn = s_pspi_rx_dma_chn;
@@ -777,7 +777,7 @@ void spi_master_write_dma(spi_sel_e spi_sel, unsigned char *src_addr, unsigned i
     spi_tx_dma_en(spi_sel);
     spi_tx_cnt(spi_sel, len);
     spi_set_transmode(spi_sel, SPI_MODE_WRITE_ONLY);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         tx_dma_chn = s_hspi_tx_dma_chn;
     } else {
         tx_dma_chn = s_pspi_tx_dma_chn;
@@ -806,7 +806,7 @@ void spi_master_write_read_dma(spi_sel_e spi_sel, unsigned char *addr, unsigned 
     spi_tx_cnt(spi_sel, addr_len);
     spi_rx_cnt(spi_sel, data_len);
     spi_set_transmode(spi_sel, SPI_MODE_WRITE_READ);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         tx_dma_chn = s_hspi_tx_dma_chn;
         rx_dma_chn = s_hspi_rx_dma_chn;
     } else {
@@ -836,7 +836,7 @@ void spi_master_write_dma_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned in
     spi_tx_dma_en(spi_sel);
     spi_tx_cnt(spi_sel, data_len);
     spi_set_transmode(spi_sel, wr_mode);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         tx_dma_chn = s_hspi_tx_dma_chn;
         hspi_set_address(addr);
     } else {
@@ -864,7 +864,7 @@ void spi_master_read_dma_plus(spi_sel_e spi_sel, unsigned char cmd, unsigned int
     spi_rx_dma_en(spi_sel);
     spi_set_transmode(spi_sel, rd_mode);
     spi_rx_cnt(spi_sel, data_len);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         rx_dma_chn = s_hspi_rx_dma_chn;
         hspi_set_address(addr);
     } else {
@@ -896,7 +896,7 @@ void spi_master_write_read_dma_plus(spi_sel_e spi_sel, unsigned char cmd, unsign
     spi_tx_cnt(spi_sel, addr_len);
     spi_rx_cnt(spi_sel, rd_len);
     spi_set_transmode(spi_sel, rd_mode);
-    if (HSPI_MODULE == spi_sel) {
+    if (spi_sel == HSPI_MODULE) {
         tx_dma_chn = s_hspi_tx_dma_chn;
         rx_dma_chn = s_hspi_rx_dma_chn;
     } else {
