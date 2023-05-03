@@ -70,7 +70,7 @@
 #define BM_SET(x, mask)    ((x) |= (mask))
 #define BM_CLR(x, mask)    ((x) &= ~(mask))
 #define BM_IS_SET(x, mask) ((x) & (mask))
-#define BM_IS_CLR(x, mask) ((~x) & (mask))
+#define BM_IS_CLR(x, mask) ((~(x)) & (mask))
 #define BM_FLIP(x, mask)   ((x) ^= (mask))
 
 // !!!!   v is already a masked value,  no need to shift
@@ -190,45 +190,48 @@
 // warning SET_FLD_Vn  are internal used macro, please use SET_FLD_V instead
 #define SET_FLD_V3(x, m, v) BM_SET_MASK_FLD(x, m, MV(m, v))
 
-#define SET_FLD_V5(x, m1, v1, m2, v2) BM_SET_MASK_FLD(x, m1 | m2, MV(m1, v1) | MV(m2, v2))
+#define SET_FLD_V5(x, m1, v1, m2, v2) BM_SET_MASK_FLD(x, (m1) | (m2), MV(m1, v1) | MV(m2, v2))
 
-#define SET_FLD_V7(x, m1, v1, m2, v2, m3, v3) BM_SET_MASK_FLD(x, m1 | m2 | m3, MV(m1, v1) | MV(m2, v2) | MV(m3, v3))
+#define SET_FLD_V7(x, m1, v1, m2, v2, m3, v3)                                                                         \
+    BM_SET_MASK_FLD(x, (m1) | (m2) | (m3), MV(m1, v1) | MV(m2, v2) | MV(m3, v3))
 
 #define SET_FLD_V9(x, m1, v1, m2, v2, m3, v3, m4, v4)                                                                 \
-    BM_SET_MASK_FLD(x, m1 | m2 | m3 | m4, MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4))
+    BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4), MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4))
 
 #define SET_FLD_V11(x, m1, v1, m2, v2, m3, v3, m4, v4, m5, v5)                                                        \
-    BM_SET_MASK_FLD(x, m1 | m2 | m3 | m4 | m5, MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5))
+    BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4) | (m5),                                                              \
+                    MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5))
 
 #define SET_FLD_V13(x, m1, v1, m2, v2, m3, v3, m4, v4, m5, v5, m6, v6)                                                \
-    BM_SET_MASK_FLD(x, m1 | m2 | m3 | m4 | m5 | m6,                                                                   \
+    BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4) | (m5) | (m6),                                                       \
                     MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5) | MV(m6, v6))
 #else
 #define SET_FLD_V3(x, m, v)                                                                                           \
     __pragma(warning(push)) __pragma(warning(disable : 4244)) BM_SET_MASK_FLD(x, m, MV(m, v)) __pragma(warning(pop))
 
 #define SET_FLD_V5(x, m1, v1, m2, v2)                                                                                 \
-    __pragma(warning(push)) __pragma(warning(disable : 4244)) BM_SET_MASK_FLD(x, m1 | m2, MV(m1, v1) | MV(m2, v2))    \
-        __pragma(warning(pop))
+    __pragma(warning(push)) __pragma(warning(disable : 4244))                                                         \
+        BM_SET_MASK_FLD(x, (m1) | (m2), MV(m1, v1) | MV(m2, v2)) __pragma(warning(pop))
 
 #define SET_FLD_V7(x, m1, v1, m2, v2, m3, v3)                                                                         \
     __pragma(warning(push)) __pragma(warning(disable : 4244))                                                         \
-        BM_SET_MASK_FLD(x, m1 | m2 | m3, MV(m1, v1) | MV(m2, v2) | MV(m3, v3)) __pragma(warning(pop))
+        BM_SET_MASK_FLD(x, (m1) | (m2) | (m3), MV(m1, v1) | MV(m2, v2) | MV(m3, v3)) __pragma(warning(pop))
 
 #define SET_FLD_V9(x, m1, v1, m2, v2, m3, v3, m4, v4)                                                                 \
     __pragma(warning(push)) __pragma(warning(disable : 4244))                                                         \
-        BM_SET_MASK_FLD(x, m1 | m2 | m3 | m4, MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4))                      \
+        BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4), MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4))                      \
             __pragma(warning(pop))
 
 #define SET_FLD_V11(x, m1, v1, m2, v2, m3, v3, m4, v4, m5, v5)                                                        \
     __pragma(warning(push)) __pragma(warning(disable : 4244))                                                         \
-        BM_SET_MASK_FLD(x, m1 | m2 | m3 | m4 | m5, MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5))    \
-            __pragma(warning(pop))
+        BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4) | (m5),                                                          \
+                        MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5)) __pragma(warning(pop))
 
 #define SET_FLD_V13(x, m1, v1, m2, v2, m3, v3, m4, v4, m5, v5, m6, v6)                                                \
-    __pragma(warning(push)) __pragma(warning(disable : 4244)) BM_SET_MASK_FLD(                                        \
-        x, m1 | m2 | m3 | m4 | m5 | m6, MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5) | MV(m6, v6))  \
-        __pragma(warning(pop))
+    __pragma(warning(push)) __pragma(warning(disable : 4244))                                                         \
+        BM_SET_MASK_FLD(x, (m1) | (m2) | (m3) | (m4) | (m5) | (m6),                                                   \
+                        MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5) | MV(m6, v6))                  \
+            __pragma(warning(pop))
 #endif
 
 #if 0

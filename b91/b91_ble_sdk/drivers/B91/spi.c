@@ -386,7 +386,7 @@ void spi_set_dual_mode(spi_sel_e spi_sel)
  * @brief	This function servers to set quad mode.
  * @return	none
  */
-void hspi_set_quad_mode()
+void hspi_set_quad_mode(void)
 {
     hspi_quad_mode_en();
     spi_dual_mode_dis(HSPI_MODULE);

@@ -159,7 +159,7 @@ static inline void rf_trigle_codedPhy_accesscode(void)
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_on()
+static inline void rf_ble_tx_on(void)
 {
     write_reg8(0x80140a02, 0x45 | BIT(4));  // TX enable
 }
@@ -169,7 +169,7 @@ static inline void rf_ble_tx_on()
  * @param[in] none.
  * @return    none.
  */
-static inline void rf_ble_tx_done()
+static inline void rf_ble_tx_done(void)
 {
     write_reg8(0x80140a02, 0x45);
 }

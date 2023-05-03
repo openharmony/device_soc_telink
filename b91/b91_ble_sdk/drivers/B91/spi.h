@@ -453,7 +453,7 @@ static inline void spi_cmd_dis(spi_sel_e spi_sel)
  * @brief 	This function servers enable cmd  format,the format of cmd phase is the same as the data phase(Dual/Quad).
  * @return 	none
  */
-static inline void hspi_cmd_fmt_en()
+static inline void hspi_cmd_fmt_en(void)
 {
     BM_SET(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_CMD_FMT);
 }
@@ -462,7 +462,7 @@ static inline void hspi_cmd_fmt_en()
  * @brief 	This function servers disable cmd  format.
  * @return 	none
  */
-static inline void hspi_cmd_fmt_dis()
+static inline void hspi_cmd_fmt_dis(void)
 {
     BM_CLR(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_CMD_FMT);
 }
@@ -471,7 +471,7 @@ static inline void hspi_cmd_fmt_dis()
  * @brief 	This function servers to enable hspi quad mode.
  * @return 	none
  */
-static inline void hspi_quad_mode_en()
+static inline void hspi_quad_mode_en(void)
 {
     BM_SET(reg_spi_mode2(HSPI_MODULE), FLD_HSPI_QUAD);
 }
@@ -1025,7 +1025,7 @@ void spi_set_dual_mode(spi_sel_e spi_sel);
  * @brief	This function servers to set quad mode.
  * @return	none
  */
-void hspi_set_quad_mode();
+void hspi_set_quad_mode(void);
 
 /**
  * @brief     	This function servers to set 3line mode.

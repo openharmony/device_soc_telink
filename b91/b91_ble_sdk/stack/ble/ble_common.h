@@ -318,12 +318,12 @@ typedef enum {
 /**
  * @brief	6 = header(2)+l2cap_len(2)+CID(2)
  */
-#define CAL_MTU_BUFF_SIZE(n) (((n + 6) + 3) / 4 * 4)
+#define CAL_MTU_BUFF_SIZE(n) ((((n) + 6) + 3) / 4 * 4)
 
 /**
  * @brief	12 = type(1) + len(1) + l2cap_len(2) + cid(2) + sud_len(2) + mic(4)
  */
-#define L2CAP_ALLIGN4_KFRAM_DMA_BUFF(n) (((n + 12) + 3) / 4 * 4)
+#define L2CAP_ALLIGN4_KFRAM_DMA_BUFF(n) ((((n) + 12) + 3) / 4 * 4)
 
 // 7 = rf_packet_ll_data_t
 #define CIS_PDU_ALLIGN4_TXBUFF(n)                                                                                     \
@@ -336,8 +336,8 @@ typedef enum {
 
 #define BIS_PDU_ALLIGN4_RXBUFF(n) DATA_LENGTH_ALLIGN4(BIS_LL_RX_PDU_FIFO_SIZE(n))
 
-#define IAL_SDU_ALLIGN4_BUFF(n) (((n + 16) + 3) / 4 * 4)
+#define IAL_SDU_ALLIGN4_BUFF(n) ((((n) + 16) + 3) / 4 * 4)
 
-#define HCI_ISO_ALLIGN4_BUFF(n) (((n + 4) + 3) / 4 * 4)  // DMA len 4
+#define HCI_ISO_ALLIGN4_BUFF(n) ((((n) + 4) + 3) / 4 * 4)  // DMA len 4
 
 #endif
