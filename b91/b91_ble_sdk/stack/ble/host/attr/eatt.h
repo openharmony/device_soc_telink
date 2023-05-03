@@ -8,7 +8,7 @@
  *
  * @par      Copyright (c) Telink Semiconductor (Shanghai) Co., Ltd.
  *           All rights reserved.
- *           
+ *
  *           The information contained herein is confidential and proprietary property of Telink
  *           Semiconductor (Shanghai) Co., Ltd. and is available under the terms
  *           of Commercial License Agreement between Telink Semiconductor (Shanghai)

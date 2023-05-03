@@ -7,7 +7,7 @@
 
 #if (ALG_LC3_ENABLE)
 
-#include "../src/fft_lib/_kiss_fft_guts.h"  // FIXME
+#include "../src/fft_lib/_kiss_fft_guts.h"
 #include "../src/fft_lib/kiss_fft_custom/kiss_fft_custom.h"
 /*! LC3 decoder error codes. */
 typedef enum {

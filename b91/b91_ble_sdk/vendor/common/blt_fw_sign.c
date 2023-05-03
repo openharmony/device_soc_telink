@@ -60,7 +60,6 @@ void blt_firmware_signature_check(void)
     unsigned char flash_uid[16];
     unsigned char signature_enc_key[16];
     int flag = flash_read_mid_uid_with_check(&flash_mid, flash_uid);
-
     if (flag == 0) {  // reading flash UID error
         while (1) {
         }

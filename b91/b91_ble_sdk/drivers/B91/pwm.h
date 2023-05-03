@@ -70,7 +70,7 @@
                      ((gpio)==PWM_PWM5_PB0) 	? 5 : (      \
                      ((gpio)==PWM_PWM5_PE5) 	? 5 : (      \
                      ((gpio)==PWM_PWM5_N_PD5) ? 5 : 0        \
-                    		 )))))))))))))))))))))
+                        )))))))))))))))))))))
 
 #define get_pwm_invert_val(gpio) ((gpio==PWM_PWM0_N_PD0) ||  \
                      ((gpio)==PWM_PWM1_N_PD1) ||             \
@@ -333,7 +333,8 @@ static inline unsigned char pwm_get_irq_status(pwm_irq_e status)
 }
 
 /**
- * @brief     This fuction servers to clear the pwm interrupt.When a PWM interrupt occurs, the corresponding interrupt flag bit needs to be cleared manually.
+ * @brief     This fuction servers to clear the pwm interrupt.When a PWM interrupt occurs,
+ *            the corresponding interrupt flag bit needs to be cleared manually.
  * @param[in] status  - variable of enum to select the pwm interrupt source.
  * @return	  none.
  */

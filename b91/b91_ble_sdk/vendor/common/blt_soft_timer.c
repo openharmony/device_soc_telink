@@ -185,7 +185,6 @@ void blt_soft_timer_process(int type)
             if (blt_timer.timer[i].cb == NULL) {
             } else {
                 result = blt_timer.timer[i].cb();
-
                 if (result < 0) {
                     blt_soft_timer_delete_by_index(i);
                 } else if (result == 0) {

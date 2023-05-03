@@ -112,7 +112,6 @@ _attribute_ram_code_ static UINT32 B91Suspend(VOID)
     blc_pm_setWakeupSource(PM_WAKEUP_PAD);
 
     UINT32 sleepTick = stimer_get_tick();
-
     if (B91_system_suspend(sleepTick + systicksSleepTimeout - MTICKS_RESERVE_TIME)) {
         UINT32 span = SysticksToMticks(stimer_get_tick() - sleepTick) + MTICKS_CORRECTION_TIME;
         mtick += span;

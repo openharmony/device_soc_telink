@@ -82,11 +82,9 @@
 /* ! \brief  Critical section nesting level. */
 _attribute_data_retention_ static u8 myCsNesting = 0;
 
-/*************************************************************************************************/
 /* !
  *  \brief  Enter a critical section.
  */
-/*************************************************************************************************/
 void myCsEnter(void)
 {
     if (myCsNesting == 0) {
@@ -358,13 +356,12 @@ void *myBufAlloc(u16 len)
                 ;
 
                 return pBuf;
-            }
+            } else {
 #if MY_BUF_STATS_HIST == TRUE
-            else {
                 /* Pool overflow: increment count of overflow for current pool. */
                 myPoolOverFlowCount[myBufNumPools - i]++;
-            }
 #endif
+            }
             /* Exit critical section. */
             myCsExit();
             ;

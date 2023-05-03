@@ -278,4 +278,4 @@ typedef struct {
 
 #endif  // #if (BLC_AUDIO_PROFILE_EN)
 
-#endif  //
+#endif

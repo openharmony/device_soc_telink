@@ -197,23 +197,23 @@ typedef enum {
  */
 typedef enum {
     /* VBAT */
-    RF_POWER_INDEX_P9p11dBm, /**< power index of 9.1 dbm */
-    RF_POWER_INDEX_P8p57dBm, /**< power index of 8.6 dbm */
-    RF_POWER_INDEX_P8p05dBm, /**< power index of 8.1 dbm */
-    RF_POWER_INDEX_P7p45dBm, /**< power index of 7.5 dbm */
-    RF_POWER_INDEX_P6p98dBm, /**< power index of 7.0 dbm */
-    RF_POWER_INDEX_P5p68dBm, /**< power index of 6.0 dbm */
+    RF_POWER_INDEX_P9p11dBm,  /**< power index of 9.1 dbm */
+    RF_POWER_INDEX_P8p57dBm,  /**< power index of 8.6 dbm */
+    RF_POWER_INDEX_P8p05dBm,  /**< power index of 8.1 dbm */
+    RF_POWER_INDEX_P7p45dBm,  /**< power index of 7.5 dbm */
+    RF_POWER_INDEX_P6p98dBm,  /**< power index of 7.0 dbm */
+    RF_POWER_INDEX_P5p68dBm,  /**< power index of 6.0 dbm */
     /* VANT */
-    RF_POWER_INDEX_P4p35dBm, /**< power index of 4.4 dbm */
-    RF_POWER_INDEX_P3p83dBm, /**< power index of 3.8 dbm */
-    RF_POWER_INDEX_P3p25dBm,
-    /**< power index of 3.3 dbm */ RF_POWER_P3dBm = RF_POWER_INDEX_P3p25dBm,
-    RF_POWER_INDEX_P2p79dBm, /**< power index of 2.8 dbm */
-    RF_POWER_INDEX_P2p32dBm, /**< power index of 2.3 dbm */
-    RF_POWER_INDEX_P1p72dBm, /**< power index of 1.7 dbm */
-    RF_POWER_INDEX_P0p80dBm, /**< power index of 0.8 dbm */
-    RF_POWER_INDEX_P0p01dBm,
-    /**< power index of 0.0 dbm */ RF_POWER_P0dBm = RF_POWER_INDEX_P0p01dBm,
+    RF_POWER_INDEX_P4p35dBm,  /**< power index of 4.4 dbm */
+    RF_POWER_INDEX_P3p83dBm,  /**< power index of 3.8 dbm */
+    RF_POWER_INDEX_P3p25dBm,  /**< power index of 3.3 dbm */
+    RF_POWER_P3dBm = RF_POWER_INDEX_P3p25dBm,
+    RF_POWER_INDEX_P2p79dBm,  /**< power index of 2.8 dbm */
+    RF_POWER_INDEX_P2p32dBm,  /**< power index of 2.3 dbm */
+    RF_POWER_INDEX_P1p72dBm,  /**< power index of 1.7 dbm */
+    RF_POWER_INDEX_P0p80dBm,  /**< power index of 0.8 dbm */
+    RF_POWER_INDEX_P0p01dBm,  /**< power index of 0.0 dbm */
+    RF_POWER_P0dBm = RF_POWER_INDEX_P0p01dBm,
     RF_POWER_INDEX_N0p53dBm,  /**< power index of -0.5 dbm */
     RF_POWER_INDEX_N1p37dBm,  /**< power index of -1.4 dbm */
     RF_POWER_INDEX_N2p01dBm,  /**< power index of -2.0 dbm */
@@ -870,8 +870,8 @@ void rf_set_pri_tx_ack_en(rf_mode_e rf_mode);
 void rf_set_access_code_len(unsigned char byte_len);
 
 /**
- * @brief 	This function serve to set access code.This function will first get the length of access code from register 0x140805
- * 			and then set access code in addr.
+ * @brief 	This function serve to set access code.This function will first get the length of access code
+ * 			 from register 0x140805 and then set access code in addr.
  * @param[in]	pipe_id	-The number of pipe.0<= pipe_id <=5.
  * @param[in]	acc	-The value access code
  * @note		For compatibility with previous versions the access code should be bit transformed by bit_swap();

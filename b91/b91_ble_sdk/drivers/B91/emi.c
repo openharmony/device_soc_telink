@@ -361,7 +361,6 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
         if (pkt_type == 0) {
             rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
         }
-
     } else if (rf_mode == RF_MODE_LR_S2_500K) {
         rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);

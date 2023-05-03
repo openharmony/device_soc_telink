@@ -76,7 +76,7 @@ typedef struct LC3_ENC {
     Word32 nn_idx;
     /* ltpf */
 #if 0
-	nds_bq_df1_q15_t ltpf_highpass_q15;
+    nds_bq_df1_q15_t ltpf_highpass_q15;
 #endif  // ANDES_INTRINSIC
     Word16 ltpf_enable;
     Word32 len_12k8;
@@ -107,7 +107,7 @@ typedef struct LC3_ENC {
     Word32 frame_counter;
     Word32 fs;                      // sample rate
     Word16 fs_ind;                  // index of fs
-    Word16 channelNum;              //channal number
+    Word16 channelNum;              // channal number
     Word32 bitrate;                 // bit rate
     Word16 NF;                      // sample number of one frame
     Word16 NE;                      // frequency number of one frame

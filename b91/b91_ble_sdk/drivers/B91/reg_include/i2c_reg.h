@@ -132,7 +132,7 @@ typedef enum {
  * BIT[6] enable if BIT[6]=1,Its role is to convert the SDA from output to input,
  * so that the master can accept the data sent by the slave when it reads.
  * BIT[7] enable ACK in read command.When the master is reading, it needs to return to ack or nak.
- *        If it is in manual mode,when the master is reading, 
+ *        If it is in manual mode,when the master is reading,
  * you need to configure this bit to determine whether it will ack.
  *        BIT[7] = 0,return ack. BIT[7] = 1,return nak.
  */

@@ -539,7 +539,6 @@ _attribute_ram_code_ int myudb_hci_cmd_from_usb(void)
         int n = myudb_usb_get_packet(buff_usb_cmd);
         if (n) {
             int r = myudb_mem_cmd(buff_usb_cmd, n);
-
             if (r == MYHCI_FW_DOWNLOAD) {
                 fw_download = MYHCI_FW_DOWNLOAD;
             } else if (buff_usb_cmd[0] == 0x11 && myudb_hci_debug_cb && !fw_download) {

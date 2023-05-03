@@ -152,7 +152,6 @@ typedef enum {
     BLC_AUDIOS_EVTID_OTS_READY,
 } BLC_AUDIO_EVTID_ENUM;
 
-// TODO: TBD
 // PACS Service & Characteristic
 #define SERVICE_UUID_PUBLISHED_AUDIO_CAPABILITIES        0x2310  // PACS
 #define CHARACTERISTIC_UUID_PACS_SINK_PAC                0x2311  // Mandatory:Read; Optional:Notify
@@ -405,7 +404,6 @@ typedef enum {
 #define BLC_AUDIO_INPUT_STATE_INACTIVE 0x00
 #define BLC_AUDIO_INPUT_STATE_ACTIVE   0x01
 
-// TODO: Input Type TBD
 // AICS Input Type
 #define BLC_AUDIO_INPUT_TYPE_LOCAL              0x01
 #define BLC_AUDIO_INPUT_TYPE_ISOCHRONOUS_STREAM 0x02

@@ -113,7 +113,6 @@ signed int big_integer_compare(unsigned int *a, unsigned int aWordLen, unsigned 
 
     aWordLen = valid_words_get(a, aWordLen);
     bWordLen = valid_words_get(b, bWordLen);
-
     if (aWordLen > bWordLen) {
         return 1;
     }

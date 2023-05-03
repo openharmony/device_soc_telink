@@ -251,19 +251,13 @@ void audio_set_codec_supply(codec_volt_supply_e volt)
     if (g_chip_version == 0xff) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
         if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
-        }
-
-        else if (volt == CODEC_1P8V) {
+        } else if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
-    }
-
-    else {  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
+    } else {  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
         if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
-        }
-
-        else if (volt == CODEC_2P8V) {
+        } else if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
     }
@@ -715,7 +709,6 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
 
         BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /* adc unmute */
     } else if (wreg_mode == I2C_WREG) {
-
         /* active adc0 and adc1  channel, if mono only active adc1,adc mute */
         audio_i2c_codec_write(addr_audio_codec_adc12_ctr, MASK_VAL(FLD_AUDIO_CODEC_ADC1_SB, 0, FLD_AUDIO_CODEC_ADC2_SB,
                                                                    0, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE, 1));

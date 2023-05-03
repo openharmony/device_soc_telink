@@ -1088,7 +1088,7 @@ typedef struct {
     u8 packing;
     u8 framing;
     u8 bn;  /* The number of new payloads in each interval for each BIS */
-    u8 irc; /* The number of times the scheduled payload(s) are transmitted in a given event*/
+    u8 irc; /* The number of times the scheduled payload(s) are transmitted in a given event */
     u8 pto; /* Offset used for pre-transmissions */
     u8 enc; /* Encryption flag */
     u8 broadcast_code

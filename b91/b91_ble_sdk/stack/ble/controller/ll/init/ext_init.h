@@ -75,7 +75,7 @@ void blc_ll_initExtendedInitiating_module(void);
  *             If 1M PHY is not supported, these parameters are ignored.
  * 			   scanInter_1/scanWindow_1/conn_min_1/conn_max_1/timeout_1 are only for 2M PHY.
  *             If 2M PHY is not supported, these parameters are ignored.
- * 			   scanInter_2/scanWindow_2/conn_min_2/conn_max_2/timeout_2 are only for Coded PHY. 
+ * 			   scanInter_2/scanWindow_2/conn_min_2/conn_max_2/timeout_2 are only for Coded PHY.
  *             If Coded PHY is not supported, these parameters are ignored.
  *
  * @param[in]  scanInter_0 - for 1M PHY: recommendations from the Host on how frequently (LE_Scan_Interval)

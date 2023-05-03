@@ -235,7 +235,7 @@ void i2c_slave_init(unsigned char id);
  *  @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  *  @param[in]  data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
  *  @param[in]  len - This length is the total length, including both the length of the slave RAM address
- *              and the length of the data to be sent.
+ *                    and the length of the data to be sent.
  *  @return     0 : the master receive NACK after sending out the id and then send stop.
  *              1: the master sent the data successfully,(master does not detect NACK in data phase)
  */

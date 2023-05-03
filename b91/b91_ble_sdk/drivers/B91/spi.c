@@ -164,9 +164,9 @@ void hspi_cs_pin_dis(hspi_csn_pin_def_e pin)
 }
 
 /**
- * @brief     	This function change hspi csn pin.
- * @param[in] 	next_csn_pin - the next csn pin.
- * @return 		next_csn_pin - the next csn pin.
+ * @brief       This function change hspi csn pin.
+ * @param[in]   next_csn_pin - the next csn pin.
+ * @return      next_csn_pin - the next csn pin.
  */
 hspi_csn_pin_def_e hspi_change_csn_pin(hspi_csn_pin_def_e next_csn_pin)
 {

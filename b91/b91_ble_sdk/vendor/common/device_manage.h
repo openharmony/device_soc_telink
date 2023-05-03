@@ -65,7 +65,8 @@
 #define CHAR_HANDLE_MAX 8
 /***************** connection character device information ****************************
  *
- * Demo master device char_handle(ATT handle) define as follows, assuming that peer device(BLE slave) is TELINK HID device
+ * Demo master device char_handle(ATT handle) define as follows,
+ * assuming that peer device(BLE slave) is TELINK HID device
  *   char_handle[0] :  MIC
  *   char_handle[1] :  Speaker
  *   char_handle[2] :  OTA

@@ -48,7 +48,8 @@
 
 // static assertion. evaluate at compile time. It is very useful like,  STATIC_ASSERT(sizeof(a) == 5);
 
-// #define STATIC_ASSERT(expr)   			{ char static_assertion[(expr) ? 1 : -1]; ((void) static_assertion); }	// (void) array;  to remove compiler unused variable warning
+// #define STATIC_ASSERT(expr) { char static_assertion[(expr) ? 1 : -1]; ((void) static_assertion); }
+// (void) array;  to remove compiler unused variable warning
 
 // more complicated version canbe used anywhere in the source
 #define STATIC_ASSERT_M(COND, MSG) typedef char static_assertion_##MSG[(!!(COND)) * 2 - 1]

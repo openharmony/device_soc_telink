@@ -223,7 +223,7 @@ u8 *my_fifo_get(my_fifo_t *f);
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
 #define MYFIFO_INIT_IRAM(name, size, n)                                                                               \
-    u8 name##_b[size * n] __attribute__((aligned(4))) /* ={0} */;                                                     \
+    u8 name##_b[size * n] __attribute__((aligned(4))); /* ={0} */                                                     \
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
 #define DATA_LENGTH_ALLIGN4(n)  ((n + 3) / 4 * 4)
