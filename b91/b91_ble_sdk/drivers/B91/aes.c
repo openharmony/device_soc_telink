@@ -90,10 +90,10 @@ void aes_set_key_data(unsigned char *key, unsigned char *data)
     unsigned int temp;
     reg_embase_addr = aes_base_addr;  // set the embase addr
     for (unsigned char i = 0; i < 4; i++) {
-        temp = key[16 - (4 * i) - 4] << 24 | key[16 - (4 * i) - 3] << 16 | key[16 - (4 * i) - 2] << 8 |
+        temp = (key[16 - (4 * i) - 4] << 24) | (key[16 - (4 * i) - 3] << 16) | (key[16 - (4 * i) - 2] << 8) |
                key[16 - (4 * i) - 1];
         reg_aes_key(i) = temp;
-        temp = data[16 - (4 * i) - 4] << 24 | data[16 - (4 * i) - 3] << 16 | data[16 - (4 * i) - 2] << 8 |
+        temp = (data[16 - (4 * i) - 4] << 24) | (data[16 - (4 * i) - 3] << 16) | (data[16 - (4 * i) - 2] << 8) |
                data[16 - (4 * i) - 1];
         aes_data_buff[i] = temp;
     }

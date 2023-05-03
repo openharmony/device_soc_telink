@@ -555,7 +555,7 @@ inline Word16 mult_16_shift(Word16 vin1, Word16 vin2, Word32 shift)
     Word32 tmp;
     Word16 vout;
 
-    tmp = (Word32)vin1 * (Word32)vin2 >> shift;
+    tmp = (Word32)vin1 * ((Word32)vin2 >> shift);
 
     vout = saturate(tmp);
     return vout;

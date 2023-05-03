@@ -99,7 +99,7 @@
 #define rf_pri_esb_dma_rx_offset_rssi(p)        (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:1, signed
 #define rf_pri_esb_packet_crc_ok(p)             ((p[((p[4] & 0x3f) + 11 + 3)] & 0x01) == 0x00)
 
-/******************************************************FOR ZIGBEE************************************************************/
+/******************************************************FOR ZIGBEE*****************************************************/
 
 /**
  *  @brief Those setting of offset according to zigbee packet format, so this setting for zigbee only.

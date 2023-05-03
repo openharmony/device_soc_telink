@@ -436,7 +436,7 @@ static inline unsigned char pwm_get_pwm0_ir_fifo_is_full(void)
 static inline unsigned short pwm_cal_pwm0_ir_fifo_cfg_data(unsigned short pulse_num, unsigned char shadow_en,
                                                            unsigned char carrier_en)
 {
-    return (carrier_en << 15 | (shadow_en << 14) | (pulse_num & 0x3fff));
+    return ((carrier_en << 15) | (shadow_en << 14) | (pulse_num & 0x3fff));
 }
 
 /**

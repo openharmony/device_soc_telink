@@ -288,7 +288,7 @@ static inline void adc_temp_sensor_power_off(void)
 static inline void adc_set_diff_input(adc_input_pch_e p_ain, adc_input_nch_e n_ain)
 {
     analog_write_reg8(areg_adc_res_m, analog_read_reg8(areg_adc_res_m) | FLD_ADC_EN_DIFF_CHN_M);
-    analog_write_reg8(areg_adc_ain_chn_misc, n_ain | p_ain << 4);
+    analog_write_reg8(areg_adc_ain_chn_misc, n_ain | (p_ain << 4));
 }
 /**
  * @brief This function serves to set state and capture_state length.

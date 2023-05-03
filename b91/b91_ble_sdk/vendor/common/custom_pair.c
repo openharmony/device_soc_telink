@@ -283,8 +283,8 @@ void user_master_host_pairing_flash_init(void)
                 while (1) {
                 }
             }
-        } else if (flag == 0xff)  // end
-        {
+        } else if (flag == 0xff) {
+            // end
             break;
         }
     }

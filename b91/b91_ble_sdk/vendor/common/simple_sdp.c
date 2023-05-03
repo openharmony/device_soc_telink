@@ -95,8 +95,8 @@ void app_service_discovery(void)
     memset(db128, 0, ATT_DB_UUID128_NUM * sizeof(att_db_uuid128_t));
 
     if (master_sdp_pending && host_att_discoveryService(master_sdp_pending, db16, ATT_DB_UUID16_NUM, db128,
-                                                        ATT_DB_UUID128_NUM) == BLE_SUCCESS)  // service discovery OK
-    {
+                                                        ATT_DB_UUID128_NUM) == BLE_SUCCESS) {
+        // service discovery OK
         cur_sdp_device.char_handle[2] = blm_att_findHandleOfUuid128(db128, my_OtaUUID);  // OTA
         cur_sdp_device.char_handle[3] = blm_att_findHandleOfUuid16(
             db16, CHARACTERISTIC_UUID_HID_REPORT,
@@ -256,8 +256,8 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
     u16 uuid = GATT_UUID_CHARACTER;
     do {
         dat[6] = ATT_OP_READ_BY_TYPE_REQ;
-        if (app_char_discovery(dat, handle, s, 0xffff, (u8 *)&uuid, 2))  // 1s
-        {
+        if (app_char_discovery(dat, handle, s, 0xffff, (u8 *)&uuid, 2)) {
+            // 1s
             return GATT_ERR_SERVICE_DISCOVERY_TIEMOUT;  // timeout
         }
 
@@ -267,8 +267,8 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
             break;
         }
 
-        if (p_rsp->datalen == 21)  // uuid128
-        {
+        if (p_rsp->datalen == 21) {
+            // uuid128
             s = p_rsp->data[3] + p_rsp->data[4] * 256;
             if (i128 < n128) {
                 p128->property = p_rsp->data[2];
@@ -277,8 +277,8 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
                 i128++;
                 p128++;
             }
-        } else if (p_rsp->datalen == 7)  // uuid16
-        {
+        } else if (p_rsp->datalen == 7) {
+            // uuid16
             u8 *pd = p_rsp->data;
             while (p_rsp->l2capLen > 7) {
                 s = pd[3] + pd[4] * 256;
@@ -302,11 +302,11 @@ ble_sts_t host_att_discoveryService(u16 handle, att_db_uuid16_t *p16, int n16, a
     // --------- use att_find_info to find the reference property for hid ----------
     p16 = ps16;
     for (int i = 0; i < i16; i++) {
-        if (p16->uuid == CHARACTERISTIC_UUID_HID_REPORT)  // find reference
-        {
+        if (p16->uuid == CHARACTERISTIC_UUID_HID_REPORT) {
+            // find reference
             dat[6] = ATT_OP_FIND_INFORMATION_REQ;
-            if (app_find_char_info(dat, handle, p16->handle, 0xffff))  // 1s
-            {
+            if (app_find_char_info(dat, handle, p16->handle, 0xffff)) {
+                // 1s
                 return GATT_ERR_SERVICE_DISCOVERY_TIEMOUT;  // timeout
             }
 

@@ -223,7 +223,7 @@ typedef enum {
 #define BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE 3
 #define BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE     4
 
-#define IS_PUBLIC_ADDR(Type, Addr)  					( (Type)==BLE_ADDR_PUBLIC) )
+#define IS_PUBLIC_ADDR(Type, Addr)  					((Type)==BLE_ADDR_PUBLIC)
 #define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0xC0)
 #define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x00)
 #define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x40)

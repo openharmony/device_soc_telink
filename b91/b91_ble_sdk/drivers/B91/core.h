@@ -58,8 +58,8 @@
  * Inline nested interrupt entry/exit macros
  */
 /* Svae/Restore macro */
-#define save_csr(r)    long __##r = read_csr(r);
-#define restore_csr(r) write_csr(r, __##r);
+#define save_csr(r)    long __##r = read_csr(r)
+#define restore_csr(r) write_csr(r, __##r)
 /* Support PowerBrake (Performance Throttling) feature */
 
 #define save_mxstatus()    save_csr(NDS_MXSTATUS)
@@ -67,12 +67,12 @@
 
 /* Nested IRQ entry macro : Save CSRs and enable global interrupt. */
 #define core_save_nested_context()                                                                                    \
-    save_csr(NDS_MEPC) save_csr(NDS_MSTATUS) save_mxstatus() set_csr(NDS_MSTATUS, 1 << 3);
+    save_csr(NDS_MEPC); save_csr(NDS_MSTATUS); save_mxstatus(); set_csr(NDS_MSTATUS, 1 << 3)
 
 /* Nested IRQ exit macro : Restore CSRs */
 #define core_restore_nested_context()                                                                                 \
     clear_csr(NDS_MSTATUS, 1 << 3);                                                                                   \
-    restore_csr(NDS_MSTATUS) restore_csr(NDS_MEPC) restore_mxstatus()
+    restore_csr(NDS_MSTATUS); restore_csr(NDS_MEPC); restore_mxstatus()
 
 #define fence_iorw __nds__fence(FENCE_IORW, FENCE_IORW)
 
@@ -112,6 +112,6 @@ static inline unsigned int core_restore_interrupt(unsigned int en)
 static inline void core_interrupt_enable(void)
 {
     set_csr(NDS_MSTATUS, 1 << 3);
-    set_csr(NDS_MIE, 1 << 11 | 1 << 7 | 1 << 3);
+    set_csr(NDS_MIE, (1 << 11) | (1 << 7) | (1 << 3));
 }
 #endif

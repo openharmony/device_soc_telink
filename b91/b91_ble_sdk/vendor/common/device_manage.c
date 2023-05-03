@@ -213,8 +213,8 @@ int dev_char_info_insert_by_enhanced_conn_event(hci_le_enhancedConnCompleteEvt_t
 int dev_char_info_delete_by_connhandle(u16 connhandle)
 {
     foreach (i, DEVICE_CHAR_INFO_MAX_NUM) {
-        if (conn_dev_list[i].conn_handle == connhandle && conn_dev_list[i].conn_state)  // match
-        {
+        if (conn_dev_list[i].conn_handle == connhandle && conn_dev_list[i].conn_state) {
+            // match
             if (conn_dev_list[i].conn_role == LL_ROLE_MASTER) {  // master
                 conn_master_num--;
             } else {  // slave

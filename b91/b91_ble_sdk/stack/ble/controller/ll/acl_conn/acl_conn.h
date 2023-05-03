@@ -75,7 +75,8 @@ int blc_ll_getCurrentMasterRoleNumber(void);  // master role number
 int blc_ll_getCurrentSlaveRoleNumber(void);  // slave  role number
 
 /**
- * @brief      This function is used to configure the number of master and slave connections that the protocol stack can support.
+ * @brief      This function is used to configure the number of master and slave connections
+ *             that the protocol stack can support.
  * @param[in]  max_master_num - Number of master ACL connections supported.
  * @param[in]  max_slave_num - Number of slave ACL connections supported.
  * @return     status, 0x00:  succeed
@@ -91,7 +92,8 @@ ble_sts_t blc_ll_setMaxConnectionNumber(int max_master_num, int max_slave_num);
 u8 blc_ll_getTxFifoNumber(u16 connHandle);
 
 /**
- * @brief      This function is used to disconnect the device with the specified ACL connection handle and specify the reason for the disconnection.
+ * @brief      This function is used to disconnect the device with the specified ACL connection handle and
+ *             specify the reason for the disconnection.
  * @param[in]  connHandle - ACL connection handle.
  * @param[in]  reason - Reason for disconnection..
  * @return     status, 0x00:  succeed
@@ -100,10 +102,12 @@ u8 blc_ll_getTxFifoNumber(u16 connHandle);
 ble_sts_t blc_ll_disconnect(u16 connHandle, u8 reason);
 
 /**
- * @brief      This function is used to obtain the connection establishment time point corresponding to the current ACL connection handle.
+ * @brief      This function is used to obtain the connection establishment time point corresponding to
+ *             the current ACL connection handle.
  * @param[in]  connHandle - ACL connection handle.
  * @param[in]  reason - Reason for disconnection..
- * @return     The connection establishment time point corresponding to the current ACL connection handle: Based on 16M system clock ticks.
+ * @return     The connection establishment time point corresponding to the current ACL connection handle:
+ *             Based on 16M system clock ticks.
  */
 u32 blc_ll_getConnectionStartTick(u16 connHandle);
 
@@ -116,7 +120,8 @@ u32 blc_ll_getConnectionStartTick(u16 connHandle);
 ble_sts_t blc_ll_readRemoteVersion(u16 connHandle);
 
 /**
- * @brief      for user to initialize ACL connection module, this is must if user want use ACL master role or ACL slave role.
+ * @brief      for user to initialize ACL connection module, this is must if user want use ACL master role
+ *             or ACL slave role
  * @param	   none
  * @return     none
  */

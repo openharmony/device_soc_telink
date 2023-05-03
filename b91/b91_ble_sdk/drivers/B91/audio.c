@@ -791,7 +791,8 @@ void audio_mux_config(audio_flow_e audio_flow, audio_in_mode_e ain0_mode, audio_
  * @param[in] i2s_format - interface protocol
  * @param[in] wl   		 - audio data word length
  * @param[in] m_s        - select i2s as master or slave
- * @param[in] en         - 1 enable audio data invert , 0 disable audio data invert .for example in mono mode switch R and L channel data to fifo0
+ * @param[in] en         - 1 enable audio data invert , 0 disable audio data invert.
+ *                         For example in mono mode switch R and L channel data to fifo0
  * @return    none
  */
 void audio_i2s_config(i2s_mode_select_e i2s_format, i2s_data_select_e wl, i2s_codec_m_s_mode_e m_s,

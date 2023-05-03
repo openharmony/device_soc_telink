@@ -3,7 +3,7 @@
 #define __DUMP_H__
 
 #define DUMP_INPUT 0x1
-#define DUMP_MDCT  0x2;
+#define DUMP_MDCT  0x2
 
 /* encoder part */
 #define FILE_MDCT    "enc_mdct.txt"

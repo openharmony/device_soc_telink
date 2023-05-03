@@ -53,16 +53,16 @@
 
 #define BltAudioValueSplit2Array(Array, value)                                                                        \
     (Array)[0] = (value)&0xFF;                                                                                        \
-    (Array)[1] = ((value)&0xFF00) >> 8;
+    (Array)[1] = ((value)&0xFF00) >> 8
 #define BltAudioValueSplit3Array(Array, value)                                                                        \
     (Array)[0] = (value)&0xFF;                                                                                        \
     (Array)[1] = ((value)&0xFF00) >> 8;                                                                               \
-    (Array)[2] = ((value)&0xFF0000) >> 16;
+    (Array)[2] = ((value)&0xFF0000) >> 16
 #define BltAudioValueSplit4Array(Array, value)                                                                        \
     (Array)[0] = (value)&0xFF;                                                                                        \
     (Array)[1] = ((value)&0xFF00) >> 8;                                                                               \
     (Array)[2] = ((value)&0xFF0000) >> 16;                                                                            \
-    (Array)[3] = ((value)&0xFF000000) >> 24;
+    (Array)[3] = ((value)&0xFF000000) >> 24
 
 #define BltAudio2ArraySpellValue(value, Array) (value) = (((u16)(Array)[1]) << 8) | ((u16)(Array)[0])
 #define BltAudio3ArraySpellValue(value, Array)                                                                        \

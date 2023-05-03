@@ -145,7 +145,7 @@ _attribute_no_inline_ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8
     mac_random_static[2] = mac_public[2];
     mac_random_static[5] = 0xC0;  // for random static
 
-    u16 high_2_byte = (mac_read[6] | mac_read[7] << 8);
+    u16 high_2_byte = (mac_read[6] | (mac_read[7] << 8));
     if (high_2_byte != 0xFFFF) {
         memcpy((u8 *)(mac_random_static + 3), (u8 *)(mac_read + 6), 2);
     } else {

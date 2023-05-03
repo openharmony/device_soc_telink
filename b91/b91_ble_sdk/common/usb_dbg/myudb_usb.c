@@ -472,8 +472,8 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
             for (int i = 0; i < n; i++) {
                 rsp[i + 6] = analog_read_reg8(adr + i);
             }
-        } else if (type == 2 || type == 3)  // flash
-        {
+        } else if (type == 2 || type == 3) {
+            // flash
             flash_read_page(adr, n, rsp + 6);
         }
 

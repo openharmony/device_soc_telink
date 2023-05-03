@@ -235,7 +235,8 @@ _attribute_text_sec_ void flash_lock(flash_type_e type, unsigned short data);
 _attribute_text_sec_ void flash_unlock(flash_type_e type);
 
 /**
- * @brief 		This function serves to set priority threshold. when the interrupt priority > Threshold flash process will disturb by interrupt.
+ * @brief 		This function serves to set priority threshold.
+ *              When the interrupt priority > Threshold flash process will disturb by interrupt.
  * @param[in]   preempt_en	- 1 can disturb by interrupt, 0 can disturb by interrupt.
  * @param[in]	threshold	- priority Threshold.
  * @return    	none.
@@ -243,7 +244,8 @@ _attribute_text_sec_ void flash_unlock(flash_type_e type);
 _attribute_text_sec_ void flash_plic_preempt_config(unsigned char preempt_en, unsigned char threshold);
 
 /**
- * @brief		This function serves to set flash write command.This function interface is only used internally by flash,
+ * @brief		This function serves to set flash write command.
+ *              This function interface is only used internally by flash,
  * 				and is currently included in the H file for compatibility with other SDKs. When using this interface,
  * 				please ensure that you understand the precautions of flash before using it.
  * @param[in]	cmd	- set command.

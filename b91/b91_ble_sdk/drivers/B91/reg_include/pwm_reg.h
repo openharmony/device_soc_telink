@@ -193,7 +193,6 @@ typedef enum {
     FLD_PWM3_FRAME_DONE_IRQ = BIT(5),
     FLD_PWM4_FRAME_DONE_IRQ = BIT(6),
     FLD_PWM5_FRAME_DONE_IRQ = BIT(7),
-
     FLD_PWM0_IR_FIFO_IRQ = BIT(16),
 } pwm_irq_e;
 
