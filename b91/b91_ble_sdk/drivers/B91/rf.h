@@ -1,20 +1,48 @@
-/******************************************************************************
- * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
- * All rights reserved.
+/********************************************************************************************************
+ * @file	rf.h
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * @brief	This is the header file for B91
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * @author	Driver Group
+ * @date	2019
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @par     Copyright (c) 2019, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ *          All rights reserved.
  *
- *****************************************************************************/
+ *          Redistribution and use in source and binary forms, with or without
+ *          modification, are permitted provided that the following conditions are met:
+ *
+ *              1. Redistributions of source code must retain the above copyright
+ *              notice, this list of conditions and the following disclaimer.
+ *
+ *              2. Unless for usage inside a TELINK integrated circuit, redistributions
+ *              in binary form must reproduce the above copyright notice, this list of
+ *              conditions and the following disclaimer in the documentation and/or other
+ *              materials provided with the distribution.
+ *
+ *              3. Neither the name of TELINK, nor the names of its contributors may be
+ *              used to endorse or promote products derived from this software without
+ *              specific prior written permission.
+ *
+ *              4. This software, with or without modification, must only be used with a
+ *              TELINK integrated circuit. All other usages are subject to written permission
+ *              from TELINK and different commercial license may apply.
+ *
+ *              5. Licensee shall be solely responsible for any claim to the extent arising out of or
+ *              relating to such deletion(s), modification(s) or alteration(s).
+ *
+ *          THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *          ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *          DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
+ *          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *******************************************************************************************************/
 #ifndef RF_H
 #define RF_H
 
@@ -29,7 +57,7 @@
  */
 #define rf_tx_packet_dma_len(rf_data_len) (((rf_data_len) + 3) / 4) | (((rf_data_len) % 4) << 22)
 
-/***********************************************************FOR BLE******************************************************/
+/***********************************************************FOR BLE***************************************************/
 /**
  *  @brief Those setting of offset according to ble packet format, so this setting for ble only.
  */
@@ -41,12 +69,12 @@
 /**
  *  @brief According to the packet format find the information of packet through offset.
  */
-#define rf_ble_dma_rx_offset_crc24(p)       ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
-#define rf_ble_dma_rx_offset_time_stamp(p)  ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
-#define rf_ble_dma_rx_offset_freq_offset(p) ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
-#define rf_ble_dma_rx_offset_rssi(p)        ((p)[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
-#define rf_ble_packet_length_ok(p)          ((p)[5] <= reg_rf_rxtmaxlen)              // dma_len must 4 byte aligned
-#define rf_ble_packet_crc_ok(p)             (((p)[((p)[5] + 5 + 11)] & 0x01) == 0x0)
+#define rf_ble_dma_rx_offset_crc24(p)       (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 6)   // data len:3
+#define rf_ble_dma_rx_offset_time_stamp(p)  (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:4
+#define rf_ble_dma_rx_offset_freq_offset(p) (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:2
+#define rf_ble_dma_rx_offset_rssi(p)        (p[RF_BLE_DMA_RFRX_OFFSET_RFLEN] + 15)  // data len:1, signed
+#define rf_ble_packet_length_ok(p)          (p[5] <= reg_rf_rxtmaxlen)              // dma_len must 4 byte aligned
+#define rf_ble_packet_crc_ok(p)             ((p[(p[5] + 5 + 11)] & 0x01) == 0x0)
 
 /**
  * @brief		This define for ble debug the effect of rx_dly.
@@ -54,24 +82,24 @@
  */
 #define RF_RX_SHORT_MODE_EN 1  // In order to debug whether the problem is caused by rx_dly.
 
-/******************************************************FOR TPLL************************************************************/
+/******************************************************FOR ESB********************************************************/
 
 /**
- *  @brief Those setting of offset according to private tpll packet format, so this setting for ble only.
+ *  @brief Those setting of offset according to private esb packet format, so this setting for ble only.
  */
-#define 	RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN				4
+#define RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN 4
 
 /**
  *  @brief According to the packet format find the information of packet through offset.
  */
 
-#define 	rf_pri_tpll_dma_rx_offset_crc(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+5)  // data len:2
-#define 	rf_pri_tpll_dma_rx_offset_time_stamp(p)			(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+7)  // data len:4
-#define 	rf_pri_tpll_dma_rx_offset_freq_offset(p)		(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+11) // data len:2
-#define 	rf_pri_tpll_dma_rx_offset_rssi(p)				(p[RF_PRI_TPLL_DMA_RFRX_OFFSET_RFLEN]+13) // data len:1, signed
-#define     rf_pri_tpll_packet_crc_ok(p)            		((p[((p[4] & 0x3f) + 11+3)] & 0x01) == 0x00)
+#define rf_pri_esb_dma_rx_offset_crc(p)         (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:2
+#define rf_pri_esb_dma_rx_offset_time_stamp(p)  (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 7)   // data len:4
+#define rf_pri_esb_dma_rx_offset_freq_offset(p) (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:2
+#define rf_pri_esb_dma_rx_offset_rssi(p)        (p[RF_PRI_ESB_DMA_RFRX_OFFSET_RFLEN] + 13)  // data len:1, signed
+#define rf_pri_esb_packet_crc_ok(p)             ((p[((p[4] & 0x3f) + 11 + 3)] & 0x01) == 0x00)
 
-/******************************************************FOR ZIGBEE************************************************************/
+/******************************************************FOR ZIGBEE*****************************************************/
 
 /**
  *  @brief Those setting of offset according to zigbee packet format, so this setting for zigbee only.
@@ -83,20 +111,20 @@
  *  @brief According to the packet format find the information of packet through offset.
  */
 
-#define rf_zigbee_dma_rx_offset_crc(p)         ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 3)   // data len:2
-#define rf_zigbee_dma_rx_offset_time_stamp(p)  ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:4
-#define rf_zigbee_dma_rx_offset_freq_offset(p) ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:2
-#define rf_zigbee_dma_rx_offset_rssi(p)        ((p)[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:1, signed
-#define rf_zigbee_packet_crc_ok(p)             (((p)[((p)[4] + 9 + 3)] & 0x51) == 0x0)
-#define rf_zigbee_get_payload_len(p)           ((p)[4])
+#define rf_zigbee_dma_rx_offset_crc(p)         (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 3)   // data len:2
+#define rf_zigbee_dma_rx_offset_time_stamp(p)  (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 5)   // data len:4
+#define rf_zigbee_dma_rx_offset_freq_offset(p) (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 9)   // data len:2
+#define rf_zigbee_dma_rx_offset_rssi(p)        (p[RF_ZIGBEE_DMA_RFRX_OFFSET_RFLEN] + 11)  // data len:1, signed
+#define rf_zigbee_packet_crc_ok(p)             ((p[(p[4] + 9 + 3)] & 0x51) == 0x0)
+#define rf_zigbee_get_payload_len(p)           (p[4])
 #define rf_zigbee_packet_length_ok(p)          (1)
 /**
  *  @brief According to different packet format find the crc check digit.
  */
-#define rf_pri_sb_packet_crc_ok(p) (((p)[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
-#define rf_hybee_packet_crc_ok(p)  (((p)[(p[4] + 9 + 3)] & 0x51) == 0x0)
+#define rf_pri_sb_packet_crc_ok(p) ((p[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
+#define rf_hybee_packet_crc_ok(p)  ((p[(p[4] + 9 + 3)] & 0x51) == 0x0)
 
-#define rf_ant_packet_crc_ok(p) (((p)[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
+#define rf_ant_packet_crc_ok(p) ((p[(reg_rf_sblen & 0x3f) + 4 + 9] & 0x01) == 0x00)
 
 /**********************************************************************************************************************
  *                                       RF global data type                                                          *
@@ -169,21 +197,23 @@ typedef enum {
  */
 typedef enum {
     /* VBAT */
-    RF_POWER_INDEX_P9p11dBm, /**< power index of 9.1 dbm */
-    RF_POWER_INDEX_P8p57dBm, /**< power index of 8.6 dbm */
-    RF_POWER_INDEX_P8p05dBm, /**< power index of 8.1 dbm */
-    RF_POWER_INDEX_P7p45dBm, /**< power index of 7.5 dbm */
-    RF_POWER_INDEX_P6p98dBm, /**< power index of 7.0 dbm */
-    RF_POWER_INDEX_P5p68dBm, /**< power index of 6.0 dbm */
+    RF_POWER_INDEX_P9p11dBm,  /**< power index of 9.1 dbm */
+    RF_POWER_INDEX_P8p57dBm,  /**< power index of 8.6 dbm */
+    RF_POWER_INDEX_P8p05dBm,  /**< power index of 8.1 dbm */
+    RF_POWER_INDEX_P7p45dBm,  /**< power index of 7.5 dbm */
+    RF_POWER_INDEX_P6p98dBm,  /**< power index of 7.0 dbm */
+    RF_POWER_INDEX_P5p68dBm,  /**< power index of 6.0 dbm */
     /* VANT */
     RF_POWER_INDEX_P4p35dBm,  /**< power index of 4.4 dbm */
     RF_POWER_INDEX_P3p83dBm,  /**< power index of 3.8 dbm */
     RF_POWER_INDEX_P3p25dBm,  /**< power index of 3.3 dbm */
+    RF_POWER_P3dBm = RF_POWER_INDEX_P3p25dBm,
     RF_POWER_INDEX_P2p79dBm,  /**< power index of 2.8 dbm */
     RF_POWER_INDEX_P2p32dBm,  /**< power index of 2.3 dbm */
     RF_POWER_INDEX_P1p72dBm,  /**< power index of 1.7 dbm */
     RF_POWER_INDEX_P0p80dBm,  /**< power index of 0.8 dbm */
     RF_POWER_INDEX_P0p01dBm,  /**< power index of 0.0 dbm */
+    RF_POWER_P0dBm = RF_POWER_INDEX_P0p01dBm,
     RF_POWER_INDEX_N0p53dBm,  /**< power index of -0.5 dbm */
     RF_POWER_INDEX_N1p37dBm,  /**< power index of -1.4 dbm */
     RF_POWER_INDEX_N2p01dBm,  /**< power index of -2.0 dbm */
@@ -227,7 +257,7 @@ typedef enum {
     RF_CHANNEL_3 = BIT(3),  /**< RF channel 3 */
     RF_CHANNEL_4 = BIT(4),  /**< RF channel 4 */
     RF_CHANNEL_5 = BIT(5),  /**< RF channel 5 */
-    RF_CHANNEL_NONE = 0x00, /**< none RF channel */
+    RF_CHANNEL_NONE = 0x00, /**< none RF channel*/
     RF_CHANNEL_ALL = 0x0f,  /**< all RF channel */
 } rf_channel_e;
 
@@ -247,8 +277,8 @@ extern const rf_power_level_e rf_power_Level_list[30];
  */
 static inline unsigned char rf_receiving_flag(void)
 {
-    // if the value of [2:0] of the reg_0x140840 isn't 0 ,
-    //     it means that the RF is in the receiving packet phase.(confirmed by junwen).
+    /* if the value of [2:0] of the reg_0x140840 isn't 0 , it means that the RF is in the receiving packet phase
+      (confirmed by junwen). */
     return ((read_reg8(0x140840) & 0x07) > 1);
 }
 
@@ -283,9 +313,9 @@ static inline void rf_clr_irq_mask(rf_irq_e mask)
 }
 
 /**
- *	@brief	  	This function serves to judge whether it is in a certain state.
- *	@param[in]	mask 	- RX/TX irq status.
- *	@return	 	Yes: 1, NO: 0.
+ * @brief	  	This function serves to judge whether it is in a certain state.
+ * @param[in]	mask 	- RX/TX irq status.
+ * @return	 	Yes: 1, NO: 0.
  */
 static inline unsigned short rf_get_irq_status(rf_irq_e status)
 {
@@ -419,14 +449,15 @@ static inline void rf_set_rx_dma_fifo_size(unsigned short fifo_byte_size)
 }
 /**
  * @brief		This function serve to set rx dma wptr.
- * @param[in]	wptr	-rx_wptr_real=rx_wptr & mask:After receiving 4 packets,the address returns to original address.mask value must in (0x01,0x03,0x07,0x0f).
+ * @param[in]	wptr	-rx_wptr_real=rx_wptr & mask:After receiving 4 packets,
+ *                       the address returns to original address.mask value must in (0x01,0x03,0x07,0x0f).
  * @return 		none
  */
 static inline void rf_set_rx_dma_fifo_num(unsigned char fifo_num)
 {
-    // rx_wptr_real=rx_wptr & mask:After receiving 4 packets,the address returns to original address.
-    //     mask value must in (0x01,0x03,0x07,0x0f).
     reg_rf_rx_wptr_mask = fifo_num;
+    /* rx_wptr_real=rx_wptr & mask:
+       After receiving 4 packets,the address returns to original address.mask value must in (0x01,0x03,0x07,0x0f) */
 }
 
 /**
@@ -459,10 +490,9 @@ static inline void rf_set_tx_dma_fifo_num(unsigned char fifo_num)
  */
 static inline void rf_set_tx_dma_fifo_size(unsigned short fifo_byte_size)
 {
-    // tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}
+    reg_rf_bb_tx_size = fifo_byte_size >> 4;  // tx_idx_addr = {tx_chn_adr*bb_tx_size,4'b0}
     // in this setting the max data in one dma buffer is 0x20<<4.
     // And the The product of fifo_dep and bytesize cannot exceed 0xfff.
-    reg_rf_bb_tx_size = fifo_byte_size >> 4;
 }
 /**
  * @brief   This function serves to set RF tx settle time.
@@ -751,7 +781,7 @@ _attribute_ram_code_sec_ void rf_tx_pkt(void *addr);
 int rf_set_trx_state(rf_status_e rf_status, signed char rf_channel);
 
 /**
- * @brief   	This function serves to set rf channel for all mode.The actual channel set by this function is 2400+chn.
+ * @brief   	This function serves to set rf channel for all mode.The actual channel set by this function is 2400+chn
  * @param[in]   chn   - That you want to set the channel as 2400+chn.
  * @return  	none.
  */
@@ -840,8 +870,8 @@ void rf_set_pri_tx_ack_en(rf_mode_e rf_mode);
 void rf_set_access_code_len(unsigned char byte_len);
 
 /**
- * @brief 	This function serve to set access code.This function will first get the length of access code from register 0x140805
- * 			and then set access code in addr.
+ * @brief 	This function serve to set access code.This function will first get the length of access code
+ * 			 from register 0x140805 and then set access code in addr.
  * @param[in]	pipe_id	-The number of pipe.0<= pipe_id <=5.
  * @param[in]	acc	-The value access code
  * @note		For compatibility with previous versions the access code should be bit transformed by bit_swap();
@@ -870,14 +900,16 @@ void rf_prx_config(void);
 /**
  * @brief   This function serves to set RF ptx trigger.
  * @param[in]	addr	-	The address of tx_packet.
- * @param[in]	tick	-	Trigger ptx after (tick-current tick),If the difference is less than 0, trigger immediately.
+ * @param[in]	tick	-	Trigger ptx after (tick-current tick),
+ *                          If the difference is less than 0, trigger immediately.
  * @return  none.
  */
 void rf_start_ptx(void *addr, unsigned int tick);
 
 /**
  * @brief   This function serves to set RF prx trigger.
- * @param[in]	tick	-	Trigger prx after (tick-current tick),If the difference is less than 0, trigger immediately.
+ * @param[in]	tick	-	Trigger prx after (tick-current tick),
+ *                          If the difference is less than 0, trigger immediately.
  * @return  none.
  */
 void rf_start_prx(unsigned int tick);
@@ -929,8 +961,8 @@ _attribute_ram_code_sec_noinline_ void rf_set_ble_chn(signed char chn_num);
 _attribute_ram_code_sec_noinline_ void rf_set_rxmode(void);
 
 /**
- * @brief	  	This function serves to start Rx of auto mode. In this mode,
- *				RF module stays in Rx status until a packet is received or it fails to receive packet when timeout expires.
+ * @brief	  	This function serves to start Rx of auto mode. In this mode, RF module stays in Rx status
+ *              until a packet is received or it fails to receive packet when timeout expires.
  *				Timeout duration is set by the parameter "tick".
  *				The address to store received data is set by the function "addr".
  * @param[in]	addr   - The address to store received data.
