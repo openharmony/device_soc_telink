@@ -49,9 +49,9 @@
 
 ///*******************************      RF      ******************************/
 #define APBADDR        0x140000
-#define BBADDR         APBADDR + 0x800  // 0x140800
-#define RADIOADDR      APBADDR + 0xe00  // 0x140e00
-#define MODEMADDR      APBADDR + 0xc00  // 0x140c00
+#define BBADDR         (APBADDR + 0x800)  // 0x140800
+#define RADIOADDR      (APBADDR + 0xe00)  // 0x140e00
+#define MODEMADDR      (APBADDR + 0xc00)  // 0x140c00
 #define CHNADDR        0x100400
 #define APBRG_BASE     0x140000
 #define APBRG_APB_BASE (APBRG_BASE + 0x0000)

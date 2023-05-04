@@ -314,8 +314,6 @@ void *myBufAlloc(u16 len)
     myBufMem_t *pBuf;
     u8 i;
 
-    // MY_CS_INIT(cs);
-
     assert(len > 0);
 
     pPool = (myBufPool_t *)myBufMem;
@@ -404,8 +402,6 @@ void myBufFree(void *pBuf)
 {
     myBufPool_t *pPool;
     myBufMem_t *p = pBuf;
-
-    // MY_CS_INIT(cs);
 
     /* Verify pointer is within range. */
 #if MY_BUF_FREE_CHECK_ASSERT == TRUE
@@ -503,7 +499,6 @@ void myBufGetPoolStats(myBufPoolStat_t *pStat, u8 poolId)
         return;
     }
 
-    // MY_CS_INIT(cs);
     myCsEnter();
 
     pPool = (myBufPool_t *)myBufMem;
@@ -539,43 +534,3 @@ void myBufDiagRegister(myBufDiagCback_t callback)
     (void)callback;
 #endif
 }
-
-#if 0  // demo test
-u8 *AAA = NULL;
-u8 *ABB = NULL;
-u8 *ACC = NULL;
-u8 *ADD = NULL;
-u8 *AEE = NULL;
-u8 *AFF = NULL;
-u8 *AGG = NULL;
-myBufPoolStat_t myBufPoolStatA, myBufPoolStatB, myBufPoolStatC;
-void user_init(void)
-{
-    myBufPoolDesc_t poolDesc[] = {
-        {16, 8}, {32, 4}, {64, 8}, {128, 4}, {256, 4}, {512, 2},
-    };
-    const u8 numPools = sizeof(poolDesc) / sizeof(poolDesc[0]);
-    /* Initial buffer configuration. */
-    u16 memUsed = myBufInit(numPools, poolDesc);
-    myHeapAlloc(memUsed);
-    AAA = myBufAlloc(512);
-    ABB = myBufAlloc(19);
-    ACC = myBufAlloc(45);
-    ADD = myBufAlloc(6);
-    AEE = myBufAlloc(36);
-    AFF = myBufAlloc(97);
-    AGG = myBufAlloc(78);
-
-    myBufFree(AAA);
-    myBufFree(ABB);
-    myBufFree(ACC);
-    myBufFree(ADD);
-    myBufFree(AEE);
-    myBufFree(AFF);
-    myBufFree(AGG);
-
-    myBufGetPoolStats(&myBufPoolStatA, 1);
-    myBufGetPoolStats(&myBufPoolStatB, 2);
-    myBufGetPoolStats(&myBufPoolStatC, 5);
-}
-#endif

@@ -233,18 +233,3 @@
                         MV(m1, v1) | MV(m2, v2) | MV(m3, v3) | MV(m4, v4) | MV(m5, v5) | MV(m6, v6))                  \
             __pragma(warning(pop))
 #endif
-
-#if 0
-// ! Massage \a x for use in bitfield \a name.
-#define BFN_PREP(x, name) (((x) << name##_SHIFT) & name##_MASK)
-
-// ! Get the value of bitfield \a name from \a y. Equivalent to (var=) y.name
-#define BFN_GET(y, name) (((y)&name##_MASK) >> name##_SHIFT)
-
-// ! Set bitfield \a name from \a y to \a x: y.name= x.
-#define BFN_SET(y, x, name) (y = ((y) & ~name##_MASK) | BFN_PREP(x, name))
-
-// Usage: prio get/set like before:
-prio = BFN_GET(attr2, ATTR2_PRIO);
-BFN_SET(attr2, x, ATTR2_PRIO);
-#endif

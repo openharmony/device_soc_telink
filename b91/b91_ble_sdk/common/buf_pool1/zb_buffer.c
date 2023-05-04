@@ -91,7 +91,6 @@ static _attribute_ram_code_ zb_buf_t *zb_buf_get(void)
     if (g_mPool.usedNum < ZB_BUF_POOL_SIZE) {
         if ((((u32)(g_mPool.head) < (u32)(&g_mPool.pool[0])) && (g_mPool.head != NULL)) ||
             ((u32)(g_mPool.head) > (u32)(&g_mPool.pool[ZB_BUF_POOL_SIZE - 1]))) {
-            // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION);
         }
 
         buf = g_mPool.head;
@@ -109,15 +108,12 @@ static _attribute_ram_code_ zb_buf_t *zb_buf_get(void)
             buf->allocCnt++;
         } else {
             if (g_mPool.usedNum < ZB_BUF_POOL_SIZE) {
-                // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION);
             }
         }
     }
     irq_restore(r);
 
     if (!buf) {
-        /* diagnostics packet buffer allocate failures */
-        // g_sysDiags.packetBufferAllocateFailures++;
     }
 
     return buf;
@@ -146,11 +142,6 @@ zb_buf_t *my_zb_buf_allocate(u16 line)
 }
 _attribute_ram_code_ u8 *tl_getRxBuf()
 {
-#if 0
-    if (g_mPool.usedNum > 8) {
-        return NULL;
-    }
-#endif
     u8 *buf = (u8 *)my_zb_buf_get(90);
     if (buf) {
         return TL_INBUF_TO_RXBUF(buf);
@@ -191,7 +182,6 @@ u8 zb_buf_free(zb_buf_t *buf)
     u8 r = irq_disable();
 
     if (!is_zb_buf((void *)buf)) {
-        // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION_FREE_OVERFLON);
     }
 
 #if ZB_BUFFER_DEBUG
@@ -210,12 +200,10 @@ u8 zb_buf_free(zb_buf_t *buf)
     if (buf->hdr.macTxFifo == 1 || buf->freeCnt > buf->allocCnt || buf->hdr.used == 0) {
         T_zbBufFreeDbg = (buf->hdr.macTxFifo << 24) | ((buf->freeCnt > buf->allocCnt) << 16) | buf->hdr.used;
         T_zbBufDbg = (u32)buf;
-        // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION_FREE_MULIT);
     }
 
     if ((((u32)(g_mPool.head) < (u32)(&g_mPool.pool[0])) && (g_mPool.head != NULL)) ||
         ((u32)(g_mPool.head) > (u32)(&g_mPool.pool[ZB_BUF_POOL_SIZE - 1]))) {
-        // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION);
     }
 
     g_mPool.usedNum--;
@@ -224,7 +212,6 @@ u8 zb_buf_free(zb_buf_t *buf)
 
     if ((((u32)(g_mPool.head) < (u32)(&g_mPool.pool[0])) && (g_mPool.head != NULL)) ||
         ((u32)(g_mPool.head) > (u32)(&g_mPool.pool[ZB_BUF_POOL_SIZE - 1]))) {
-        // ZB_EXCEPTION_POST(SYS_EXCEPTTION_ZB_BUFFER_EXCEPTION);
     }
     buf->hdr.used = 0;
     buf->hdr.handle = 0xff;
@@ -278,7 +265,6 @@ void zb_buf_debug_start(void)
             if (g_mPool.pool[i].hdr.used) {
                 g_zbBufDBG[cnt].handle = g_mPool.pool[i].hdr.handle;
                 g_zbBufDBG[cnt].id = g_mPool.pool[i].hdr.id;
-                // g_zbBufDBG[cnt].allocateLine = g_mPool.pool[i].allocLine;
                 cnt++;
             }
         }
