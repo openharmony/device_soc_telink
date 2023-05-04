@@ -389,7 +389,6 @@ typedef struct {
     u8 subEventCode;
     u8 status;
     u16 syncHandle;
-    //	extadv_id_t	adverting_id;
     u8 advSID;
     u8 advAddrType;
     u8 advAddr[6];
@@ -565,9 +564,6 @@ typedef struct {
 
 int hci_le_periodicAdvSyncEstablished_evt(u8 status, u16 syncHandle, u8 advSID, u8 advAddrType, u8 advAddress[6],
                                           u8 advPHY, u16 perdAdvItvl, u8 advClkAccuracy);
-// int hci_le_periodicAdvSyncEstablished_evt(u8 status, u16 syncHandle, extadv_id_t *pId, u8 advPHY, u16 perdAdvItvl,
-//                                           u8 advClkAccuracy);
-
 int hci_le_periodicAdvReport_evt(u8 subEventCode, u16 syncHandle, u8 txPower, u8 RSSI, u8 cteType, u8 dataStatus,
                                  u8 dataLength, u8 *data);
 int hci_le_periodicAdvSyncLost_evt(u16 syncHandle);

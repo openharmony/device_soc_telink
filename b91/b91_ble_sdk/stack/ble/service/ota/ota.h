@@ -80,8 +80,8 @@ enum {
     OTA_SUCCESS = 0,          // success
     OTA_DATA_PACKET_SEQ_ERR,  // OTA data packet sequence number error: repeated OTA PDU or lost some OTA PDU
     OTA_PACKET_INVALID,       // invalid OTA packet:
-                              // 1. invalid OTA command;
-                              // 2. addr_index out of range;
+                              // 1. invalid OTA command
+                              // 2. addr_index out of range
                               // 3.not standard OTA PDU length
     OTA_DATA_CRC_ERR,         // packet PDU CRC err
 

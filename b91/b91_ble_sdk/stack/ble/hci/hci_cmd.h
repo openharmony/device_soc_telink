@@ -1043,16 +1043,6 @@ typedef struct {
     cisConnParams_t cisConn[1];
 } hci_le_CreateCisParams_t;
 
-#if 0
-/**
- *	@brief  Command Parameters for "7.8.102 LE Reject CIS Request command"
- */
-typedef struct {
-    u16 cis_handle;
-    u8 reason;
-} hci_le_rejectCisReqParams_t;
-#endif
-
 /**
  *	@brief  Command Parameters for "7.8.103 LE Create BIG command"
  */

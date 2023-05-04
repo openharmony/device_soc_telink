@@ -6,11 +6,6 @@
 
 #if (ALG_LC3_ENABLE)
 
-/* short logical shift */
-// Word16 lshr(Word16 var1, Word16 var2);
-/* int shift */
-// Word32 L_shl(Word32 L_var1, Word16 var2);
-// Word32 L_shr(Word32 L_var1, Word16 var2);
 /* short shift */
 Word16 shr(Word16 var1, Word16 var2);
 Word16 shl(Word16 var1, Word16 var2);
@@ -64,12 +59,6 @@ inline Word32 BASOP_Util_Log2(Word32 x)
     Word16 accuSqr;
     Word32 accuRes;
 
-    /* x never == 0
-	if (x == 0)
-	{
-		return ((Word32)MIN_32);
-	}
-	 */
     /* normalize input, calculate integer part */
     exp_e = clrs32(x);
     x = L_shl(x, exp_e);

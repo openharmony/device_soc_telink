@@ -32,10 +32,7 @@ extern Word16 RotVector_240[2 * (240 - 30)];
 extern Word16 RotVector_150[150];
 #endif
 extern Word16 RotVector_160[2 * (160 - 20)];
-// extern  Word16 RotVector_120[2 * (120 - 20)];
-// extern  Word16 RotVector_100[100];
 extern Word16 RotVector_330[330];
-// extern  Word16 RotVector_220[220];
 #endif
 /* W_10ms_NF for MDCT */
 extern Word16 w_0_N80[130];
@@ -232,11 +229,6 @@ extern Word16 tnsQuantPts[17];
 /* Long Term Postfiltering */
 extern Word16 resamp_params[5][4];
 #ifdef FIXED_POINT
-/* extern  Word16 tab_resamp_filter_8k_16k[239];// Q_16k = 15,Q_8k =14
-extern  Word16 tab_resamp_filter_24k[239];//Q_24 = 15
-extern  Word16 tab_resamp_filter_32k[239];//Q_32 = 15
-extern  Word16 tab_resamp_filter_48k[239];//Q_48 = 15
-extern  Word16*  tab_resamp_filter_all[5]; */
 extern Word16 resamp_filt_8k[240];
 extern Word16 resamp_filt_16k[240];
 #ifndef LC3_16K_ONLY

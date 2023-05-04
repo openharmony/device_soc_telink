@@ -70,10 +70,6 @@ typedef enum {
         0x84,  // The client that made the request is the current owner of thelock.
 } BLT_AUDIO_CSIP_ERRCODE_ENUM;
 
-// readyEvt.size = pCsip->size;
-// readyEvt.lock = pCsip->lock;
-// readyEvt.rank = pCsip->rank;
-
 typedef enum {
     BLT_AUDIO_CSIP_SDP_FLAG_NONE = 0x00,
     BLT_AUDIO_CSIP_SDP_FLAG_FIRST = 0x80,

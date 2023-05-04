@@ -85,7 +85,6 @@ enum {
  * spi_clock=source_clock/((spi_clk_div+1)*2)
  * spi_clk_div=reg_hspi_mode1[7:0]. max_value=0xff,spi_clock==source_clock
  */
-// #define reg_hspi_mode1			REG_ADDR8(HSPI_BASE_ADDR+0x01)
 #define reg_spi_mode1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x01 + (i)*BASE_ADDR_DIFF)
 
 /**
@@ -114,13 +113,11 @@ enum {
 /**
  * BIT[0:7]   transfer count1 for write data.master only
  */
-
 #define reg_spi_tx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x12 + (i) * (BASE_ADDR_DIFF - 0x12 + 0x20))
-// #define reg_hspi_tx_cnt1		   REG_ADDR8(HSPI_BASE_ADDR+0x20)
+
 /**
  * BIT[0:7]   transfer count2 for write data.master only
  */
-
 #define reg_spi_tx_cnt2(i) REG_ADDR8(PSPI_BASE_ADDR + 0x13 + (i) * (BASE_ADDR_DIFF - 0x13 + 0x21))
 
 /**
@@ -131,12 +128,11 @@ enum {
 /**
  * BIT[0:7]   transfer count1 for read data.master only
  */
-
 #define reg_spi_rx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x10 + (i) * (BASE_ADDR_DIFF - 0x10 + 0x1e))
+
 /**
  * BIT[0:7]   transfer count2 for read data.master only
  */
-
 #define reg_spi_rx_cnt2(i) REG_ADDR8(PSPI_BASE_ADDR + 0x11 + (i) * (BASE_ADDR_DIFF - 0x11 + 0x1f))
 
 /**

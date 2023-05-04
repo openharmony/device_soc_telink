@@ -74,7 +74,6 @@ void gpio_setup_up_down_resistor(gpio_pin_e gpio, gpio_pull_type up_down)
     }
 
     if (GPIO_DP == gpio) {
-        // usb_dp_pullup_en (0);
     }
 
     analog_write_reg8(base_ana_reg, (analog_read_reg8(base_ana_reg) & mask_not) | (r_val << shift_num));
