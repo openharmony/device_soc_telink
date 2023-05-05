@@ -71,7 +71,6 @@ typedef enum {
 static inline void systimer_irq_enable(void)
 {
     reg_irq_src0 |= BIT(IRQ1_SYSTIMER);
-    // plic_interrupt_enable(IRQ1_SYSTIMER);
 }
 
 /**
@@ -81,7 +80,6 @@ static inline void systimer_irq_enable(void)
 static inline void systimer_irq_disable(void)
 {
     reg_irq_src0 &= ~BIT(IRQ1_SYSTIMER);
-    // plic_interrupt_disable(IRQ1_SYSTIMER);
 }
 
 static inline void systimer_set_irq_mask(void)

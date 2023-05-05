@@ -47,9 +47,6 @@ void tp_enable_advData_inrease(u8 en, s8 step);
 void tp_AdvAddress_companyId_exchange(void);
 void tp_AdvAddress_companyAssignId_exchange(void);
 void tp_AdvAddress_companyId_companyAssignId_mismatch(void);
-// void 	tp_ScanRspAddress_companyId_exchange(void);
-// void 		tp_ScanRspAddress_companyAssignId_exchange(void);
-// void tp_ScanRspAddress_companyId_companyAssignId_mismatch(void);
 
 void tp_enable_adv_scanRsp_Bad_CRC(u8 advBadCrc, u8 scanRspBadCrc);
 

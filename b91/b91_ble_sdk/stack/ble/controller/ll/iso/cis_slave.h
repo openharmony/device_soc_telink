@@ -18,8 +18,6 @@
 #ifndef CIS_SLAVE_H_
 #define CIS_SLAVE_H_
 
-// #if (LL_FEATURE_ENABLE_CONNECTED_ISOCHRONOUS_STREAM_SLAVE)
-
 #define CIG_SLV_PARAM_LEN (416)  // Note: user can't modify this value,and this value must 4 byte aligned
 
 /**

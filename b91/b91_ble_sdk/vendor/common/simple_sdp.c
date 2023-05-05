@@ -76,20 +76,11 @@ void app_service_discovery(void)
         cur_sdp_device.char_handle[4] = blm_att_findHandleOfUuid16(
             db16, CHARACTERISTIC_UUID_HID_REPORT,
             HID_REPORT_ID_KEYBOARD_INPUT | (HID_REPORT_TYPE_INPUT << 8));  // normal key report
-        // cur_sdp_device.char_handle[6] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataServer2ClientUUID);
-        // BLE Module, SPP Server to Client
-        // cur_sdp_device.char_handle[7] = blm_att_findHandleOfUuid128 (db128, TelinkSppDataClient2ServerUUID);
-        // BLE Module, SPP Client to Server
-
         /* add the peer device att_handle value to conn_dev_list after service discovery is correctly finished */
         dev_char_info_add_peer_att_handle(&cur_sdp_device);
 
         /* peer device att_handle value store in flash */
         dev_char_info_store_peer_att_handle(&cur_sdp_device);
-
-        // my_dump_str_data(APP_DUMP_SDP_EN,"OTA handle", (u8*)&cur_sdp_device.char_handle[2], 2);
-        // my_dump_str_data(APP_DUMP_SDP_EN,"CMKEY handle", (u8*)&cur_sdp_device.char_handle[3], 2);
-        // my_dump_str_data(APP_DUMP_SDP_EN,"KBKEY handle", (u8*)&cur_sdp_device.char_handle[4], 2);
     }
 
     master_sdp_pending = 0;  // service discovery finish

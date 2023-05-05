@@ -133,10 +133,7 @@ enum {
  * The lower 16 bits indicate the length of the CMP segment. The higher 16 bits indicate the length of the MAX segment
  */
 #define reg_pwm_cycle(i) REG_ADDR32(REG_PWM_BASE + 0x14 + (i << 2))
-// enum{
-//	FLD_PWM_CMP  = 				BIT_RNG(0,15),
-//	FLD_PWM_MAX  = 				BIT_RNG(16,31),
-// };
+
 // in C99 FLD_PWM_MAX  = BIT_RNG(16,31) is error
 #define FLD_PWM_CMP = BIT_RNG(0, 15),
 #define FLD_PWM_MAX = BIT_RNG(16, 31),

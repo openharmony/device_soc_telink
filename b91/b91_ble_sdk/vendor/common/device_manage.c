@@ -220,9 +220,6 @@ int dev_char_info_delete_by_peer_mac_address(u8 adr_type, u8 *addr)
                     mac_match = 1;
                 }
             }
-
-            // u16 connhandle = conn_dev_list[i].conn_handle;
-
             if (mac_match) {
                 if (conn_dev_list[i].conn_role == LL_ROLE_MASTER) {  // master
                     conn_master_num--;

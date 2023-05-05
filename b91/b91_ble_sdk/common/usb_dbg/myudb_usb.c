@@ -230,8 +230,6 @@ _attribute_ram_code_ int myudb_print_fifo_full(void)
 
 _attribute_ram_code_ void usb_send_status_pkt(u8 status, u8 buffer_num, u8 *pkt, u16 len)
 {
-    // if (myudb_print_fifo_full()) return;		// skip if overflow
-
     u8 *p = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
     if (len > 272) {
         len = 272;

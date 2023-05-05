@@ -222,8 +222,6 @@ void user_bond_slave_flash_clean(void)
 
     // rewrite bond table at the beginning of 0x11000
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
-        // u8 add_mark = ADR_BOND_MARK;
-
         user_bond_slave_flash_cfg_idx += 8;  // inc flash idx to get the new 8 bytes area
         flash_write_page(FLASH_ADR_CUSTOM_PAIRING + user_bond_slave_flash_cfg_idx, 8,
                          (u8 *)&user_tbl_slaveMac.bond_device[i]);

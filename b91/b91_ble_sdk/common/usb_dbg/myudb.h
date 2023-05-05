@@ -86,10 +86,8 @@ void usb_send_upper_tester_result(u8 err);
 #define LOG_DATA_B1_0       0
 #define LOG_DATA_B1_1       1
 
-// #define			get_systemtick()  	    (clock_time()*3/2)
 #define get_systemtick() stimer_get_tick()
 
-// #define			log_uart(d)				uart_send_byte_dma(0,d)
 #define log_uart(d) reg_usb_ep8_dat = d
 
 #define DEBUG_PORT       GPIO_PB2

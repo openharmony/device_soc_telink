@@ -102,8 +102,7 @@ typedef struct {
 #define HCI_LE_SET_RANDOM_ADDR_LEN                   (6)
 #define HCI_LE_SET_ADVERTISE_PARAMETERS_LEN          (15)
 #define HCI_LE_READ_ADVERTISING_CHANNEL_TX_POWER_LEN 0x07
-// #define HCI_LE_SET_ADVERTISE_DATA_LEN
-// #define HCI_LE_SET_SCAN_RSP_DATA_LEN
+
 #define HCI_LE_SET_ADVERTISE_ENABLE_LEN                   (1)
 #define HCI_LE_SET_SCAN_PARAMETERS_LEN                    (7)
 #define HCI_LE_SET_SCAN_ENABLE_LEN                        (2)
