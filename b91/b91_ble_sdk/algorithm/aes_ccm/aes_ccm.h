@@ -49,7 +49,6 @@
 
 #define AES_BLOCK_SIZE 16
 
-// #define		SUCCESS			0
 enum {
     AES_SUCC = SUCCESS,
     AES_NO_BUF,
@@ -125,31 +124,11 @@ void aes_ll_encryption(u8 *key, u8 *plaintext, u8 *encrypted_data);
 void aes_ll_ccm_encryption_init(u8 *ltk, u8 *skdm, u8 *skds, u8 *ivm, u8 *ivs, ble_crypt_para_t *pd);
 
 /**
- * @brief   	this function is used to encrypt the aes_ccm value
- * @param[in]   pkt - plaint_text
- * @param[in]   master - ll_ccm_enc: Master role must use 1, Slave role must use 0;
-                         ll_ccm_dec: Master role must use 0, Slave role must use 1;
- * @param[in]   pd - Reference structure ble_crypt_para_t
- * @return  	none
- */
-// void aes_ll_ccm_encryption(u8 *pkt, int master, ble_crypt_para_t *pd);
-
-/**
  * @brief   	this function is used to encrypt the aes_ccm value, version2
  * @param[in]   pd - Reference structure leCryptCtrl_t
  * @return  	none
  */
 void aes_ll_ccm_encryption(llPhysChnPdu_t *pllPhysChnPdu, u8 role, u8 ll_type, ble_crypt_para_t *pd);
-
-/**
- * @brief   	this function is used to decrypt the aes_ccm value
- * @param[in]   pkt - plaint_text
- * @param[in]   master - ll_ccm_enc: Master role must use 1, Slave role must use 0;
-                         ll_ccm_dec: Master role must use 0, Slave role must use 1;
- * @param[in]   pd - Reference structure ble_crypt_para_t
- * @return  	0: decryption succeeded; 1: decryption failed
- */
-// int  aes_ll_ccm_decryption(u8 *pkt, int master, ble_crypt_para_t *pd);
 
 /**
  * @brief   	this function is used to decrypt the aes_ccm value, version2

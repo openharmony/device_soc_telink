@@ -56,20 +56,6 @@
  */
 #define ADV_SET_PARAM_LENGTH 680  // 572
 
-#if 0
-/* if use legacy ADV, primary ADV packet maximum length is 44 */
-#define MAX_LENGTH_PRIMARY_ADV_PKT_LEGACY   44
-
-/* if use extended ADV, primary ADV packet maximum length is 28 */
-#define MAX_LENGTH_PRIMARY_ADV_PKT_EXTENDED 28
-
-/* if not sure which kind of ADV will be used, use the bigger value is recommended.
- * For example, when used as BLE Controller, BLE Host can use either legacy or extended ADV */
-#define MAX_LENGTH_PRIMARY_ADV_PKT          44
-
-#define MAX_LENGTH_SECOND_ADV_PKT 264  // sizeof(rf_pkt_ext_adv_t) = 261
-#endif
-
 /**
  * @brief      for user to initialize extended advertising module
  * 			   notice that: 1. only one module can be selected between

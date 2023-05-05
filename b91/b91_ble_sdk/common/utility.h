@@ -122,7 +122,6 @@
 
 #define IMPLIES(x, y) (!(x) || (y))
 
-// x > y ? 1 : (x ==y : 0 ? -1)
 #define COMPARE(x, y) (((x) > (y)) - ((x) < (y)))
 #define SIGN(x)       COMPARE(x, 0)
 
@@ -175,31 +174,7 @@ void flip_addr(u8 *dest, u8 *src);
 
 static inline u64 mul64_32x32(u32 u, u32 v)
 {
-#if 0  // Eagle HW support this process
-    u32  u0,   v0,   w0;
-    u32  u1,   v1,   w1,   w2,   t;
-    u32  x, y;
-
-    u0   =   u & 0xFFFF;
-    u1   =   u >> 16;
-    v0   =   v & 0xFFFF;
-    v1   =   v >> 16;
-    w0   =   u0 * v0;
-    t    =   u1 * v0 + (w0 >> 16);
-    w1   =   t & 0xFFFF;
-    w2   =   t >> 16;
-    w1   =   u0 * v1 + w1;
-
-    // x is high 32 bits, y is low 32 bits
-
-    x = u1 * v1 + w2 + (w1 >> 16);
-    y = u * v;
-
-
-    return(((u64)x << 32) | y);
-#else
     return (u64)u * v;
-#endif
 }
 
 typedef struct {

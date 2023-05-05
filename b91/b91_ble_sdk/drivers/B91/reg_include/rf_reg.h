@@ -132,7 +132,6 @@ enum {
     FLD_RF_PN_AUTO = BIT(7),
 };
 
-// #define    reg_rf_acclen			    REG_ADDR8(REG_BASEBAND_BASE_ADDR+0x05)
 #define reg_rf_acc_len REG_ADDR8(REG_BASEBAND_BASE_ADDR + 0x05)
 enum {
     FLD_RF_ACC_LEN = BIT_RNG(0, 2),

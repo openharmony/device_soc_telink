@@ -167,27 +167,8 @@
 #define TCMD_WRITE 0x3
 #define TCMD_WAIT  0x7
 #define TCMD_WAREG 0x8
-// #if 1 //optimize
-/*
- * IRAM area:0x00000~0x1FFFF BIT(19) is 0,BIT(16~0) 128K is address offset
- * DRAM area:0x80000~0x9FFFF BIT(19) is 1,BIT(16~0) 128K is address offset
- * ILM area:0xc0000000~0xc0020000 BIT(31~19) is 3,BIT(21) is 0, BIT(20~17) do not care  BIT(16~0) 128K is
- * address offset 128K is address offset
- * DLM area:0xc0200000~0xc0220000 BIT(31~19) is 3,BIT(21) is 1, BIT(20~17) do not care  BIT(16~0) 128K is
- * address offset 128K is address offset
- * BIT(19) is used to distinguish from IRAM to DRAM, BIT(21) is used to distinguish from ILM to DLM.
- * so we can write it as follow
- * #define  convert_ram_addr_cpu2bus  (((((addr))&0x80000)? ((addr)| 0xc0200000) : ((addr)|0xc0000000)))
- * BIT(20~17) are invalid address line ,IRAM address is less than 0x80000, (address-0x80000)must borrow from BIT(21)
- *   #define convert(addr) ((addr)-0x80000+0xc0200000)
- *  to simplify
- *  #define convert(addr) ((addr)+0xc0180000)
- * */
+
 #define convert_ram_addr_cpu2bus(addr) ((unsigned int)(addr) + 0xc0180000)
-// #else  //no optimize
-// #define  convert_ram_addr_cpu2bus (((((unsigned int)(addr)) >=0x80000)?(((unsigned int)(addr))-0x80000+0xc0200000) :
-// (((unsigned int)(addr)) + 0xc0000000)))
-// #endif
 
 #define convert_ram_addr_bus2cpu(addr)                                                                                \
     (((((unsigned int)(addr)) >= 0xc0200000) ? (((unsigned int)(addr)) + 0x80000 - 0xc0200000)                        \

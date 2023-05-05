@@ -31,36 +31,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if (ALG_LC3_ENABLE)
 
-/* kiss_fft.h
-   defines kiss_fft_scalar as either short or a float type
-   and defines
-   typedef struct { kiss_fft_scalar r; kiss_fft_scalar i; }kiss_fft_cpx; */
 #include "kiss_fft.h"
-// #include <limits.h>
 #include "../../inc/config.h"
 #include "../intrinsic.h"
 #define MAXFACTORS 32
-/* e.g. an fft of length 128 has 4 factors
- as far as kissfft is concerned
- 4*4*4*2
- 
 
-struct kiss_fft_state{
-    int nfft;
-    int inverse;
-    int factors[2*MAXFACTORS];
-    kiss_fft_cpx twiddles[1];
-};
-*/
-/*
-  Explanation of macros dealing with complex math:
-
-   C_MUL(m,a,b)         : m = a*b
-   C_FIXDIV( c , div )  : if a fixed point impl., c /= div. noop otherwise
-   C_SUB( res, a,b)     : res = a - b
-   C_SUBFROM( res , a)  : res -= a
-   C_ADDTO( res , a)    : res += a
- * */
 #ifdef FIXED_POINT
 #if (FIXED_POINT == 32)
 #define FRACBITS 31

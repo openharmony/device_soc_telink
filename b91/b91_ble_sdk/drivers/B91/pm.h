@@ -210,7 +210,6 @@ typedef struct pm_clock_drift {
     unsigned int ref_tick_32k;
     int offset;
     int offset_dc;
-    //	int				offset_cur;
     unsigned int offset_cal_tick;
     int tc;
     int rc32;
