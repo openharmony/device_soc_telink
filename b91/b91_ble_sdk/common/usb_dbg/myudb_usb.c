@@ -277,7 +277,6 @@ _attribute_ram_code_ void usb_send_status_pkt(u8 status, u8 buffer_num, u8 *pkt,
 
 _attribute_ram_code_ void usb_send_str_data(char *str, u8 *ph, int n)
 {
-    // if (myudb_print_fifo_full()) return;		// skip if overflow
     u32 rie = core_interrupt_disable();
     u8 *ps = myudb_print_fifo->p + (myudb_print_fifo->wptr & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
     ;
@@ -333,8 +332,6 @@ _attribute_ram_code_ void myudb_to_usb()
         return;
     if (!p && (myudb_print_fifo->wptr != myudb_print_fifo->rptr)) {  // first packet
         p = myudb_print_fifo->p + (myudb_print_fifo->rptr++ & (myudb_print_fifo->num - 1)) * myudb_print_fifo->size;
-        ;
-        // len = p[1] + 3;
         len = p[0] + p[1] * 256;
         p += 4;
     }
@@ -518,10 +515,6 @@ _attribute_ram_code_ int myudb_mem_cmd(u8 *p, int nbyte)
             core_interrupt_disable();
 
             myudb_print_fifo->rptr = myudb_print_fifo->wptr;
-
-            // extern void hci_txfifo_set_rptr_reference (int idx);
-            // hci_txfifo_set_rptr_reference (1);
-
             ret = MYHCI_FW_DOWNLOAD;
         }
         usb_send_status_pkt(0x82, 8, rsp, 14);
@@ -608,8 +601,6 @@ void myudb_usb_init(u16 id, void *p_print)
     memset(&myudb, 0, sizeof(myudb));
 
     myudb.id = id;
-    // reg_usb_mask = BIT(7);			// audio in interrupt enable
-    // reg_irq_mask |= FLD_IRQ_IRQ4_EN;
     reg_usb_ep_max_size = (128 >> 2);
     reg_usb_ep8_send_thre = 0x40;
     reg_usb_ep8_send_max = 128 >> 3;
