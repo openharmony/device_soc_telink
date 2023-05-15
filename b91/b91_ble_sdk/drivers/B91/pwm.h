@@ -44,7 +44,7 @@
                      ((gpio)==PWM_PWM5_N_PD5) ? 5 : 0        \
                         )))))))))))))))))))))
 
-#define get_pwm_invert_val(gpio) ((gpio==PWM_PWM0_N_PD0) ||  \
+#define get_pwm_invert_val(gpio) (((gpio)==PWM_PWM0_N_PD0) ||  \
                      ((gpio)==PWM_PWM1_N_PD1) ||             \
                      ((gpio)==PWM_PWM2_N_PD2) ||             \
                      ((gpio)==PWM_PWM2_N_PE6) ||             \

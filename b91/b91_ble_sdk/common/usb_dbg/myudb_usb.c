@@ -555,7 +555,7 @@ void udb_usb_handle_irq(void)
     }
 }
 
-void myudb_usb_bulkout_ready()
+void myudb_usb_bulkout_ready(void)
 {
     reg_usb_ep_ctrl(MYUDB_EDP_OUT_HCI) = FLD_EP_DAT_ACK;
 }

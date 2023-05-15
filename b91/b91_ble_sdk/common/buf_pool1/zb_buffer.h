@@ -121,12 +121,12 @@ extern u8 *tl_zbBufToPhyRxBuf(u8 *p);
 #define TL_RXBUF_TO_INBUF(p) tl_phyRxBufTozbBuf(p)
 #define TL_INBUF_TO_RXBUF(p) tl_zbBufToPhyRxBuf(p)
 
-u8 *tl_getRxBuf();
+u8 *tl_getRxBuf(void);
 
 #if ZB_BUFFER_DEBUG
-#define zb_buf_allocate() my_zb_buf_allocate(__LINE__)
+#define zb_buf_allocate(void) my_zb_buf_allocate(__LINE__)
 #else
-zb_buf_t *zb_buf_allocate();
+zb_buf_t *zb_buf_allocate(void);
 #endif
 
 #if ZB_BUFFER_DEBUG

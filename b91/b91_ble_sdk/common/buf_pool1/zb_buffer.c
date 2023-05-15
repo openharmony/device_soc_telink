@@ -112,7 +112,7 @@ zb_buf_t *my_zb_buf_allocate(u16 line)
 {
     return my_zb_buf_get(line);
 }
-_attribute_ram_code_ u8 *tl_getRxBuf()
+_attribute_ram_code_ u8 *tl_getRxBuf(void)
 {
     u8 *buf = (u8 *)my_zb_buf_get(90);
     if (buf) {
@@ -121,12 +121,12 @@ _attribute_ram_code_ u8 *tl_getRxBuf()
     return NULL;
 }
 #else
-_attribute_ram_code_ zb_buf_t *zb_buf_allocate()
+_attribute_ram_code_ zb_buf_t *zb_buf_allocate(void)
 {
     return zb_buf_get();
 }
 
-_attribute_ram_code_ u8 *tl_getRxBuf()
+_attribute_ram_code_ u8 *tl_getRxBuf(void)
 {
     u8 *buf = (u8 *)zb_buf_get();
     if (buf) {

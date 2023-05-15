@@ -66,7 +66,7 @@ void myudb_register_hci_debug_cb(void *p);
 
 void myudb_usb_init(u16 id, void *p_print);
 
-void myudb_usb_bulkout_ready();
+void myudb_usb_bulkout_ready(void);
 
 void udb_usb_handle_irq(void);
 

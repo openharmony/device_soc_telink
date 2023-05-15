@@ -76,7 +76,7 @@ dma_config_t analog_rx_dma_config = {
  * @brief      This function serves to judge whether analog write/read is busy .
  * @return     none.
  */
-static inline void analog_wait();
+static inline void analog_wait(void);
 /**********************************************************************************************************************
  *                                         global function implementation                                             *
  *********************************************************************************************************************/
@@ -418,7 +418,7 @@ void analog_write_addr_data_dma(dma_chn_e chn, void *pdat, int len)
  * @brief      This function serves to judge whether analog write/read is busy .
  * @return     none.
  */
-static inline void analog_wait()
+static inline void analog_wait(void)
 {
     while (reg_ana_ctrl & FLD_ANA_BUSY) {
     }

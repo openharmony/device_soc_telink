@@ -19,8 +19,8 @@
 
 #include "reg_include/register_b91.h"
 
-#define GET_WORD_LEN(bitLen) ((bitLen + 31) / 32)
-#define GET_BYTE_LEN(bitLen) ((bitLen + 7) / 8)
+#define GET_WORD_LEN(bitLen) (((bitLen) + 31) / 32)
+#define GET_BYTE_LEN(bitLen) (((bitLen) + 7) / 8)
 
 #define PKE_BASE         (0X80110000)
 #define reg_pke_a_ram(a) ((volatile unsigned long *)(PKE_BASE + 0x0400 + (a) * (0x24)))

@@ -143,7 +143,7 @@ typedef enum {
     SYSCLK_64M = 64,
 } sys_clk_fre_t;
 
-static inline unsigned char clock_get_system_clk()
+static inline unsigned char clock_get_system_clk(void)
 {
     return sys_clk.cclk;
 }
@@ -176,14 +176,14 @@ void generateRandomNum(int len, unsigned char *data);
  *			maxRxOct + 21 = 4(DMA_len) + 2(BLE header) + maxRxOct + 4(MIC) + 3(CRC) + 8(ExtraInfor)
 			RX buffer size must be be 16*n, due to MCU design
  */
-#define CAL_LL_ACL_RX_FIFO_SIZE(maxRxOct) (((maxRxOct + 21) + 15) / 16 * 16)
+#define CAL_LL_ACL_RX_FIFO_SIZE(maxRxOct) ((((maxRxOct) + 21) + 15) / 16 * 16)
 
 /**
  * @brief	ACL TX Data buffer length = maxTxOct + 10, then 16 Byte align
  *			maxTxOct + 10 = 4(DMA_len) + 2(BLE header) + maxTxOct + 4(MIC)
 			TX buffer size must be be 16*n, due to MCU design
  */
-#define CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct) (((maxTxOct + 10) + 15) / 16 * 16)
+#define CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct) ((((maxTxOct) + 10) + 15) / 16 * 16)
 
 /* HCI TX RX buffer len = uart_fifo+ dma 4byte */
 #define HCI_FIFO_SIZE(n) ((((n) + 2 + 4) + 15) / 16 * 16)
