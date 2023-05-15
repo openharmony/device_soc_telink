@@ -137,7 +137,7 @@ u8 zb_buf_free(zb_buf_t *buf);
 
 #define ZB_BUF_FROM_REF(ref) (&g_mPool.pool[ref])
 
-#define ZB_REF_FROM_BUF(p) (p - &g_mPool.pool[0])
+#define ZB_REF_FROM_BUF(p) ((p) - &g_mPool.pool[0])
 
 extern u8 RX_ZBBUF_OFFSET;
 /*! @} */

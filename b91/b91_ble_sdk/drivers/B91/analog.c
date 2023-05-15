@@ -298,9 +298,10 @@ _attribute_ram_code_sec_noinline_ void analog_read_buff(unsigned char addr, unsi
                 rd_idx = 0;
                 if (len_t <= 4) {
                     break;
-                } else
+                } else {
                     while ((reg_ana_irq_sta & FLD_ANA_RXBUFF_IRQ) == 0) {
                     }
+                }
                 // rx_buf_irq
             }
         }

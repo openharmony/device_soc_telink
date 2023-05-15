@@ -279,7 +279,7 @@ enum {
  */
 #define reg_hspi_addr3 REG_ADDR8(HSPI_BASE_ADDR + 0x13)
 
-#define reg_hspi_addr(i) REG_ADDR8(HSPI_BASE_ADDR + 0x10 + i)
+#define reg_hspi_addr(i) REG_ADDR8(HSPI_BASE_ADDR + 0x10 + (i))
 
 // hspi_addr0~ hspi_addr3.
 

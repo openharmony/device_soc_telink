@@ -46,8 +46,8 @@ enum {
 #define reg_rf_dma_rx_wptr REG_ADDR8(0x001004f4)
 #define reg_rf_dma_rx_rptr REG_ADDR8(0x001004f5)
 
-#define reg_rf_dma_tx_rptr(i) REG_ADDR8(0x00100501 + (i << 1))
-#define reg_rf_dma_tx_wptr(i) REG_ADDR8(0x00100500 + (i << 1))
+#define reg_rf_dma_tx_rptr(i) REG_ADDR8(0x00100501 + ((i) << 1))
+#define reg_rf_dma_tx_wptr(i) REG_ADDR8(0x00100500 + ((i) << 1))
 
 #define reg_rf_bb_rx_size REG_ADDR8(CHNADDR + 0xf6)
 

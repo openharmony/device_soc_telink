@@ -186,27 +186,27 @@ void generateRandomNum(int len, unsigned char *data);
 #define CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct) (((maxTxOct + 10) + 15) / 16 * 16)
 
 /* HCI TX RX buffer len = uart_fifo+ dma 4byte */
-#define HCI_FIFO_SIZE(n) (((n + 2 + 4) + 15) / 16 * 16)
+#define HCI_FIFO_SIZE(n) ((((n) + 2 + 4) + 15) / 16 * 16)
 
 /*
  * @brief	ISO RX Data buffer length = ISORxOct + 21, then 16 Byte align
  *			ISORxOct + 21 = 4(DMA_len) + 2(BLE header) + ISORxOct + 4(MIC) + 3(CRC) + 8(ExtraInfor)
  *			RX buffer size must be be 16*n, due to MCU design
  */
-#define CAL_LL_ISO_RX_FIFO_SIZE(n) (((n + 21) + 15) / 16 * 16)
+#define CAL_LL_ISO_RX_FIFO_SIZE(n) ((((n) + 21) + 15) / 16 * 16)
 
 /*
  * @brief	ISO TX Data buffer length = ISOTxOct + 10, then 16 Byte align
  * 			ISORxOct + 10 = 4(DMA_len) + 2(BLE header) + ISOTxOct + 4(MIC)
  *			TX buffer size must be be 16*n, due to MCU design
  */
-#define CAL_LL_ISO_TX_FIFO_SIZE(n) (((n + 10) + 15) / 16 * 16)
+#define CAL_LL_ISO_TX_FIFO_SIZE(n) ((((n) + 10) + 15) / 16 * 16)
 
 /*
 * DMA_LEN(4B)+Hdr(2B)+PLD(251B)+MIC(4B)+CRC(3B)+TLK_PKT_INFO(12B)
 *             **use 2B enough**
 */
-#define ISO_BIS_RX_PDU_SIZE_ALLIGN16(n) (((n + 25) + 15) / 16 * 16)  // 4+2+4+2+4+3+12
+#define ISO_BIS_RX_PDU_SIZE_ALLIGN16(n) ((((n) + 25) + 15) / 16 * 16)  // 4+2+4+2+4+3+12
 
 // 12 = 4(struct bis_rx_pdu_tag	*next) + 4(u32 payloadNum) + 4(u32 idealPldAnchorTick) in bis_rx_pdu_t
 #define BIS_LL_RX_PDU_FIFO_SIZE(n) (CAL_LL_ISO_RX_FIFO_SIZE(n) + 12)

@@ -213,8 +213,8 @@
 // -- OCF --
 #define HCI_CMD_READ_RSSI 0x05
 
-#define HCI_EVT_CMDSTATUS(n, c, g, s)           ((s) | (n << 8) | (c << 16) | (g << 24))
-#define HCI_EVT_CMD_COMPLETE_STATUS(n, c, g, s) ((n << 0) | (c << 8) | (g << 16) | (s << 24))
+#define HCI_EVT_CMDSTATUS(n, c, g, s)           ((s) | ((n) << 8) | ((c) << 16) | ((g) << 24))
+#define HCI_EVT_CMD_COMPLETE_STATUS(n, c, g, s) (((n) << 0) | ((c) << 8) | ((g) << 16) | ((s) << 24))
 
 // LE Controller Commands
 // -- OGF --

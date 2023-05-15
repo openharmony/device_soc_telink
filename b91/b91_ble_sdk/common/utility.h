@@ -111,9 +111,9 @@
             SWAP((a), (b), T);                                                                                        \
     } while (0)
 
-#define foreach(i, n)          for (int i = 0; i < (n); ++i)
-#define foreach_range(i, s, e) for (int i = (s); i < (e); ++i)
-#define foreach_arr(i, arr)    for (int i = 0; i < ARRAY_SIZE(arr); ++i)
+#define foreach(i, n)          for (int i = 0; i < (n); ++(i))
+#define foreach_range(i, s, e) for (int i = (s); i < (e); ++(i))
+#define foreach_arr(i, arr)    for (int i = 0; i < ARRAY_SIZE(arr); ++(i))
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
 
@@ -166,12 +166,12 @@ void my_fifo_pop(my_fifo_t *f);
 u8 *my_fifo_get(my_fifo_t *f);
 
 #define MYFIFO_INIT(name, size, n)                                                                                    \
-    u8 name##_b[size * n] = {0};                                                                                      \
+    u8 name##_b[(size) * (n)] = {0};                                                                                      \
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
 #define MYFIFO_INIT_IRAM(name, size, n)                                                                               \
-    u8 name##_b[size * n] __attribute__((aligned(4))); /* ={0} */                                                     \
+    u8 name##_b[(size) * (n)] __attribute__((aligned(4))); /* ={0} */                                                     \
     my_fifo_t name = {size, n, 0, 0, name##_b}
 
-#define DATA_LENGTH_ALLIGN4(n)  ((n + 3) / 4 * 4)
-#define DATA_LENGTH_ALLIGN16(n) ((n + 15) / 16 * 16)
+#define DATA_LENGTH_ALLIGN4(n)  (((n) + 3) / 4 * 4)
+#define DATA_LENGTH_ALLIGN16(n) (((n) + 15) / 16 * 16)

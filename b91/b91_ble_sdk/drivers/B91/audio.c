@@ -502,8 +502,9 @@ void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio
     audio_clk_en(1, 1);
     audio_i2c_init(INNER_CODEC, 0, 0);
     audio_i2c_codec_write(addr_audio_codec_vic_ctr, FLD_AUDIO_CODEC_SLEEP_ANALOG);  // active analog sleep mode
-    while (!(audio_i2c_codec_read(addr_audio_codec_stat_ctr) & FLD_AUDIO_CODEC_PON_ACK))
-        ;  // wait codec can be configed
+    while (!(audio_i2c_codec_read(addr_audio_codec_stat_ctr) & FLD_AUDIO_CODEC_PON_ACK)) {
+    }
+    // wait codec can be configed
     if (flow_mode < BUF_TO_LINE_OUT) {
         audio_codec_adc_config(audio_i2s_codec_config.i2s_codec_m_s_mode, (flow_mode % 3), rate,
                                audio_i2s_codec_config.codec_data_select, I2C_WREG);

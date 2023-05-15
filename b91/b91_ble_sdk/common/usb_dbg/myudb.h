@@ -109,7 +109,7 @@ void usb_send_upper_tester_result(u8 err);
 
 // 4-byte sync word: 00 00 00 00
 #define log_sync(en)                                                                                                  \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
         log_uart(0);                                                                                                  \
         log_uart(0);                                                                                                  \
@@ -119,9 +119,9 @@ void usb_send_upper_tester_result(u8 err);
     }
 // 4-byte (001_id-5bits) id0: timestamp align with hardware gpio output; id1-31: user define
 #define log_tick(en, id)                                                                                              \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
-        log_uart(0x20 | (id & 31));                                                                                   \
+        log_uart(0x20 | ((id) & 31));                                                                                   \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
         log_uart(t >> 8);                                                                                             \
@@ -131,17 +131,17 @@ void usb_send_upper_tester_result(u8 err);
 
 // 1-byte (000_id-5bits)
 #define log_event(en, id)                                                                                             \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
-        log_uart(0x00 | (id & 31));                                                                                   \
+        log_uart(0x00 | ((id) & 31));                                                                                   \
         my_irq_restore();                                                                                             \
     }
 
 // 1-byte (01x_id-5bits) 1-bit data: id0 & id1 reserved for hardware
 #define log_task(en, id, b)                                                                                           \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
-        log_uart(((b) ? 0x60 : 0x40) | (id & 31));                                                                    \
+        log_uart(((b) ? 0x60 : 0x40) | ((id) & 31));                                                                    \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
         log_uart(t >> 8);                                                                                             \
@@ -151,25 +151,25 @@ void usb_send_upper_tester_result(u8 err);
 
 // 2-byte (10-id-6bits) 8-bit data
 #define log_b8(en, id, d)                                                                                             \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
-        log_uart(0x80 | (id & 63));                                                                                   \
+        log_uart(0x80 | ((id) & 63));                                                                                   \
         log_uart(d);                                                                                                  \
         my_irq_restore();                                                                                             \
     }
 
 // 3-byte (11-id-6bits) 16-bit data
 #define log_b16(en, id, d)                                                                                            \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         my_irq_disable();                                                                                             \
-        log_uart(0xc0 | (id & 63));                                                                                   \
+        log_uart(0xc0 | ((id) & 63));                                                                                   \
         log_uart(d);                                                                                                  \
         log_uart((d) >> 8);                                                                                           \
         my_irq_restore();                                                                                             \
     }
 
 #define log_tick_irq(en, id)                                                                                          \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x20 | (id));                                                                                        \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
@@ -177,20 +177,20 @@ void usb_send_upper_tester_result(u8 err);
         log_uart(t >> 16);                                                                                            \
     }
 #define log_tick_irq_2(en, id, t)                                                                                     \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x20 | (id));                                                                                        \
         log_uart(t);                                                                                                  \
-        log_uart(t >> 8);                                                                                             \
-        log_uart(t >> 16);                                                                                            \
+        log_uart((t) >> 8);                                                                                             \
+        log_uart((t) >> 16);                                                                                            \
     }
 
 #define log_event_irq(en, id)                                                                                         \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x00 | (id));                                                                                        \
     }
 
 #define log_task_irq(en, id, b)                                                                                       \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(((b) ? 0x60 : 0x40) | (id));                                                                         \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
@@ -199,7 +199,7 @@ void usb_send_upper_tester_result(u8 err);
     }
 
 #define log_task_begin_irq(en, id)                                                                                    \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x60 | (id));                                                                                        \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
@@ -207,7 +207,7 @@ void usb_send_upper_tester_result(u8 err);
         log_uart(t >> 16);                                                                                            \
     }
 #define log_task_end_irq(en, id)                                                                                      \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x40 | (id));                                                                                        \
         int t = get_systemtick();                                                                                     \
         log_uart(t);                                                                                                  \
@@ -216,28 +216,28 @@ void usb_send_upper_tester_result(u8 err);
     }
 
 #define log_task_begin_irq_2(en, id, t)                                                                               \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x60 | (id));                                                                                        \
         log_uart(t);                                                                                                  \
-        log_uart(t >> 8);                                                                                             \
-        log_uart(t >> 16);                                                                                            \
+        log_uart((t) >> 8);                                                                                             \
+        log_uart((t) >> 16);                                                                                            \
     }
 #define log_task_end_irq_2(en, id, t)                                                                                 \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x40 | (id));                                                                                        \
         log_uart(t);                                                                                                  \
-        log_uart(t >> 8);                                                                                             \
-        log_uart(t >> 16);                                                                                            \
+        log_uart((t) >> 8);                                                                                             \
+        log_uart((t) >> 16);                                                                                            \
     }
 
 #define log_b8_irq(en, id, d)                                                                                         \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0x80 | (id));                                                                                        \
         log_uart(d);                                                                                                  \
     }
 
 #define log_b16_irq(en, id, d)                                                                                        \
-    if (VCD_EN && en) {                                                                                               \
+    if (VCD_EN && (en)) {                                                                                               \
         log_uart(0xc0 | (id));                                                                                        \
         log_uart(d);                                                                                                  \
         log_uart((d) >> 8);                                                                                           \
