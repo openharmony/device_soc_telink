@@ -29,6 +29,22 @@ root {
                     deviceMatchAttr = "telink_b91_gpio";
                 }
             }
+            device_uart :: device {
+                device0 :: deviceNode {
+                    policy = 1;
+                    priority = 40;
+                    moduleName = "TELINK_HDF_PLATFORM_UART";
+                    serviceName = "HDF_PLATFORM_UART_0";
+                    deviceMatchAttr = "telink_b91_uart_0";
+                }
+                device1 :: deviceNode {
+                    policy = 2;
+                    priority = 40;
+                    moduleName = "TELINK_HDF_PLATFORM_UART";
+                    serviceName = "HDF_PLATFORM_UART_1";
+                    deviceMatchAttr = "telink_b91_uart_1";
+                }
+            }
         }
     }
 }
