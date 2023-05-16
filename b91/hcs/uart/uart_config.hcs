@@ -1,0 +1,95 @@
+root {
+    platform {
+        uart_config {
+            template default_config {
+                match_attr = "";
+                port = 0;
+                baudrate = 115200;
+
+/*UART0_TX_PA3
+  UART0_TX_PB2
+  UART0_TX_PD2
+  UART1_TX_PC6
+  UART1_TX_PD6
+  UART1_TX_PE0*/
+
+                tx_pin = "";
+
+/*UART0_RX_PA4
+  UART0_RX_PB3
+  UART0_RX_PD3
+  UART1_RX_PC7
+  UART1_RX_PD7
+  UART1_RX_PE2*/
+
+                rx_pin = "";
+
+/*UART_STOP_BIT_ONE
+  UART_STOP_BIT_ONE_DOT_FIVE
+  UART_STOP_BIT_TWO*/
+
+                stop_bits = "";
+
+/*UART_PARITY_NONE
+  UART_PARITY_EVEN
+  UART_PARITY_ODD*/
+
+                parity = "";
+            }
+
+            uart_0 :: default_config {
+                match_attr = "telink_b91_uart_0";
+                port = 0;
+                baudrate = 921600;
+                tx_pin = "UART0_TX_PB2";
+                rx_pin = "UART0_RX_PB3";
+                stop_bits = "UART_STOP_BIT_ONE";
+                parity = "UART_PARITY_NONE";
+            }
+
+            uart_1 :: default_config {
+                match_attr = "telink_b91_uart_1";
+                port = 1;
+                baudrate = 921600;
+                tx_pin = "UART1_TX_PE0";
+                rx_pin = "UART1_RX_PE2";
+                stop_bits = "UART_STOP_BIT_ONE";
+                parity = "UART_PARITY_NONE";
+            }
+        }
+    }
+}
+
+
+// root {
+//     platform {
+//         uart_config {
+//             template default_config {
+//                 match_attr = "";
+//                 num = 0;
+//                 baudrate = 115200;
+//                 fifoRxEn = 1;
+//                 fifoTxEn = 1;
+//                 flags = 4;
+//                 irqNum = 19;
+//                 regPbase = 0x80140080;
+//                 iomemCount = 0x48;
+//             }
+// 
+//             uart_0 :: default_config {
+//                 match_attr = "telink_b91_uart_0";
+//             }
+// 
+//             uart_1 :: default_config {
+//                 num = 1;
+//                 baudrate = 9600;
+//                 irqNum = 18;
+//                 regPbase = 0x801400c0;
+//                 match_attr = "telink_b91_uart_1";
+//             }
+//         }
+//     }
+// }
+
+
+
