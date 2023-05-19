@@ -18,15 +18,10 @@
 #ifndef BLM_PAIR_H_
 #define BLM_PAIR_H_
 
+#include "blt_common.h"
+#include "drivers.h"
+#include "tl_common.h"
 #include "vendor/common/user_config.h"
-
-#ifndef FLASH_ADR_CUSTOM_PAIRING
-#define FLASH_ADR_CUSTOM_PAIRING 0xF8000
-#endif
-
-#ifndef FLASH_CUSTOM_PAIRING_MAX_SIZE
-#define FLASH_CUSTOM_PAIRING_MAX_SIZE 4096
-#endif
 
 /*!  Pair parameter manager type */
 typedef struct {
@@ -81,12 +76,5 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr);
  * @return     none.
  */
 void user_tbl_slave_mac_delete_all(void);
-
-/**
- * @brief      unpair process.
- * @param      none.
- * @return     none.
- */
-void user_tbl_salve_mac_unpair_proc(void);
 
 #endif /* APP_PAIR_H_ */

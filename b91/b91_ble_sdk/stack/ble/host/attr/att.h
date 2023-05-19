@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H
-#define B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H
+#pragma once
+
 #include "tl_common.h"
 
 /** @defgroup ATT_PERMISSIONS_BITMAPS GAP ATT Attribute Access Permissions Bit Fields
@@ -78,6 +78,7 @@
 #define CHAR_PROP_INDICATE          0x20  // !< Permit indications of a Characteristic Value with acknowledgement
 #define CHAR_PROP_AUTHEN            0x40  // !< permit signed writes to the Characteristic Value
 #define CHAR_PROP_EXTENDED          0x80  // !< additional characteristic properties are defined
+
 /** @} end of group GATT_Characteristic_Property */
 
 typedef int (*att_readwrite_callback_t)(u16 connHandle, void *p);
@@ -93,55 +94,52 @@ typedef struct attribute {
     att_readwrite_callback_t r;
 } attribute_t;
 
-/**
- * @brief	This function is used to define ATT MTU size exchange callback
- */
-typedef int (*att_mtuSizeExchange_callback_t)(u16, u16);
+/******************************* User Interface  Begin ***************************************************************/
 
 /**
- * @brief	This function is used to define ATT Handle value confirm callback
- */
-typedef int (*att_handleValueConfirm_callback_t)(void);
-
-/**
- * @brief	This function is used to set ATT table
- * @param	*p - the pointer of attribute table
- * @return	none.
+ * @brief		Register ATT table.
+ * @param[in]	p - Pointer point to attribute table.
+ * @return[in]	0: success
+ * 				other: fail
  */
 void bls_att_setAttributeTable(u8 *p);
 
-// mtu size
 /**
- * @brief	This function is used to set RX MTU size
- * @param	mtu_size - ATT MTU size
- * @return	0: success
- * 			other: fail
- */
-ble_sts_t blc_att_setRxMtuSize(u16 mtu_size);
-
-/**
- * @brief	This function is used to request MTU size exchange
- * @param	connHandle - connect handle
- * @param	mtu_size - ATT MTU size
- * @return	0: success
- * 			other: fail
- */
-ble_sts_t blc_att_requestMtuSizeExchange(u16 connHandle, u16 mtu_size);
-
-/**
- * @brief	This function is used to response MTU size exchange
- * @param	mtu_size - ATT MTU size
- * @return	0: success
- * 			other: fail
- */
-ble_sts_t blc_att_responseMtuSizeExchange(u16 connHandle, u16 mtu_size);
-
-/**
- * @brief	This function is used to set prepare write buffer
- * @param	*p - the pointer of buffer
- * @param	len - the length of buffer
+ * @brief		This function is used to set prepare write buffer
+ * @param[in]	*p - the pointer of buffer
+ * @param[in]	len - the length of buffer
  * @return	none.
  */
 void blc_att_setPrepareWriteBuffer(u8 *p, u16 len);
 
-#endif // B91_B91_BLE_SDK_STACK_BLE_HOST_ATTR_ATT_H
+/**
+ * @brief		This function is used to set MTU req pending timing after connection created
+ * @param[in]	time_ms - pending timing, unit: ms
+ * @return      none
+ */
+void blc_att_setMtureqSendingTime_after_connCreate(int time_ms);
+/**
+ * @brief		This function is used to set RX MTU size in master
+ * @param[in]	master_mtu_size - ATT MTU size
+ * @return[in]	0: success
+ * 				other: fail
+ */
+ble_sts_t blc_att_setMasterRxMTUSize(u16 master_mtu_size);
+
+/**
+ * @brief		This function is used to set RX MTU size in slave
+ * @param[in]	slave_mtu_size - ATT MTU size
+ * @return[in]	0: success
+ * 				other: fail
+ */
+ble_sts_t blc_att_setSlaveRxMTUSize(u16 slave_mtu_size);
+
+/**
+ * @brief		Send MTU Size Exchange Request.
+ * @param[in]	mtu_size            - ATT MTU size
+ * @return[in]	0: success
+ * 				other: fail
+ */
+ble_sts_t blc_att_requestMtuSizeExchange(u16 connHandle, u16 mtu_size);
+
+/******************************* User Interface  End  ****************************************************************/

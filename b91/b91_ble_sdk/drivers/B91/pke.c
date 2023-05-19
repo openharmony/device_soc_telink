@@ -15,10 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#include <limits.h>
-#include "string.h"
-
 #include "pke.h"
+#include "string.h"
 
 /**
  * @brief       get real bit length of big number a of wordLen words.
@@ -31,7 +29,7 @@ unsigned int valid_bits_get(const unsigned int *a, unsigned int wordLen)
     unsigned int i = 0;
     unsigned int j = 0;
 
-    if (0 == wordLen) {
+    if (wordLen == 0) {
         return 0;
     }
 
@@ -41,11 +39,11 @@ unsigned int valid_bits_get(const unsigned int *a, unsigned int wordLen)
         }
     }
 
-    if (0 == i) {
+    if (i == 0) {
         return 0;
     }
 
-    for (j = (sizeof(*a)*CHAR_BIT); j > 0; j--) {
+    for (j = 32; j > 0; j--) {
         if (a[i - 1] & (0x1 << (j - 1))) {
             break;
         }
@@ -87,7 +85,6 @@ signed int big_integer_compare(unsigned int *a, unsigned int aWordLen, unsigned 
 
     aWordLen = valid_words_get(a, aWordLen);
     bWordLen = valid_words_get(b, bWordLen);
-
     if (aWordLen > bWordLen) {
         return 1;
     }
@@ -150,7 +147,7 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
         return 0;
     }
 
-    if (n < 32) {
+    if (n <= 32) {
         for (i = 0; i < aWordLen - 1; i++) {
             a[i] >>= n;
             a[i] |= (a[i + 1] << (32 - n));
@@ -161,7 +158,7 @@ unsigned int div2n_u32(unsigned int a[], signed int aWordLen, unsigned int n)
             return i;
         }
         return aWordLen;
-    } else { // general method
+    } else {  // general method
         j = n >> 5;
         n &= 31;
         for (i = 0; i < aWordLen - (signed int)j - 1; i++) {
@@ -231,7 +228,7 @@ unsigned char pke_opr_cal(pke_microcode_e addr, pke_exe_cfg_e cfg)
 {
     pke_set_microcode(addr);
 
-    if (0x00 != cfg) {
+    if (cfg != 0x00) {
         pke_set_exe_cfg(cfg);
     }
 
@@ -303,7 +300,7 @@ unsigned char pke_eccp_point_del(eccp_curve_t *curve, unsigned int *Px, unsigned
     pke_load_operand((unsigned int *)reg_pke_a_ram(5), curve->eccp_a, wordLen);  // A5 a
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
-    if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
+    if ((curve->eccp_p_h != 0) && (curve->eccp_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
@@ -348,7 +345,7 @@ unsigned char pke_eccp_point_add(eccp_curve_t *curve, unsigned int *P1x, unsigne
     pke_load_operand((unsigned int *)reg_pke_a_ram(1), P2y, wordLen);            // A1 P2y
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
-    if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
+    if ((curve->eccp_p_h != 0) && (curve->eccp_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
@@ -386,7 +383,7 @@ unsigned char pke_eccp_point_verify(eccp_curve_t *curve, unsigned int *Px, unsig
     pke_load_operand((unsigned int *)reg_pke_a_ram(4), curve->eccp_b, wordLen);  // A4 b
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
-    if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
+    if ((curve->eccp_p_h != 0) && (curve->eccp_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
@@ -425,7 +422,7 @@ unsigned char pke_eccp_point_mul(eccp_curve_t *curve, unsigned int *k, unsigned 
     pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);              // A4 k
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->eccp_p, wordLen);  // B3 p
 
-    if ((0 != curve->eccp_p_h) && (0 != curve->eccp_p_n1)) {
+    if ((curve->eccp_p_h != 0) && (curve->eccp_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->eccp_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->eccp_p_n1, 1);       // B4 p_n1
     } else {
@@ -584,7 +581,7 @@ unsigned char pke_x25519_point_mul(mont_curve_t *curve, unsigned int *k, unsigne
     pke_load_operand((unsigned int *)reg_pke_a_ram(4), k, wordLen);                // A4 k
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->mont_p, wordLen);    // B3 p
 
-    if ((NULL != curve->mont_p_h) && (NULL != curve->mont_p_n1)) {
+    if ((curve->mont_p_h != NULL) && (curve->mont_p_n1 != NULL)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->mont_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->mont_p_n1, 1);       // B4 p_n1
     } else {
@@ -625,7 +622,7 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
     pke_load_operand((unsigned int *)reg_pke_a_ram(0), k, wordLen);                // A0 k
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  // B3 p
 
-    if ((0 != curve->edward_p_h) && (0 != curve->edward_p_n1)) {
+    if ((curve->edward_p_h != 0) && (curve->edward_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       // B4 p_n1
     } else {
@@ -671,7 +668,7 @@ unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, un
     pke_load_operand((unsigned int *)reg_pke_b_ram(0), curve->edward_d, wordLen);  // B0 d
     pke_load_operand((unsigned int *)reg_pke_b_ram(3), curve->edward_p, wordLen);  // B3 p
 
-    if ((0 != curve->edward_p_h) && (0 != curve->edward_p_n1)) {
+    if ((curve->edward_p_h != 0) && (curve->edward_p_n1 != 0)) {
         pke_load_operand((unsigned int *)reg_pke_a_ram(3), curve->edward_p_h, wordLen);  // A3 p_h
         pke_load_operand((unsigned int *)reg_pke_b_ram(4), curve->edward_p_n1, 1);       // B4 p_n1
     } else {
@@ -714,7 +711,7 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
         memset(c + aWordLen, 0, (bWordLen - aWordLen) << 2);
 
         return PKE_SUCCESS;
-    } else if (0 == ret) {
+    } else if (ret == 0) {
         memset(c, 0, bWordLen << 2);
 
         return PKE_SUCCESS;
@@ -749,7 +746,7 @@ unsigned char pke_mod(unsigned int *a, unsigned int aWordLen, unsigned int *b, u
         }
     }
 
-    if (0 == b_h || 0 == b_n1) {
+    if (b_h == 0 && b_n1 == 0) {
         ret = pke_calc_pre_mont(b, bWordLen);
         if (PKE_SUCCESS != ret) {
             return ret;

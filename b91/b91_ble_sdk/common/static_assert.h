@@ -15,8 +15,8 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
-#define B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H
+
+#pragma once
 
 // more complicated version canbe used anywhere in the source
 #define STATIC_ASSERT_M(COND, MSG) typedef char static_assertion_##MSG[(!!(COND)) * 2 - 1]
@@ -30,5 +30,3 @@
 #define STATIC_ASSERT_EVEN(expr)    STATIC_ASSERT(!((expr)&1))
 #define STATIC_ASSERT_ODD(expr)     STATIC_ASSERT(((expr)&1))
 #define STATIC_ASSERT_INT_DIV(a, b) STATIC_ASSERT((a) / (b) * (b) == (a))
-
-#endif  // B91_B91_BLE_SDK_COMMON_STATIC_ASSERT_H

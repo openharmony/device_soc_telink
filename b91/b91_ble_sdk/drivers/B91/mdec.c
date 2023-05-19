@@ -24,7 +24,8 @@
 /**
  * @brief		This function is used to initialize the MDEC module,include clock setting and input IO select.
  * @param[in]	pin	- mdec pin.
- * 					  In order to distinguish which pin the data is input from,only one input pin can be selected one time.
+ * 					  In order to distinguish which pin the data is input from,
+ *                    only one input pin can be selected one time.
  * @return		none.
  */
 void mdec_init(mdec_pin_e pin)

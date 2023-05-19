@@ -37,8 +37,17 @@
 #include "compiler.h"
 #include "types.h"
 
-/******************************* stimer_start ******************************************************************/
+/* for debug */
+#define DBG_SRAM_ADDR 0x00014
 
+/*
+ * addr - only 0x00012 ~ 0x00021 can be used !!! */
+#define write_dbg32(addr, value) write_sram32(addr, value)
+
+#define write_log32(err_code) write_sram32(0x00014, err_code)
+
+/******************************* stimer_start ******************************************************************/
+#define SYSTICK_NUM_PER_US  16
 #define reg_system_tick_irq reg_system_irq_level
 
 typedef enum {
@@ -103,9 +112,9 @@ static inline unsigned int systimer_get_irq_capture(void)
     return reg_system_irq_level;
 }
 
-static inline int tick1_exceed_tick2(u32 tick1, u32 tick2)
+static inline int tick1_exceed_tick2(unsigned int tick1, unsigned int tick2)
 {
-    return (u32)(tick1 - tick2) < BIT(30);
+    return (unsigned int)(tick1 - tick2) < BIT(30);
 }
 /******************************* stimer_end ********************************************************************/
 
@@ -159,6 +168,50 @@ void generateRandomNum(int len, unsigned char *data);
 #define sleep_ms(x) delay_ms(x)
 
 /******************************* sys_end ********************************************************************/
+
+/******************************* dma_start ***************************************************************/
+
+/**
+ * @brief	ACL RX Data buffer length = maxRxOct + 21, then 16 Byte align
+ *			maxRxOct + 21 = 4(DMA_len) + 2(BLE header) + maxRxOct + 4(MIC) + 3(CRC) + 8(ExtraInfor)
+			RX buffer size must be be 16*n, due to MCU design
+ */
+#define CAL_LL_ACL_RX_FIFO_SIZE(maxRxOct) ((((maxRxOct) + 21) + 15) / 16 * 16)
+
+/**
+ * @brief	ACL TX Data buffer length = maxTxOct + 10, then 16 Byte align
+ *			maxTxOct + 10 = 4(DMA_len) + 2(BLE header) + maxTxOct + 4(MIC)
+			TX buffer size must be be 16*n, due to MCU design
+ */
+#define CAL_LL_ACL_TX_FIFO_SIZE(maxTxOct) ((((maxTxOct) + 10) + 15) / 16 * 16)
+
+/* HCI TX RX buffer len = uart_fifo+ dma 4byte */
+#define HCI_FIFO_SIZE(n) ((((n) + 2 + 4) + 15) / 16 * 16)
+
+/*
+ * @brief	ISO RX Data buffer length = ISORxOct + 21, then 16 Byte align
+ *			ISORxOct + 21 = 4(DMA_len) + 2(BLE header) + ISORxOct + 4(MIC) + 3(CRC) + 8(ExtraInfor)
+ *			RX buffer size must be be 16*n, due to MCU design
+ */
+#define CAL_LL_ISO_RX_FIFO_SIZE(n) ((((n) + 21) + 15) / 16 * 16)
+
+/*
+ * @brief	ISO TX Data buffer length = ISOTxOct + 10, then 16 Byte align
+ * 			ISORxOct + 10 = 4(DMA_len) + 2(BLE header) + ISOTxOct + 4(MIC)
+ *			TX buffer size must be be 16*n, due to MCU design
+ */
+#define CAL_LL_ISO_TX_FIFO_SIZE(n) ((((n) + 10) + 15) / 16 * 16)
+
+/*
+* DMA_LEN(4B)+Hdr(2B)+PLD(251B)+MIC(4B)+CRC(3B)+TLK_PKT_INFO(12B)
+*             **use 2B enough**
+*/
+#define ISO_BIS_RX_PDU_SIZE_ALLIGN16(n) ((((n) + 25) + 15) / 16 * 16)  // 4+2+4+2+4+3+12
+
+// 12 = 4(struct bis_rx_pdu_tag	*next) + 4(u32 payloadNum) + 4(u32 idealPldAnchorTick) in bis_rx_pdu_t
+#define BIS_LL_RX_PDU_FIFO_SIZE(n) (CAL_LL_ISO_RX_FIFO_SIZE(n) + 12)
+
+/******************************* dma_end ********************************************************************/
 
 /******************************* plic_start ******************************************************************/
 enum {  // todo
@@ -228,9 +281,26 @@ enum {  // todo
 /******************************* plic_end ********************************************************************/
 
 /******************************* flash_start *****************************************************************/
-_attribute_text_code_ unsigned int flash_get_jedec_id(void);
-void flash_set_capacity(flash_capacity_e flash_cap);
-flash_capacity_e flash_get_capacity(void);
+/**
+ * @brief     flash capacity definition
+ * Call flash_read_mid function to get the size of flash capacity.
+ * Example is as follows:
+ * unsigned char temp_buf[4];
+ * flash_read_mid(temp_buf);
+ * The value of temp_buf[2] reflects flash capacity.
+ */
+typedef enum {
+    FLASH_CAPACITY_64K = 0x10,
+    FLASH_CAPACITY_128K = 0x11,
+    FLASH_CAPACITY_256K = 0x12,
+    FLASH_CAPACITY_512K = 0x13,
+    FLASH_CAPACITY_1M = 0x14,
+    FLASH_CAPACITY_2M = 0x15,
+    FLASH_CAPACITY_4M = 0x16,
+    FLASH_CAPACITY_8M = 0x17,
+} Flash_CapacityDef;
+void flash_set_capacity(Flash_CapacityDef flash_cap);
+Flash_CapacityDef flash_get_capacity(void);
 
 /******************************* flash_end *******************************************************************/
 
@@ -239,11 +309,13 @@ flash_capacity_e flash_get_capacity(void);
 /******************************* usb_end *********************************************************************/
 
 /******************************* core_start ******************************************************************/
-#define SUPPORT_PFT_ARCH 0
+#define SUPPORT_PFT_ARCH 1
 /******************************* core_end ********************************************************************/
 
 /******************************* uart_start ******************************************************************/
 _attribute_ram_code_ void uart_receive_dma_set(dma_chn_e chn, unsigned char *addr, unsigned int rev_size);
+
+void uart0_init(unsigned int baudrate);
 /******************************* uart_end ********************************************************************/
 
 #endif /* DRIVERS_B91_EXT_MISC_H_ */

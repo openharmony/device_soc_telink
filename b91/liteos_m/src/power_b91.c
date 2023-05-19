@@ -18,8 +18,10 @@
 
 #include <target_config.h>
 
+#include <los_arch_timer.h>
 #include <los_compiler.h>
 #include <los_pm.h>
+#include <los_reg.h>
 #include <los_task.h>
 #include <los_timer.h>
 
@@ -31,10 +33,14 @@
 
 #include <stack/ble/ble.h>
 
-#define MTICKS_SLEEP_TIME_CORRECTION        6
-#define SYSTICKS_MAX_SLEEP                  0xE0000000
-#define MTICKS_MIN_SLEEP                    37
-#define RESERVE_WAKEUP_TIME                 1
+#include <inttypes.h>
+
+#define SYSTICKS_MAX_SLEEP     (0xFFFFFFFF >> 2)
+#define MTICKS_MIN_SLEEP       (80)
+#define MTICKS_CORRECTION_TIME (0)
+#define MTICKS_RESERVE_TIME    (1 + MTICKS_CORRECTION_TIME)
+
+bool B91_system_suspend(UINT32 wake_stimer_tick);
 
 static inline UINT64 MticksToSysticks(UINT64 mticks)
 {
@@ -46,7 +52,7 @@ static inline UINT32 SysticksToMticks(UINT32 sticks)
     return (UINT32)((UINT64)sticks * OS_SYS_CLOCK / SYSTEM_TIMER_TICK_1S);
 }
 
-static void B91Suspend(VOID);
+static UINT32 B91Suspend(VOID);
 
 static LosPmSysctrl g_sysctrl = {
     .normalSuspend = B91Suspend,
@@ -54,12 +60,11 @@ static LosPmSysctrl g_sysctrl = {
 
 static inline void SetMtime(UINT64 time)
 {
-    volatile UINT32 *const rl = (volatile UINT32 *const)MTIMER;
-    volatile UINT32 *const rh = (volatile UINT32 *const)(MTIMER + sizeof(UINT32));
-
-    *rl = 0;
-    *rh = (UINT32)(time >> SHIFT_32_BIT);
-    *rl = (UINT32)time;
+    HalIrqDisable(RISCV_MACH_TIMER_IRQ);
+    WRITE_UINT32(U32_MAX, MTIMER + MTIMER_HI_OFFSET);
+    WRITE_UINT32((UINT32)time, MTIMER);
+    WRITE_UINT32((UINT32)(time >> SHIFT_32_BIT), MTIMER + MTIMER_HI_OFFSET);
+    HalIrqEnable(RISCV_MACH_TIMER_IRQ);
 }
 
 static inline UINT64 GetMtimeCompare(void)
@@ -80,51 +85,44 @@ static inline UINT64 GetMtime(void)
 }
 
 /**
- * @brief      	This function is used instead of the default sleep function ArchEnterSleep()
+ * @brief      	This function is used instead of the default sleep function
+ * ArchEnterSleep()
  * @param[in]  	none.
  * @return     	none.
-*/
-static void B91Suspend(VOID)
+ */
+_attribute_ram_code_ static UINT32 B91Suspend(VOID)
 {
-    UINT32 intSave = LOS_IntLock();
     UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
-    if ((mtick + MTICKS_MIN_SLEEP + MTICKS_SLEEP_TIME_CORRECTION) > mcompare) {
+    if ((mcompare - mtick) < (MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME)) {
+        return 0;
+    }
+    UINT32 intSave = LOS_IntLock();
+    mcompare = GetMtimeCompare();
+    mtick = GetMtime();
+    if ((mcompare - mtick) < MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME) {
         LOS_IntRestore(intSave);
-    } else {
-        UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick - MTICKS_SLEEP_TIME_CORRECTION);
-        if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
-            systicksSleepTimeout = SYSTICKS_MAX_SLEEP;
-        }
-        UINT32 sleepTick = stimer_get_tick();
-        cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER, sleepTick + systicksSleepTimeout);
-        mtick += SysticksToMticks(stimer_get_tick() - sleepTick);
+        return 0;
+    }
+
+    UINT64 systicksSleepTimeout = MticksToSysticks(mcompare - mtick);
+    if (systicksSleepTimeout > SYSTICKS_MAX_SLEEP) {
+        systicksSleepTimeout = SYSTICKS_MAX_SLEEP;
+    }
+    blc_pm_setWakeupSource(PM_WAKEUP_PAD);
+
+    UINT32 sleepTick = stimer_get_tick();
+    if (B91_system_suspend(sleepTick + systicksSleepTimeout - MTICKS_RESERVE_TIME)) {
+        UINT32 span = SysticksToMticks(stimer_get_tick() - sleepTick) + MTICKS_CORRECTION_TIME;
+        mtick += span;
+        SetMtime(mtick);
         uart_clr_tx_index(UART0);
         uart_clr_tx_index(UART1);
         uart_clr_rx_index(UART0);
         uart_clr_rx_index(UART1);
-        SetMtime(mtick);
-        LOS_IntRestore(intSave);
     }
-    while (GetMtime() < mcompare) {}
-}
-
-/**
- * @brief   This callback function is used instead of the cpu_sleep_wakeup_32k_rc() sleep function of the BLE stack,
- *          set in the blc_pm_select_internal_32k_crystal() function.
-*/
-static int B91SleepCallback(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick)
-{
-    int ret = 0;
-    UINT32 timeSleepMs = (wakeup_tick - stimer_get_tick()) / SYSTEM_TIMER_TICK_1MS;
-    systimer_irq_enable();
-    if (timeSleepMs > RESERVE_WAKEUP_TIME) {
-        LOS_Msleep(timeSleepMs - RESERVE_WAKEUP_TIME);
-    }
-    if (pm_get_wakeup_src() & WAKEUP_STATUS_TIMER) {
-        ret = WAKEUP_STATUS_TIMER | STATUS_ENTER_SUSPEND;
-    }
-    return ret;
+    LOS_IntRestore(intSave);
+    return 0;
 }
 
 VOID B91SuspendSleepInit(VOID)
@@ -135,8 +133,22 @@ VOID B91SuspendSleepInit(VOID)
     } else {
         printf("\r\n B91_SLEEP_init\r\n");
     }
+}
 
-    cpu_sleep_wakeup = B91SleepCallback;
-    blc_ll_initPowerManagement_module();
-    bls_pm_setSuspendMask(SUSPEND_ADV | SUSPEND_CONN);
+_attribute_ram_code_ bool B91_system_suspend(UINT32 wake_stimer_tick)
+{
+    bool result = false;
+
+    extern bool blc_ll_isBleTaskIdle(void);
+    if (!blc_ll_isBleTaskIdle()) {
+        blc_pm_setAppWakeupLowPower(wake_stimer_tick, 1);
+        if (!blc_pm_handler()) {
+            result = true;
+        }
+        blc_pm_setAppWakeupLowPower(0, 0);
+    } else {
+        cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER | PM_WAKEUP_PAD, wake_stimer_tick);
+        result = true;
+    }
+    return result;
 }

@@ -21,6 +21,7 @@
 #include "dma.h"
 #include "gpio.h"
 #include "reg_include/register_b91.h"
+
 /**	@page SPI
  *
  *	Introduction
@@ -712,7 +713,8 @@ static inline void hspi_xip_timeout_mode_dis(void)
 }
 
 /**
- * @brief 		This function servers to set xip timeout cnt,when two data frame intervals exceed spi_clock_out_period*timeout_cnt,cs will set high level.
+ * @brief 		This function servers to set xip timeout cnt,
+ *              when two data frame intervals exceed spi_clock_out_period*timeout_cnt,cs will set high level.
  * @param[in] 	cnt 	- xip timeout cnt.
  * @return 		none
  */
@@ -732,7 +734,8 @@ static inline void hspi_xip_page_size(unsigned char page_size_i)
 }
 
 /**
- * @brief 		This function servers to reply master slave is ready .When slave is ready,  slave ready reply a byte data:0x5a.   indicating that slave is ready for data transmission.
+ * @brief 		This function servers to reply master slave is ready. When slave is ready,
+ *              slave ready reply a byte data:0x5a. Indicating that slave is ready for data transmission.
  * @param[in] 	spi_sel 	- the spi module.
  * @return 		none
  */
@@ -742,7 +745,8 @@ static inline void spi_slave_ready_en(spi_sel_e spi_sel)
 }
 
 /**
- * @brief 		This function servers to reply master slave is not ready.slave reply a byte data: 0x00.indicating that slave is not ready for data transmission.
+ * @brief 		This function servers to reply master slave is not ready.
+ *              Slave reply a byte data: 0x00.indicating that slave is not ready for data transmission.
  * @param[in] 	spi_sel 	- the spi module.
  * @return 		none
  */

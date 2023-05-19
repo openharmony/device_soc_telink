@@ -102,7 +102,8 @@ void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
 #define SYS_DEEP_ANA_REG PM_ANA_REG_POWER_ON_CLR_BUF0
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode,
+ *             deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.
@@ -111,7 +112,8 @@ void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
 int cpu_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick);
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g.
+ *             suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.
@@ -224,6 +226,11 @@ static inline int pm_get_mcu_status(void)
 
 #define cpu_set_gpio_wakeup pm_set_gpio_wakeup
 
+static inline unsigned int pm_get_latest_offset_cal_time(void)
+{
+    return pmcd.offset_cal_tick;
+}
+
 /**********************************  Internal APIs (not for user)***************************************************/
 extern unsigned char tl_24mrc_cal;
 extern unsigned int g_pm_tick_32k_calib;
@@ -231,5 +238,13 @@ extern unsigned int g_pm_tick_cur;
 extern unsigned int g_pm_tick_32k_cur;
 extern unsigned char g_pm_long_suspend;
 extern unsigned int g_pm_multi_addr;
+
+extern unsigned int g_sleep_32k_rc_cnt;
+extern unsigned int g_sleep_stimer_tick;
+
+extern unsigned int ota_program_bootAddr;
+extern unsigned int ota_program_offset;
+
+#define PM_MIN_SLEEP_US 1500  // eagle
 
 #endif /* DRIVERS_B91_DRIVER_EXT_EXT_PM_H_ */

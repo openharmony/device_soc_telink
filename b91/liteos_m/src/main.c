@@ -118,7 +118,7 @@ VOID IoTWatchDogKick(VOID)
 STATIC VOID B91SystemInit(VOID)
 {
     OHOS_SystemInit();
-    LittlefsInit();
+    //LittlefsInit();
 }
 
 UINT32 LosAppInit(VOID)
@@ -164,7 +164,7 @@ VOID UsartInit(VOID)
     uart_set_pin(DEBUG_UART_PIN_TX, DEBUG_UART_PIN_RX);
     uart_reset(DEBUG_UART_PORT);
     uart_cal_div_and_bwpc(DEBUG_UART_BAUDRATE, sys_clk.pclk * HZ_IN_MHZ, &div, &bwpc);
-    telink_b91_uart_init(DEBUG_UART_PORT, div, bwpc, DEBUG_UART_PARITY, DEBUG_UART_STOP_BITS);
+    uart_init(DEBUG_UART_PORT, div, bwpc, DEBUG_UART_PARITY, DEBUG_UART_STOP_BITS);
     uart_rx_irq_trig_level(DEBUG_UART_PORT, 1);
 }
 
@@ -180,7 +180,9 @@ int _write(int handle, char *data, int size)
         case STDOUT_FILENO:
         case STDERR_FILENO: {
             uart_send(UART0, (unsigned char *)data, size);
-            while (uart_tx_is_busy(UART0)) {}
+            while (uart_tx_is_busy(UART0)) {
+                LOS_Msleep(1);
+            }
             ret = size;
             break;
         }

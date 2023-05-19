@@ -18,17 +18,25 @@
 #ifndef OTA_H_
 #define OTA_H_
 
+#include <types.h>
+
+/**
+ * @brief 	Legacy OTA command
+ */
 #define CMD_OTA_VERSION 0xFF00  // client -> server
 #define CMD_OTA_START   0xFF01  // client -> server
 #define CMD_OTA_END     0xFF02  // client -> server
 
+/**
+ * @brief 	Extended OTA command, optional
+ */
 #define CMD_OTA_START_EXT      0xFF03  // client -> server
-#define CMD_OTA_FW_VERSION_REQ 0xFF04
-#define CMD_OTA_FW_VERSION_RSP 0xFF05
+#define CMD_OTA_FW_VERSION_REQ 0xFF04  // client -> server
+#define CMD_OTA_FW_VERSION_RSP 0xFF05  // server -> client
 #define CMD_OTA_RESULT         0xFF06  // server -> client
 
 /**
- * @brief 	Multiple boot address enumarion
+ * @brief 	Multiple boot address enumeration
  */
 typedef enum {
     MULTI_BOOT_ADDR_0x20000 = 0x20000,  // 128 K
@@ -43,9 +51,11 @@ enum {
     // 0x00
     OTA_SUCCESS = 0,          // success
     OTA_DATA_PACKET_SEQ_ERR,  // OTA data packet sequence number error: repeated OTA PDU or lost some OTA PDU
-    OTA_PACKET_INVALID,  // invalid OTA packet: 1. invalid OTA command;
-                         // 2. addr_index out of range; 3.not standard OTA PDU length
-    OTA_DATA_CRC_ERR,  // packet PDU CRC err
+    OTA_PACKET_INVALID,       // invalid OTA packet:
+                              // 1. invalid OTA command
+                              // 2. addr_index out of range
+                              // 3.not standard OTA PDU length
+    OTA_DATA_CRC_ERR,         // packet PDU CRC err
 
     // 0x04
     OTA_WRITE_FLASH_ERR,  // write OTA data to flash ERR
@@ -114,8 +124,8 @@ typedef struct {
 typedef struct {
     u16 ota_cmd;
     u16 version_num;
-    u8 version_accept;  // 1: accept firmware update;
-                        // 0: reject firmware update(version compare enable, and compare result: fail)
+    u8 version_accept;  // 1: accept firmware update; 0: reject firmware update
+                        // (version compare enable, and compare result: fail)
 } ota_versionRsp_t;
 
 typedef struct {

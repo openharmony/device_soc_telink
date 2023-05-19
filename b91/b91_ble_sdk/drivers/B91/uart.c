@@ -21,8 +21,6 @@
  *                                			  local constants                                                       *
  *********************************************************************************************************************/
 
-#define UART_HW_FIFO_SIZE 8
-
 /**********************************************************************************************************************
  *                                           	local macro                                                        *
  *********************************************************************************************************************/
@@ -34,72 +32,66 @@
 /**********************************************************************************************************************
  *                                              global variable                                                       *
  *********************************************************************************************************************/
-dma_config_t uart_tx_dma_config[2] = {
-    {
-        .dst_req_sel = DMA_REQ_UART0_TX,  // tx req
-        .src_req_sel = 0,
-        .dst_addr_ctrl = DMA_ADDR_FIX,
-        .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
-        .dstmode = DMA_HANDSHAKE_MODE,        // handshake
-        .srcmode = DMA_NORMAL_MODE,
-        .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .src_burst_size = 0,             // must be 0
-        .read_num_en = 0,
-        .priority = 0,
-        .write_num_en = 0,
-        .auto_en = 0,  // must be 0
-    },
-    {
-        .dst_req_sel = DMA_REQ_UART1_TX,  // tx req
-        .src_req_sel = 0,
-        .dst_addr_ctrl = DMA_ADDR_FIX,
-        .src_addr_ctrl = DMA_ADDR_INCREMENT,  // increment
-        .dstmode = DMA_HANDSHAKE_MODE,        // handshake
-        .srcmode = DMA_NORMAL_MODE,
-        .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .src_burst_size = 0,             // must be 0
-        .read_num_en = 0,
-        .priority = 0,
-        .write_num_en = 0,
-        .auto_en = 0,  // must be 0
-    }
-};
-
-dma_config_t uart_rx_dma_config[2] = {
-    {
-        .dst_req_sel = 0,  // tx req
-        .src_req_sel = DMA_REQ_UART0_RX,
-        .dst_addr_ctrl = DMA_ADDR_INCREMENT,
-        .src_addr_ctrl = DMA_ADDR_FIX,
-        .dstmode = DMA_NORMAL_MODE,
-        .srcmode = DMA_HANDSHAKE_MODE,
-        .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .src_burst_size = 0,
-        .read_num_en = 0,
-        .priority = 0,
-        .write_num_en = 0,
-        .auto_en = 0,  // must be 0
-    },
-    {
-        .dst_req_sel = 0,  // tx req
-        .src_req_sel = DMA_REQ_UART1_RX,
-        .dst_addr_ctrl = DMA_ADDR_INCREMENT,
-        .src_addr_ctrl = DMA_ADDR_FIX,
-        .dstmode = DMA_NORMAL_MODE,
-        .srcmode = DMA_HANDSHAKE_MODE,
-        .dstwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .srcwidth = DMA_CTR_WORD_WIDTH,  // must be word
-        .src_burst_size = 0,
-        .read_num_en = 0,
-        .priority = 0,
-        .write_num_en = 0,
-        .auto_en = 0,  // must be 0
-    }
-};
-
+dma_config_t uart_tx_dma_config[2] = {{
+                                          .dst_req_sel = DMA_REQ_UART0_TX,    // tx req
+                                          .src_req_sel = 0,
+                                          .dst_addr_ctrl = DMA_ADDR_FIX,
+                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,    // increment
+                                          .dstmode = DMA_HANDSHAKE_MODE,          // handshake
+                                          .srcmode = DMA_NORMAL_MODE,
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,               // must be 0
+                                          .read_num_en = 0,
+                                          .priority = 0,
+                                          .write_num_en = 0,
+                                          .auto_en = 0,    // must be 0
+                                      },
+                                      {
+                                          .dst_req_sel = DMA_REQ_UART1_TX,    // tx req
+                                          .src_req_sel = 0,
+                                          .dst_addr_ctrl = DMA_ADDR_FIX,
+                                          .src_addr_ctrl = DMA_ADDR_INCREMENT,    // increment
+                                          .dstmode = DMA_HANDSHAKE_MODE,          // handshake
+                                          .srcmode = DMA_NORMAL_MODE,
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,               // must be 0
+                                          .read_num_en = 0,
+                                          .priority = 0,
+                                          .write_num_en = 0,
+                                          .auto_en = 0,    // must be 0
+                                      }};
+dma_config_t uart_rx_dma_config[2] = {{
+                                          .dst_req_sel = 0,    // tx req
+                                          .src_req_sel = DMA_REQ_UART0_RX,
+                                          .dst_addr_ctrl = DMA_ADDR_INCREMENT,
+                                          .src_addr_ctrl = DMA_ADDR_FIX,
+                                          .dstmode = DMA_NORMAL_MODE,
+                                          .srcmode = DMA_HANDSHAKE_MODE,
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,
+                                          .read_num_en = 0,
+                                          .priority = 0,
+                                          .write_num_en = 0,
+                                          .auto_en = 0,    // must be 0
+                                      },
+                                      {
+                                          .dst_req_sel = 0,    // tx req
+                                          .src_req_sel = DMA_REQ_UART1_RX,
+                                          .dst_addr_ctrl = DMA_ADDR_INCREMENT,
+                                          .src_addr_ctrl = DMA_ADDR_FIX,
+                                          .dstmode = DMA_NORMAL_MODE,
+                                          .srcmode = DMA_HANDSHAKE_MODE,
+                                          .dstwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .srcwidth = DMA_CTR_WORD_WIDTH,    // must be word
+                                          .src_burst_size = 0,
+                                          .read_num_en = 0,
+                                          .priority = 0,
+                                          .write_num_en = 0,
+                                          .auto_en = 0,    // must be 0
+                                      }};
 /**********************************************************************************************************************
  *                                              local variable                                                     *
  *********************************************************************************************************************/
@@ -153,8 +145,8 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin);
  *          	 	 	    19200		  249                 9
  *           	 	 	    115200         25    			 15
 */
-void telink_b91_uart_init(
-    uart_num_e uart_num, unsigned short div, unsigned char bwpc, uart_parity_e parity, uart_stop_bit_e stop_bit)
+void uart_init(uart_num_e uart_num, unsigned short div, unsigned char bwpc, uart_parity_e parity,
+               uart_stop_bit_e stop_bit)
 {
     reg_uart_ctrl0(uart_num) &= ~(FLD_UART_BPWC_O);
     reg_uart_ctrl0(uart_num) |= bwpc;                          // set bwpc
@@ -180,7 +172,7 @@ void telink_b91_uart_init(
 /***********************************************************
  * @brief  		This function serves to calculate the best bwpc(bit width) .i.e reg0x96.
  * @param[in]	baudrate - baut rate of UART.
- * @param[in]	sysclk   - system clock.
+ * @param[in]	pclk   - system clock.
  * @param[out]	div      - uart clock divider.
  * @param[out]	bwpc     - bitwidth, should be set to larger than 2.
  * @return 		none
@@ -188,7 +180,7 @@ void telink_b91_uart_init(
  *  		    simplify the expression: div*bwpc =  constant(z)
  * 		        bwpc range from 3 to 15.so loop and get the minimum one decimal point
  */
-void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int sysclk, unsigned short *div, unsigned char *bwpc)
+void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int pclk, unsigned short *div, unsigned char *bwpc)
 {
     unsigned char i = 0, j = 0;
     unsigned int primeInt = 0;
@@ -196,8 +188,8 @@ void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int sysclk, unsigned 
     unsigned int D_intdec[13], D_int[13];
     unsigned char D_dec[13];
 
-    primeInt = sysclk / baudrate;
-    primeDec = 10 * sysclk / baudrate - 10 * primeInt;
+    primeInt = pclk / baudrate;
+    primeDec = 10 * pclk / baudrate - 10 * primeInt;
 
     if (uart_is_prime(primeInt)) {  // primeInt is prime
         primeInt += 1;              // +1 must be not prime. and primeInt must be larger than 2.
@@ -248,7 +240,7 @@ void uart_cal_div_and_bwpc(unsigned int baudrate, unsigned int sysclk, unsigned 
 }
 
 /**
- * @brief  		This funtion serves to set r_rxtimeout. this setting is transfer one bytes need cycles base on uart_clk.
+ * @brief  		This funtion serves to set r_rxtimeout. This setting is transfer one bytes need cycles base on uart_clk
  * 				For example, if  transfer one bytes (1start bit+8bits data+1 priority bit+2stop bits) total 12 bits,
  * 				this register setting should be (bpwc+1)*12.
  * @param[in]	uart_num - UART0 or UART1.
@@ -273,7 +265,7 @@ unsigned char uart_tx_byte_index[2] = {0};
  */
 void uart_send_byte(uart_num_e uart_num, unsigned char tx_data)
 {
-    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE - sizeof(tx_data))) {
+    while (uart_get_txfifo_num(uart_num) > 7) {
     }
 
     reg_uart_data_buf(uart_num, uart_tx_byte_index[uart_num]) = tx_data;
@@ -316,7 +308,7 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
 {
     static unsigned char uart_tx_hword_index[2] = {0};
 
-    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE - sizeof(data))) {
+    while (uart_get_txfifo_num(uart_num) > 6) {
     }
 
     reg_uart_data_hword_buf(uart_num, uart_tx_hword_index[uart_num]) = data;
@@ -332,8 +324,9 @@ void uart_send_hword(uart_num_e uart_num, unsigned short data)
  */
 void uart_send_word(uart_num_e uart_num, unsigned int data)
 {
-    while (uart_get_txfifo_num(uart_num) > (UART_HW_FIFO_SIZE - sizeof(data))) {
+    while (uart_get_txfifo_num(uart_num) > 4) {
     }
+
     reg_uart_data_word_buf(uart_num) = data;
 }
 
@@ -487,10 +480,11 @@ unsigned char uart_send(uart_num_e uart_num, unsigned char *addr, unsigned char 
 }
 
 /**
- * @brief     	This function serves to send data by DMA, this function tell the DMA to get data from the RAM and start.
+ * @brief     	This function serves to send data by DMA, this function tell the DMA to get data from the RAM and start
  * @param[in]  	uart_num - UART0 or UART1.
  * @param[in] 	addr     - pointer to the buffer containing data need to send.
- * @param[in] 	len      - DMA transmission length.The maximum transmission length of DMA is 0xFFFFFC bytes, so dont'n over this length.
+ * @param[in] 	len      - DMA transmission length.The maximum transmission length of DMA is 0xFFFFFC bytes,
+ *                         so dont'n over this length.
  * @return      1  dma start send.
  *              0  the length is error.
  */
@@ -498,8 +492,8 @@ unsigned char uart_send_dma(uart_num_e uart_num, unsigned char *addr, unsigned i
 {
     if (len != 0) {
         uart_clr_tx_done(uart_num);
-        dma_set_address(
-            uart_dma_tx_chn[uart_num], (unsigned int)convert_ram_addr_cpu2bus(addr), reg_uart_data_buf_adr(uart_num));
+        dma_set_address(uart_dma_tx_chn[uart_num], (unsigned int)convert_ram_addr_cpu2bus(addr),
+                        reg_uart_data_buf_adr(uart_num));
         dma_set_size(uart_dma_tx_chn[uart_num], len, DMA_WORD_WIDTH);
         dma_chn_en(uart_dma_tx_chn[uart_num]);
         return 1;
@@ -509,32 +503,34 @@ unsigned char uart_send_dma(uart_num_e uart_num, unsigned char *addr, unsigned i
 }
 
 /**
- * @brief     	This function serves to receive data function by DMA, this  function tell the DMA to get data from
- *                  the uart data fifo.
+ * @brief     	This function serves to receive data function by DMA,
+ *              this  function tell the DMA to get data from the uart data fifo.
  * @param[in]  	uart_num - UART0 or UART1.
  * @param[in] 	addr     - pointer to the buffer  receive data.
  * @param[in]   rev_size - the receive length of DMA,The maximum transmission length of DMA is 0xFFFFFC bytes,
- *                  so dont'n over this length.
+ *                         so dont'n over this length.
  * @note        The DMA version of A0 has some limitians.
  *              0:We should know the real receive length-len.
- *              1:If the data length we receive isn't the multiple of 4(the DMA carry 4-byte one time),
- *                  like 5, it will carry 8 byte, while the last 3-byte data is random.
- *              2:The receive buff length sholud be equal to rec_size.The relation of the receive buff length and
- *                  rec_size and the real receive data length-len :
- *                  REC_BUFF_LEN=rec_size= ((len%4)==0 ? len : ((len/4)+1)*4).
+ *              1:If the data length we receive isn't the multiple of 4(the DMA carry 4-byte one time),like 5,
+ *              it will carry 8 byte, while the last 3-byte data is random.
+ *              2:The receive buff length sholud be equal to rec_size.
+ *              The relation of the receive buff length and rec_size and the real receive data length-len:
+ *              REC_BUFF_LEN=rec_size= ((len%4)==0 ? len : ((len/4)+1)*4).
  *              The DMA version of A1 can receive any length of data,the rev_size is useless.
  * @return    	none
  */
 void uart_receive_dma(uart_num_e uart_num, unsigned char *addr, unsigned int rev_size)
 {
     dma_chn_dis(uart_dma_rx_chn[uart_num]);
-    /* In order to be able to receive data of unknown length(A0 doesn't suppport),the DMA SIZE is set to the longest
-     * value 0xffffffff.After entering suspend and wake up, and then continue to receive,
-     * DMA will no longer move data from uart fifo, because DMA thinks that the last transmission was not completed
-     * and must disable dma_chn first.modified by minghai,confirmed qiangkai 2020.11.26. */
-    dma_set_address(
-        uart_dma_rx_chn[uart_num], reg_uart_data_buf_adr(uart_num), (unsigned int)convert_ram_addr_cpu2bus(addr));
-    if (0xff == g_chip_version) {
+    /* In order to be able to receive data of unknown length(A0 doesn't suppport),
+     * the DMA SIZE is set to the longest value 0xffffffff. After entering suspend and wake up,
+     * and then continue to receive, DMA will no longer move data from uart fifo,
+     * because DMA thinks that the last transmission was not completed and must disable dma_chn first.
+     * Modified by minghai,confirmed qiangkai 2020.11.26.
+     */
+    dma_set_address(uart_dma_rx_chn[uart_num], reg_uart_data_buf_adr(uart_num),
+                    (unsigned int)convert_ram_addr_cpu2bus(addr));
+    if (g_chip_version == 0xff) {
         dma_set_size(uart_dma_rx_chn[uart_num], rev_size, DMA_WORD_WIDTH);
     } else {
         reg_dma_size(uart_dma_rx_chn[uart_num]) = 0xffffffff;
@@ -667,6 +663,7 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
         val = 0;
     } else if (tx_pin == UART1_TX_PE0) {
         mask = (unsigned char)~(BIT(1) | BIT(0));
+        ;
         val = BIT(0);
     }
     reg_gpio_func_mux(tx_pin) = (reg_gpio_func_mux(tx_pin) & mask) | val;
@@ -692,7 +689,8 @@ static void uart_set_fuc_pin(uart_tx_pin_e tx_pin, uart_rx_pin_e rx_pin)
         mask = (unsigned char)~(BIT(5) | BIT(4));
         val = BIT(4);
     }
-    // note:  setting pad the function  must before  setting no_gpio function, cause it will lead to uart transmit extra one byte data at begin.(confirmed by minghai&sunpeng)
+    // note: setting pad the function must before setting no_gpio function,
+    // cause it will lead to uart transmit extra one byte data at begin.(confirmed by minghai&sunpeng)
     reg_gpio_func_mux(rx_pin) = (reg_gpio_func_mux(rx_pin) & mask) | val;
 
     gpio_function_dis(tx_pin);

@@ -18,8 +18,6 @@
 #ifndef BLT_SOFT_TIMER_H_
 #define BLT_SOFT_TIMER_H_
 
-#include "vendor/common/user_config.h"
-
 // user define
 #ifndef BLT_SOFTWARE_TIMER_ENABLE
 #define BLT_SOFTWARE_TIMER_ENABLE 0  // enable or disable

@@ -40,7 +40,7 @@ typedef enum {
     FLD_CRYPT_IRQ = BIT(7),
 } aes_irq_e;
 
-#define reg_aes_key(v) REG_ADDR32(0x1600b4 + ((v)*4))
+#define reg_aes_key(v) REG_ADDR32(0x1600b4 + ((v) * 4))
 
 #define reg_aes_ptr REG_ADDR32(0x1600c4)
 

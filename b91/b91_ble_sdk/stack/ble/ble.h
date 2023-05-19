@@ -19,6 +19,7 @@
 #define BLE_H_
 
 #include "ble_common.h"
+#include "ble_config.h"
 #include "ble_format.h"
 
 #include "controller/ble_controller.h"

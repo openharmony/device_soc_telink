@@ -18,7 +18,6 @@
 #ifndef BLE_COMMON_H
 #define BLE_COMMON_H
 
-#include "ble_config.h"
 #include "tl_common.h"
 
 typedef enum {
@@ -35,7 +34,7 @@ typedef enum {
     HCI_ERR_CONN_TIMEOUT = 0x08,
     HCI_ERR_CONN_LIMIT_EXCEEDED = 0x09,
     HCI_ERR_SYNCH_CONN_LIMIT_EXCEEDED = 0x0A,
-    HCI_ERR_ACL_CONN_ALREADY_EXISTS = 0x0B,
+    HCI_ERR_CONN_ALREADY_EXISTS = 0x0B,
     HCI_ERR_CMD_DISALLOWED = 0x0C,
     HCI_ERR_CONN_REJ_LIMITED_RESOURCES = 0x0D,
     HCI_ERR_CONN_REJECTED_SECURITY_REASONS = 0x0E,
@@ -94,6 +93,8 @@ typedef enum {
     HCI_ERR_LIMIT_REACHED = 0x43,
     HCI_ERR_OP_CANCELLED_BY_HOST = 0x44,
     HCI_ERR_PACKET_TOO_LONG = 0x45,
+    // DBG used only for CIS
+    HCI_ERR_CONN_TERM_CIS_MIC_FAILURE = 0xD3,
 
     ///////////////////////// TELINK define status /////////////////////////////
 
@@ -135,6 +136,7 @@ typedef enum {
     IAL_ERR_LOSS_SDU_INTRVEL,
     IAL_ERR_ISO_TX_FIFO_NOT_ENOUGH,
     IAL_ERR_SDU_BUFF_INVALID,
+    IAL_ERR_EVENT_PASSED,
 
     // Service status
     SERVICE_ERR_INVALID_PARAMETER = 0xD0,
@@ -147,6 +149,25 @@ typedef enum {
     LL_ACL_TX_BUF_PARAM_INVALID,
     LL_ACL_TX_BUF_SIZE_MUL_NUM_EXCEED_4K,
     LL_ACL_TX_BUF_SIZE_NOT_MEET_MAX_TX_OCT,
+
+    LL_CIS_RX_BUF_NO_INIT,
+    LL_CIS_RX_BUF_PARAM_INVALID,
+    LL_CIS_TX_BUF_NO_INIT,
+    LL_CIS_TX_BUF_PARAM_INVALID,
+    LL_CIS_RX_EVT_BUF_NO_INIT,
+    LL_CIS_RX_EVT_BUF_PARAM_INVALID,
+
+    LL_BIS_TX_BUF_NO_INIT,
+    LL_BIS_TX_BUF_PARAM_INVALID,
+    LL_BIS_RX_BUF_NO_INIT,
+    LL_BIS_RX_BUF_PARAM_INVALID,
+    LL_BIS_RX_PDU_INVALID,
+    LL_BIS_RX_PDU_EMPTY,
+    LL_BIS_RX_EVT_BUF_NO_INIT,
+    LL_BIS_RX_EVT_BUF_PARAM_INVALID,
+
+    HCI_ACL_DATA_BUF_PARAM_INVALID,
+    HCI_ACL_DATA_BUF_SIZE_NOT_MEET_MAX_TX_OCT,
 } ble_sts_t;
 
 /////////////////////////////// BLE  MAC ADDRESS //////////////////////////////////////////////
@@ -158,14 +179,14 @@ typedef enum {
 // Definition for BLE Common Address Type
 /*
  *
- *				  |--public  ..................................................... BLE_DEVICE_ADDRESS_PUBLIC
+ *				  |--public  .................................................BLE_DEVICE_ADDRESS_PUBLIC
  *                |
- * Address Type --|		      |-- random static  ................................. BLE_DEVICE_ADDRESS_RANDOM_STATIC
+ * Address Type --|		      |-- random static  .............................BLE_DEVICE_ADDRESS_RANDOM_STATIC
  *           	  |           |
  *    			  |--random --|
- * 			   				  |				       |-- non_resolvable private  ... BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE
+ * 			   				  |				       |--non_resolvable private..BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE
  * 			 				  |-- random private --|
- *           					                   |-- resolvable private  ....... BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE
+ *           					                   |--resolvable private......BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE
  *
  */
 
@@ -174,19 +195,18 @@ typedef enum {
 #define BLE_DEVICE_ADDRESS_NON_RESOLVABLE_PRIVATE 3
 #define BLE_DEVICE_ADDRESS_RESOLVABLE_PRIVATE     4
 
-#define IS_PUBLIC_ADDR(Type, Addr)  					((Type) == BLE_ADDR_PUBLIC)
-#define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0xC0)
-#define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0x00)
-#define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && ((Addr)[5] & 0xC0) == 0x40)
+#define IS_PUBLIC_ADDR(Type, Addr)  					((Type)==BLE_ADDR_PUBLIC)
+#define IS_RANDOM_STATIC_ADDR(Type, Addr)          ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0xC0)
+#define IS_NON_RESOLVABLE_PRIVATE_ADDR(Type, Addr) ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x00)
+#define IS_RESOLVABLE_PRIVATE_ADDR(Type, Addr)     ((Type) == BLE_ADDR_RANDOM && (Addr[5] & 0xC0) == 0x40)
 
 #define MAC_MATCH8(md, ms)                                                                                            \
-    ((md)[0] == (ms)[0] && (md)[1] == (ms)[1] && (md)[2] == (ms)[2] && (md)[3] == (ms)[3] && (md)[4] == (ms)[4] && (md)[5] == (ms)[5])
-#define MAC_MATCH16(md, ms) ((md)[0] == (ms)[0] && (md)[1] == (ms)[1] && (md)[2] == (ms)[2])
-#define MAC_MATCH32(md, ms) ((md)[0] == (ms)[0] && (md)[1] == (ms)[1])
+    (md[0] == ms[0] && md[1] == ms[1] && md[2] == ms[2] && md[3] == ms[3] && md[4] == ms[4] && md[5] == ms[5])
+#define MAC_MATCH16(md, ms) (md[0] == ms[0] && md[1] == ms[1] && md[2] == ms[2])
+#define MAC_MATCH32(md, ms) (md[0] == ms[0] && md[1] == ms[1])
 /////////////////////////////////////////////////////////////////////////////
 
 /******************************************** ATT ***************************************************************/
-
 /**
  *  @brief  Definition for Attribute protocol PDUs
  */
@@ -231,128 +251,65 @@ typedef enum {
     ATT_OP_SIGNED_WRITE_CMD = 0xD2,
 } att_pdu_type;
 
-/******************************************** L2CAP ***************************************************************/
-
-/**
- *  @brief  Definition for L2CAP CID name space for the LE-U
- */
-typedef enum {
-    L2CAP_CID_NULL = 0x0000,
-    L2CAP_CID_ATTR_PROTOCOL = 0x0004,
-    L2CAP_CID_SIG_CHANNEL = 0x0005,
-    L2CAP_CID_SMP = 0x0006,
-} l2cap_cid_type;
-
-/**
- *  @brief  Definition for L2CAP signal packet formats
- */
-typedef enum {
-    L2CAP_COMMAND_REJECT_RSP = 0x01,
-    L2CAP_CONNECTION_REQ = 0x02,
-    L2CAP_CONNECTION_RSP = 0x03,
-    L2CAP_CONFIGURATION_REQ = 0x04,
-    L2CAP_CONFIGURATION_RSP = 0x05,
-    L2CAP_DISCONNECTION_REQ = 0x06,
-    L2CAP_DISCONNECTION_RSP = 0x07,
-    L2CAP_ECHO_REQ = 0x08,
-    L2CAP_ECHO_RSP = 0x09,
-    L2CAP_INFORMATION_REQ = 0x0A,
-    L2CAP_INFORMATION_RSP = 0x0B,
-    L2CAP_CREATE_CHANNEL_REQ = 0x0C,
-    L2CAP_CREATE_CHANNEL_RSP = 0x0D,
-    L2CAP_MOVE_CHANNEL_REQ = 0x0E,
-    L2CAP_MOVE_CHANNEL_RSP = 0x0F,
-    L2CAP_MOVE_CHANNEL_CONFIRMATION_REQ = 0x10,
-    L2CAP_MOVE_CHANNEL_CONFIRMATION_RSP = 0x11,
-    L2CAP_CONNECTION_PARAMETER_UPDATE_REQ = 0x12,
-    L2CAP_CMD_CONN_UPD_PARA_REQ = 0x12,
-    L2CAP_CONNECTION_PARAMETER_UPDATE_RSP = 0x13,
-    L2CAP_CMD_CONN_UPD_PARA_RESP = 0x13,
-    L2CAP_LE_CREDIT_BASED_CONNECTION_REQ = 0x14,
-    L2CAP_LE_CREDIT_BASED_CONNECTION_RSP = 0x15,
-    L2CAP_FLOW_CONTROL_CREDIT_IND = 0x16,
-    L2CAP_CREDIT_BASED_CONNECTION_REQ = 0x17,   // core_5.2
-    L2CAP_CREDIT_BASED_CONNECTION_RSP = 0x18,   // core_5.2
-    L2CAP_CREDIT_BASED_RECONFIGURE_REQ = 0x19,  // core_5.2
-    L2CAP_CREDIT_BASED_RECONFIGURE_RSP = 0x1A,  // core_5.2
-} l2cap_sig_pkt_format;
-
-/******************************************** LINKLAYER ***************************************************************/
-
-/**
- *  @brief  Definition for LL Control PDU Opcode
- */ // rf_len without MIC
-#define LL_CONNECTION_UPDATE_REQ 0x00  // 12
-#define LL_CHANNEL_MAP_REQ       0x01  // 8
-#define LL_TERMINATE_IND         0x02  // 2
-
-#define LL_ENC_REQ       0x03  // encryption			// 23
-#define LL_ENC_RSP       0x04  // encryption			// 13
-#define LL_START_ENC_REQ 0x05  // encryption			//	1
-#define LL_START_ENC_RSP 0x06  // encryption			//	1
-
-#define LL_UNKNOWN_RSP 0x07  //	2
-#define LL_FEATURE_REQ 0x08  //	9
-#define LL_FEATURE_RSP 0x09  //	9
-
-#define LL_PAUSE_ENC_REQ 0x0A  // encryption			//	1
-#define LL_PAUSE_ENC_RSP 0x0B  // encryption			//	1
-
-#define LL_VERSION_IND          0x0C  //	6
-#define LL_REJECT_IND           0x0D  //	2
-#define LL_SLAVE_FEATURE_REQ    0x0E  // core_4.1				//	9
-#define LL_CONNECTION_PARAM_REQ 0x0F  // core_4.1				// 24
-#define LL_CONNECTION_PARAM_RSP 0x10  // core_4.1				// 24
-#define LL_REJECT_IND_EXT       0x11  // core_4.1				//	3
-#define LL_PING_REQ             0x12  // core_4.1				//	1
-#define LL_PING_RSP             0x13  // core_4.1				//	1
-#define LL_LENGTH_REQ           0x14  // core_4.2				//	9
-#define LL_LENGTH_RSP           0x15  // core_4.2				//	9
-#define LL_PHY_REQ              0x16  // core_5.0				//	3
-#define LL_PHY_RSP              0x17  // core_5.0				//	3
-#define LL_PHY_UPDATE_IND       0x18  // core_5.0				//	5
-#define LL_MIN_USED_CHN_IND     0x19  // core_5.0				//	3
-
-#define LL_CTE_REQ            0x1A  // core_5.1				//	2
-#define LL_CTE_RSP            0x1B  // core_5.1				//	2
-#define LL_PERIODIC_SYNC_IND  0x1C  // core_5.1				// 35
-#define LL_CLOCK_ACCURACY_REQ 0x1D  // core_5.1				//	2
-#define LL_CLOCK_ACCURACY_RSP 0x1E  // core_5.1				//	2
-
-#define LL_CIS_REQ           0x1F  // core_5.2				//	36
-#define LL_CIS_RSP           0x20  // core_5.2				//	9
-#define LL_CIS_IND           0x21  // core_5.2				//  16
-#define LL_CIS_TERMINATE_IND 0x22  // core_5.2				//	4
-#define LL_POWER_CONTROL_REQ 0x23  // core_5.2				//	4
-#define LL_POWER_CONTROL_RSP 0x24  // core_5.2				//	5
-#define LL_POWER_CHANGE_IND  0x25  // core_5.2				//	5
-
 /******************************************** GAP ***************************************************************/
 
 // https://www.bluetooth.com/specifications/assigned-numbers/generic-access-profile/
 // EIR Data Type, Advertising Data Type (AD Type) and OOB Data Type Definitions
 
 typedef enum {
-    DT_FLAGS = 0x01,                              // Flag
-    DT_INCOMPLT_LIST_16BIT_SERVICE_UUID = 0x02,   // Incomplete List of 16-bit Service Class UUIDs
-    DT_COMPLETE_LIST_16BIT_SERVICE_UUID = 0x03,   // Complete List of 16-bit Service Class UUIDs
-    DT_INCOMPLT_LIST_32BIT_SERVICE_UUID = 0x04,   // Incomplete List of 32-bit Service Class UUIDs
-    DT_COMPLETE_LIST_32BIT_SERVICE_UUID = 0x05,   // Complete List of 32-bit Service Class UUIDs
-    DT_INCOMPLT_LIST_128BIT_SERVICE_UUID = 0x06,  // Incomplete List of 128-bit Service Class UUIDs
-    DT_COMPLETE_LIST_128BIT_SERVICE_UUID = 0x07,  // Complete List of 128-bit Service Class UUIDs
-    DT_SHORTENED_LOCAL_NAME = 0x08,               // Shortened Local Name
-    DT_COMPLETE_LOCAL_NAME = 0x09,                // Complete Local Name
-    DT_TX_POWER_LEVEL = 0x0A,                     // Tx Power Level
+    DT_FLAGS = 0x01,                              //	Flag
+    DT_INCOMPLT_LIST_16BIT_SERVICE_UUID = 0x02,   //	Incomplete List of 16-bit Service Class UUIDs
+    DT_COMPLETE_LIST_16BIT_SERVICE_UUID = 0x03,   //	Complete List of 16-bit Service Class UUIDs
+    DT_INCOMPLT_LIST_32BIT_SERVICE_UUID = 0x04,   //	Incomplete List of 32-bit Service Class UUIDs
+    DT_COMPLETE_LIST_32BIT_SERVICE_UUID = 0x05,   //	Complete List of 32-bit Service Class UUIDs
+    DT_INCOMPLT_LIST_128BIT_SERVICE_UUID = 0x06,  //	Incomplete List of 128-bit Service Class UUIDs
+    DT_COMPLETE_LIST_128BIT_SERVICE_UUID = 0x07,  //	Complete List of 128-bit Service Class UUIDs
+    DT_SHORTENED_LOCAL_NAME = 0x08,               //	Shortened Local Name
+    DT_COMPLETE_LOCAL_NAME = 0x09,                //	Complete Local Name
+    DT_TX_POWER_LEVEL = 0x0A,                     //	Tx Power Level
 
-    DT_CLASS_OF_DEVICE = 0x0D,  // Class of Device
+    DT_CLASS_OF_DEVICE = 0x0D,  //	Class of Device
 
-    DT_APPEARANCE = 0x19,  // Appearance
+    DT_APPEARANCE = 0x19,  //	Appearance
 
+    DT_CHM_UPT_IND = 0x28,          //	Channel Map Update Indication
     DT_BIGINFO = 0x2C,              //	BIGInfo
     DT_BROADCAST_CODE = 0x2D,       // 	Broadcast_Code
     DT_3D_INFORMATION_DATA = 0x3D,  //	3D Information Data
 
-    DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF,  // Manufacturer Specific Data
+    DATA_TYPE_MANUFACTURER_SPECIFIC_DATA = 0xFF,  //	Manufacturer Specific Data
 } data_type_t;
+
+/**
+ * @brief	HCI ACL DATA buffer length = LE_ACL_Data_Packet_Length + 4, pkt_len is integer multiple of 4,
+ *          so result is 4 Byte align
+ *			4 = 2(connHandle) + 1(PBFlag) + 1(length)
+ */
+#define CALCULATE_HCI_ACL_DATA_FIFO_SIZE(pkt_len) ((pkt_len) + 4)
+
+/**
+ * @brief	6 = header(2)+l2cap_len(2)+CID(2)
+ */
+#define CAL_MTU_BUFF_SIZE(n) ((((n) + 6) + 3) / 4 * 4)
+
+/**
+ * @brief	12 = type(1) + len(1) + l2cap_len(2) + cid(2) + sud_len(2) + mic(4)
+ */
+#define L2CAP_ALLIGN4_KFRAM_DMA_BUFF(n) ((((n) + 12) + 3) / 4 * 4)
+
+// 7 = rf_packet_ll_data_t
+#define CIS_PDU_ALLIGN4_TXBUFF(n)                                                                                     \
+    DATA_LENGTH_ALLIGN4((CAL_LL_ISO_TX_FIFO_SIZE(n) + DATA_LENGTH_ALLIGN4(CIS_TX_PDU_BUFFER_LENGTH - 7)))
+
+#define CIS_PDU_ALLIGN4_RXBUFF(n) DATA_LENGTH_ALLIGN4(CAL_LL_ISO_RX_FIFO_SIZE(n))
+
+#define BIS_PDU_ALLIGN4_TXBUFF(n)                                                                                     \
+    DATA_LENGTH_ALLIGN4((CAL_LL_ISO_TX_FIFO_SIZE(n) + DATA_LENGTH_ALLIGN4(BIS_TX_PDU_BUFFER_LENGTH - 7)))
+
+#define BIS_PDU_ALLIGN4_RXBUFF(n) DATA_LENGTH_ALLIGN4(BIS_LL_RX_PDU_FIFO_SIZE(n))
+
+#define IAL_SDU_ALLIGN4_BUFF(n) ((((n) + 16) + 3) / 4 * 4)
+
+#define HCI_ISO_ALLIGN4_BUFF(n) ((((n) + 4) + 3) / 4 * 4)  // DMA len 4
 
 #endif

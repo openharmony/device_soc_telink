@@ -15,13 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-/*
- * blt_led.h
- *
- *  Created on: 2016-1-29
- *      Author: Administrator
- */
-
 #ifndef BLT_LED_H_
 #define BLT_LED_H_
 
@@ -31,7 +24,6 @@
 #define BLT_APP_LED_ENABLE 0
 #endif
 
-// led management
 /**
  * @brief	Configure the parameters for led event
  */

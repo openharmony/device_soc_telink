@@ -15,19 +15,30 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H
-#define B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H
+#pragma once
 
-#if (__PROJECT_B91_BLE_SAMPLE__)
-#include "../B91_ble_sample/app_config.h"
-#elif (__PROJECT_B91_MODULE__)
-#include "../B91_module/app_config.h"
-#elif (__PROJECT_B91_FEATURE_TEST__)
+#if (__PROJECT_B91_DEMO)
+#include <vendor/B91_demo/app_config.h>
+#elif (__PROJECT_B91_MASTER_DONGLE__)
+#include "../B91_master_dongle/app_config.h"
+#elif (__PROJECT_B91_FEATURE__)
 #include "../B91_feature/app_config.h"
-#elif (__PROJECT_B91_EXTERNAL)
-#include <app_config.h>
+#elif (__PROJECT_B91_INTERNAL_TEST__)
+#include "../B91_internal_test/app_config.h"
+#elif (__PROJECT_B91_CIS_MASTER__)
+#include "../vendor/audio_cis_mst/app_config.h"
+#elif (__PROJECT_B91_CIS_SLAVE__)
+#include "../vendor/audio_cis_slv/app_config.h"
+#elif (__PROJECT_B91_AUDIO_BIS_BCST__)
+#include "../vendor/audio_bis_bcst/app_config.h"
+#elif (__PROJECT_B91_AUDIO_BIS_SYNC__)
+#include "../vendor/audio_bis_sync/app_config.h"
+#elif (__PROJECT_B91_HCI__)
+#include "../B91_controller/app_config.h"
+#elif (__PROJECT_B91_SLAVE)
+#include "../B91_slave/app_config.h"
+#elif (__PROJECT_LITEOS_DEMO)
+#include "../LiteOS_demo/app_config.h"
 #else
-
+#include "../common/default_config.h"
 #endif
-
-#endif  // B91_B91_BLE_SDK_VENDOR_COMMON_USER_CONFIG_H

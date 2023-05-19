@@ -15,14 +15,27 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#if 1
 #include "blt_common.h"
 #include "drivers.h"
 #include "stack/ble/ble.h"
 #include "tl_common.h"
 
-_attribute_data_retention_ u32 flash_sector_mac_address = CFG_ADR_MAC_1M_FLASH;          // default flash is 1M
-_attribute_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M_FLASH;  // default flash is 1M
+const u8 vendor_OtaUUID[16] = WRAPPING_BRACES(TELINK_SPP_DATA_OTA);
+
+#if (MCU_CORE_TYPE == MCU_CORE_9518)
+/* default flash is 1M
+	 * for 1M Flash, flash_sector_mac_address equals to 0xFF000
+	 * for 2M Flash, flash_sector_mac_address equals to 0x1FF000 */
+_attribute_ble_data_retention_ u32 flash_sector_mac_address = CFG_ADR_MAC_1M_FLASH;
+_attribute_ble_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_1M_FLASH;
+#else
+/* default flash is 512K
+	 * for 512K Flash, flash_sector_mac_address equals to 0x76000
+	 * for 1M Flash, flash_sector_mac_address equals to 0xFF000
+	 * for 2M Flash, flash_sector_mac_address equals to 0x1FF000 */
+_attribute_ble_data_retention_ u32 flash_sector_mac_address = CFG_ADR_MAC_512K_FLASH;
+_attribute_ble_data_retention_ u32 flash_sector_calibration = CFG_ADR_CALIBRATION_512K_FLASH;
+#endif
 
 /**
  * @brief		This function can automatically recognize the flash size,
@@ -37,17 +50,17 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
     flash_read_mid(temp_buf);
     u8 flash_cap = temp_buf[2];
 
-    if (flash_cap == FLASH_SIZE_512K) {
+    if (flash_cap == FLASH_CAPACITY_512K) {
         flash_sector_mac_address = CFG_ADR_MAC_512K_FLASH;
         flash_sector_calibration = CFG_ADR_CALIBRATION_512K_FLASH;
-    } else if (flash_cap == FLASH_SIZE_1M) {
+    } else if (flash_cap == FLASH_CAPACITY_1M) {
         flash_sector_mac_address = CFG_ADR_MAC_1M_FLASH;
         flash_sector_calibration = CFG_ADR_CALIBRATION_1M_FLASH;
-    } else if (flash_cap == FLASH_SIZE_2M) {
+    } else if (flash_cap == FLASH_CAPACITY_2M) {
         flash_sector_mac_address = CFG_ADR_MAC_2M_FLASH;
         flash_sector_calibration = CFG_ADR_CALIBRATION_2M_FLASH;
     } else {
-        // This SDK do not support flash size other than 1M/2M
+        // This SDK do not support flash size other than 512K/1M/2M
         // If code stop here, please check your Flash
         while (1) {
         }
@@ -73,7 +86,7 @@ _attribute_no_inline_ void blc_readFlashSize_autoConfigCustomFlashSector(void)
  * @param[in]	mac_random_static - random static MAC address
  * @return      none
  */
-void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
+_attribute_no_inline_ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
 {
     if (flash_sector_mac_address == 0) {
         return;
@@ -92,9 +105,9 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
         mac_public[0] = value_rand[0];
         mac_public[1] = value_rand[1];
         mac_public[2] = value_rand[2];
-        mac_public[3] = 0xD1;  // company id: 0xC119D1
-        mac_public[4] = 0x19;
-        mac_public[5] = 0xC4;
+        mac_public[3] = 0x38;  // company id: 0xA4C138
+        mac_public[4] = 0xC1;
+        mac_public[5] = 0xA4;
 
         flash_write_page(flash_addr, 6, mac_public);
     }
@@ -104,7 +117,7 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
     mac_random_static[2] = mac_public[2];
     mac_random_static[5] = 0xC0;  // for random static
 
-    u16 high_2_byte = (mac_read[6] | mac_read[7] << 8);
+    u16 high_2_byte = (mac_read[6] | (mac_read[7] << 8));
     if (high_2_byte != 0xFFFF) {
         memcpy((u8 *)(mac_random_static + 3), (u8 *)(mac_read + 6), 2);
     } else {
@@ -114,4 +127,3 @@ void blc_initMacAddress(int flash_addr, u8 *mac_public, u8 *mac_random_static)
         flash_write_page(flash_addr + 6, 2, (u8 *)(mac_random_static + 3));
     }
 }
-#endif

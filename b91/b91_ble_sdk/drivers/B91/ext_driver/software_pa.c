@@ -19,7 +19,7 @@
 #include "../gpio.h"
 #include "compiler.h"
 
-_attribute_data_retention_ rf_pa_callback_t blc_rf_pa_cb = 0;
+_attribute_data_retention_sec_ rf_pa_callback_t blc_rf_pa_cb = 0;
 
 _attribute_ram_code_ void app_rf_pa_handler(int type)
 {
@@ -56,9 +56,4 @@ void rf_pa_init(void)
 
     blc_rf_pa_cb = app_rf_pa_handler;
 #endif
-}
-
-void set_blc_rf_pa_cb(rf_pa_callback_t cb)
-{
-    blc_rf_pa_cb = cb;
 }

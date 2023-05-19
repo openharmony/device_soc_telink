@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef SOC_H
-#define SOC_H
+#pragma once
 
 #include "../sys.h"
 
@@ -167,5 +166,3 @@ typedef enum {
     FLD_WKUP_MDEC = BIT(4),
     FLD_MDEC_RSVD = BIT_RNG(5, 7),
 } wakeup_status_e;
-
-#endif // SOC_H

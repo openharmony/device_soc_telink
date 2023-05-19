@@ -22,7 +22,7 @@
 #define REG_AUDIO_AHB_BASE  0x120000
 #define REG_CODEC_BASE_ADDR 0x120200
 #define REG_AUDIO_APB_BASE  0x140500
-#define reg_fifo_buf_adr(i) (REG_AUDIO_AHB_BASE + (i)*0x40)
+#define reg_fifo_buf_adr(i) REG_AUDIO_AHB_BASE + (i)*0x40
 #define reg_audio_en        REG_ADDR8(REG_AUDIO_APB_BASE + 0x00)
 enum {
     FLD_AUDIO_I2S_CLK_EN = BIT(0),

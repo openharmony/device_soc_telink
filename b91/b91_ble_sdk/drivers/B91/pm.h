@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_PM_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_PM_H
+#pragma once
 
 #include "clock.h"
 #include "compiler.h"
@@ -31,8 +30,11 @@
  * 				This is currently included in the H file for compatibility with other SDKs.
  *******************************************************************************************************/
 
-// When the watchdog comes back, the Eagle chip does not clear 0x7f[0].
-// To avoid this problem, this macro definition is added.
+/**
+ * When the watchdog comes back, the Eagle chip does not clear 0x7f[0].
+ * To avoid this problem, this macro definition is added.
+*/
+
 #ifndef WDT_REBOOT_RESET_ANA7F_WORK_AROUND
 #define WDT_REBOOT_RESET_ANA7F_WORK_AROUND 1
 #endif
@@ -56,7 +58,7 @@
  * 	      Reset these analog registers only by power cycle
  */
 #define PM_ANA_REG_POWER_ON_CLR_BUF0                                                                                  \
-    0x39  // initial value 0x00. [Bit0][Bit1] is already occupied. The customer cannot change!
+    0x39  // initial value 0x00. [Bit0] is already occupied. The customer cannot change!
 #define PM_ANA_REG_POWER_ON_CLR_BUF1 0x3a  // initial value 0x00
 #define PM_ANA_REG_POWER_ON_CLR_BUF2 0x3b  // initial value 0x00
 #define PM_ANA_REG_POWER_ON_CLR_BUF3 0x3c  // initial value 0x00
@@ -131,13 +133,10 @@ typedef enum {
 
 /**
  * @brief	mcu status
- * 			In order to fix the problem that reboot returns to occasional crash when hclk = 1/2cclk, after each reboot,
- * 			it will immediately enter deep. Therefore, the user will not see the reboot status. Increase the REBOOT_DEEP
- * 			state to indicate this process.(add by weihua.zhang, confirmed by libiao and yangbin 20201211)
  */
 typedef enum {
     MCU_STATUS_POWER_ON = BIT(0),
-    MCU_STATUS_REBOOT_BACK = BIT(2),  // the user will not see the reboot status.
+    MCU_STATUS_REBOOT_BACK = BIT(2),
     MCU_STATUS_DEEPRET_BACK = BIT(3),
     MCU_STATUS_DEEP_BACK = BIT(4),
     MCU_STATUS_REBOOT_DEEP_BACK = BIT(5),  // reboot + deep
@@ -147,22 +146,21 @@ typedef enum {
  * @brief	early wakeup time
  */
 typedef struct {
-    /** suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time */
     unsigned short suspend_early_wakeup_time_us;
-    /** deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time */
-    unsigned short deep_ret_early_wakeup_time_us;
-    unsigned short deep_early_wakeup_time_us; /**< deep_early_wakeup_time_us = suspend_ret_r_delay_us */
-    unsigned short sleep_min_time_us;         /**< sleep_min_time_us = suspend_early_wakeup_time_us + 200 */
+    /** < suspend_early_wakeup_time_us = deep_ret_r_delay_us + xtal_stable_time + early_time */
+    unsigned short
+        deep_ret_early_wakeup_time_us;        /** < deep_ret_early_wakeup_time_us = deep_ret_r_delay_us + early_time */
+    unsigned short deep_early_wakeup_time_us; /** < deep_early_wakeup_time_us = suspend_ret_r_delay_us */
+    unsigned short sleep_min_time_us;         /** < sleep_min_time_us = suspend_early_wakeup_time_us + 200 */
 } pm_early_wakeup_time_us_s;
 
 /**
  * @brief	hardware delay time
  */
 typedef struct {
-    /** hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
-    unsigned short deep_r_delay_cycle;
-    /** hardware delay time ,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
-    unsigned short suspend_ret_r_delay_cycle;
+    unsigned short deep_r_delay_cycle; /* hardware delay time ,deep_ret_r_delay_us = deep_r_delay_cycle * 1/16k */
+    unsigned short
+        suspend_ret_r_delay_cycle; /* hardware delay time,suspend_ret_r_delay_us = suspend_ret_r_delay_cycle * 1/16k */
 } pm_r_delay_cycle_s;
 
 /**
@@ -170,8 +168,8 @@ typedef struct {
  */
 typedef struct {
     unsigned char is_pad_wakeup;
-    // The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0.
     unsigned char wakeup_src;
+    /* The pad pin occasionally wakes up abnormally in A0. The core wakeup flag will be incorrectly set in A0 */
     unsigned char mcu_status;
     unsigned char rsvd;
 } pm_status_info_s;
@@ -184,13 +182,14 @@ typedef struct pm_clock_drift {
     unsigned int ref_tick_32k;
     int offset;
     int offset_dc;
-    int offset_cur;
+    unsigned int offset_cal_tick;
     int tc;
     int rc32;
     int rc32_wakeup;
     int rc32_rt;
     int s0;
     unsigned char calib;
+    unsigned char ref_no;
 } pm_clock_drift_t;
 
 extern pm_clock_drift_t pmcd;
@@ -266,7 +265,8 @@ _attribute_ram_code_sec_noinline_ void pm_wait_bbpll_done(void);
 _attribute_ram_code_sec_noinline_ void pm_stimer_recover(void);
 
 /**
- * @brief		This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief		This function serves to set the working mode of MCU based on 32k crystal,
+ *              e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]	sleep_mode 			- sleep mode type select.
  * @param[in]	wakeup_src 			- wake up source select.
  * 		A0	   	note: The reference current values under different configurations are as followsUnit (uA):
@@ -275,7 +275,8 @@ _attribute_ram_code_sec_noinline_ void pm_stimer_recover(void);
  * 	deep ret 32k	|	1.8		|	2.4		|	2.8			|	2.6		|	2.8		|
  * 	deep ret 64k	|	2.7		|	3.2		|	3.7			|	3.4		|	3.7		|
  * 				A0 chip, the retention current will float up.
- * @param[in]	wakeup_tick_type	- tick type select. For long timer sleep.currently only 16M is supported(PM_TICK_STIMER_16M).
+ * @param[in]	wakeup_tick_type	- tick type select.
+ *                                    For long timer sleep.currently only 16M is supported(PM_TICK_STIMER_16M).
  * @param[in]	wakeup_tick			- the time of short sleep, which means MCU can sleep for less than 5 minutes.
  * @return		indicate whether the cpu is wake up successful.
  */
@@ -290,10 +291,11 @@ _attribute_ram_code_sec_noinline_ int pm_sleep_wakeup(pm_sleep_mode_e sleep_mode
  */
 _attribute_ram_code_sec_noinline_ void pm_cal_32k_rc_offset(int offset_tick);
 
+void pm_ble_32k_rc_cal_reset(void);
+void pm_ble_cal_32k_rc_offset(int, int);
+
 /**
  * @brief		When 32k rc sleeps, the calibration function is initialized.
  * @return		none.
  */
 _attribute_ram_code_sec_noinline_ void pm_32k_rc_offset_init(void);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_PM_H

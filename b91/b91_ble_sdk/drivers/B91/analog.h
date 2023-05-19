@@ -26,8 +26,7 @@
  *	===============
  *	Header File: analog.h
  */
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_ANALOG_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_ANALOG_H
+#pragma once
 
 #include "compiler.h"
 #include "dma.h"
@@ -176,5 +175,3 @@ void analog_read_buff_dma(dma_chn_e chn, unsigned char addr, unsigned char *pdat
  * @return     none.
  */
 void analog_write_addr_data_dma(dma_chn_e chn, void *pdat, int len);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_ANALOG_H

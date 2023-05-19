@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef MDEC_REG_H
-#define MDEC_REG_H
+#pragma once
 
 #include "../sys.h"
 
@@ -35,5 +34,3 @@ typedef enum {
 } mdec_set_e;
 
 #define mdec_ctrl 0x54
-
-#endif  // MDEC_REG_H

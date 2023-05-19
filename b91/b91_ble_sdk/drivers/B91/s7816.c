@@ -24,13 +24,15 @@ volatile unsigned int s7816_vcc_pin;
 volatile unsigned int s7816_rtx_pin;
 volatile unsigned char s7816_clock;
 volatile int s7816_rst_time;  // us
+volatile int s7816_atr_time;  // us
 /**
  * @brief      	This function is used to set the s7816 clock.
  * @param[in]  	div	- set the divider of clock of 7816 module.
  * @return     	none.
- * @note        the clk-source of s7816 is 24M-pad,the clk of clk-pin can be divided as follow.
- * 				div:        0x60-4Mhz     0x40-6Mhz   0x20-12Mhz
+ * @note        system clk is 24MHZ
+ * 				7816clk:    0x60-4Mhz     0x40-6Mhz   0x20-12Mhz
  * 				baudrate:   0x60-10752    0x40-16194  0x20-32388
+ * 				the clk-pin is PA0 by default.
  */
 void s7816_set_clk(unsigned char div)
 {
@@ -41,11 +43,13 @@ void s7816_set_clk(unsigned char div)
 /**
  * @brief      	This function is used to set the rst-wait time of the s7816 module.
  * @param[in]  	rst_time_us - set the s7816_rst_time.
+ * @param[in]  	atr_time_us - set the s7816_atr_time.
  * @return     	none.
  */
-void s7816_set_time(int rst_time_us)
+void s7816_set_time(int rst_time_us, int atr_time_us)
 {
     s7816_rst_time = rst_time_us;
+    s7816_atr_time = atr_time_us;
 }
 /**
  * @brief      	This function is used to set the RST pin of s7816.
@@ -89,6 +93,7 @@ void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d)
     unsigned char bwpc;
     s7816_clock = clock;
     s7816_rst_time = 40000 / clock;  // us
+    s7816_atr_time = 40000 / clock;  // us
 
     int baud = clock * 1000000 * d / f;
     if (clock == S7816_4MHZ) {
@@ -112,7 +117,7 @@ void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d)
  * @param[in]  	trx_pin     - the trx pin of s7816.
  * @return     	none.
  */
-void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_pin, s7816_rtx_pin_e trx_pin)
+void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_pin, s7816_rtx_pin_e rtx_pin)
 {
     s7816_set_rst_pin(rst_pin);
     s7816_rst_pin = rst_pin;
@@ -123,24 +128,24 @@ void s7816_set_pin(gpio_pin_e rst_pin, gpio_pin_e vcc_pin, s7816_clk_pin_e clk_p
     reg_gpio_func_mux(clk_pin) = (reg_gpio_func_mux(clk_pin) & (~BIT_RNG(0, 1))) | BIT(0);
     gpio_function_dis(clk_pin);
 
-    // if the trx function set to early,it may trigger interrupt by accident.so we set the function in coldreset.
-    s7816_rtx_pin = trx_pin;
+    s7816_rtx_pin = rtx_pin;  // if the trx function set to early,it may trigger interrupt by accident.
+                              // so we set the function in coldreset.
 }
 
 /**
  * @brief      	This function is used to active the IC card,set the trx pin and coldreset.
  * @param[in]  	none.
  * @return     	none.
- * @note        extra time is needed for initial-atr after the function.
  */
 void s7816_coldreset(void)
 {
     gpio_set_high_level(s7816_vcc_pin);
-    delay_us(20);                // wait for the vcc  stable.
-    reg_7816_clk_div |= BIT(7);  // enable the 7816 clk,the pin is A0.
+    delay_us(20);                //  wait for the vcc  stable.
+    reg_7816_clk_div |= BIT(7);  //  enable the 7816 clk,the pin is A0.
     delay_us(s7816_rst_time);
     s7816_set_rtx_pin(s7816_rtx_pin);    // uart tx/rx pin set,if the trx pin set before this place,it may
     gpio_set_high_level(s7816_rst_pin);  // the IC card will return the initial ATR.
+    delay_us(s7816_atr_time);
 }
 
 /**
@@ -159,13 +164,14 @@ void s7816_release_trig(void)
  * @brief      	This function is used to warmreset.
  * @param[in]  	none.
  * @return     	none.
- * @note        the warmreset is required after the IC-CARD active,extra time is needed for initial-atr after the function.
+ * @note        the warmreset is required after the IC-CARD active.
  */
 void s7816_warmreset(void)
 {
     gpio_set_low_level(s7816_rst_pin);
     delay_us(s7816_rst_time);
     gpio_set_high_level(s7816_rst_pin);  // The IC card will return the initial ATR.
+    delay_us(s7816_atr_time);
 }
 
 /**

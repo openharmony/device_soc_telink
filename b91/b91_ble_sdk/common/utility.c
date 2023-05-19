@@ -15,7 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-
 #include "utility.h"
 #include "drivers.h"
 #include "tl_common.h"
@@ -99,7 +98,7 @@ u8 *my_fifo_wptr(my_fifo_t *f)
 
 u8 *my_fifo_wptr_v2(my_fifo_t *f)
 {
-    if (((f->wptr - f->rptr) & 255) < f->num - 3) { // keep 3 fifo left for others evt
+    if (((f->wptr - f->rptr) & 255) < f->num - 3) {  // keep 3 fifo left for others evt
         return f->p + (f->wptr & (f->num - 1)) * f->size;
     }
     return 0;

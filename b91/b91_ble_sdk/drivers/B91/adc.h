@@ -15,6 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
+
 /**	@page ADC
  *
  *	Introduction
@@ -25,8 +26,7 @@
  *	===============
  *	Header File: adc.h
  */
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_ADC_H
+#pragma once
 
 #include "compiler.h"
 #include "dma.h"
@@ -133,10 +133,8 @@ typedef enum {
 } adc_chn_e;
 
 typedef enum {
-    ADC_PRESCALE_1 = 0x00,  // Only for internal testing and temperature sensor sampling
-                            //	ADC_PRESCALE_1F2 = 0x01,// Only for internal testing
-    ADC_PRESCALE_1F4 = 0x02,
-    // ADC_PRESCALE_1F8 = 0x03, // Only for internal testing
+    ADC_PRESCALE_1 = 0x00,
+    ADC_PRESCALE_1F8 = 0x03,
 } adc_pre_scale_e;
 enum {
     ADC_MAX_STATE_NUM = 0x02,
@@ -227,7 +225,8 @@ static inline void adc_set_resolution(adc_res_e res)
 }
 
 /**
- * @brief      This function serves to set ADC sample time(the number of adc clocks for sample cycles) for the misc channel.
+ * @brief      This function serves to set ADC sample time (the number of adc clocks for sample cycles)
+ * for the misc channel.
  * @param[in]  sample_cycle - enum variable of adc sample cycles.
  * @return     none
  */
@@ -262,7 +261,7 @@ static inline void adc_temp_sensor_power_off(void)
 static inline void adc_set_diff_input(adc_input_pch_e p_ain, adc_input_nch_e n_ain)
 {
     analog_write_reg8(areg_adc_res_m, analog_read_reg8(areg_adc_res_m) | FLD_ADC_EN_DIFF_CHN_M);
-    analog_write_reg8(areg_adc_ain_chn_misc, n_ain | p_ain << 4);
+    analog_write_reg8(areg_adc_ain_chn_misc, n_ain | (p_ain << 4));
 }
 /**
  * @brief This function serves to set state and capture_state length.
@@ -296,7 +295,8 @@ void adc_start_sample_dma(unsigned short *adc_data_buf, unsigned int data_byte_l
  */
 void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin);
 /**
- * @brief This function is used to set two IO port configuration and set it as input channel of ADC difference IO port voltage sampling.
+ * @brief This function is used to set two IO port configuration
+ * and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
  * @param[in]  n_pin - enum variable of ADC analog negative input IO.
  * @return none
@@ -321,8 +321,8 @@ void adc_set_sample_rate(adc_sample_freq_e sample_freq);
  */
 void adc_set_scale_factor(adc_pre_scale_e pre_scale);
 /**
- * @brief This function servers to initialized ADC temperature sensor.When the reference voltage is set to 1.2V, and
- * at the same time, the division factor is set to 1 the most accurate.
+ * @brief This function servers to initialized ADC temperature sensor.
+ * When the reference voltage is set to 1.2V, and at the same time, the division factor is set to 1 the most accurate.
  * @return     none.
  * @attention  Temperature sensor suggested initial setting are Vref = 1.2V, pre_scale = 1.
  * 			The user don't need to change it.
@@ -335,25 +335,25 @@ void adc_temperature_sample_init(void);
  * @param[in]  pre_scale - enum variable of ADC pre_scaling factor.
  * @param[in]  sample_freq - enum variable of ADC sample frequency.
  * @return none
- * @attention  gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4.
- *			changed by chaofan.20201230.
+ * @attention  gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/8.
+ * 			0.9V Vref pre_scale must be 1.
+ * 			The sampling range are as follows:
+ * 			Vref        pre_scale        sampling range
+ * 			1.2V			1				0 ~ 1.1V (suggest)
+ * 			1.2V			1/8				0 ~ 3.5V (suggest)
+ * 			0.9V            1				0 ~ 0.8V
  */
 void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
                           adc_sample_freq_e sample_freq);
 
 /**
- * @brief This function servers to set ADC configuration with internal Vbat channel for ADC supply voltage sampling.
+ * @brief This function servers to set ADC configuration for ADC supply voltage sampling.
  * @return none
- * @attention Vbat channel battery voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4, vbat_div = off.
- * 			The Vbat channel battery voltage sample range is 1.8~3.5V and is low accuracy,
+ * @attention battery voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1, vbat_div = 1/3.
+ * 			Which has higher accuracy, user don't need to change it.
+ * 			The battery voltage sample range is 1.8~3.5V,
  * 			and must set sys_init with the mode for battery voltage less than 3.6V.
- * 			For accurate battery voltage sampling or battery voltage > 3.6V, should use gpio sampling with some external voltage divider.
- *			Recommended configuration parameters:
- *			--3/4 external resistor voltage divider(total resistance 400k, without any capacitance),
- *			--1.2V Vref,
- *			--1/4 Scale
- *			--Sampling frequence below 48K.
- *			changed by chaofan.20201230.
+ * 			For battery voltage > 3.6V, should take some external voltage divider.
  */
 void adc_battery_voltage_sample_init(void);
 /**
@@ -395,9 +395,8 @@ unsigned short adc_calculate_voltage(unsigned short adc_code);
  * @brief This function serves to calculate temperature from temperature sensor adc sample code.
  * @param[in]   adc_code	 		- the temperature sensor adc sample code.
  * @return 		adc_temp_value	 	- the of temperature value.
- * attention   Temperature and adc_code are linearly related. We test four chips between -40~130 (Celsius) and got an average relationship:
+ * attention   Temperature and adc_code are linearly related.
+ * We test four chips between -40~130 (Celsius) and got an average ratio:
  * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */
 unsigned short adc_calculate_temperature(unsigned short adc_code);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_ADC_H

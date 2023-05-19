@@ -340,7 +340,7 @@ _WAIT_EFUSE_LOAD_FINISH:
 #endif
 _MULTI_ADDRESS_BEGIN:
 	lui		t0 , 0x80140
-	la		t1 , g_pm_multi_addr
+	la		t1 , tl_multi_addr
 	lw		t2 , 0(t1)
 	sw		t2 , 0x104(t0)			 //g_pm_multi_addr->0x80140104
 

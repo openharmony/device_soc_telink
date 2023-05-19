@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_COMMON_ASSERT_H
-#define B91_B91_BLE_SDK_COMMON_ASSERT_H
+#pragma once
 
 #include "config/user_config.h"  //   for  __DEBUG__
 
@@ -43,8 +42,8 @@
 // http://gcc.gnu.org/ml/gcc-help/2010-10/msg00196.html
 // http://stackoverflow.com/questions/3030099/c-c-pragma-in-define-macro
 
-#define STRINGIFY_HELPER(x) #x
-#define STRINGIFY(x)        STRINGIFY_HELPER(x)
+#define _STRINGIFY(x) #x
+#define STRINGIFY(x)  _STRINGIFY(x)
 
 #ifdef __GNUC__
 #define COMPILE_MESSAGE(x) _Pragma(#x)
@@ -54,7 +53,7 @@
 #ifdef __GNUC__
 #define TODO(x) COMPILE_MESSAGE(message("--TODO-- " #x))
 #else
-#define TODO(x) __pragma(message("--TODO-- " STRINGIFY_HELPER(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
+#define TODO(x) __pragma(message("--TODO-- "_STRINGIFY(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
 #endif
 #else
 #define TODO(x)
@@ -64,7 +63,7 @@
 #ifdef __GNUC__
 #define WARN(x) COMPILE_MESSAGE(message("--WARN-- " #x))
 #else
-#define WARN(x) __pragma(message("--WARN-- " STRINGIFY_HELPER(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
+#define WARN(x) __pragma(message("--WARN-- "_STRINGIFY(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
 #endif
 #else
 #define WARN(x)
@@ -74,10 +73,8 @@
 #ifdef __GNUC__
 #define NOTE(x) COMPILE_MESSAGE(message("--NOTE-- " #x))
 #else
-#define NOTE(x) __pragma(message("--NOTE-- " STRINGIFY_HELPER(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
+#define NOTE(x) __pragma(message("--NOTE-- "_STRINGIFY(x) " ::function: " __FUNCTION__ "@" STRINGIFY(__LINE__)))
 #endif
 #else
 #define NOTE(x)
 #endif
-
-#endif // B91_B91_BLE_SDK_COMMON_ASSERT_H

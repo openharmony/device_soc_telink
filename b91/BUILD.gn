@@ -22,7 +22,7 @@ import("//kernel/liteos_m/liteos.gni")
 driver_sdk_path = "b91_ble_sdk"
 
 config("B91_config") {
-  defines = [ "__PROJECT_B91_EXTERNAL=1" ]
+  defines = [ "CHIP_TYPE=CHIP_TYPE_9518" ]
 
   include_dirs = [
     "liteos_m/inc",
@@ -31,6 +31,8 @@ config("B91_config") {
     "$driver_sdk_path/drivers",
     "$driver_sdk_path/drivers/B91",
     "$driver_sdk_path/vendor/common",
+    "$driver_sdk_path/stack/ble",
+    "$driver_sdk_path/stack/ble/service/ota",
   ]
 
   configs = [

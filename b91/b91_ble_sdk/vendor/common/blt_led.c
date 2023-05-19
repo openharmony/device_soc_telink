@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#if 1
-#include "../common/blt_led.h"
+#include "blt_led.h"
 #include "drivers.h"
 #include "tl_common.h"
 
@@ -115,5 +114,3 @@ void led_proc(void)
     }
 #endif
 }
-
-#endif

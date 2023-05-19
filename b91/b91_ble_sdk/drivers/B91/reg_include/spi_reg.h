@@ -28,9 +28,10 @@
 
 #define reg_hspi_data_buf_adr   0x1FFFFC8
 #define reg_hspi_xip_base_adr   0x1000000
-#define reg_spi_data_buf_adr(i) (0x140048 + (i)*BASE_ADDR_DIFF)
+#define reg_spi_data_buf_adr(i) 0x140048 + (i)*BASE_ADDR_DIFF
 /**
- * BIT[0:1] the minimum time between the edge of SPI_CS and  the edges of SPI_CLK.the actual duration is (SPI_CLK_OUT/2)*(cs2sclk+1).master only
+ * BIT[0:1] the minimum time between the edge of SPI_CS and  the edges of SPI_CLK.
+ * The actual duration is (SPI_CLK_OUT/2)*(cs2sclk+1).master only
  * BIT[2]  set 3line mode ,MOSI is bi-directional signal in regular mode.master only
  * BIT[3]  transfer data with least significant bit first.1: LSB  0: MSB default. master/slave
  * BIT[4]  set dual io mode.master only
@@ -59,10 +60,12 @@ enum {
 #define reg_spi_mode1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x01 + (i)*BASE_ADDR_DIFF)
 
 /**
- * BIT[0]  set cmd format 0: single mode  1: the format of the cmd phase is the same as the data phase(Dual/Quad).master only
+ * BIT[0]  set cmd format 0: single mode  1: the format of the cmd phase is the same as the data phase(Dual/Quad).
+ * Master only
  * BIT[1]  set spi quad I/O mode. master only
  * BIT[2]  set the spi commnd phase enable.master only
- * BIT[4:7]   the minimum time that SPI CS should stay HIGH.the actual duration is (SPI_CLK period_out / 2)*(csht+1).default=2,master only
+ * BIT[4:7]   the minimum time that SPI CS should stay HIGH.
+ * The actual duration is (SPI_CLK period_out / 2)*(csht+1).default=2,master only
  */
 #define reg_spi_mode2(i) REG_ADDR8(PSPI_BASE_ADDR + 0x02 + (i)*BASE_ADDR_DIFF)
 
@@ -82,12 +85,11 @@ enum {
 /**
  * BIT[0:7]   transfer count1 for write data.master only
  */
-
 #define reg_spi_tx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x12 + (i) * (BASE_ADDR_DIFF - 0x12 + 0x20))
+
 /**
  * BIT[0:7]   transfer count2 for write data.master only
  */
-
 #define reg_spi_tx_cnt2(i) REG_ADDR8(PSPI_BASE_ADDR + 0x13 + (i) * (BASE_ADDR_DIFF - 0x13 + 0x21))
 
 /**
@@ -98,12 +100,11 @@ enum {
 /**
  * BIT[0:7]   transfer count1 for read data.master only
  */
-
 #define reg_spi_rx_cnt1(i) REG_ADDR8(PSPI_BASE_ADDR + 0x10 + (i) * (BASE_ADDR_DIFF - 0x10 + 0x1e))
+
 /**
  * BIT[0:7]   transfer count2 for read data.master only
  */
-
 #define reg_spi_rx_cnt2(i) REG_ADDR8(PSPI_BASE_ADDR + 0x11 + (i) * (BASE_ADDR_DIFF - 0x11 + 0x1f))
 
 /**
@@ -151,7 +152,8 @@ enum {
  * BIT[2] enable the SPI Receive FIFO Threshold interrupt.master/slave
  * BIT[3] enable the SPI Transmit FIFO Threshold interrupt.master/slave
  * BIT[4] enable the SPI Transmit end interrupt.master/slave
- * BIT[5] enable  slvCmdint.The slave command interrupt is triggered each byte command received (starting 8 bit) .slave only
+ * BIT[5] enable  slvCmdint.The slave command interrupt is triggered each byte command received (starting 8 bit).
+ * Slave only
  * BIT[6] enable RX DMA
  * BIT[7] enable TX DMA
  */
@@ -279,8 +281,8 @@ enum {
 
 #define reg_hspi_addr(i) REG_ADDR8(HSPI_BASE_ADDR + 0x10 + (i))
 
-/**   hspi_addr0~ hspi_addr3.
- */
+// hspi_addr0~ hspi_addr3.
+
 #define reg_hspi_addr_32 REG_ADDR32(HSPI_BASE_ADDR + 0x10)
 
 /**
@@ -314,7 +316,8 @@ enum {
 #define reg_hspi_xip_rd_cmd REG_ADDR8(HSPI_BASE_ADDR + 0x16)
 
 /**
- * BIT[0:7]  Use this combined with xip_mode being xip sequential mode.default page boundary size is 32byte, 2^page_size.
+ * BIT[0:7]  Use this combined with xip_mode being xip sequential mode.
+ * Default page boundary size is 32byte, 2^page_size.
  */
 #define reg_hspi_page_size REG_ADDR8(HSPI_BASE_ADDR + 0x17)
 

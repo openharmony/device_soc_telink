@@ -38,8 +38,7 @@
 #define PA_TYPE_RX_ON 2
 
 typedef void (*rf_pa_callback_t)(int type);
-
-void set_blc_rf_pa_cb(rf_pa_callback_t cb);
+extern rf_pa_callback_t blc_rf_pa_cb;
 
 void rf_pa_init(void);
 

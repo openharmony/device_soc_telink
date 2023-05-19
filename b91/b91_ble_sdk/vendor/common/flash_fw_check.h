@@ -28,6 +28,4 @@
  */
 bool flash_fw_check(u32 crc_init_value);
 
-void blt_firmware_completeness_check(void);
-
 #endif

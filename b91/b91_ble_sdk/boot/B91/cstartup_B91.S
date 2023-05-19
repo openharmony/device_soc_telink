@@ -231,14 +231,26 @@ _IRESET_ENTRY:
 
 	.org 0x22
 _ISTART:
+
+
+/* GPIO_DEBUG */
 #if 0
-	// add debug, PB4 output 1
-	lui		t0,0x80140 			//0x8014030a
-	li		t1, 0xef
-	li		t2, 0x10
-	sb		t1 , 0x30a(t0)		 //0x8014030a  PB oen     =  0xef
-	sb		t2 , 0x30b(t0)		 //0x8014030b  PB output  =  0x10
+	// add debug, PE1 output 1
+	lui		t0,	0x80140 			//0x80140322
+	li		t1, 0xfd
+	li		t2, 0x02
+	sb		t1 , 0x322(t0)		 //0x8014030a  Pe oen     =  0xfd
+	sb		t2 , 0x323(t0)		 //0x8014030b  Pe output  =  0x02
 #endif
+#if 0
+	// add debug, PD0 output 1
+	lui		t0,0x80140 			//0x8014031a
+	li		t1, 0xfe
+	li		t2, 0x01
+	sb		t1 , 0x31a(t0)		 //0x8014031a  PD oen     =  0xfe
+	sb		t2 , 0x31b(t0)		 //0x8014031b  PD output  =  0x01
+#endif
+
 	/* Initialize global pointer */
 
     la     gp, __global_pointer$
@@ -326,11 +338,14 @@ _WAIT_EFUSE_LOAD_FINISH:
 	li		t1, 0x10
 	sb		t1 , 0x30b(t0)		 //0x8014030b  PB output  =  0x00
 #endif
+
+
 _MULTI_ADDRESS_BEGIN:
 	lui		t0 , 0x80140
 	la		t1 , g_pm_multi_addr
 	lw		t2 , 0(t1)
 	sw		t2 , 0x104(t0)			 //g_pm_multi_addr->0x80140104
+
 
 #if 0
 	/* Move ramcode from flash to sram */

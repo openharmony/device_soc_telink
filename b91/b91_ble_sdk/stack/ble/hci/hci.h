@@ -15,21 +15,20 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
-#define B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
+#pragma once
 
-#include <stack/ble/ble_common.h>
+#include "stack/ble/ble_common.h"
 
 typedef int (*blc_hci_rx_handler_t)(void);
 typedef int (*blc_hci_tx_handler_t)(void);
-typedef int (*blc_hci_handler_t)(unsigned char *p, int n);
-typedef int (*blc_hci_app_handler_t)(unsigned char *p);
 
 #define HCI_FLAG_EVENT_PHYTEST_2_WIRE_UART (1 << 23)
 #define HCI_FLAG_EVENT_TLK_MODULE          (1 << 24)
-#define HCI_FLAG_EVENT_BT_STD              (1 << 25)
-#define HCI_FLAG_EVENT_STACK               (1 << 26)
+#define HCI_FLAG_EVENT_BT_STD              (1 << 25)  // HCI event
+#define HCI_FLAG_EVENT_STACK               (1 << 26)  // not used now
 #define HCI_FLAG_ACL_BT_STD                (1 << 27)
+#define HCI_FLAG_BT_HCI_CMD                (1 << 28)  // HCI command
+#define HCI_FLAG_ISO_DATE_STD              (1 << 29)
 
 #define TLK_MODULE_EVENT_STATE_CHANGE   0x0730
 #define TLK_MODULE_EVENT_DATA_RECEIVED  0x0731
@@ -41,6 +40,11 @@ typedef int (*blc_hci_app_handler_t)(unsigned char *p);
 #define HCI_MAX_DATA_BUFFERS_SALVE  8
 #define HCI_MAX_DATA_BUFFERS_MASTER 8
 
+#define HCI_ADV_REPORT_EVT_RSVD_FIFO 3
+
+extern blc_hci_rx_handler_t blc_hci_rx_handler;
+extern blc_hci_tx_handler_t blc_hci_tx_handler;
+
 extern my_fifo_t hci_tx_iso_fifo;
 
 typedef struct {
@@ -51,12 +55,6 @@ typedef struct {
     u8 rptr;
     u8 *p;
 } hci_fifo_t;
-
-u8 *hci_fifo_wptr(hci_fifo_t *f);
-u8 *hci_fifo_wptr_v2(hci_fifo_t *f);
-u8 *hci_fifo_get(hci_fifo_t *f);
-void hci_fifo_pop(hci_fifo_t *f);
-void hci_fifo_next(hci_fifo_t *f);
 
 /**
  *  @brief  Definition for HCI packet type & HCI packet indicator
@@ -92,22 +90,25 @@ typedef enum {
  *  @brief  Definition for HCI ISO Data packets Packet_Status_Flag
  */
 typedef enum {
-    HCI_ISO_VALID_DATA = 0x00,           // Valid data. The complete ISO_SDU was received correctly
-    HCI_ISO_POSSIBLE_VALID_DATA = 0x01,  // Possibly invalid data
+    HCI_ISO_VALID_DATA = 0x00,             // Valid data. The complete ISO_SDU was received correctly
+    HCI_ISO_POSSIBLE_INVALID_DATA = 0x01,  // Possibly invalid data
     HCI_ISO_LOST_DATA = 0x02,  // Part(s) of the ISO_SDU were not received correctly. This is reported as "lost data"
 } iso_ps_flag_t;
+
+// Controller event handler
+typedef int (*hci_event_handler_t)(u32 h, u8 *para, int n);
+
+// Controller data handler
+typedef int (*hci_data_handler_t)(u16 conn, u8 *p);
 
 // hci event
 extern u32 hci_eventMask;
 extern u32 hci_le_eventMask;
 extern u32 hci_le_eventMask_2;
-
-// Controller event handler
-/**
- * @brief	this function is used to register HCI Event handler Callback function
- */
-typedef int (*hci_event_handler_t)(u32 h, u8 *para, int n);
 extern hci_event_handler_t blc_hci_event_handler;
+extern hci_data_handler_t blc_hci_data_handler;
+extern hci_fifo_t bltHci_rxfifo;
+extern hci_fifo_t bltHci_txfifo;
 
 /**
  * @brief      for user to initialize HCI TX FIFO.
@@ -129,7 +130,15 @@ ble_sts_t blc_ll_initHciTxFifo(u8 *pTxbuf, int fifo_size, int fifo_number);
  */
 ble_sts_t blc_ll_initHciRxFifo(u8 *pRxbuf, int fifo_size, int fifo_number);
 
-/******************************* Stack Interface Begin, user can not use!!! ********************************************/
+/**
+ * @brief      for user to initialize HCI RX ACL Data FIFO.
+ * @param[in]  pRxbuf - RX FIFO buffer address (Attention: buffer size = fifo_size*fifo_num*conn_max_num).
+ * @param[in]  fifo_size - RX FIFO size
+ * @param[in]  fifo_number - RX FIFO number, can only be 4, 8, 16 or 32
+ * @return     status, 0x00:  succeed
+ * 					   other: failed
+ */
+ble_sts_t blc_ll_initHciAclDataFifo(u8 *pAclbuf, int fifo_size, int fifo_number);
 
 /**
  * @brief      this function is used to get data by USB in RX mode for HCI Layer
@@ -169,36 +178,40 @@ int blc_hci_send_event(u32 h, u8 *para, int n);
  */
 int blc_hci_proc(void);
 
-/******************************* Stack Interface End *******************************************************************/
-
-/******************************* User Interface  Begin *****************************************************************/
 /**
  * @brief      this function is used to set HCI EVENT mask
- * @param[in]  evtMask  -  HCI��EVENT��mask
+ * @param[in]  evtMask  -  HCI EVENT mask
  * @return     0
  */
 ble_sts_t blc_hci_setEventMask_cmd(u32 evtMask);  // eventMask: BT/EDR
 
 /**
  * @brief      this function is used to set HCI LE EVENT mask
- * @param[in]  evtMask  -  HCI��LE EVENT��mask(BIT<0-31>)
+ * @param[in]  evtMask  -  HCI LE EVENT mask(BIT<0-31>)
  * @return     0
  */
 ble_sts_t blc_hci_le_setEventMask_cmd(u32 evtMask);  // eventMask: LE event  0~31
 
 /**
  * @brief      this function is used to set HCI LE EVENT mask
- * @param[in]  evtMask  -  HCI��LE EVENT��mask(BIT<32-63>)
+ * @param[in]  evtMask  -  HCI LE EVENT mask(BIT<32-63>)
  * @return     0
  */
 ble_sts_t blc_hci_le_setEventMask_2_cmd(u32 evtMask_2);  // eventMask: LE event 32~63
 
 /**
- * @brief      this function is used to register HCI event handler callback function
+ * @brief      This function is used to register the controller event processing callback
  * @param[in]  handler - hci_event_handler_t
  * @return     none.
  */
 void blc_hci_registerControllerEventHandler(hci_event_handler_t handler);
+
+/**
+ * @brief      This function is used to register ACL data transmission to Host for processing callback function.
+ * @param[in]  handler - hci_data_handler_t
+ * @return     none.
+ */
+void blc_hci_registerControllerDataHandler(hci_data_handler_t handle);
 
 /**
  * @brief      this function is used to register HCI TX or RX handler callback function
@@ -216,6 +229,8 @@ void blc_register_hci_handler(void *prx, void *ptx);
  */
 int blc_hci_sendACLData2Host(u16 handle, u8 *p);
 
+int blc_hci_getFreeTxFIFONum(void);
+
 /**
  * @brief      this function is used to send data
  * @param[in]  h - HCI Event type
@@ -224,6 +239,12 @@ int blc_hci_sendACLData2Host(u16 handle, u8 *p);
  * @return     0,-1
  */
 int blc_hci_send_data(u32 h, u8 *para, int n);
-/******************************* User Interface  End  ******************************************************************/
 
-#endif // B91_B91_BLE_SDK_STACK_BLE_HCI_HCI_H
+/**
+ * @brief      This function is used to send ISO data from Controller to HOST.
+ * @param[in]  h - HCI Event type
+ * @param[in]  *iso_load - data pointer of the ISO load
+ * @param[in]  data_load_len - data length of load
+ * @return     0,-1
+ */
+int blc_hci_iso_send_data(u32 h, u8 *iso_load, int data_load_len);

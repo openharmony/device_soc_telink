@@ -58,9 +58,10 @@ typedef enum {
  * @brief      	This function is used to set the s7816 clock.
  * @param[in]  	div	- set the divider of clock of 7816 module.
  * @return     	none.
- * @note        the clk-source of s7816 is 24M-pad,the clk of clk-pin can be divided as follow.
- * 				div:        0x60-4Mhz     0x40-6Mhz   0x20-12Mhz
+ * @note        system clk is 24MHZ
+ * 				7816clk:    0x60-4Mhz     0x40-6Mhz   0x20-12Mhz
  * 				baudrate:   0x60-10752    0x40-16194  0x20-32388
+ * 				the clk-pin is PA0 by default.
  */
 extern void s7816_set_clk(unsigned char div);
 
@@ -78,7 +79,6 @@ extern void s7816_init(uart_num_e uart_num, s7816_clock_e clock, int f, int d);
  * @brief      	This function is used to active the IC card,set the trx pin and coldreset.
  * @param[in]  	none.
  * @return     	none.
- * @note        extra time is needed for initial-atr after the function.
  */
 extern void s7816_coldreset(void);
 
@@ -117,16 +117,17 @@ extern void s7816_set_vcc_pin(gpio_pin_e pin_7816_vcc);
  * @brief      	This function is used to warmreset.
  * @param[in]  	none.
  * @return     	none.
- * @note        the warmreset is required after the IC-CARD active,extra time is needed for initial-atr after the function.
+ * @note        the warmreset is required after the IC-CARD active.
  */
 extern void s7816_warmreset(void);
 
 /**
  * @brief      	This function is used to set the rst-wait time of the s7816 module.
  * @param[in]  	rst_time_us - set the s7816_rst_time.
+ * @param[in]  	atr_time_us - set the s7816_atr_time.
  * @return     	none.
  */
-extern void s7816_set_time(int rst_time_us);
+extern void s7816_set_time(int rst_time_us, int atr_time_us);
 
 /**
  * @brief      	This function is used to warmreset.

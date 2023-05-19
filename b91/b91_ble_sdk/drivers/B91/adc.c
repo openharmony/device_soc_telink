@@ -15,6 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
+
 #include "adc.h"
 #include "audio.h"
 #include "compiler.h"
@@ -118,7 +119,8 @@ void adc_pin_config(adc_input_pin_mode_e mode, adc_input_pin_def_e pin)
     }
 }
 /**
- * @brief This function is used to set two IO port configuration and set it as input channel of ADC difference IO port voltage sampling.
+ * @brief This function is used to set two IO port configuration
+ * and set it as input channel of ADC difference IO port voltage sampling.
  * @param[in]  p_pin - enum variable of ADC analog positive input IO.
  * @param[in]  n_pin - enum variable of ADC analog negative input IO.
  * @return none
@@ -159,19 +161,12 @@ void adc_set_sample_rate(adc_sample_freq_e sample_freq)
     switch (sample_freq) {
         case ADC_SAMPLE_FREQ_23K:
             adc_set_state_length(1023, 15);
-            /**
-	* 		The length of Tsample should match the sampling frequency.
-	*		changed by chaofan,confirmed by haitao.20201230.
-	**/
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_24);  // 24 adc clocks for sample cycle
             break;
         case ADC_SAMPLE_FREQ_48K:
             adc_set_state_length(490, 10);
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_12);  // 12 adc clocks for sample cycle
             break;
         case ADC_SAMPLE_FREQ_96K:
             adc_set_state_length(240, 10);
-            adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  // 6 adc clocks for sample cycle
             break;
     }
 }
@@ -212,19 +207,16 @@ void adc_set_vbat_divider(adc_vbat_div_e vbat_div)
  */
 void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e sample_freq)
 {
-    adc_power_off();                   // power off sar adc
-    adc_reset();                       // reset whole digital adc module
-    adc_clk_en();                      // enable signal of 24M clock to sar adc
-    adc_set_clk(5);                    // default adc_clk 4M = 24M/(1+div),
-    adc_set_ref_voltage(v_ref);        // set channel Vref
-    adc_set_scale_factor(pre_scale);   // set Analog input pre-scaling
-    adc_set_sample_rate(sample_freq);  // set sample frequency.
-    adc_set_resolution(ADC_RES14);     // default adc_resolution set as 14bit ,BIT(13) is sign bit
-    /**
-	* 		Move the Tsample set to function adc_set_sample_rate(),because of the length of Tsample should match the sampling frequency.
-	*		changed by chaofan,confirmed by haitao.20201230.
-	**/
-    adc_set_m_chn_en();  // enable adc channel.
+    adc_power_off();                          // power off sar adc
+    adc_reset();                              // reset whole digital adc module
+    adc_clk_en();                             // enable signal of 24M clock to sar adc
+    adc_set_clk(5);                           // default adc_clk 4M = 24M/(1+div),
+    adc_set_ref_voltage(v_ref);               // set channel Vref
+    adc_set_scale_factor(pre_scale);          // set Analog input pre-scaling
+    adc_set_sample_rate(sample_freq);         // set sample frequency.
+    adc_set_resolution(ADC_RES14);            // default adc_resolution set as 14bit ,BIT(13) is sign bit
+    adc_set_tsample_cycle(ADC_SAMPLE_CYC_6);  // 6 adc clocks for sample cycle
+    adc_set_m_chn_en();                       // enable adc channel.
 }
 /**
  * @brief This function serves to ADC gpio sample init.
@@ -233,8 +225,13 @@ void adc_init(adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale, adc_sample_freq_e 
  * @param[in]  pre_scale - enum variable of ADC pre_scaling factor.
  * @param[in]  sample_freq - enum variable of ADC sample frequency.
  * @return none
- * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4.
- *			changed by chaofan.20201230.
+ * @attention gpio voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/8.
+ * 			0.9V Vref pre_scale must be 1.
+ * 			The sampling range are as follows:
+ * 			Vref        pre_scale        sampling range
+ * 			1.2V			1				0 ~ 1.1V (suggest)
+ * 			1.2V			1/8				0 ~ 3.5V (suggest)
+ * 			0.9V            1				0 ~ 0.8V
  */
 void adc_gpio_sample_init(adc_input_pin_def_e pin, adc_ref_vol_e v_ref, adc_pre_scale_e pre_scale,
                           adc_sample_freq_e sample_freq)
@@ -260,23 +257,18 @@ void adc_temperature_sample_init(void)
 }
 
 /**
- * @brief This function servers to set ADC configuration with internal Vbat channel for ADC supply voltage sampling.
+ * @brief This function servers to set ADC configuration for ADC supply voltage sampling.
  * @return none
- * @attention Vbat channel battery voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1/4, vbat_div = off.
- * 			The Vbat channel battery voltage sample range is 1.8~3.5V and is low accuracy,
+ * @attention battery voltage sample suggested initial setting are Vref = 1.2V, pre_scale = 1, vbat_div = 1/3.
+ * 			Which has higher accuracy, user don't need to change it.
+ * 			The battery voltage sample range is 1.8~3.5V,
  * 			and must set sys_init with the mode for battery voltage less than 3.6V.
- * 			For accurate battery voltage sampling or battery voltage > 3.6V, should use gpio sampling with some external voltage divider.
- *			Recommended configuration parameters:
- *			--3/4 external resistor voltage divider(total resistance 400k, without any capacitance),
- *			--1.2V Vref,
- *			--1/4 Scale
- *			--Sampling frequence below 48K.
- *			changed by chaofan.20201230.
+ * 			For battery voltage > 3.6V, should take some external voltage divider.
  */
 void adc_battery_voltage_sample_init(void)
 {
-    adc_init(ADC_VREF_1P2V, ADC_PRESCALE_1F4, ADC_SAMPLE_FREQ_96K);
-    adc_set_vbat_divider(ADC_VBAT_DIV_OFF);
+    adc_init(ADC_VREF_1P2V, ADC_PRESCALE_1, ADC_SAMPLE_FREQ_96K);
+    adc_set_vbat_divider(ADC_VBAT_DIV_1F3);
     adc_set_diff_input(ADC_VBAT, GND);
 }
 /**
@@ -287,16 +279,16 @@ void adc_battery_voltage_sample_init(void)
  */
 void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 {
-    /****** start adc sample ********/
+    /******start adc sample********/
     adc_start_sample_dma((unsigned short *)sample_buffer, sample_num << 1);
-    /****** wait for adc sample finish ********/
+    /******wait for adc sample finish********/
     while (!adc_get_sample_status_dma()) {
     }
-    /****** stop dma smaple ********/
+    /******stop dma smaple********/
     adc_stop_sample_dma();
-    /****** clear adc sample finished status ********/
+    /******clear adc sample finished status********/
     adc_clr_sample_status_dma();  // must
-    /****** get adc sample data and sort these data ********/
+    /******get adc sample data and sort these data ********/
     for (int i = 0; i < sample_num; i++) {
         if (sample_buffer[i] &
             BIT(13)) {  // 14 bit resolution, BIT(13) is sign bit, 1 means negative voltage in differential_mode
@@ -315,7 +307,7 @@ void adc_get_code_dma(unsigned short *sample_buffer, unsigned short sample_num)
 unsigned short adc_get_code(void)
 {
     unsigned short adc_code;
-    /****** Lock ADC code in analog register ********/
+    /******Lock ADC code in analog register ********/
     analog_write_reg8(areg_adc_data_sample_control,
                       analog_read_reg8(areg_adc_data_sample_control) | FLD_NOT_SAMPLE_ADC_DATA);
     adc_code = analog_read_reg16(areg_adc_misc_l);
@@ -346,8 +338,9 @@ unsigned short adc_calculate_voltage(unsigned short adc_code)
  * @brief This function serves to calculate temperature from temperature sensor adc sample code.
  * @param[in]   adc_code	 		- the temperature sensor adc sample code.
  * @return 		adc_temp_value	 	- the of temperature value.
- * attention   Temperature and adc_code are linearly related. We test four chips between -40~130 (Celsius) and got an average relationship:
- * 			Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
+ * attention   Temperature and adc_code are linearly related.
+ *             We test four chips between -40~130 (Celsius) and got an average ratio:
+ * 			   Temp =  564 - ((adc_code * 819)>>13),when Vref = 1.2V, pre_scale = 1.
  */
 unsigned short adc_calculate_temperature(unsigned short adc_code)
 {

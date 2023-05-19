@@ -18,25 +18,27 @@
 #ifndef TL_COMMON_H_
 #define TL_COMMON_H_
 
-#pragma once
-
-#include "common/bit.h"
-#include "common/types.h"
-#include "common/utility.h"
+#include <string.h>
+#include <stdio.h>
 
 #include "config.h"
-#include "vendor/common/user_config.h"
-
-#include "common/assert.h"
+#include "common/types.h"
+#include "common/bit.h"
 #include "common/static_assert.h"
+#include "common/utility.h"
+#include "common/usb_dbg/myudb.h"
+#include "common/usb_dbg/log_def_stack.h"
 
-#include <string.h>
-
+#include "vendor/common/user_config.h"
 #include "vendor/common/blt_common.h"
+#include "vendor/common/blt_fw_sign.h"
 #include "vendor/common/blt_led.h"
 #include "vendor/common/blt_soft_timer.h"
 #include "vendor/common/custom_pair.h"
+#include "vendor/common/device_manage.h"
+#include "vendor/common/simple_sdp.h"
 #include "vendor/common/flash_fw_check.h"
+#include "vendor/common/common_dbg.h"
 
 #include "gpio_default.h"
 

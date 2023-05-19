@@ -19,6 +19,7 @@
 #define BLE_CONTROLLER_H_
 
 #include "stack/ble/ble_common.h"
+#include "stack/ble/ble_config.h"
 #include "stack/ble/ble_format.h"
 
 #include "stack/ble/hci/hci.h"
@@ -27,25 +28,47 @@
 #include "stack/ble/hci/hci_event.h"
 
 #include "stack/ble/controller/ll/ll.h"
-#include "stack/ble/controller/ll/ll_adv.h"
-#include "stack/ble/controller/ll/ll_conn/ll_conn.h"
-#include "stack/ble/controller/ll/ll_conn/ll_conn_csa.h"
-#include "stack/ble/controller/ll/ll_conn/ll_slave.h"
 #include "stack/ble/controller/ll/ll_pm.h"
-#include "stack/ble/controller/ll/ll_scan.h"
-#include "stack/ble/controller/ll/ll_whitelist.h"
 
-#include "stack/ble/controller/ll/ll_ext_adv.h"
+#include "stack/ble/controller/ll/acl_conn/acl_conn.h"
+#include "stack/ble/controller/ll/acl_conn/acl_master.h"
+#include "stack/ble/controller/ll/acl_conn/acl_slave.h"
 
-#include "phy/phy.h"
-#include "phy/phy_test.h"
+#include "stack/ble/controller/ll/adv/adv.h"
+#include "stack/ble/controller/ll/adv/ext_adv.h"
+#include "stack/ble/controller/ll/adv/leg_adv.h"
 
-#include "algorithm/aes_ccm/aes_ccm.h"
-#include "algorithm/ecc/ecc_ll.h"
+#include "stack/ble/controller/ll/scan/ext_scan.h"
+#include "stack/ble/controller/ll/scan/leg_scan.h"
+#include "stack/ble/controller/ll/scan/scan.h"
 
-/*********************************************************/
-// Remove when file merge to SDK //
+#include "stack/ble/controller/ll/init/ext_init.h"
+#include "stack/ble/controller/ll/init/init.h"
+#include "stack/ble/controller/ll/init/leg_init.h"
 
-/*********************************************************/
+#include "stack/ble/controller/ll/prdadv/pda.h"
+#include "stack/ble/controller/ll/prdadv/pda_sync.h"
+#include "stack/ble/controller/ll/prdadv/prd_adv.h"
+
+#include "stack/ble/controller/ial/ial.h"
+#include "stack/ble/controller/ll/iso/iso.h"
+
+#include "stack/ble/controller/ll/aoa_aod/aoa_aod.h"
+#include "stack/ble/controller/ll/iso/bis.h"
+#include "stack/ble/controller/ll/iso/bis_bcst.h"
+#include "stack/ble/controller/ll/iso/bis_sync.h"
+#include "stack/ble/controller/ll/iso/cis.h"
+#include "stack/ble/controller/ll/iso/cis_master.h"
+#include "stack/ble/controller/ll/iso/cis_slave.h"
+
+#include "stack/ble/controller/whitelist/resolvlist.h"
+#include "stack/ble/controller/whitelist/whitelist.h"
+
+#include "stack/ble/controller/csa/csa.h"
+
+#include "stack/ble/controller/phy/phy.h"
+#include "stack/ble/controller/phy/phy_test.h"
+
+#include "algorithm/algorithm.h"
 
 #endif /* BLE_H_ */

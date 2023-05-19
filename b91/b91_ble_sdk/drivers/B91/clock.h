@@ -74,7 +74,7 @@ typedef struct {
 typedef enum {
     PLL_CLK_48M = (0 | (16 << 2) | (48 << 8)),
     PLL_CLK_54M = (0 | (17 << 2) | (54 << 8)),
-    PLL_CLK_60M = (0 | (18 << 2) | (54 << 8)),
+    PLL_CLK_60M = (0 | (18 << 2) | (60 << 8)),
     PLL_CLK_66M = (0 | (19 << 2) | (66 << 8)),
     PLL_CLK_96M = (1 | (16 << 2) | (96 << 8)),
     PLL_CLK_108M = (1 | (17 << 2) | (108 << 8)),
@@ -159,7 +159,7 @@ typedef enum {
  */
 typedef enum {
     CCLK_DIV1_TO_HCLK = 1,
-    CCLK_DIV2_TO_HCLK = 2, /* can not use in A0. if use reboot when hclk = 1/2cclk will cause problem */
+    CCLK_DIV2_TO_HCLK = 2, /* < can not use in A0. if use reboot when hclk = 1/2cclk will cause problem */
 } sys_cclk_div_to_hclk_e;
 
 /**

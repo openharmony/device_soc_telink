@@ -15,10 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-
-#ifndef COMMON_CONFIG_USER_CONFIG_H
-#define COMMON_CONFIG_USER_CONFIG_H
+#pragma once
 
 #include "vendor/common/user_config.h"
-
-#endif  // COMMON_CONFIG_USER_CONFIG_H

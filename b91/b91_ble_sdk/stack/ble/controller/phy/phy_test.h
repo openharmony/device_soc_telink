@@ -20,9 +20,6 @@
 
 #include "tl_common.h"
 
-/**
- * @brief	PHY test mode
- */
 #ifndef PHYTEST_MODE_DISABLE
 #define PHYTEST_MODE_DISABLE 0
 #endif
@@ -39,9 +36,6 @@
 #define PHYTEST_MODE_OVER_HCI_WITH_UART 3  // Direct Test Mode over HCI(USB  hardware interface)
 #endif
 
-/**
- * @brief	PHY test mode enableor disable
- */
 #define BLC_PHYTEST_DISABLE 0
 #define BLC_PHYTEST_ENABLE  1
 
@@ -71,20 +65,13 @@ bool blc_phy_isPhyTestEnable(void);
  * @param      none
  * @return     always 0
  */
-int blc_phyTest_2wire_rxUartCb(void);
+int phy_test_2_wire_rx_from_uart(void);
 
 /**
  * @brief      uart TX data process for PHY test 2 wire UART mode
  * @param      none
  * @return     always 0
  */
-int blc_phyTest_2wire_txUartCb(void);
-
-/**
- * @brief      uart RX data process for PHY test hci UART mode
- * @param      none
- * @return     always 0
- */
-int blc_phyTest_hci_rxUartCb(void);
+int phy_test_2_wire_tx_to_uart(void);
 
 #endif /* PHY_TEST_H_ */

@@ -34,11 +34,10 @@ aduio_i2s_codec_config_t audio_i2s_codec_config = {
     .i2s_codec_m_s_mode = I2S_M_CODEC_S,
     .i2s_data_invert_select = I2S_DATA_INVERT_DIS,  // L channel default
     .in_digital_gain = CODEC_IN_D_GAIN_0_DB,
-    .in_analog_gain = CODEC_IN_A_GAIN_0_DB,
+    .in_analog_gain = CODEC_IN_A_GAIN_8_DB,
     .out_digital_gain = CODEC_OUT_D_GAIN_0_DB,
-    .out_analog_gain = CODEC_OUT_A_GAIN_0_DB,
+    .out_analog_gain = CODEC_OUT_A_GAIN_6_DB,
     .mic_input_mode_select = 1,  // 0 single-ended input, 1 differential input
-    .adc_wnf_mode_select = CODEC_ADC_WNF_INACTIVE,
 };
 
 dma_config_t audio_dma_rx_config = {
@@ -125,19 +124,6 @@ void audio_set_codec_out_path_a_d_gain(codec_out_path_digital_gain_e d_gain, cod
 void audio_set_i2s_codec_m_s(i2s_codec_m_s_mode_e m_s)
 {
     audio_i2s_codec_config.i2s_codec_m_s_mode = m_s;
-}
-
-/**
- * @brief  This function serves to set wind noise filter(WNF),it is a programmable high pass filter feature enabling to reduce wind noise.
- * @param[in] mode - the wind noise filter mode,the wind noise filter is a 1st order filter.
-*                                              Mode1  -3dB   59Hz
-*  Wind Noise Filter corner frequency          Mode2  -3dB   117Hz
-			                                   Mode3  -3dB   235Hz
-* @return    none
- */
-void audio_set_codec_wnf(adc_wnf_mode_sel_e mode)
-{
-    audio_i2s_codec_config.adc_wnf_mode_select = mode;
 }
 
 /**
@@ -234,16 +220,16 @@ void audio_i2s_set_pin(void)
  */
 void audio_set_codec_supply(codec_volt_supply_e volt)
 {
-    if (0xff == g_chip_version) { // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
-        if (CODEC_2P8V == volt) {
+    if (g_chip_version == 0xff) {  // A0 1.8v default ( BIT(7) - 1: 2.8v 0: 1.8v )
+        if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
-        } else if (CODEC_1P8V == volt) {
+        } else if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
-    } else { // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
-        if (CODEC_1P8V == volt) {
+    } else {  // A1 2.8v default ( BIT(7) - 1: 1.8v 0: 2.8v )
+        if (volt == CODEC_1P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) | BIT(7));
-        } else if (CODEC_2P8V == volt) {
+        } else if (volt == CODEC_2P8V) {
             analog_write_reg8(0x02, analog_read_reg8(0x02) & (~BIT(7)));
         }
     }
@@ -259,24 +245,24 @@ void audio_set_dmic_pin(dmic_pin_group_e pin_gp)
     if (pin_gp == DMIC_GROUPB_B2_DAT_B3_B4_CLK) {
         reg_gpio_pad_mul_sel = BIT(2);
         reg_gpio_pb_fuc_h = reg_gpio_pb_fuc_h & (~BIT_RNG(0, 1));
-        reg_gpio_pb_fuc_l = (reg_gpio_pb_fuc_l & (~BIT_RNG(4, 7)));
+        reg_gpio_pb_fuc_l = (reg_gpio_pb_fuc_h & (~BIT_RNG(4, 7))) | 0x0f;
         gpio_function_dis(GPIO_PB2 | GPIO_PB3 | GPIO_PB4);
     } else if (pin_gp == DMIC_GROUPC_C1_DAT_C2_C3_CLK) {
         reg_gpio_pad_mul_sel = BIT(0);
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 7))) | ((2 << 2) | (2 << 4) | (2 << 6));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2 | GPIO_PC3);
-    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK) { // can not use in A0
+    } else if (pin_gp == DMIC_GROUPD_D4_DAT_D5_D6_CLK) {  // can not use in A0
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 5))) | ((1 << 0) | (1 << 2) | (1 << 4));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5 | GPIO_PD6);
     } else if (pin_gp == DMIC_B2_DAT_B3_CLK) {
         reg_gpio_pad_mul_sel = BIT(2);
-        reg_gpio_pb_fuc_l = (reg_gpio_pb_fuc_l & (~BIT_RNG(4, 7)));
+        reg_gpio_pb_fuc_l = (reg_gpio_pb_fuc_h & (~BIT_RNG(4, 7))) | 0x0f;
         gpio_function_dis(GPIO_PB2 | GPIO_PB3);
     } else if (pin_gp == DMIC_C1_DAT_C2_CLK) {
         reg_gpio_pad_mul_sel = BIT(0);
         reg_gpio_pc_fuc_l = (reg_gpio_pc_fuc_l & (~BIT_RNG(2, 5))) | ((2 << 2) | (2 << 4));
         gpio_function_dis(GPIO_PC1 | GPIO_PC2);
-    } else if (pin_gp == DMIC_D4_DAT_D5_CLK) { // can not use in A0
+    } else if (pin_gp == DMIC_D4_DAT_D5_CLK) {  // can not use in A0
         reg_gpio_pd_fuc_h = (reg_gpio_pd_fuc_h & (~BIT_RNG(0, 3))) | ((1 << 0) | (1 << 2));
         gpio_function_dis(GPIO_PD4 | GPIO_PD5);
     }
@@ -345,14 +331,14 @@ void audio_rx_dma_config(dma_chn_e chn, unsigned short *dst_addr, unsigned int d
  * @param[in] data_len  -the length of dma size by byte.
  * @return    none
  */
-void audio_rx_dma_add_list_element(dma_chain_config_t *rx_config, dma_chain_config_t *llpointer,
+void audio_rx_dma_add_list_element(dma_chain_config_t *config_addr, dma_chain_config_t *llpointer,
                                    unsigned short *dst_addr, unsigned int data_len)
 {
-    rx_config->dma_chain_ctl = reg_dma_ctrl(audio_rx_dma_chn) | BIT(0);
-    rx_config->dma_chain_src_addr = REG_AUDIO_AHB_BASE;
-    rx_config->dma_chain_dst_addr = (unsigned int)convert_ram_addr_cpu2bus(dst_addr);
-    rx_config->dma_chain_data_len = dma_cal_size(data_len, 4);
-    rx_config->dma_chain_llp_ptr = (unsigned int)convert_ram_addr_cpu2bus(llpointer);
+    config_addr->dma_chain_ctl = reg_dma_ctrl(audio_rx_dma_chn) | BIT(0);
+    config_addr->dma_chain_src_addr = REG_AUDIO_AHB_BASE;
+    config_addr->dma_chain_dst_addr = (unsigned int)convert_ram_addr_cpu2bus(dst_addr);
+    config_addr->dma_chain_data_len = dma_cal_size(data_len, 4);
+    config_addr->dma_chain_llp_ptr = (unsigned int)convert_ram_addr_cpu2bus(llpointer);
 }
 
 /**
@@ -409,9 +395,10 @@ void audio_init(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_cha
                      audio_i2s_codec_config.i2s_data_invert_select);
     audio_set_i2s_clock(rate, AUDIO_RATE_EQUAL, 0);
     audio_clk_en(1, 1);
-    reg_audio_codec_vic_ctr = FLD_AUDIO_CODEC_SLEEP_ANALOG;          // active analog sleep mode
-    while (!(reg_audio_codec_stat_ctr & FLD_AUDIO_CODEC_PON_ACK)) {  // wait codec can be configed
+    reg_audio_codec_vic_ctr = FLD_AUDIO_CODEC_SLEEP_ANALOG;  // active analog sleep mode
+    while (!(reg_audio_codec_stat_ctr & FLD_AUDIO_CODEC_PON_ACK)) {
     }
+    // wait codec can be configed
     if (flow_mode < BUF_TO_LINE_OUT) {
         audio_codec_adc_config(audio_i2s_codec_config.i2s_codec_m_s_mode, (flow_mode % 3), rate,
                                audio_i2s_codec_config.codec_data_select, MCU_WREG);
@@ -421,9 +408,9 @@ void audio_init(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio_cha
         audio_codec_dac_config(audio_i2s_codec_config.i2s_codec_m_s_mode, rate,
                                audio_i2s_codec_config.codec_data_select, MCU_WREG);
     }
-    while (!(reg_audio_codec_stat_ctr == (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED |
-                                          FLD_AUDIO_CODEC_PON_ACK))) {  // wait codec adc/dac locked
-    }
+    while (!(reg_audio_codec_stat_ctr ==
+             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK))) {
+    }  // wait codec adc/dac locked
 
     audio_data_fifo0_path_sel(I2S_DATA_IN_FIFO, I2S_OUT);
 }
@@ -439,18 +426,22 @@ unsigned char audio_i2c_codec_read(unsigned char addr)
     reg_i2c_len = 0x01;  // rx_len
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_ADDR | FLD_I2C_LS_START;
 
-    while (i2c_master_busy()) {  // wait busy=0
+    while (i2c_master_busy()) {
     }
-    while (reg_i2c_mst & FLD_I2C_ACK_IN) {  // wait ack=0
+    // wait busy=0
+    while (reg_i2c_mst & FLD_I2C_ACK_IN) {
     }
+    // wait ack=0
 
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_DATAR | FLD_I2C_LS_START | FLD_I2C_LS_ID_R | FLD_I2C_LS_ACK;
-    while (i2c_master_busy()) {  // wait busy=0
+    while (i2c_master_busy()) {
     }
+    // wait busy=0
     unsigned char rdat8 = reg_i2c_data_buf(0);
     reg_i2c_sct1 = FLD_I2C_LS_STOP | FLD_I2C_LS_ID_R;
-    while (i2c_master_busy()) {  // wait busy=0
+    while (i2c_master_busy()) {
     }
+    // wait busy=0
     return rdat8;
 }
 
@@ -465,10 +456,12 @@ void audio_i2c_codec_write(unsigned char addr, unsigned char wdat)
     reg_i2c_data_buf(1) = wdat;
     reg_i2c_len = 2;  // tx_len
     reg_i2c_sct1 = FLD_I2C_LS_ID | FLD_I2C_LS_DATAW | FLD_I2C_LS_START | FLD_I2C_LS_STOP;
-    while (i2c_master_busy()) {  // wait busy=0
+    while (i2c_master_busy()) {
     }
-    while (reg_i2c_mst & FLD_I2C_ACK_IN) {  // wait ack=0
+    // wait busy=0
+    while (reg_i2c_mst & FLD_I2C_ACK_IN) {
     }
+    // wait ack=0
 }
 
 /**
@@ -509,9 +502,9 @@ void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio
     audio_clk_en(1, 1);
     audio_i2c_init(INNER_CODEC, 0, 0);
     audio_i2c_codec_write(addr_audio_codec_vic_ctr, FLD_AUDIO_CODEC_SLEEP_ANALOG);  // active analog sleep mode
-    while (
-        !(audio_i2c_codec_read(addr_audio_codec_stat_ctr) & FLD_AUDIO_CODEC_PON_ACK)) {  // wait codec can be configed
+    while (!(audio_i2c_codec_read(addr_audio_codec_stat_ctr) & FLD_AUDIO_CODEC_PON_ACK)) {
     }
+    // wait codec can be configed
     if (flow_mode < BUF_TO_LINE_OUT) {
         audio_codec_adc_config(audio_i2s_codec_config.i2s_codec_m_s_mode, (flow_mode % 3), rate,
                                audio_i2s_codec_config.codec_data_select, I2C_WREG);
@@ -521,9 +514,8 @@ void audio_init_i2c(audio_flow_mode_e flow_mode, audio_sample_rate_e rate, audio
                                audio_i2s_codec_config.codec_data_select, I2C_WREG);
     }
     while (!(audio_i2c_codec_read(addr_audio_codec_stat_ctr) ==
-             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED |
-              FLD_AUDIO_CODEC_PON_ACK))) {  // wait codec adc/dac locked
-    }
+             (FLD_AUDIO_CODEC_ADC12_LOCKED | FLD_AUDIO_CODEC_DAC_LOCKED | FLD_AUDIO_CODEC_PON_ACK))) {
+    }  // wait codec adc/dac locked
     audio_data_fifo0_path_sel(I2S_DATA_IN_FIFO, I2S_OUT);
 }
 
@@ -554,7 +546,9 @@ void audio_codec_dac_config(i2s_codec_m_s_mode_e mode, audio_sample_rate_e rate,
                FLD_AUDIO_CODEC_SB | FLD_AUDIO_CODEC_SB_ANALOG |
                    FLD_AUDIO_CODEC_SLEEP_ANALOG);  // disable sleep mode ,disable sb_analog,disable global standby
 
-        /* data word length ,interface master/slave selection, audio interface protocol selection ,active dac audio interface */
+        /* data word length ,interface master/slave selection,
+        * audio interface protocol selection ,active dac audio interface
+        */
         reg_audio_codec_dac_itf_ctr =
             MASK_VAL(FLD_AUDIO_CODEC_FORMAT, CODEC_I2S_MODE, FLD_AUDIO_CODEC_DAC_ITF_SB, CODEC_ITF_AC,
                      FLD_AUDIO_CODEC_SLAVE, mode, FLD_AUDIO_CODEC_WL, data_select);
@@ -587,7 +581,8 @@ void audio_codec_dac_config(i2s_codec_m_s_mode_e mode, audio_sample_rate_e rate,
         audio_i2c_codec_write(addr_audio_codec_vic_ctr, MASK_VAL(FLD_AUDIO_CODEC_SB, 0, FLD_AUDIO_CODEC_SB_ANALOG, 0,
                                                                  FLD_AUDIO_CODEC_SLEEP_ANALOG, 0));
 
-        /* data word length ,interface master/slave selection, audio interface protocol selection ,active dac audio interface */
+        /* data word length ,interface master/slave selection, audio interface protocol selection,
+        * active dac audio interface */
         audio_i2c_codec_write(addr_audio_codec_dac_itf_ctr,
                               MASK_VAL(FLD_AUDIO_CODEC_FORMAT, CODEC_I2S_MODE, FLD_AUDIO_CODEC_DAC_ITF_SB,
                                        CODEC_ITF_AC, FLD_AUDIO_CODEC_SLAVE, mode, FLD_AUDIO_CODEC_WL, data_select));
@@ -635,17 +630,17 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
         BM_SET(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC12_SOFT_MUTE); /* adc mute */
         if ((audio_i2s_codec_config.audio_in_mode == BIT_16_MONO) ||
             ((audio_i2s_codec_config.audio_in_mode == BIT_20_OR_24_MONO))) {
-            BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC1_SB); /* active anc0 channel,mono . */
+            BM_CLR(reg_audio_codec_adc12_ctr, FLD_AUDIO_CODEC_ADC1_SB); /* active anc0 channel,mono */
         } else {
             BM_CLR(reg_audio_codec_adc12_ctr,
                    FLD_AUDIO_CODEC_ADC1_SB | FLD_AUDIO_CODEC_ADC2_SB); /* active adc0 and adc1 channel */
         }
         BM_CLR(reg_audio_codec_vic_ctr,
                FLD_AUDIO_CODEC_SB | FLD_AUDIO_CODEC_SB_ANALOG |
-                   FLD_AUDIO_CODEC_SLEEP_ANALOG); /* disable sleep mode ,disable sb_analog,disable global standby */
+                   FLD_AUDIO_CODEC_SLEEP_ANALOG); /* disable sleep mode ,disable sb_analog, disable global standby */
 
         if (in_mode == AMIC_INPUT) {
-            /* Microphone 1 input selection ,Microphone biasing active,Single-ended input,MICBIAS1 output=2.08V, */
+            /* Microphone 1 input selection ,Microphone biasing active,Single-ended input, MICBIAS1 output=2.08V, */
             reg_audio_codec_mic1_ctr =
                 MASK_VAL(FLD_AUDIO_CODEC_MIC1_SEL, 0, FLD_AUDIO_CODEC_MICBIAS1_SB, 0, FLD_AUDIO_CODEC_MIC_DIFF1,
                          audio_i2s_codec_config.mic_input_mode_select, FLD_AUDIO_CODEC_MICBIAS1_V, 0);
@@ -653,8 +648,8 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
             reg_audio_codec_mic2_ctr = MASK_VAL(FLD_AUDIO_CODEC_MIC2_SEL, 0, FLD_AUDIO_CODEC_MIC_DIFF2,
                                                 audio_i2s_codec_config.mic_input_mode_select);
 
-            /* set wind noise filter */
-            reg_audio_codec_adc_wnf_ctr = audio_i2s_codec_config.adc_wnf_mode_select;
+            /* enable wind noise filter mode3 */
+            reg_audio_codec_adc_wnf_ctr = CODEC_ADC_WNF_MODE3;
 
             /* analog 0/4/8/12/16/20 dB boost gain */
             reg_audio_codec_mic_l_R_gain =
@@ -665,12 +660,6 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
                 MASK_VAL(FLD_AUDIO_CODEC_ADC_DMIC_SEL2, 1, FLD_AUDIO_CODEC_ADC_DMIC_SEL1, 1, FLD_AUDIO_CODEC_DMIC2_SB,
                          CODEC_ITF_AC, FLD_AUDIO_CODEC_DMIC1_SB, CODEC_ITF_AC);
         } else if (in_mode == LINE_INPUT) {
-            reg_audio_codec_mic1_ctr =
-                MASK_VAL(FLD_AUDIO_CODEC_MIC_DIFF1, audio_i2s_codec_config.mic_input_mode_select);
-
-            reg_audio_codec_mic2_ctr =
-                MASK_VAL(FLD_AUDIO_CODEC_MIC_DIFF2, audio_i2s_codec_config.mic_input_mode_select);
-
             /* analog 0/4/8/12/16/20 dB boost gain */
             reg_audio_codec_mic_l_R_gain =
                 MASK_VAL(FLD_AUDIO_CODEC_AMIC_L_GAIN, audio_i2s_codec_config.in_analog_gain,
@@ -686,7 +675,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
         /* audio adc interface active */
         BM_CLR(reg_audio_codec_adc2_ctr, FLD_AUDIO_CODEC_ADC12_SB);
 
-        /*  adc high pass filter active, set adc sample rate   */
+        /* adc high pass filter active, set adc sample rate */
         reg_audio_codec_adc_freq_ctr = MASK_VAL(FLD_AUDIO_CODEC_ADC12_HPF_EN, 1, FLD_AUDIO_CODEC_ADC_FREQ,
                                                 rate == AUDIO_ADC_16K_DAC_48K ? AUDIO_16K : rate);
 
@@ -701,7 +690,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
                                                                  FLD_AUDIO_CODEC_SLEEP_ANALOG, 0));
 
         if (in_mode == AMIC_INPUT) {
-            /* Microphone 1 input selection ,Microphone biasing active,Single-ended input,MICBIAS1 output=2.08V, */
+            /* Microphone 1 input selection ,Microphone biasing active,Single-ended input,MICBIAS1 output=2.08V */
             audio_i2c_codec_write(addr_audio_codec_mic1_ctr,
                                   MASK_VAL(FLD_AUDIO_CODEC_MIC1_SEL, 0, FLD_AUDIO_CODEC_MICBIAS1_SB, 0,
                                            FLD_AUDIO_CODEC_MIC_DIFF1, 0, FLD_AUDIO_CODEC_MICBIAS1_V, 0));
@@ -736,7 +725,7 @@ void audio_codec_adc_config(i2s_codec_m_s_mode_e mode, audio_input_mode_e in_mod
 
         audio_i2c_codec_write(addr_audio_codec_adc2_ctr, ~FLD_AUDIO_CODEC_ADC12_SB); /* audio adc interface active */
 
-        /*  adc high pass filter active, set adc sample rate   */
+        /* adc high pass filter active, set adc sample rate */
         audio_i2c_codec_write(addr_audio_codec_adc_freq_ctr,
                               MASK_VAL(FLD_AUDIO_CODEC_ADC12_HPF_EN, 1, FLD_AUDIO_CODEC_ADC_FREQ, rate));
 
@@ -767,7 +756,8 @@ void audio_mux_config(audio_flow_e audio_flow, audio_in_mode_e ain0_mode, audio_
  * @param[in] i2s_format - interface protocol
  * @param[in] wl   		 - audio data word length
  * @param[in] m_s        - select i2s as master or slave
- * @param[in] en         - 1 enable audio data invert , 0 disable audio data invert .for example in mono mode switch R and L channel data to fifo0
+ * @param[in] en         - 1 enable audio data invert , 0 disable audio data invert.
+ *                         For example in mono mode switch R and L channel data to fifo0
  * @return    none
  */
 void audio_i2s_config(i2s_mode_select_e i2s_format, i2s_data_select_e wl, i2s_codec_m_s_mode_e m_s,
@@ -821,24 +811,25 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 while (tx_rptr_old == reg_tx_rptr) {
                 }
             }
-            if (match == AUDIO_RATE_EQUAL) { // 48000
-                audio_set_i2s_clk(2, 125);  // i2s clk 3.072 M
-                audio_set_i2s_bclk(0);      // 3.072/1 = 3.072M bclk
-                audio_set_lrclk(64, 64);    // bclk/64=48k
-            } else if (match == AUDIO_RATE_GT_L0) { // 48004
+
+            if (match == AUDIO_RATE_EQUAL) {         // 48000
+                audio_set_i2s_clk(2, 125);           // i2s clk 3.072 M
+                audio_set_i2s_bclk(0);               // 3.072/1 = 3.072M bclk
+                audio_set_lrclk(64, 64);             // bclk/64=48k
+            } else if (match == AUDIO_RATE_GT_L0) {  // 48004
                 audio_set_i2s_clk(3, 169);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(71, 71);
-            } else if (match == AUDIO_RATE_GT_L1) { // 48012.0
+            } else if (match == AUDIO_RATE_GT_L1) {  // 48012.0
                 audio_set_i2s_clk(4, 129);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(124, 124);
-            } else if (match == AUDIO_RATE_LT_L0) {
-                audio_set_i2s_clk(2, 63);  // 47994.0
+            } else if (match == AUDIO_RATE_LT_L0) {  // 47994.0
+                audio_set_i2s_clk(2, 63);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(127, 127);
-            } else if (match == AUDIO_RATE_LT_L1) {
-                audio_set_i2s_clk(4, 165);  // 47985.0
+            } else if (match == AUDIO_RATE_LT_L1) {  // 47985.0
+                audio_set_i2s_clk(4, 165);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(97, 97);
             }
@@ -851,30 +842,27 @@ _attribute_ram_code_sec_noinline_ void audio_set_i2s_clock(audio_sample_rate_e a
                 }
             }
 
-            if (match == AUDIO_RATE_EQUAL) { // 44099.9
+            if (match == AUDIO_RATE_EQUAL) {  // 44099.9
                 audio_set_i2s_clk(8, 215);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(162, 162);
-            } else if (match == AUDIO_RATE_GT_L0) { // 44110.2
+            } else if (match == AUDIO_RATE_GT_L0) {  // 44110.2
                 audio_set_i2s_clk(11, 228);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(210, 210);
-            } else if (match == AUDIO_RATE_GT_L1) { // 44117.6
+            } else if (match == AUDIO_RATE_GT_L1) {  // 44117.6
                 audio_set_i2s_clk(5, 170);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(128, 128);
-            } else if (match == AUDIO_RATE_LT_L0) { // 44094.4
+            } else if (match == AUDIO_RATE_LT_L0) {  // 44094.4
                 audio_set_i2s_clk(7, 254);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(120, 120);
-            } else if (match == AUDIO_RATE_LT_L1) { // 44081.6
+            } else if (match == AUDIO_RATE_LT_L1) {  // 44081.6
                 audio_set_i2s_clk(9, 245);
                 audio_set_i2s_bclk(0);
                 audio_set_lrclk(160, 160);
             }
-            break;
-
-        default:
             break;
     }
 }
@@ -938,7 +926,7 @@ unsigned char LineIn_To_I2S_CMD_TAB[9][2] = {
  */
 void audio_set_ext_codec(void)
 {
-    for (unsigned char i = 0; i < ARRAY_SIZE(LineIn_To_I2S_CMD_TAB); i++) {
+    for (unsigned char i = 0; i < 9; i++) {
         audio_i2c_codec_write(LineIn_To_I2S_CMD_TAB[i][0] >> 1, LineIn_To_I2S_CMD_TAB[i][1]);
     }
 }
@@ -954,6 +942,7 @@ void pwm_set(pwm_pin_e pin)
     reg_pwm0_enable = 0;  // off pwm0
     pwm_set_pin(pin);
     pwm_set_clk((unsigned char)(sys_clk.pclk * 1000 * 1000 / 24000000 - 1));
+    // reg_pwm_clkdiv = 0;// set pwm clk equal pclk 24M
     pwm_set_pwm0_mode(PWM_NORMAL_MODE);
     pwm_set_tcmp(PWM0_ID, 1);
     pwm_set_tmax(PWM0_ID, 2);  // 24M/2=12M pwm  mclk to  ext codec clk
@@ -1042,7 +1031,7 @@ void audio_codec_dac_power_on(void)
     BM_CLR(reg_audio_codec_dac_itf_ctr, FLD_AUDIO_CODEC_DAC_ITF_SB);
     reg_audio_codec_vic_ctr = MASK_VAL(FLD_AUDIO_CODEC_SB, CODEC_ITF_AC, FLD_AUDIO_CODEC_SB_ANALOG, CODEC_ITF_AC,
                                        FLD_AUDIO_CODEC_SLEEP_ANALOG, CODEC_ITF_AC);
-    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // un mute
+    BM_CLR(reg_audio_codec_dac_ctr, FLD_AUDIO_CODEC_DAC_SOFT_MUTE);  // unmute
     audio_tx_dma_en();
 }
 
@@ -1081,4 +1070,3 @@ void audio_codec_adc_power_on(void)
 
     audio_rx_dma_en();
 }
-

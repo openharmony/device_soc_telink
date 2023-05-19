@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_PKE_H
+#pragma once
 
 #include "reg_include/register_b91.h"
 
@@ -145,7 +144,7 @@ static inline unsigned int pke_get_irq_status(pke_status_e status)
  */
 static inline void pke_clr_irq_status(pke_status_e status)
 {
-    reg_pke_stat = ~status;
+    BM_CLR(reg_pke_stat, status);
 }
 
 /**
@@ -420,5 +419,3 @@ unsigned char pke_ed25519_point_mul(edward_curve_t *curve, unsigned int *k, unsi
  */
 unsigned char pke_ed25519_point_add(edward_curve_t *curve, unsigned int *P1x, unsigned int *P1y, unsigned int *P2x,
                                     unsigned int *P2y, unsigned int *Qx, unsigned int *Qy);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_PKE_H

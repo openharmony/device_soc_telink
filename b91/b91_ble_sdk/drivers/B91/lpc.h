@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_LPC_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_LPC_H
+#pragma once
 
 #include "analog.h"
 
@@ -117,5 +116,3 @@ static inline unsigned char lpc_get_result(void)
  * @return		none.
  */
 void lpc_set_input_ref(lpc_mode_e mode, lpc_reference_e ref);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_LPC_H

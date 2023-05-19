@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H
-#define B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H
+#pragma once
 
 #include "analog.h"
 #include "reg_include/mdec_reg.h"
@@ -57,7 +56,8 @@ static inline void mdec_clr_irq_status(wakeup_status_e status)
 /**
  * @brief		This function is used to initialize the MDEC module,include clock setting and input IO select.
  * @param[in]	pin	- mdec pin.
- * 					  In order to distinguish which pin the data is input from,only one input pin can be selected one time.
+ * 					  In order to distinguish which pin the data is input from,
+ *                    only one input pin can be selected one time.
  * @return		none.
  */
 void mdec_init(mdec_pin_e pin);
@@ -68,5 +68,3 @@ void mdec_init(mdec_pin_e pin);
  * @return		1 decode success,  0 decode failure.
  */
 unsigned char mdec_read_dat(unsigned char *dat);
-
-#endif // B91_B91_BLE_SDK_DRIVERS_B91_MDEC_H

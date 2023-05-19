@@ -20,10 +20,10 @@
 #define HCI_CONST_H_
 
 /****HCI INFO****/
-#define HCI_VERSION           0x09    // Bluetooth Core Specification 5.0
-#define HCI_REVISION          0x0002  // Revision of the Current HCI in the BR/EDR Controller
-#define HCI_LMP_VERSION                                                                                                \
-    0x09  // Version of the Current LMP or PAL in the Controller, Bluetooth Core Specification 5.0
+#define HCI_VERSION  0x09    // Bluetooth Core Specification 5.0
+#define HCI_REVISION 0x0002  // Revision of the Current HCI in the BR/EDR Controller
+#define HCI_LMP_VERSION                                                                                               \
+    0x09                     // Version of the Current LMP or PAL in the Controller, Bluetooth Core Specification 5.0
 #define HCI_MANUFACTURER_NAME VENDOR_ID  // Manufacturer Name of the BR/EDR Controller
 #define HCI_LMP_SUBVERSION    0x0001     // Subversion of the Current LMP or PAL in the Controller
 
@@ -43,19 +43,19 @@
 #define HCI_EVT_DATA_BUF_OVERFLOW             0x1A
 #define HCI_EVT_ENCRYPTION_KEY_REFRESH        0x30
 #define HCI_EVT_LE_META                       0x3E
-#define HCI_EVT_CERT_VS                       0xF0
+#define HCI_EVT_HT_ERR_FLAG                   0xF0
 
 // LE Meta Event Codes
 #define HCI_SUB_EVT_LE_CONNECTION_COMPLETE                0x01  // core_4.0
-#define HCI_SUB_EVT_LE_ADVERTISING_REPORT                 0x02
-#define HCI_SUB_EVT_LE_CONNECTION_UPDATE_COMPLETE         0x03
-#define HCI_SUB_EVT_LE_READ_REMOTE_USED_FEATURES_COMPLETE 0x04
+#define HCI_SUB_EVT_LE_ADVERTISING_REPORT                 0x02  // core_4.0
+#define HCI_SUB_EVT_LE_CONNECTION_UPDATE_COMPLETE         0x03  // core_4.0
+#define HCI_SUB_EVT_LE_READ_REMOTE_USED_FEATURES_COMPLETE 0x04  // core_4.0
 #define HCI_SUB_EVT_LE_LONG_TERM_KEY_REQUESTED            0x05  // core_4.0
 #define HCI_SUB_EVT_LE_REMOTE_CONNECTION_PARAM_REQUEST    0x06  // core_4.1
 #define HCI_SUB_EVT_LE_DATA_LENGTH_CHANGE                 0x07  // core_4.2
-#define HCI_SUB_EVT_LE_READ_LOCAL_P256_KEY_COMPLETE       0x08
-#define HCI_SUB_EVT_LE_GENERATE_DHKEY_COMPLETE            0x09
-#define HCI_SUB_EVT_LE_ENHANCED_CONNECTION_COMPLETE       0x0A
+#define HCI_SUB_EVT_LE_READ_LOCAL_P256_KEY_COMPLETE       0x08  // core_4.2
+#define HCI_SUB_EVT_LE_GENERATE_DHKEY_COMPLETE            0x09  // core_4.2
+#define HCI_SUB_EVT_LE_ENHANCED_CONNECTION_COMPLETE       0x0A  // core_4.2
 #define HCI_SUB_EVT_LE_DIRECT_ADVERTISE_REPORT            0x0B  // core_4.2
 
 #define HCI_SUB_EVT_LE_PHY_UPDATE_COMPLETE 0x0C  // core_5.0
@@ -66,11 +66,10 @@
 #define HCI_SUB_EVT_LE_PERIODIC_ADVERTISING_REPORT                                                                    \
     0x0F  // core_5.0 - LE Periodic Advertising Report Event- [5] 7.7.65.15
 #define HCI_SUB_EVT_LE_PERIODIC_ADVERTISING_SYNC_LOST                                                                 \
-    0x10                                  // core_5.0 - LE Periodic Advertising Sync Lost Event - [5] 7.7.65.16
-#define HCI_SUB_EVT_LE_SCAN_TIMEOUT 0x11  // core_5.0 - LE Scan Timeout Event - [5] 7.7.65.17
-#define HCI_SUB_EVT_LE_ADVERTISING_SET_TERMINATED                                                                     \
-    0x12                                           // core_5.0 - LE Advertising Set Terminated Event - [5]7.7.65.18
-#define HCI_SUB_EVT_LE_SCAN_REQUEST_RECEIVED 0x13  // core_5.0 - LE Scan Request Received Event - [5]7.7.65.19
+    0x10  // core_5.0 - LE Periodic Advertising Sync Lost Event - [5] 7.7.65.16
+#define HCI_SUB_EVT_LE_SCAN_TIMEOUT               0x11  // core_5.0 - LE Scan Timeout Event - [5] 7.7.65.17
+#define HCI_SUB_EVT_LE_ADVERTISING_SET_TERMINATED 0x12  // core_5.0 - LE Advertising Set Terminated Event- [5]7.7.65.18
+#define HCI_SUB_EVT_LE_SCAN_REQUEST_RECEIVED      0x13  // core_5.0 - LE Scan Request Received Event - [5]7.7.65.19
 #define HCI_SUB_EVT_LE_CHANNEL_SELECTION_ALGORITHM                                                                    \
     0x14  // core_5.0 - LE Channel Selection Algorithm Event - [5]7.7.65.20
 
@@ -90,8 +89,9 @@
 #define HCI_SUB_EVT_LE_PATH_LOSS_THRESHOLD        0x20  // core_5.2	7.7.65.32 LE Path Loss Threshold event
 #define HCI_SUB_EVT_LE_TRANSMIT_POWER_REPORTING   0x21  // core_5.2	7.7.65.33 LE Transmit Power Reporting event
 #define HCI_SUB_EVT_LE_BIGINFO_ADVERTISING_REPORT 0x22  // core_5.2	7.7.65.34 LE BIGInfo Advertising Report event
+#define HCI_SUB_EVT_MAX                           0x23
 
-#define HCI_SUB_EVT_LE_CONNECTION_ESTABLISH 0xFF  // private
+#define HCI_SUB_EVT_LE_CONNECTION_ESTABLISH 0xFF  // Telink private
 
 // Event mask - last octet
 #define HCI_EVT_MASK_NONE                                     0x0000000000
@@ -99,14 +99,14 @@
 #define HCI_EVT_MASK_INQUIRY_RESULT                           0x0000000002
 #define HCI_EVT_MASK_CONNECTION_COMPELETE                     0x0000000004
 #define HCI_EVT_MASK_CONNECTION_REQUEST                       0x0000000008
-#define HCI_EVT_MASK_DISCONNECTION_COMPLETE                   0x0000000010
+#define HCI_EVT_MASK_DISCONNECTION_COMPLETE                   0x0000000010  //
 #define HCI_EVT_MASK_AUTHENTICATION_COMPLETE                  0x0000000020
 #define HCI_EVT_MASK_REMOTE_NAME_REQUEST_COMPLETE             0x0000000040
 #define HCI_EVT_MASK_ENCRYPTION_CHANGE                        0x0000000080
 #define HCI_EVT_MASK_CHANGE_CONECTION_LINK_KEY_COMPLETE       0x0000000100
 #define HCI_EVT_MASK_MASTER_LINK_KEY_COMPLETE                 0x0000000200
 #define HCI_EVT_MASK_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE  0x0000000400
-#define HCI_EVT_MASK_READ_REMOTE_VERSION_INFORMATION_COMPLETE 0x0000000800
+#define HCI_EVT_MASK_READ_REMOTE_VERSION_INFORMATION_COMPLETE 0x0000000800  //
 
 #define HCI_EVT_MASK_DEFAULT HCI_EVT_MASK_DISCONNECTION_COMPLETE
 
@@ -150,8 +150,7 @@
 #define HCI_LE_EVT_MASK_2_TRANSMIT_POWER_REPORTING   0x00000001  // core5.2 - bit32
 #define HCI_LE_EVT_MASK_2_BIGINFO_ADVERTISING_REPORT 0x00000002  // core5.2 - bit33
 
-#define HCI_LE_EVT_MASK_CONNECTION_ESTABLISH 0x80000000  // private
-
+#define HCI_LE_EVT_MASK_CONNECTION_ESTABLISH 0x80000000
 #define HCI_LE_EVT_MASK_DEFAULT HCI_LE_EVT_MASK_NONE
 
 // Link Control Command
@@ -195,6 +194,7 @@
 #define HCI_CMD_WRITE_INQUIRY_SCAN_TYPE             0x43
 #define HCI_CMD_WRITE_INQUIRY_MODE                  0x45
 #define HCI_CMD_WRITE_PAGE_SCAN_TYPE                0x47
+#define HCI_CMD_SET_EVT_MASK_PAGE_2                 0x63
 
 // Informational Parameters
 // -- OGF --
@@ -248,11 +248,10 @@
 #define HCI_CMD_LE_LONG_TERM_KEY_REQUESTED_NEGATIVE_REPLY 0x1B
 #define HCI_CMD_LE_READ_SUPPORTED_STATES                  0x1C
 #define HCI_CMD_LE_RECEIVER_TEST                          0x1D
-#define HCI_CMD_LE_RECEIVER_TEST_V1                       (HCI_CMD_LE_RECEIVER_TEST)
 #define HCI_CMD_LE_TRANSMITTER_TEST                       0x1E
 #define HCI_CMD_LE_TEST_END                               0x1F
 // core_4.0 end
-// core_4.2 begin
+// core_4.1 begin
 #define HCI_CMD_LE_REMOTE_CONNECTION_PARAM_REQ_REPLY          0x20
 #define HCI_CMD_LE_REMOTE_CONNECTION_PARAM_REQ_NEGATIVE_REPLY 0x21
 // core_4.1 end
@@ -277,7 +276,6 @@
 #define HCI_CMD_LE_SET_DEFAULT_PHY           0x31  // LE Set Default PHY Command - [5] 7.8.48
 #define HCI_CMD_LE_SET_PHY                   0x32  // LE Set PHY Command - [5] 7.8.49
 #define HCI_CMD_LE_ENHANCED_RECEIVER_TEST    0x33  // LE Enhanced Receiver Test Command - [5] 7.8.50
-#define HCI_CMD_LE_RECEIVER_TEST_V2          HCI_CMD_LE_ENHANCED_RECEIVER_TEST  // LE Receiver Test command - [5] 7.8.28
 #define HCI_CMD_LE_ENHANCED_TRANSMITTER_TEST 0x34  // LE Enhanced Transmitter Test Command - [5] 7.8.51
 #define HCI_CMD_LE_SET_ADVERTISING_SET_RANDOM_ADDRESS                                                                 \
     0x35  // LE Set Advertising Set Random Address Command - [5] 7.8.52

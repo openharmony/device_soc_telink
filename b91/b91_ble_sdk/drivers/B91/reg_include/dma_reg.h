@@ -17,9 +17,7 @@
  *****************************************************************************/
 #ifndef DMA_REG_H
 #define DMA_REG_H
-
 #include "../sys.h"
-
 /*******************************    dma registers:  0x100400     ******************************/
 #define reg_dma_id  REG_ADDR32(0x100400)
 #define reg_dma_cfg REG_ADDR32(0x100410)

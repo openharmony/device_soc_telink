@@ -199,11 +199,6 @@ void gpio_shutdown(gpio_pin_e pin)
             analog_write_reg8(areg_gpio_pc_ie, 0);
             analog_write_reg8(areg_gpio_pd_ie, 0);
             reg_gpio_pe_ie = 0x00;
-            break;
-        }
-
-        default: {
-            break;
         }
     }
 }

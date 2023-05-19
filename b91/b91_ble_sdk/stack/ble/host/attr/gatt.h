@@ -18,106 +18,114 @@
 #ifndef GATT_H_
 #define GATT_H_
 
+/* GATT data handle call-back. */
+typedef int (*gatt_handler_t)(u16 conn, u8 *p);
+
 /**
- * @brief	   This function is used to notify a client of the value of a Characteristic Value from a server.
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle  -  attribute handle.
- * @param[in]  *p -  data buffer pointer
- * @param[in]  len - data byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Register GATT data handle call-back.
+ * @param[in]   handler  -
+ * @return      none.
+ */
+void blc_gatt_register_data_handler(gatt_handler_t handler);
+
+/**
+ * @brief       Send ATT Value Notify.
+ * @param[in]   connHandle   - connection handle.
+ * @param[in]   attHandle    - ATT handle.
+ * @param[in]   p            - Pointer point to application data buffer.
+ * @param[in]   len          - the length of data.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushHandleValueNotify(u16 connHandle, u16 attHandle, u8 *p, int len);
 
 /**
- * @brief	   This function is used to indicate the Characteristic Value from a server to a client.
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle - attribute handle.
- * @param[in]  *p -  data buffer pointer
- * @param[in]  len - data byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Indicate.
+ * @param[in]   connHandle   - connection handle.
+ * @param[in]   attHandle    - ATT handle.
+ * @param[in]   p            - Pointer point to application data buffer.
+ * @param[in]   len          - the length of data.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushHandleValueIndicate(u16 connHandle, u16 attHandle, u8 *p, int len);
 
 /**
- * @brief	   This function is used to This function is used to request the server to write the value of an attribute without response.
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle - attribute handle.
- * @param[in]  *p -  data buffer pointer
- * @param[in]  len - data byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Write Command.
+ * @param[in]   connHandle   - connection handle.
+ * @param[in]   attHandle    - ATT handle.
+ * @param[in]   p            - Pointer point to application data buffer.
+ * @param[in]   len          - the length of data.
+ * @return      none.
  */
-ble_sts_t blc_gatt_pushWriteComand(u16 connHandle, u16 attHandle, u8 *p, int len);
+ble_sts_t blc_gatt_pushWriteCommand(u16 connHandle, u16 attHandle, u8 *p, int len);
 
 /**
- * @brief	   This function is used to request the server to write the value of an attribute.
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle - attribute handle.
- * @param[in]  *p -  data buffer pointer
- * @param[in]  len - data byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Write Request.
+ * @param[in]   connHandle   - connection handle.
+ * @param[in]   attHandle    - ATT handle.
+ * @param[in]   p            - Pointer point to application data buffer.
+ * @param[in]   len          - the length of data.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushWriteRequest(u16 connHandle, u16 attHandle, u8 *p, int len);
 
 /**
- * @brief	   This function is used to obtain the mapping of attribute handles with their associated types
- * 			   and allows a client to discover the list of attributes and their types on a server.
- * @param[in]  connHandle -  connection handle
- * @param[in]  start_attHandle - start attribute handle.
- * @param[in]  end_attHandle -  end attribute handle.
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Find Info Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   start_attHandle    - the start of ATT handle.
+ * @param[in]   end_attHandle      - the end of ATT handle.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushFindInformationRequest(u16 connHandle, u16 start_attHandle, u16 end_attHandle);
 
 /**
- * @brief	   This function is used to obtain the handles of attributes that have a 16bit uuid attribute type and attribute value.
- * @param[in]  connHandle -  connection handle
- * @param[in]  start_attHandle - start attribute handle.
- * @param[in]  end_attHandle   - end attribute handle.
- * @param[in]  uuid
- * @param[in]  attr_value - attribute value
- * @param[in]  len - data byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Find By Type Value Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   start_attHandle    - the start of ATT handle.
+ * @param[in]   end_attHandle      - the end of ATT handle.
+ * @param[in]   uuid               - attribute type.
+ * @param[in]   attr_value         - Pointer point to value buffer.
+ * @param[in]   len                - the length of value.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushFindByTypeValueRequest(u16 connHandle, u16 start_attHandle, u16 end_attHandle, u16 uuid,
                                               u8 *attr_value, int len);
-
 /**
- * @brief	   This function is used to obtain the values of attributes where the attribute type is known but handle is not known.
- * @param[in]  connHandle -  connection handle
- * @param[in]  start_attHandle - start attribute handle.
- * @param[in]  end_attHandle   - end attribute handle.
- * @param[in]  uuid
- * @param[in]  uuid_len -uuid byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Read By Type Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   start_attHandle    - the start of ATT handle.
+ * @param[in]   end_attHandle      - the end of ATT handle.
+ * @param[in]   uuid               - attribute type.
+ * @param[in]   uuid_len           - the length of attribute type.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushReadByTypeRequest(u16 connHandle, u16 start_attHandle, u16 end_attHandle, u8 *uuid,
                                          int uuid_len);
 
 /**
- * @brief	   This function is used to request the server to read the value of an attribute.
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle -   attribute handle.
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Read Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   attHandle          - ATT handle.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushReadRequest(u16 connHandle, u16 attHandle);
 
 /**
- * @brief	   This function is used to request the server to read part of the value of an attribute at a given offset
- * @param[in]  connHandle -  connection handle
- * @param[in]  attHandle - attribute handle.
- * @param[in]  offset
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Read Blob Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   attHandle          - ATT handle.
+ * @param[in]   offset             - ATT value offset.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushReadBlobRequest(u16 connHandle, u16 attHandle, u16 offset);
 
 /**
- * @brief	   This function is used to obtain the values of attributes according to the uuid.
- * @param[in]  connHandle -  connection handle
- * @param[in]  start_attHandle - start attribute handle.
- * @param[in]  end_attHandle   - end attribute handle.
- * @param[in]  uuid -
- * @param[in]  uuid_len - uuid byte number
- * @return     Status - 0x00: command succeeded; 0x01-0xFF: command failed
+ * @brief       Send ATT Read By Group Type Request.
+ * @param[in]   connHandle         - connection handle.
+ * @param[in]   start_attHandle    - the start of ATT handle.
+ * @param[in]   end_attHandle      - the end of ATT handle.
+ * @param[in]   uuid               - Pointer point to attribute type.
+ * @param[in]   uuid_len           - the length of attribute type.
+ * @return      none.
  */
 ble_sts_t blc_gatt_pushReadByGroupTypeRequest(u16 connHandle, u16 start_attHandle, u16 end_attHandle, u8 *uuid,
                                               int uuid_len);

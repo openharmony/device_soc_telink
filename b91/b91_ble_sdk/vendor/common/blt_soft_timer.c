@@ -15,17 +15,13 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#if 1
-
 #include "blt_soft_timer.h"
 #include "stack/ble/ble.h"
 #include "tl_common.h"
 
-#include "vendor/common/user_config.h"
+#if BLT_SOFTWARE_TIMER_ENABLE
 
-#if (BLT_SOFTWARE_TIMER_ENABLE)
-
-_attribute_data_retention_ blt_soft_timer_t blt_timer;
+_attribute_ble_data_retention_ blt_soft_timer_t blt_timer;
 
 /**
  * @brief		This function is used to Sort the timers according
@@ -38,19 +34,19 @@ int blt_soft_timer_sort(void)
 {
     if (blt_timer.currentNum < 1 || blt_timer.currentNum > MAX_TIMER_NUM) {
         return 0;
-    }
-    
-    // BubbleSort
-    int n = blt_timer.currentNum;
-    u8 temp[sizeof(blt_time_event_t)];
-    
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (TIME_COMPARE_BIG(blt_timer.timer[j].t, blt_timer.timer[j + 1].t)) {
-                // swap
-                memcpy(temp, &blt_timer.timer[j], sizeof(blt_time_event_t));
-                memcpy(&blt_timer.timer[j], &blt_timer.timer[j + 1], sizeof(blt_time_event_t));
-                memcpy(&blt_timer.timer[j + 1], temp, sizeof(blt_time_event_t));
+    } else {
+        // BubbleSort
+        int n = blt_timer.currentNum;
+        u8 temp[sizeof(blt_time_event_t)];
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (TIME_COMPARE_BIG(blt_timer.timer[j].t, blt_timer.timer[j + 1].t)) {
+                    // swap
+                    memcpy(temp, &blt_timer.timer[j], sizeof(blt_time_event_t));
+                    memcpy(&blt_timer.timer[j], &blt_timer.timer[j + 1], sizeof(blt_time_event_t));
+                    memcpy(&blt_timer.timer[j + 1], temp, sizeof(blt_time_event_t));
+                }
             }
         }
     }
@@ -79,7 +75,7 @@ int blt_soft_timer_add(blt_timer_callback_t func, u32 interval_us)
 
         blt_soft_timer_sort();
 
-        bls_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
+        blc_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
 
         return 1;
     }
@@ -122,16 +118,14 @@ int blt_soft_timer_delete(blt_timer_callback_t func)
 
             if (i == 0) {  // The most recent timer is deleted, and the time needs to be updated
                 if ((u32)(blt_timer.timer[0].t - clock_time()) < 3000 * SYSTEM_TIMER_TICK_1MS) {
-                    bls_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
+                    blc_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
                 } else {
-                    bls_pm_setAppWakeupLowPower(0, 0);  // disable
+                    blc_pm_setAppWakeupLowPower(0, 0);  // disable
                 }
             }
-
             return 1;
         }
     }
-
     return 0;
 }
 
@@ -147,7 +141,7 @@ void blt_soft_timer_process(int type)
 
     u32 now = clock_time();
     if (!blt_timer.currentNum) {
-        bls_pm_setAppWakeupLowPower(0, 0);  // disable
+        blc_pm_setAppWakeupLowPower(0, 0);  // disable
         return;
     }
 
@@ -182,12 +176,12 @@ void blt_soft_timer_process(int type)
         }
 
         if ((u32)(blt_timer.timer[0].t - now) < 3000 * SYSTEM_TIMER_TICK_1MS) {
-            bls_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
+            blc_pm_setAppWakeupLowPower(blt_timer.timer[0].t, 1);
         } else {
-            bls_pm_setAppWakeupLowPower(0, 0);  // disable
+            blc_pm_setAppWakeupLowPower(0, 0);  // disable
         }
     } else {
-        bls_pm_setAppWakeupLowPower(0, 0);  // disable
+        blc_pm_setAppWakeupLowPower(0, 0);  // disable
     }
 }
 
@@ -198,8 +192,7 @@ void blt_soft_timer_process(int type)
  */
 void blt_soft_timer_init(void)
 {
-    bls_pm_registerAppWakeupLowPowerCb(blt_soft_timer_process);
+    blc_pm_registerAppWakeupLowPowerCb(blt_soft_timer_process);
 }
 
 #endif  // end of  BLT_SOFTWARE_TIMER_ENABLE
-#endif

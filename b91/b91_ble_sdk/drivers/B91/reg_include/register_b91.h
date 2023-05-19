@@ -27,6 +27,7 @@
 #include "i2c_reg.h"
 #include "mdec_reg.h"
 #include "mspi_reg.h"
+#include "npe_reg.h"
 #include "pke_reg.h"
 #include "plic_reg.h"
 #include "pwm_reg.h"
@@ -38,4 +39,5 @@
 #include "trng_reg.h"
 #include "uart_reg.h"
 #include "usb_reg.h"
+
 #endif

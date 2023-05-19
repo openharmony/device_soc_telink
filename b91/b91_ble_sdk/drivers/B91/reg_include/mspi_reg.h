@@ -15,8 +15,7 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#ifndef MSPI_REG_H
-#define MSPI_REG_H
+#pragma once
 
 #include "../sys.h"
 
@@ -43,29 +42,25 @@ enum {
     FLD_MSPI_CS2CS_CNT = BIT_RNG(5, 7),
 };
 
-#define reg_mspi_config REG_ADDR32(0x140104)
-#define reg_mspi_set_l  REG_ADDR8(0x140104)
+#define reg_mspi_set_l REG_ADDR8(0x140104)
 enum {
-    FLD_MSPI_MULTIBOOT_ADDR_OFFSET =
-        BIT_RNG(0, 2), /**< mutiboot address offset option, 0:0k;  1:128k;  2:256k;  4:256k */
+    FLD_MSPI_MULTIBOOT_ADDR_OFFSET = BIT_RNG(0, 2),
 };
 
 #define reg_mspi_set_h REG_ADDR8(0x140105)
 enum {
-    FLD_MSPI_PROGRAM_SPACE_SIZE = BIT_RNG(0, 6), /**< program space size = mspi_set_h*4k */
+    FLD_MSPI_PROGRAM_SPACE_SIZE = BIT_RNG(0, 6),
 };
-#define reg_mspi_xip_config REG_ADDR16(0x140106)
-#define reg_mspi_cmd_ahb    REG_ADDR8(0x140106)
+
+#define reg_mspi_cmd_ahb REG_ADDR8(0x140106)
 enum {
-    FLD_MSPI_RD_CMD = BIT_RNG(0, 7), /**< xip read command */
+    FLD_MSPI_RD_CMD = BIT_RNG(0, 7),
 };
 
 #define reg_mspi_fm_ahb REG_ADDR8(0x140107)
 enum {
-    FLD_MSPI_DUMMY = BIT_RNG(0, 3),    /**< dummy cycle = FLD_MSPI_DUMMY + 1 */
-    FLD_MSPI_DAT_LINE = BIT_RNG(4, 5), /**< 0:single line;  1: dual line;  2:quad line; 3:quad line */
-    FLD_MSPI_ADDR_LINE = BIT(6),       /**< 0:single line;   1:the same to dat_line_h */
-    FLD_MSPI_CMD_LINE = BIT(7),        /**< 0:single line;   1:the same to dat_line_h */
+    FLD_MSPI_DUMMY = BIT_RNG(0, 3),
+    FLD_MSPI_DAT_LINE = BIT_RNG(4, 5),
+    FLD_MSPI_ADDR_LINE = BIT(6),
+    FLD_MSPI_CMD_LINE = BIT(7),
 };
-
-#endif  // MSPI_REG_H

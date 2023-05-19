@@ -43,7 +43,7 @@ dma_config_t i2c_rx_dma_config = {
     .dstmode = DMA_NORMAL_MODE,
     .srcmode = DMA_HANDSHAKE_MODE,
     .dstwidth = DMA_CTR_WORD_WIDTH,  // must word
-    .srcwidth = DMA_CTR_WORD_WIDTH,  //// must word
+    .srcwidth = DMA_CTR_WORD_WIDTH,  // must word
     .src_burst_size = 0,
     .read_num_en = 0,
     .priority = 0,
@@ -58,8 +58,10 @@ dma_config_t i2c_rx_dma_config = {
 unsigned char g_i2c_stop_en = 0x20;
 
 /**
- * @brief      The function of this interface is equivalent to that after the user finishes calling the write or read interface, the stop signal is not sent,
- * 			   and then the write or read command is executed again. The driver defaults that every write or read API will send a stop command at the end
+ * @brief      The function of this interface is equivalent to
+ *             that after the user finishes calling the write or read interface, the stop signal is not sent,
+ * 			   and then the write or read command is executed again.
+ *             The driver defaults that every write or read API will send a stop command at the end
  * @param[in]  en - Input parameters.Decide whether to disable the stop function after each write or read interface
  * @return     none
  */
@@ -169,8 +171,10 @@ void i2c_slave_init(unsigned char id)
  *  @brief      The function of this API is to ensure that the data can be successfully sent out.
  *  @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  *  @param[in]  data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- *  @param[in]  len - This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
- *  @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master sent the data successfully,(master does not detect NACK in data phase)
+ *  @param[in]  len - This length is the total length, including both the length of the slave RAM address
+ *                    and the length of the data to be sent.
+ *  @return     0 : the master receive NACK after sending out the id and then send stop.
+ *              1: the master sent the data successfully,(master does not detect NACK in data phase)
  */
 unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned char len)
 {
@@ -201,6 +205,7 @@ unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned c
 
     while (i2c_master_busy()) {
     }
+
     return 1;
 }
 
@@ -209,7 +214,8 @@ unsigned char i2c_master_write(unsigned char id, unsigned char *data, unsigned c
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  data - Store the read data
  * @param[in]  len - The total length of the data read back.
- * @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master receive the data successfully.
+ * @return     0 : the master receive NACK after sending out the id and then send stop.
+ *             1: the master receive the data successfully.
  */
 unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned char len)
 {
@@ -244,10 +250,12 @@ unsigned char i2c_master_read(unsigned char id, unsigned char *data, unsigned ch
  * @brief      This function serves to write data and restart read data.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  wr_data - The data to be sent, The first three bytes can be set as the RAM address of the slave.
- * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
+ * @param[in]  wr_len -  This length is the total length, including both the length of the slave RAM address
+ *             and the length of the data to be sent.
  * @param[in]  rd_data - Store the read data
  * @param[in]  rd_len -  The total length of the data read back.
- * @return     0 : the master receive NACK after sending out the id and then send stop.  1: the master receive the data successfully.
+ * @return     0 : the master receive NACK after sending out the id and then send stop.
+ *             1: the master receive the data successfully.
  */
 unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, unsigned char wr_len,
                                     unsigned char *rd_data, unsigned char rd_len)
@@ -278,6 +286,7 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
     }
     while (i2c_master_busy()) {
     }
+
     // set i2c master read.
     BM_SET(reg_i2c_status, FLD_I2C_RX_CLR);               // clear index
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;                      // i2c rnck enable.
@@ -285,6 +294,7 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
     reg_i2c_sct1 = (FLD_I2C_LS_ADDR | FLD_I2C_LS_START);
     while (i2c_master_busy()) {
     }
+
     reg_i2c_sct1 = (FLD_I2C_LS_DATAR | FLD_I2C_LS_ID_R | FLD_I2C_LS_STOP);
     reg_i2c_len = rd_len;
     cnt = 0;
@@ -304,7 +314,8 @@ unsigned char i2c_master_write_read(unsigned char id, unsigned char *wr_data, un
  * @brief      The function of this API is just to write data to the i2c tx_fifo by DMA.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
  * @param[in]  data - The data to be sent, The first three bytes represent the RAM address of the slave.
- * @param[in]  len - This length is the total length, including both the length of the slave RAM address and the length of the data to be sent.
+ * @param[in]  len - This length is the total length, including both the length of the slave RAM address
+ *             and the length of the data to be sent.
  * @return     none.
  */
 void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char len)
@@ -323,11 +334,11 @@ void i2c_master_write_dma(unsigned char id, unsigned char *data, unsigned char l
 /**
  * @brief      This function serves to read a packet of data from the specified address of slave device.
  * @param[in]  id - to set the slave ID.for kite slave ID=0x5c,for eagle slave ID=0x5a.
- * @param[in]  data - Store the read data
+ * @param[in]  rx_data - Store the read data
  * @param[in]  len - The total length of the data read back.
  * @return     none.
  */
-void i2c_master_read_dma(unsigned char id, unsigned char *data, unsigned char len)
+void i2c_master_read_dma(unsigned char id, unsigned char *rx_data, unsigned char len)
 {
     reg_i2c_sct0 |= FLD_I2C_RNCK_EN;  // i2c rnck enable
 
@@ -343,7 +354,8 @@ void i2c_master_read_dma(unsigned char id, unsigned char *data, unsigned char le
 }
 
 /**
- * @brief      This function serves to send a packet of data to master device.It will trigger after the master sends the read sequence.
+ * @brief      This function serves to send a packet of data to master device.
+ *             It will trigger after the master sends the read sequence.
  * @param[in]  data - the pointer of tx_buff.
  * @param[in]  len - The total length of the data .
  * @return     none.
@@ -356,7 +368,8 @@ void i2c_slave_set_tx_dma(unsigned char *data, unsigned char len)
 }
 
 /**
- * @brief      This function serves to receive a packet of data from master device,It will trigger after the master sends the write sequence.
+ * @brief      This function serves to receive a packet of data from master device,
+ *             It will trigger after the master sends the write sequence.
  * @param[in]  data - the pointer of rx_buff.
  * @param[in]  len  - The total length of the data.
  * @return     none.

@@ -15,9 +15,6 @@
  * limitations under the License.
  *
  *****************************************************************************/
-#include "drivers.h"
-#include "tl_common.h"
-
 #include "custom_pair.h"
 
 /**********************************************************************************
@@ -94,7 +91,7 @@ void user_tbl_slave_mac_delete_by_index(int index)  // remove the oldest adr in 
 int user_tbl_slave_mac_add(u8 adr_type, u8 *adr)  // add new mac address to table
 {
     u8 add_new = 0;
-    if (user_tbl_slaveMac.curNum >= USER_PAIR_SLAVE_MAX_NUM) {  // salve mac table is full
+    if (user_tbl_slaveMac.curNum >= USER_PAIR_SLAVE_MAX_NUM) {  // slave mac table is full
         // slave mac max, telink use  method 1: overwrite the oldest one
         user_tbl_slave_mac_delete_by_index(0);  // overwrite, delete index 0 (oldest) of table
         add_new = 1;                            // add new
@@ -189,22 +186,10 @@ void user_tbl_slave_mac_delete_all(void)  // delete all the  adr in slave mac ta
     for (int i = 0; i < user_tbl_slaveMac.curNum; i++) {
         flash_write_page(FLASH_ADR_CUSTOM_PAIRING + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
         memset((u8 *)&user_tbl_slaveMac.bond_device[i], 0, 8);
-        // user_tbl_slaveMac.bond_flash_idx[i] = 0;  //do not  concern
+        // user_tbl_slaveMac.bond_flash_idx[i] = 0;  // do not  concern
     }
 
     user_tbl_slaveMac.curNum = 0;
-}
-
-/**
- * @brief      unpair process.
- * @param      none.
- * @return     none.
- */
-void user_tbl_salve_mac_unpair_proc(void)
-{
-    // telink will delete all adr when unpair happens, you can change to your own strategy
-    // slaveMac_curConnect is for you to use
-    user_tbl_slave_mac_delete_all();
 }
 
 u8 adbg_flash_clean;
@@ -265,14 +250,17 @@ void user_master_host_pairing_flash_init(void)
                 user_tbl_slaveMac.curNum++;
             } else {  // slave mac in flash more than max, we think it's code bug
                 irq_disable();
-                while (1);
+                while (1) {
+                }
             }
-        } else if (flag == 0xff) { // end
+        } else if (flag == 0xff) {
+            // end
             break;
         }
     }
 
-    user_bond_slave_flash_cfg_idx -= 8;  // back to the newest addr 8 bytes area flash ixd(if no valid addr, will be -8)
+    user_bond_slave_flash_cfg_idx -= 8;
+    // back to the newest addr 8 bytes area flash ixd(if no valid addr, will be -8)
 
     user_bond_slave_flash_clean();
 }
