@@ -118,7 +118,7 @@ VOID IoTWatchDogKick(VOID)
 STATIC VOID B91SystemInit(VOID)
 {
     OHOS_SystemInit();
-    //LittlefsInit();
+    LittlefsInit();
 }
 
 UINT32 LosAppInit(VOID)
@@ -179,9 +179,14 @@ int _write(int handle, char *data, int size)
     switch (handle) {
         case STDOUT_FILENO:
         case STDERR_FILENO: {
+<<<<<<< HEAD
             uart_send(DEBUG_UART_PORT, (unsigned char *)data, size);
             while (uart_tx_is_busy(DEBUG_UART_PORT)) {
                 LOS_Msleep(1);
+=======
+            uart_send(UART0, (unsigned char *)data, size);
+            while (uart_tx_is_busy(UART0)) {
+>>>>>>> 0bfc50a (UTCSH-253: fix flash issue)
             }
             ret = size;
             break;
