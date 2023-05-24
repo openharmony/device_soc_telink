@@ -179,8 +179,8 @@ int _write(int handle, char *data, int size)
     switch (handle) {
         case STDOUT_FILENO:
         case STDERR_FILENO: {
-            uart_send(UART0, (unsigned char *)data, size);
-            while (uart_tx_is_busy(UART0)) {
+            uart_send(DEBUG_UART_PORT, (unsigned char *)data, size);
+            while (uart_tx_is_busy(DEBUG_UART_PORT)) {
                 LOS_Msleep(1);
             }
             ret = size;
@@ -197,7 +197,7 @@ int _write(int handle, char *data, int size)
 static boolean hilog(const HiLogContent *hilogContent, uint32 len)
 {
     UNUSED(len);
-    static char buf[256];
+    static char buf[400];
     int32 bytes = LogContentFmt(buf, sizeof(buf), (const uint8 *)hilogContent);
     _write(STDOUT_FILENO, buf, bytes);
     return TRUE;

@@ -20,10 +20,10 @@
 #define HDF_LOG_ADAPTER_DEBUG_H
 
 #define HDF_LOGV(fmt, args...) printf(fmt "\n", ##args)
-#define HDF_LOGD(fmt, args...) printf(fmt "\n", ##args)
-#define HDF_LOGI(fmt, args...) printf(fmt "\n", ##args)
-#define HDF_LOGW(fmt, args...) printf(fmt "\n", ##args)
-#define HDF_LOGE(fmt, args...) printf("[ HDF ERROR ] " fmt "\n", ##args)
+#define HDF_LOGD(fmt, args...) printf("[HDF DBG] " fmt "\n", ##args)
+#define HDF_LOGI(fmt, args...) printf("[HDF INF] " fmt "\n", ##args)
+#define HDF_LOGW(fmt, args...) printf("[HDF WRN] " fmt "\n", ##args)
+#define HDF_LOGE(fmt, args...) printf("[HDF ERROR] " fmt "\n", ##args)
 
 #endif /* HDF_LOG_ADAPTER_DEBUG_H */
 

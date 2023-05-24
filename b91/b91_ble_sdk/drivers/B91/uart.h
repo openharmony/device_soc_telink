@@ -159,6 +159,8 @@ typedef enum{
 	UART1_TX_PC6 = GPIO_PC6,
 	UART1_TX_PD6 = GPIO_PD6,
 	UART1_TX_PE0 = GPIO_PE0,
+
+	UART_TX_ENUM_SIZE
 }uart_tx_pin_e;
 
 
@@ -173,6 +175,8 @@ typedef enum{
 	UART1_RX_PC7 = GPIO_PC7,
 	UART1_RX_PD7 = GPIO_PD7,
 	UART1_RX_PE2 = GPIO_PE2,
+
+	UART_RX_ENUM_SIZE
 }uart_rx_pin_e;
 
 /**

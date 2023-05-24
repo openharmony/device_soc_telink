@@ -18,72 +18,78 @@
 
 #include "uart_tlsr9518.h"
 #include "hdf_log_adapter_debug.h"
+#include <B91/clock.h>
 
-static int32_t uart_tlsr9518_startup(uart_driver_data_t *driver_data);
-static int32_t uart_tlsr9518_shutdown(uart_driver_data_t *driver_data);
-static int32_t uart_tlsr9518_dma_startup(uart_driver_data_t *driver_data, dma_dir_t dir);
-static int32_t uart_tlsr9518_dma_shutdown(uart_driver_data_t *driver_data, dma_dir_t dir);
-static int32_t uart_tlsr9518_start_tx(uart_driver_data_t *driver_data, const char *buf, size_t count);
-static int32_t uart_tlsr9518_config(uart_driver_data_t *driver_data);
+#define HZ_IN_MHZ (1000 * 1000)
 
-uart_ops_t g_uart_ops = {
-    .StartUp = uart_tlsr9518_startup,
-    .ShutDown = uart_tlsr9518_shutdown,
-    .DmaStartUp = uart_tlsr9518_dma_startup,
-    .DmaShutDown = uart_tlsr9518_dma_shutdown,
-    .StartTx = uart_tlsr9518_start_tx,
-    .Config = uart_tlsr9518_config,
-};
 
-uart_ops_t *get_uart_ops(void)
+uart_parity_e parity_from_uattr(struct UartAttribute uattr)
 {
-    return &g_uart_ops;
-}
+    uart_parity_e parity;
 
-int32_t receive_notify(uart_driver_data_t *driver_data, const char *buf, size_t count)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
+    switch (uattr.parity)
+    {
+        case UART_ATTR_PARITY_NONE:
+            parity = UART_PARITY_NONE;
+            break;
 
+        case UART_ATTR_PARITY_ODD:
+            parity = UART_PARITY_ODD;
+            break;
 
-// UART ops --------------------------------------------------------------------
+        case UART_ATTR_PARITY_EVEN:
+            parity = UART_PARITY_EVEN;
+            break;
 
-static int32_t uart_tlsr9518_startup(uart_driver_data_t *driver_data)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
+        default:
+            parity = UART_PARITY_NONE;
+            break;
+    }
 
-static int32_t uart_tlsr9518_shutdown(uart_driver_data_t *driver_data)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
-
-static int32_t uart_tlsr9518_dma_startup(uart_driver_data_t *driver_data, dma_dir_t dir)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
-
-static int32_t uart_tlsr9518_dma_shutdown(uart_driver_data_t *driver_data, dma_dir_t dir)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
-
-static int32_t uart_tlsr9518_start_tx(uart_driver_data_t *driver_data, const char *buf, size_t count)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
-}
-
-static int32_t uart_tlsr9518_config(uart_driver_data_t *driver_data)
-{
-    HDF_LOGE("%s: not implemented", __func__);
-    return HDF_FAILURE;
+    return parity;
 }
 
 
+uart_stop_bit_e stopbit_from_uattr(struct UartAttribute uattr)
+{
+    uart_stop_bit_e stopbit;
+
+    switch (uattr.stopBits)
+    {
+        case UART_ATTR_STOPBIT_1:
+            stopbit = UART_STOP_BIT_ONE;
+            break;
+
+        case UART_ATTR_STOPBIT_1P5:
+            stopbit = UART_STOP_BIT_ONE_DOT_FIVE;
+            break;
+
+        case UART_ATTR_STOPBIT_2:
+            stopbit = UART_STOP_BIT_TWO;
+            break;
+
+        default:
+            stopbit = UART_STOP_BIT_ONE;
+    }
+
+    return stopbit;
+}
+
+
+void uart_dma_init(uart_driver_data_t *driver_data)
+{
+    uart_set_pin(driver_data->tx, driver_data->rx);
+
+    uart_reset(driver_data->port->num);
+
+    unsigned short div;
+    unsigned char bwpc;
+
+    uart_cal_div_and_bwpc(driver_data->baudrate, sys_clk.pclk * HZ_IN_MHZ, &div, &bwpc);
+    uart_init(driver_data->port->num, div, bwpc, parity_from_uattr(driver_data->uattr), stopbit_from_uattr(driver_data->uattr));
+    uart_set_dma_rx_timeout(driver_data->port->num, bwpc, 12, UART_BW_MUL1);
+    uart_set_tx_dma_config(driver_data->port->num, DMA2);
+    dma_clr_irq_mask(DMA2, TC_MASK|ABT_MASK|ERR_MASK);
+    uart_clr_tx_done(driver_data->port->num);
+}
 
