@@ -18,12 +18,12 @@
 
 #include <target_config.h>
 
+#include <los_arch_timer.h>
 #include <los_compiler.h>
 #include <los_pm.h>
+#include <los_reg.h>
 #include <los_task.h>
 #include <los_timer.h>
-#include <los_arch_timer.h>
-#include <los_reg.h>
 
 #include <B91/clock.h>
 #include <B91/stimer.h>
@@ -35,12 +35,10 @@
 
 #include <inttypes.h>
 
-#define SYSTICKS_MAX_SLEEP                  (0xFFFFFFFF >> 2)
-#define MTICKS_MIN_SLEEP                    (80)
-//#define MTICKS_CORRECTION_TIME              (4)
-#define MTICKS_CORRECTION_TIME              (0)
-//#define MTICKS_RESERVE_TIME                 (6 + MTICKS_CORRECTION_TIME)
-#define MTICKS_RESERVE_TIME                 (1 + MTICKS_CORRECTION_TIME)
+#define SYSTICKS_MAX_SLEEP     (0xFFFFFFFF >> 2)
+#define MTICKS_MIN_SLEEP       (80)
+#define MTICKS_CORRECTION_TIME (0)
+#define MTICKS_RESERVE_TIME    (1 + MTICKS_CORRECTION_TIME)
 
 bool B91_system_suspend(UINT32 wake_stimer_tick);
 
@@ -87,32 +85,23 @@ static inline UINT64 GetMtime(void)
 }
 
 /**
- * @brief      	This function is used instead of the default sleep function ArchEnterSleep()
+ * @brief      	This function is used instead of the default sleep function
+ * ArchEnterSleep()
  * @param[in]  	none.
  * @return     	none.
-*/
-_attribute_ram_code_
-static UINT32 B91Suspend(VOID)
+ */
+_attribute_ram_code_ static UINT32 B91Suspend(VOID)
 {
-    // gpio_set_high_level(GPIO_PB5);
-    // gpio_set_low_level(GPIO_PB5);
-	UINT64 mcompare = GetMtimeCompare();
+    UINT64 mcompare = GetMtimeCompare();
     UINT64 mtick = GetMtime();
-    // if(mcompare > 10000000) {
-    //     //printf("COMPARE = %"PRIu64"\r\n", mcompare);
-	//     gpio_set_high_level(GPIO_PB5);
-    //     gpio_set_low_level(GPIO_PB5);         
-    // }
-    if((mcompare - mtick) < (MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME)) {
-    	return 0;
+    if ((mcompare - mtick) < (MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME)) {
+        return 0;
     }
-	UINT32 intSave = LOS_IntLock();
-	mcompare = GetMtimeCompare();
+    UINT32 intSave = LOS_IntLock();
+    mcompare = GetMtimeCompare();
     mtick = GetMtime();
     if ((mcompare - mtick) < MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME) {
-    	LOS_IntRestore(intSave);
-    //     while(GetMtime() < mcompare) {
-    // }
+        LOS_IntRestore(intSave);
         return 0;
     }
 
@@ -123,40 +112,21 @@ static UINT32 B91Suspend(VOID)
     blc_pm_setWakeupSource(PM_WAKEUP_PAD);
 
     UINT32 sleepTick = stimer_get_tick();
-
     if (B91_system_suspend(sleepTick + systicksSleepTimeout - MTICKS_RESERVE_TIME)) {
-    	UINT32 span = SysticksToMticks(stimer_get_tick() - sleepTick) + MTICKS_CORRECTION_TIME;
-    	mtick += span;
+        UINT32 span = SysticksToMticks(stimer_get_tick() - sleepTick) + MTICKS_CORRECTION_TIME;
+        mtick += span;
         SetMtime(mtick);
         uart_clr_tx_index(UART0);
         uart_clr_tx_index(UART1);
         uart_clr_rx_index(UART0);
         uart_clr_rx_index(UART1);
     }
-    // gpio_set_high_level(GPIO_PB6);
-    // gpio_set_low_level(GPIO_PB6);
     LOS_IntRestore(intSave);
-    // UINT32 i = 0;
-    // while(GetMtime() < mcompare) {
-	//     gpio_set_high_level(GPIO_PB5);
-    //     gpio_set_low_level(GPIO_PB5);
-    //     // i++;
-    //     // if (i <100000) {
-    //     //     i = 0;
-    //     //     // printf("MTIMER = %"PRIu64"\r\n", GetMtime());
-    //     //     // printf("COMPARE = %"PRIu64"\r\n", mcompare);           
-    //     // }
-    // }
     return 0;
 }
 
 VOID B91SuspendSleepInit(VOID)
 {
-   	gpio_function_en(GPIO_PB5);
-	gpio_output_en(GPIO_PB5); 
-    gpio_function_en(GPIO_PB6);
-	gpio_output_en(GPIO_PB6); 
-    //gpio_shutdown(GPIO_ALL);
     UINT32 ret = LOS_PmRegister(LOS_PM_TYPE_SYSCTRL, &g_sysctrl);
     if (ret != LOS_OK) {
         printf("Ret of PMRegister = %#x\r\n", ret);
@@ -165,23 +135,20 @@ VOID B91SuspendSleepInit(VOID)
     }
 }
 
-_attribute_ram_code_
-bool B91_system_suspend(UINT32 wake_stimer_tick)
+_attribute_ram_code_ bool B91_system_suspend(UINT32 wake_stimer_tick)
 {
-	bool result = false;
+    bool result = false;
 
-	extern bool blc_ll_isBleTaskIdle(void);
-	if(!blc_ll_isBleTaskIdle())
-	{
-		blc_pm_setAppWakeupLowPower(wake_stimer_tick, 1);
-		if (!blc_pm_handler()) {
-			result = true;
-		}
-		blc_pm_setAppWakeupLowPower(0, 0);
-	}
-	else{
-		cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER | PM_WAKEUP_PAD, wake_stimer_tick);
-		result = true;
-	}
-	return result;
+    extern bool blc_ll_isBleTaskIdle(void);
+    if (!blc_ll_isBleTaskIdle()) {
+        blc_pm_setAppWakeupLowPower(wake_stimer_tick, 1);
+        if (!blc_pm_handler()) {
+            result = true;
+        }
+        blc_pm_setAppWakeupLowPower(0, 0);
+    } else {
+        cpu_sleep_wakeup_32k_rc(SUSPEND_MODE, PM_WAKEUP_TIMER | PM_WAKEUP_PAD, wake_stimer_tick);
+        result = true;
+    }
+    return result;
 }

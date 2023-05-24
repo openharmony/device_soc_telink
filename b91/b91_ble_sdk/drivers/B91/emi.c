@@ -1,51 +1,41 @@
-/********************************************************************************************************
- * @file	emi.c
+/******************************************************************************
+ * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ * All rights reserved.
  *
- * @brief	This is the source file for B91
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * @author	Driver Group
- * @date	2019
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * @par		Copyright (c) 2019, Telink Semiconductor (Shanghai) Co., Ltd.
- *			All rights reserved.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- *          The information contained herein is confidential property of Telink
- *          Semiconductor (Shanghai) Co., Ltd. and is available under the terms
- *          of Commercial License Agreement between Telink Semiconductor (Shanghai)
- *          Co., Ltd. and the licensee or the terms described here-in. This heading
- *          MUST NOT be removed from this file.
- *
- *          Licensee shall not delete, modify or alter (or permit any third party to delete, modify, or
- *          alter) any information contained herein in whole or in part except as expressly authorized
- *          by Telink semiconductor (shanghai) Co., Ltd. Otherwise, licensee shall be solely responsible
- *          for any claim to the extent arising out of or relating to such deletion(s), modification(s)
- *          or alteration(s).
- *
- *          Licensees are granted free, non-transferable use of the information in this
- *          file under Mutual Non-Disclosure Agreement. NO WARRENTY of ANY KIND is provided.
- *
- *******************************************************************************************************/
+ *****************************************************************************/
 #include "emi.h"
 #include "stimer.h"
 /**********************************************************************************************************************
  *                                           local macro                                                             *
  *********************************************************************************************************************/
-#define EMI_STATE0		                     0x1234
-#define EMI_STATE1		                     0x5678
-#define EMI_TX_FIFO_ADDR                     0x14081c
-#define EMI_TX_PKT_PAYLOAD		             37
+#define EMI_STATE0         0x1234
+#define EMI_STATE1         0x5678
+#define EMI_TX_FIFO_ADDR   0x14081c
+#define EMI_TX_PKT_PAYLOAD 37
 
 /**********************************************************************************************************************
  *                                           global constants                                                        *
  *********************************************************************************************************************/
 
-static unsigned char  emi_rx_packet[128] __attribute__ ((aligned (4)));
-static unsigned char  emi_ble_tx_packet [48]  __attribute__ ((aligned (4))) = {3,0,0,0,0,10};
-static unsigned char  emi_zigbee_tx_packet[48]  __attribute__ ((aligned (4))) = {19,0,0,0,20,0,0};
-static unsigned int   s_emi_rx_cnt  __attribute__ ((aligned (4))) = 0;
-static unsigned int   s_emi_rssibuf = 0;
-static signed  char   s_emi_rssi = 0;
-static unsigned int   s_state0,s_state1;
+static unsigned char emi_rx_packet[128] __attribute__((aligned(4)));
+static unsigned char emi_ble_tx_packet[48] __attribute__((aligned(4))) = {3, 0, 0, 0, 0, 10};
+static unsigned char emi_zigbee_tx_packet[48] __attribute__((aligned(4))) = {19, 0, 0, 0, 20, 0, 0};
+static unsigned int s_emi_rx_cnt __attribute__((aligned(4))) = 0;
+static unsigned int s_emi_rssibuf = 0;
+static signed char s_emi_rssi = 0;
+static unsigned int s_state0, s_state1;
 
 /**********************************************************************************************************************
  *                                          function implementation                                                   *
@@ -56,24 +46,21 @@ static unsigned int   s_state0,s_state1;
  * @param[in]  level - the power level.
  * @return     none
  */
-void rf_set_power_level_index_singletone (rf_power_level_e level)
+void rf_set_power_level_index_singletone(rf_power_level_e level)
 {
-	unsigned char value = 0;
+    unsigned char value = 0;
 
-	if(level&BIT(7))
-	{
-		write_reg8(0x140e3c, (read_reg8(0x140e3c) & 0xbf) | ((0x01)<<6));// VANT
-	}
-	else
-	{
-		write_reg8(0x140e3c, (read_reg8(0x140e3c) & 0xbf));
-	}
-	reg_rf_ll_ctrl0 = 0x55;                                              // tx_en
-	delay_us(150);
+    if (level & BIT(7)) {
+        write_reg8(0x140e3c, (read_reg8(0x140e3c) & 0xbf) | ((0x01) << 6));  // VANT
+    } else {
+        write_reg8(0x140e3c, (read_reg8(0x140e3c) & 0xbf));
+    }
+    reg_rf_ll_ctrl0 = 0x55;  // tx_en
+    delay_us(150);
 
-	value = (unsigned char)level&0x3f;
-	write_reg8(0x140f78,read_reg8(0x140f78)|BIT(6));                     // TX_PA_PWR_OW  BIT6 set 1
-	write_reg8(0x140f7c, (read_reg8(0x140f7c)&0x81)|(value<<1));         // TX_PA_PWR  BIT1 t0 BIT6 set value
+    value = (unsigned char)level & 0x3f;
+    write_reg8(0x140f78, read_reg8(0x140f78) | BIT(6));                 // TX_PA_PWR_OW  BIT6 set 1
+    write_reg8(0x140f7c, (read_reg8(0x140f7c) & 0x81) | (value << 1));  // TX_PA_PWR  BIT1 t0 BIT6 set value
 }
 
 extern unsigned char g_single_tong_freqoffset;
@@ -84,16 +71,15 @@ extern unsigned char g_single_tong_freqoffset;
  * @param[in]  rf_chn      - the channel.
  * @return     none
  */
-void rf_emi_tx_single_tone(rf_power_level_e power_level,signed char rf_chn)
+void rf_emi_tx_single_tone(rf_power_level_e power_level, signed char rf_chn)
 {
-	g_single_tong_freqoffset = 1;
-	rf_mode_init();
-	rf_set_zigbee_250K_mode();
-	rf_set_chn(rf_chn);
-	rf_set_power_level_index_singletone(power_level);
-	rf_set_txmode();
-	g_single_tong_freqoffset = 0;
-
+    g_single_tong_freqoffset = 1;
+    rf_mode_init();
+    rf_set_zigbee_250K_mode();
+    rf_set_chn(rf_chn);
+    rf_set_power_level_index_singletone(power_level);
+    rf_set_txmode();
+    g_single_tong_freqoffset = 0;
 }
 
 /**
@@ -102,10 +88,10 @@ void rf_emi_tx_single_tone(rf_power_level_e power_level,signed char rf_chn)
  */
 void rf_emi_stop(void)
 {
-	write_reg8(0x140f78, 0);
-	write_reg8(0x140f7c, 0);//TX_PA_PWR
-	rf_set_power_level_index (0);
-	rf_set_tx_rx_off();
+    write_reg8(0x140f78, 0);
+    write_reg8(0x140f7c, 0);  // TX_PA_PWR
+    rf_set_power_level_index(0);
+    rf_set_tx_rx_off();
 }
 
 /**
@@ -114,13 +100,12 @@ void rf_emi_stop(void)
  */
 void rf_emi_tx_continue_setup(void)
 {
+    write_reg8(0x140800, 0x0a);
+    write_reg8(0x140808, 0x00);  // access code
 
-	write_reg8(0x140800,0x0a);
-	write_reg8(0x140808,0x00);  // access code
-
-	write_reg8(0x140801,0x80);  // kick tx controller to wait data
-	s_state0 = EMI_STATE0;
-	s_state1 = EMI_STATE1;
+    write_reg8(0x140801, 0x80);  // kick tx controller to wait data
+    s_state0 = EMI_STATE0;
+    s_state1 = EMI_STATE1;
 }
 
 /**
@@ -134,35 +119,36 @@ void rf_emi_tx_continue_setup(void)
  * -#2:0x55
  * @return     none
  */
-void rf_emi_tx_continue_update_data(rf_mode_e rf_mode,rf_power_level_e power_level,signed char rf_chn,unsigned char pkt_type)
+void rf_emi_tx_continue_update_data(rf_mode_e rf_mode, rf_power_level_e power_level, signed char rf_chn,
+                                    unsigned char pkt_type)
 {
-	rf_mode_init();
-	switch(rf_mode)
-	{
-		case RF_MODE_BLE_1M_NO_PN:
-			rf_set_ble_1M_NO_PN_mode();
-			break;
-		case RF_MODE_BLE_2M:
-			rf_set_ble_2M_NO_PN_mode();
-			break;
-		case RF_MODE_LR_S2_500K:
-			rf_set_ble_500K_mode();
-			break;
-		case RF_MODE_LR_S8_125K:
-			rf_set_ble_125K_mode();
-			break;
-		case RF_MODE_ZIGBEE_250K:
-			rf_set_zigbee_250K_mode();
-			break;
+    rf_mode_init();
+    switch (rf_mode) {
+        case RF_MODE_BLE_1M_NO_PN:
+            rf_set_ble_1M_NO_PN_mode();
+            break;
+        case RF_MODE_BLE_2M:
+            rf_set_ble_2M_NO_PN_mode();
+            break;
+        case RF_MODE_LR_S2_500K:
+            rf_set_ble_500K_mode();
+            break;
+        case RF_MODE_LR_S8_125K:
+            rf_set_ble_125K_mode();
+            break;
+        case RF_MODE_ZIGBEE_250K:
+            rf_set_zigbee_250K_mode();
+            break;
 
-		default:break;
-	}
-	rf_pn_disable();
-	rf_set_chn(rf_chn);
-	reg_rf_ll_ctrl0 = 0x45;   // reset tx/rx state machine
-	rf_set_power_level_index_singletone (power_level);
-	rf_emi_tx_continue_setup();
-	write_reg8(0x140808, pkt_type);  // 0:pbrs9 	1:0xf0	 2:0x55
+        default:
+            break;
+    }
+    rf_pn_disable();
+    rf_set_chn(rf_chn);
+    reg_rf_ll_ctrl0 = 0x45;  // reset tx/rx state machine
+    rf_set_power_level_index_singletone(power_level);
+    rf_emi_tx_continue_setup();
+    write_reg8(0x140808, pkt_type);  // 0:pbrs9 	1:0xf0	 2:0x55
 }
 
 /**
@@ -172,12 +158,12 @@ void rf_emi_tx_continue_update_data(rf_mode_e rf_mode,rf_power_level_e power_lev
  */
 unsigned int emi_pn_gen(unsigned int state)
 {
-	unsigned int feed = 0;
-	feed = (state&0x4000) >> 1;
-	state ^= feed;
-	state <<= 1;
-	state = (state&0xfffe) + ((state&0x8000)>>15);
-	return state;
+    unsigned int feed = 0;
+    feed = (state & 0x4000) >> 1;
+    state ^= feed;
+    state <<= 1;
+    state = (state & 0xfffe) + ((state & 0x8000) >> 15);
+    return state;
 }
 
 /**
@@ -186,24 +172,24 @@ unsigned int emi_pn_gen(unsigned int state)
  */
 void rf_continue_mode_run(void)
 {
-	if(read_reg8(0x140808) == 1){
-		write_reg32(EMI_TX_FIFO_ADDR, 0x0f0f0f0f);
-	}else if(read_reg8(0x140808)==2){
-		write_reg32(EMI_TX_FIFO_ADDR, 0x55555555);
-	}else if(read_reg8(0x140808)==3){
-		write_reg32(EMI_TX_FIFO_ADDR, read_reg32(0x140809));
-	}else if(read_reg8(0x140808)==4){
-		write_reg32(EMI_TX_FIFO_ADDR, 0);
-	}else if(read_reg8(0x140808)==5){
-		write_reg32(EMI_TX_FIFO_ADDR, 0xffffffff);
-	}else{
-		write_reg32(EMI_TX_FIFO_ADDR, (s_state0<<16)+s_state1);
-		s_state0 = emi_pn_gen(s_state0);
-		s_state1 = emi_pn_gen(s_state1);
-	}
+    if (read_reg8(0x140808) == 1) {
+        write_reg32(EMI_TX_FIFO_ADDR, 0x0f0f0f0f);
+    } else if (read_reg8(0x140808) == 2) {
+        write_reg32(EMI_TX_FIFO_ADDR, 0x55555555);
+    } else if (read_reg8(0x140808) == 3) {
+        write_reg32(EMI_TX_FIFO_ADDR, read_reg32(0x140809));
+    } else if (read_reg8(0x140808) == 4) {
+        write_reg32(EMI_TX_FIFO_ADDR, 0);
+    } else if (read_reg8(0x140808) == 5) {
+        write_reg32(EMI_TX_FIFO_ADDR, 0xffffffff);
+    } else {
+        write_reg32(EMI_TX_FIFO_ADDR, (s_state0 << 16) + s_state1);
+        s_state0 = emi_pn_gen(s_state0);
+        s_state1 = emi_pn_gen(s_state1);
+    }
 
-	while(read_reg8(EMI_TX_FIFO_ADDR) & 0x1){
-	}
+    while (read_reg8(EMI_TX_FIFO_ADDR) & 0x1) {
+    }
 }
 
 /**
@@ -212,40 +198,41 @@ void rf_continue_mode_run(void)
  * @param[in]  rf_chn - the rx channel.
  * @return     none
  */
-void rf_emi_rx_setup(rf_mode_e mode,signed char rf_chn)
+void rf_emi_rx_setup(rf_mode_e mode, signed char rf_chn)
 {
-	rf_mode_init();
-	switch(mode)
-	{
-		case RF_MODE_BLE_1M_NO_PN:
-			rf_set_ble_1M_NO_PN_mode();
-			break;
-		case RF_MODE_BLE_2M:
-			rf_set_ble_2M_NO_PN_mode();
-			break;
-		case RF_MODE_LR_S2_500K:
-			rf_set_ble_500K_mode();
-			break;
-		case RF_MODE_LR_S8_125K:
-			rf_set_ble_125K_mode();
-			break;
-		case RF_MODE_ZIGBEE_250K:
-			rf_set_zigbee_250K_mode();
-			break;
+    rf_mode_init();
+    switch (mode) {
+        case RF_MODE_BLE_1M_NO_PN:
+            rf_set_ble_1M_NO_PN_mode();
+            break;
+        case RF_MODE_BLE_2M:
+            rf_set_ble_2M_NO_PN_mode();
+            break;
+        case RF_MODE_LR_S2_500K:
+            rf_set_ble_500K_mode();
+            break;
+        case RF_MODE_LR_S8_125K:
+            rf_set_ble_125K_mode();
+            break;
+        case RF_MODE_ZIGBEE_250K:
+            rf_set_zigbee_250K_mode();
+            break;
 
-		default:break;
-	}
-	rf_set_rx_dma(emi_rx_packet,3,64);
-	rf_pn_disable();
-	rf_set_chn(rf_chn);//set freq
-	if(mode != RF_MODE_ZIGBEE_250K)
-		rf_access_code_comm(EMI_ACCESS_CODE); 	//accesscode
-	rf_set_tx_rx_off();
-	rf_set_rxmode();
-	delay_us(150);
-	s_emi_rssi = 0;
-	s_emi_rssibuf = 0;
-	s_emi_rx_cnt = 0;
+        default:
+            break;
+    }
+    rf_set_rx_dma(emi_rx_packet, 3, 64);
+    rf_pn_disable();
+    rf_set_chn(rf_chn);  // set freq
+    if (mode != RF_MODE_ZIGBEE_250K) {
+        rf_access_code_comm(EMI_ACCESS_CODE);
+    }  // accesscode
+    rf_set_tx_rx_off();
+    rf_set_rxmode();
+    delay_us(150);
+    s_emi_rssi = 0;
+    s_emi_rssibuf = 0;
+    s_emi_rx_cnt = 0;
 }
 
 /**
@@ -254,24 +241,20 @@ void rf_emi_rx_setup(rf_mode_e mode,signed char rf_chn)
  */
 void rf_emi_rx_loop(void)
 {
-	if(rf_get_irq_status(FLD_RF_IRQ_RX))  // rx irq
-	{
-	   if((read_reg8(0x140840) & 0xf0) == 0) // crc err
-	   {
-		   s_emi_rssibuf += (read_reg8(0x140c5d));
-		   if(s_emi_rx_cnt)
-		   {
-			   if(s_emi_rssibuf != 0)
-			   {
-				   s_emi_rssibuf >>= 1;
-			   }
-		   }
-		   s_emi_rssi = s_emi_rssibuf - 110;
-		   s_emi_rx_cnt++;
-	   }
-	   rf_clr_irq_status(FLD_RF_IRQ_RX);    // clr rx irq
-	   write_reg8(0x140a00, 0x80);          // stop cmd
-	}
+    if (rf_get_irq_status(FLD_RF_IRQ_RX)) {       // rx irq
+        if ((read_reg8(0x140840) & 0xf0) == 0) {  // crc err
+            s_emi_rssibuf += (read_reg8(0x140c5d));
+            if (s_emi_rx_cnt) {
+                if (s_emi_rssibuf != 0) {
+                    s_emi_rssibuf >>= 1;
+                }
+            }
+            s_emi_rssi = s_emi_rssibuf - 110;
+            s_emi_rx_cnt++;
+        }
+        rf_clr_irq_status(FLD_RF_IRQ_RX);  // clr rx irq
+        write_reg8(0x140a00, 0x80);        // stop cmd
+    }
 }
 
 /**
@@ -280,7 +263,7 @@ void rf_emi_rx_loop(void)
  */
 unsigned int rf_emi_get_rxpkt_cnt(void)
 {
-	return s_emi_rx_cnt;
+    return s_emi_rx_cnt;
 }
 
 /**
@@ -289,9 +272,8 @@ unsigned int rf_emi_get_rxpkt_cnt(void)
  */
 char rf_emi_get_rssi_avg(void)
 {
-	return s_emi_rssi;
+    return s_emi_rssi;
 }
-
 
 /**
  * @brief      This function serves to generate random packets that need to be sent in burst mode
@@ -299,24 +281,21 @@ char rf_emi_get_rssi_avg(void)
  * @param[in]  n - the number of random packets.
  * @return     none
  */
-void rf_phy_test_prbs9 (unsigned char *p, int n)
+void rf_phy_test_prbs9(unsigned char *p, int n)
 {
-	unsigned short x = 0x1ff;
-	int i = 0;
-	int j = 0;
-	for ( i=0; i<n; i++)
-	{
-		unsigned char d = 0;
-		for (j=0; j<8; j++)
-		{
-			if (x & 1)
-			{
-				d |= BIT(j);
-			}
-			x = (x >> 1) | (((x<<4) ^ (x<<8)) & 0x100);
-		}
-		*p++ = d;
-	}
+    unsigned short x = 0x1ff;
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < n; i++) {
+        unsigned char d = 0;
+        for (j = 0; j < 8; j++) {
+            if (x & 1) {
+                d |= BIT(j);
+            }
+            x = (x >> 1) | (((x << 4) ^ (x << 8)) & 0x100);
+        }
+        *p++ = d;
+    }
 }
 
 /**
@@ -329,88 +308,89 @@ void rf_phy_test_prbs9 (unsigned char *p, int n)
  * @return     none
  */
 
-void rf_emi_tx_burst_loop(rf_mode_e rf_mode,unsigned char pkt_type)
+void rf_emi_tx_burst_loop(rf_mode_e rf_mode, unsigned char pkt_type)
 {
-	unsigned char rf_data_len = EMI_TX_PKT_PAYLOAD+1;
-	unsigned int rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
-	write_reg8(0x140a00, 0x80); // stop SM
-	rf_set_txmode();
-	if((rf_mode==RF_MODE_BLE_1M_NO_PN)||(rf_mode==RF_MODE_BLE_2M))//ble
-	{
-        rf_data_len = EMI_TX_PKT_PAYLOAD+2;
+    unsigned char rf_data_len = EMI_TX_PKT_PAYLOAD + 1;
+    unsigned int rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
+    write_reg8(0x140a00, 0x80);  // stop SM
+    rf_set_txmode();
+    if ((rf_mode == RF_MODE_BLE_1M_NO_PN) || (rf_mode == RF_MODE_BLE_2M)) {  // ble
+        rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
-        emi_ble_tx_packet[4]=0;
-        emi_ble_tx_packet[5]=EMI_TX_PKT_PAYLOAD;
-        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24)&0xff;
-        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16)&0xff;
-        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8)&0xff;
-        emi_ble_tx_packet[0] = rf_tx_dma_len&0xff;
-        rf_start_stx ((void *)emi_ble_tx_packet,read_reg32(0x140200) + 10);
-		while(!(rf_get_irq_status(FLD_RF_IRQ_TX)));
-		rf_clr_irq_status(FLD_RF_IRQ_TX);
+        emi_ble_tx_packet[4] = 0;
+        emi_ble_tx_packet[5] = EMI_TX_PKT_PAYLOAD;
+        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24) & 0xff;
+        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16) & 0xff;
+        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
+        emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
+        rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
 
-	    delay_ms(2);
-	    if(pkt_type == 0)
-	    	rf_phy_test_prbs9(&emi_ble_tx_packet[6],37);
-	}
-	else if(rf_mode == RF_MODE_LR_S8_125K)
-	{
-        rf_data_len = EMI_TX_PKT_PAYLOAD+2;
+        rf_clr_irq_status(FLD_RF_IRQ_TX);
+
+        delay_ms(2);
+        if (pkt_type == 0) {
+            rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
+        }
+    } else if (rf_mode == RF_MODE_LR_S8_125K) {
+        rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
-        emi_ble_tx_packet[4]=0;
-        emi_ble_tx_packet[5]=EMI_TX_PKT_PAYLOAD;
-        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24)&0xff;
-        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16)&0xff;
-        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8)&0xff;
-        emi_ble_tx_packet[0] = rf_tx_dma_len&0xff;
-        rf_start_stx ((void *)emi_ble_tx_packet,read_reg32(0x140200) + 10);
-		while(!(rf_get_irq_status(FLD_RF_IRQ_TX)));
-		rf_clr_irq_status(FLD_RF_IRQ_TX);
+        emi_ble_tx_packet[4] = 0;
+        emi_ble_tx_packet[5] = EMI_TX_PKT_PAYLOAD;
+        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24) & 0xff;
+        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16) & 0xff;
+        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
+        emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
+        rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
 
+        rf_clr_irq_status(FLD_RF_IRQ_TX);
 
-	    delay_ms(2);
-	    if(pkt_type == 0)
-	    	rf_phy_test_prbs9(&emi_ble_tx_packet[6],37);
-	}
-	else if(rf_mode == RF_MODE_LR_S2_500K)
-	{
-        rf_data_len = EMI_TX_PKT_PAYLOAD+2;
+        delay_ms(2);
+        if (pkt_type == 0) {
+            rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
+        }
+    } else if (rf_mode == RF_MODE_LR_S2_500K) {
+        rf_data_len = EMI_TX_PKT_PAYLOAD + 2;
         rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
-        emi_ble_tx_packet[4]=0;
-        emi_ble_tx_packet[5]=EMI_TX_PKT_PAYLOAD;
-        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24)&0xff;
-        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16)&0xff;
-        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8)&0xff;
-        emi_ble_tx_packet[0] = rf_tx_dma_len&0xff;
-        rf_start_stx ((void *)emi_ble_tx_packet,read_reg32(0x140200) + 10);
-		while(!(rf_get_irq_status(FLD_RF_IRQ_TX)));
-		rf_clr_irq_status(FLD_RF_IRQ_TX);
+        emi_ble_tx_packet[4] = 0;
+        emi_ble_tx_packet[5] = EMI_TX_PKT_PAYLOAD;
+        emi_ble_tx_packet[3] = (rf_tx_dma_len >> 24) & 0xff;
+        emi_ble_tx_packet[2] = (rf_tx_dma_len >> 16) & 0xff;
+        emi_ble_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
+        emi_ble_tx_packet[0] = rf_tx_dma_len & 0xff;
+        rf_start_stx((void *)emi_ble_tx_packet, read_reg32(0x140200) + 10);
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
 
+        rf_clr_irq_status(FLD_RF_IRQ_TX);
 
-	    delay_ms(2);
-	    if(pkt_type == 0)
-	    	rf_phy_test_prbs9(&emi_ble_tx_packet[6],37);
-	}
-	else if(rf_mode == RF_MODE_ZIGBEE_250K)
-	{
-		rf_data_len = EMI_TX_PKT_PAYLOAD+1;
-		rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
-		emi_zigbee_tx_packet[4]=EMI_TX_PKT_PAYLOAD+2;
-		emi_zigbee_tx_packet[3] = (rf_tx_dma_len >> 24)&0xff;
-		emi_zigbee_tx_packet[2] = (rf_tx_dma_len >> 16)&0xff;
-		emi_zigbee_tx_packet[1] = (rf_tx_dma_len >> 8)&0xff;
-		emi_zigbee_tx_packet[0] = rf_tx_dma_len&0xff;
-		rf_start_stx ((void *)emi_zigbee_tx_packet,read_reg32(0x140200) + 10);
-		while(!(rf_get_irq_status(FLD_RF_IRQ_TX)));
-		rf_clr_irq_status(FLD_RF_IRQ_TX);
+        delay_ms(2);
+        if (pkt_type == 0) {
+            rf_phy_test_prbs9(&emi_ble_tx_packet[6], 37);
+        }
+    } else if (rf_mode == RF_MODE_ZIGBEE_250K) {
+        rf_data_len = EMI_TX_PKT_PAYLOAD + 1;
+        rf_tx_dma_len = rf_tx_packet_dma_len(rf_data_len);
+        emi_zigbee_tx_packet[4] = EMI_TX_PKT_PAYLOAD + 2;
+        emi_zigbee_tx_packet[3] = (rf_tx_dma_len >> 24) & 0xff;
+        emi_zigbee_tx_packet[2] = (rf_tx_dma_len >> 16) & 0xff;
+        emi_zigbee_tx_packet[1] = (rf_tx_dma_len >> 8) & 0xff;
+        emi_zigbee_tx_packet[0] = rf_tx_dma_len & 0xff;
+        rf_start_stx((void *)emi_zigbee_tx_packet, read_reg32(0x140200) + 10);
+        while (!(rf_get_irq_status(FLD_RF_IRQ_TX))) {
+        }
 
+        rf_clr_irq_status(FLD_RF_IRQ_TX);
 
-	    delay_us(625*2);
-	    if(pkt_type == 0)
-	    	rf_phy_test_prbs9(&emi_zigbee_tx_packet[5],37);
-	}
+        delay_us(625 * 2);
+        if (pkt_type == 0) {
+            rf_phy_test_prbs9(&emi_zigbee_tx_packet[5], 37);
+        }
+    }
 }
-
 
 /**
  * @brief      This function serves to set the burst mode
@@ -423,72 +403,66 @@ void rf_emi_tx_burst_loop(rf_mode_e rf_mode,unsigned char pkt_type)
  * -#2:0x55
  * @return     none
  */
-void rf_emi_tx_burst_setup(rf_mode_e rf_mode,rf_power_level_e power_level,signed char rf_chn,unsigned char pkt_type)
+void rf_emi_tx_burst_setup(rf_mode_e rf_mode, rf_power_level_e power_level, signed char rf_chn, unsigned char pkt_type)
 {
-	unsigned char i = 0;
-	unsigned char tx_data = 0;
-	write_reg8(0x10083c,0x10); // print buffer size set
-	rf_set_tx_dma(2,128);
-	rf_set_chn(rf_chn);
-	rf_mode_init();
-	switch(rf_mode)
-	{
-		case RF_MODE_BLE_1M_NO_PN:
-			rf_set_ble_1M_NO_PN_mode();
-			break;
-		case RF_MODE_BLE_2M:
-			rf_set_ble_2M_NO_PN_mode();
-			break;
-		case RF_MODE_LR_S2_500K:
-			rf_set_ble_500K_mode();
-			break;
-		case RF_MODE_LR_S8_125K:
-			rf_set_ble_125K_mode();
-			break;
-		case RF_MODE_ZIGBEE_250K:
-			rf_set_zigbee_250K_mode();
-			break;
+    unsigned char i = 0;
+    unsigned char tx_data = 0;
+    write_reg8(0x10083c, 0x10);  // print buffer size set
+    rf_set_tx_dma(2, 128);
+    rf_set_chn(rf_chn);
+    rf_mode_init();
+    switch (rf_mode) {
+        case RF_MODE_BLE_1M_NO_PN:
+            rf_set_ble_1M_NO_PN_mode();
+            break;
+        case RF_MODE_BLE_2M:
+            rf_set_ble_2M_NO_PN_mode();
+            break;
+        case RF_MODE_LR_S2_500K:
+            rf_set_ble_500K_mode();
+            break;
+        case RF_MODE_LR_S8_125K:
+            rf_set_ble_125K_mode();
+            break;
+        case RF_MODE_ZIGBEE_250K:
+            rf_set_zigbee_250K_mode();
+            break;
 
-		default:break;
-	}
-	if(rf_mode != RF_MODE_ZIGBEE_250K)
-		rf_access_code_comm(EMI_ACCESS_CODE); 	//accesscode
+        default:
+            break;
+    }
+    if (rf_mode != RF_MODE_ZIGBEE_250K) {
+        rf_access_code_comm(EMI_ACCESS_CODE);  // accesscode
+    }
 
-	rf_pn_disable();
-	rf_set_power_level (power_level);
-	if(pkt_type == 1)
-	{
-		tx_data = 0x0f;
-	}
-	else if(pkt_type == 2)
-	{
-		tx_data = 0x55;
-	}
+    rf_pn_disable();
+    rf_set_power_level(power_level);
+    if (pkt_type == 1) {
+        tx_data = 0x0f;
+    } else if (pkt_type == 2) {
+        tx_data = 0x55;
+    }
 
-	switch(rf_mode)
-	{
-	    case RF_MODE_LR_S2_500K:
-	    case RF_MODE_LR_S8_125K:
-	    case RF_MODE_BLE_1M_NO_PN:
-	    case RF_MODE_BLE_2M:
-	    	emi_ble_tx_packet[4] = pkt_type;//type
-	    	for(i = 0;i < 37;i++)
-	    	{
-	    		emi_ble_tx_packet[6+i]=tx_data;
-	    	}
-	    	break;
-	    case RF_MODE_ZIGBEE_250K:
-	    	emi_zigbee_tx_packet[5] = pkt_type; // type
-	    	for(i = 0;i < 37;i++)
-	    	{
-	    		emi_zigbee_tx_packet[5 + i] = tx_data;
-	    	}
-	    	break;
+    switch (rf_mode) {
+        case RF_MODE_LR_S2_500K:
+        case RF_MODE_LR_S8_125K:
+        case RF_MODE_BLE_1M_NO_PN:
+        case RF_MODE_BLE_2M:
+            emi_ble_tx_packet[4] = pkt_type;  // type
+            for (i = 0; i < 37; i++) {
+                emi_ble_tx_packet[6 + i] = tx_data;
+            }
+            break;
+        case RF_MODE_ZIGBEE_250K:
+            emi_zigbee_tx_packet[5] = pkt_type;  // type
+            for (i = 0; i < 37; i++) {
+                emi_zigbee_tx_packet[5 + i] = tx_data;
+            }
+            break;
 
-	    default:
-	    	break;
-	}
-
+        default:
+            break;
+    }
 }
 
 /**
@@ -497,6 +471,6 @@ void rf_emi_tx_burst_setup(rf_mode_e rf_mode,rf_power_level_e power_level,signed
  */
 void rf_emi_reset_baseband(void)
 {
-	reg_rst3 &= (~FLD_RST3_ZB);      		  // reset baseband
-	reg_rst3 |= (FLD_RST3_ZB);				  // clr baseband
+    reg_rst3 &= (~FLD_RST3_ZB);  // reset baseband
+    reg_rst3 |= (FLD_RST3_ZB);   // clr baseband
 }

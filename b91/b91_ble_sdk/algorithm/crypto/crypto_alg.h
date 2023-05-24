@@ -1,60 +1,29 @@
-/********************************************************************************************************
- * @file	crypto_alg.h
+/******************************************************************************
+ * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ * All rights reserved.
  *
- * @brief	This is the header file for BLE SDK
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * @author	BLE GROUP
- * @date	2020.06
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * @par     Copyright (c) 2020, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
- *          All rights reserved.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- *          Redistribution and use in source and binary forms, with or without
- *          modification, are permitted provided that the following conditions are met:
- *
- *              1. Redistributions of source code must retain the above copyright
- *              notice, this list of conditions and the following disclaimer.
- *
- *              2. Unless for usage inside a TELINK integrated circuit, redistributions
- *              in binary form must reproduce the above copyright notice, this list of
- *              conditions and the following disclaimer in the documentation and/or other
- *              materials provided with the distribution.
- *
- *              3. Neither the name of TELINK, nor the names of its contributors may be
- *              used to endorse or promote products derived from this software without
- *              specific prior written permission.
- *
- *              4. This software, with or without modification, must only be used with a
- *              TELINK integrated circuit. All other usages are subject to written permission
- *              from TELINK and different commercial license may apply.
- *
- *              5. Licensee shall be solely responsible for any claim to the extent arising out of or
- *              relating to such deletion(s), modification(s) or alteration(s).
- *
- *          THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- *          ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- *          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- *          DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
- *          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- *          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- *          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- *          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- *          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *******************************************************************************************************/
+ *****************************************************************************/
 #ifndef CRYPTO_ALG_H_
 #define CRYPTO_ALG_H_
-
-
-
 
 /*
  * @brief 	This function is used to generate the prand
  * @param[out]	prand - The out are stored in little endian format
  * @return      none
  * */
-void			blt_crypto_alg_prand(unsigned char prand[3]);
+void blt_crypto_alg_prand(unsigned char prand[3]);
 
 /*
  * @brief 	Resolvable Private Address Generation and Resolution
@@ -63,7 +32,7 @@ void			blt_crypto_alg_prand(unsigned char prand[3]);
  * @param[out]	out - The out are stored in little endian format
  * @return      none
  * */
-void			blt_crypto_alg_ah(const unsigned char irk[16], unsigned char r[3], unsigned char out[3]);
+void blt_crypto_alg_ah(const unsigned char irk[16], unsigned char r[3], unsigned char out[3]);
 
 /**
  * @brief   	This function is used to generate the confirm values
@@ -79,7 +48,9 @@ void			blt_crypto_alg_ah(const unsigned char irk[16], unsigned char r[3], unsign
  * @return  	none.
  * @Note		Input data requires strict Word alignment
  */
-void 			blt_crypto_alg_c1(unsigned char *c1, unsigned char key[16], unsigned char r[16], unsigned char pres[7], unsigned char preq[7], unsigned char iat, unsigned char ia[6], unsigned char rat, unsigned char ra[6]);
+void blt_crypto_alg_c1(unsigned char *c1, unsigned char key[16], unsigned char r[16], unsigned char pres[7],
+                       unsigned char preq[7], unsigned char iat, unsigned char ia[6], unsigned char rat,
+                       unsigned char ra[6]);
 
 /**
  * @brief   	This function is used to generate the STK during the LE legacy pairing process.
@@ -90,7 +61,7 @@ void 			blt_crypto_alg_c1(unsigned char *c1, unsigned char key[16], unsigned cha
  * @return  	none.
  * @Note		Input data requires strict Word alignment
  */
-void			blt_crypto_alg_s1(unsigned char *stk, unsigned char key[16], unsigned char r1[16], unsigned char r2[16]);
+void blt_crypto_alg_s1(unsigned char *stk, unsigned char key[16], unsigned char r1[16], unsigned char r2[16]);
 
 /**
  * @brief		This function is used to compute confirm value by function f4
@@ -102,7 +73,8 @@ void			blt_crypto_alg_s1(unsigned char *stk, unsigned char key[16], unsigned cha
  * @param[in]   z:  is the 8-bits
  * @return	none.
  */
-void			blt_crypto_alg_f4 (unsigned char *r, unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char z);
+void blt_crypto_alg_f4(unsigned char *r, unsigned char u[32], unsigned char v[32], unsigned char x[16],
+                       unsigned char z);
 
 /**
  * @brief	This function is used to generate the numeric comparison values during authentication
@@ -113,7 +85,7 @@ void			blt_crypto_alg_f4 (unsigned char *r, unsigned char u[32], unsigned char v
  * @param[in]   y:  is the 128-bits, 	big--endian.
  * @return	pincode value: 32-bits.
  */
-unsigned int	blt_crypto_alg_g2 (unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char y[16]);
+unsigned int blt_crypto_alg_g2(unsigned char u[32], unsigned char v[32], unsigned char x[16], unsigned char y[16]);
 
 /**
  * @brief	This function is used to generate derived keying material in order to create the LTK
@@ -127,8 +99,8 @@ unsigned int	blt_crypto_alg_g2 (unsigned char u[32], unsigned char v[32], unsign
  * @param[in]   a2:	is the 56-bits, 	big--endian.
  * @return	none.
  */
-void 			blt_crypto_alg_f5 (unsigned char *mac, unsigned char *ltk, unsigned char w[32], unsigned char n1[16], unsigned char n2[16],
-								unsigned char a1[7], unsigned char a2[7]);
+void blt_crypto_alg_f5(unsigned char *mac, unsigned char *ltk, unsigned char w[32], unsigned char n1[16],
+                       unsigned char n2[16], unsigned char a1[7], unsigned char a2[7]);
 
 /**
  * @brief	This function is used to generate check values during authentication stage 2 of the
@@ -141,8 +113,8 @@ void 			blt_crypto_alg_f5 (unsigned char *mac, unsigned char *ltk, unsigned char
  * @param[in]   a2:	is the 56-bits, 	big--endian.
  * @return	none.
  */
-void 			blt_crypto_alg_f6 (unsigned char *e, unsigned char w[16], unsigned char n1[16], unsigned char n2[16],
-								unsigned char r[16], unsigned char iocap[3], unsigned char a1[7], unsigned char a2[7]);
+void blt_crypto_alg_f6(unsigned char *e, unsigned char w[16], unsigned char n1[16], unsigned char n2[16],
+                       unsigned char r[16], unsigned char iocap[3], unsigned char a1[7], unsigned char a2[7]);
 
 /**
  * @brief	This function is used to convert keys of a given size from one key type to another
@@ -152,8 +124,7 @@ void 			blt_crypto_alg_f6 (unsigned char *e, unsigned char w[16], unsigned char 
  * @param[in]   keyid:	is the 32-bits, 		big--endian.
  * @return	none.
  */
-void 			blt_crypto_alg_h6 (unsigned char *r, unsigned char w[16], unsigned char keyid[4]);
-
+void blt_crypto_alg_h6(unsigned char *r, unsigned char w[16], unsigned char keyid[4]);
 
 /**
  * @brief	This function is used to convert keys of a given size from one key type to another
@@ -164,8 +135,7 @@ void 			blt_crypto_alg_h6 (unsigned char *r, unsigned char w[16], unsigned char 
  * @param[in]   w:	is the 128-bits, 			big--endian.
  * @return	none.
  */
-void 			blt_crypto_alg_h7 (unsigned char *r, unsigned char salt[16], unsigned char w[16]);
-
+void blt_crypto_alg_h7(unsigned char *r, unsigned char salt[16], unsigned char w[16]);
 
 /**
  * @brief	This function is used to generate the Group Session Key (GSK) for encrypting or
@@ -177,13 +147,6 @@ void 			blt_crypto_alg_h7 (unsigned char *r, unsigned char salt[16], unsigned ch
  * @param[in]   keyid: is the 32-bits, 			big--endian.
  * @return	none.
  */
-void 			blt_crypto_alg_h8 (unsigned char *r, unsigned char k[16], unsigned char s[16], unsigned char keyId[4]);
-
-
-
+void blt_crypto_alg_h8(unsigned char *r, unsigned char k[16], unsigned char s[16], unsigned char keyId[4]);
 
 #endif /* CRYPTO_ALG_H_ */
-
-
-
-

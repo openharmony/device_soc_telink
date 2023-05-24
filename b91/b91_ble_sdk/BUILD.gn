@@ -42,8 +42,8 @@ static_library("b91_ble_sdk") {
 }
 
 config("public") {
-  defines = [ 
-    "TELINK_SDK_B91_BLE_MULTI=1", 
-    "UART_PRINT_DEBUG_ENABLE=1"
+  defines = [
+    "TELINK_SDK_B91_BLE_MULTI=1",
+    "UART_PRINT_DEBUG_ENABLE=1",
   ]
 }

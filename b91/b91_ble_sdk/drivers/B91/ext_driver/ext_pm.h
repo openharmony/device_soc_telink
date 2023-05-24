@@ -1,48 +1,20 @@
-/********************************************************************************************************
- * @file	ext_pm.h
+/******************************************************************************
+ * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ * All rights reserved.
  *
- * @brief	This is the header file for B91
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * @author	BLE Group
- * @date	2020
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * @par     Copyright (c) 2020, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
- *          All rights reserved.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- *          Redistribution and use in source and binary forms, with or without
- *          modification, are permitted provided that the following conditions are met:
- *
- *              1. Redistributions of source code must retain the above copyright
- *              notice, this list of conditions and the following disclaimer.
- *
- *              2. Unless for usage inside a TELINK integrated circuit, redistributions
- *              in binary form must reproduce the above copyright notice, this list of
- *              conditions and the following disclaimer in the documentation and/or other
- *              materials provided with the distribution.
- *
- *              3. Neither the name of TELINK, nor the names of its contributors may be
- *              used to endorse or promote products derived from this software without
- *              specific prior written permission.
- *
- *              4. This software, with or without modification, must only be used with a
- *              TELINK integrated circuit. All other usages are subject to written permission
- *              from TELINK and different commercial license may apply.
- *
- *              5. Licensee shall be solely responsible for any claim to the extent arising out of or
- *              relating to such deletion(s), modification(s) or alteration(s).
- *
- *          THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- *          ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- *          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- *          DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
- *          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- *          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- *          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- *          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- *          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *******************************************************************************************************/
+ *****************************************************************************/
 
 #ifndef DRIVERS_B91_DRIVER_EXT_EXT_PM_H_
 #define DRIVERS_B91_DRIVER_EXT_EXT_PM_H_
@@ -50,70 +22,60 @@
 #include "../pm.h"
 #include "types.h"
 
-#ifndef	PM_32k_RC_CALIBRATION_ALGORITHM_EN
-#define PM_32k_RC_CALIBRATION_ALGORITHM_EN	1
+#ifndef PM_32k_RC_CALIBRATION_ALGORITHM_EN
+#define PM_32k_RC_CALIBRATION_ALGORITHM_EN 1
 #endif
-
-
-
-
-
 
 /**
  * @brief	available wake-up source for customer
  */
 typedef enum {
-	 //not available wake-up source for customer
-	 PM_TIM_RECOVER_START   = BIT(14),
-	 PM_TIM_RECOVER_END     = BIT(15),
-}pm_tim_recover_wakeup_src_e;
+    // not available wake-up source for customer
+    PM_TIM_RECOVER_START = BIT(14),
+    PM_TIM_RECOVER_END = BIT(15),
+} pm_tim_recover_wakeup_src_e;
 
-
-
-typedef pm_sleep_mode_e 	SleepMode_TypeDef;
-typedef pm_sleep_wakeup_src_e  SleepWakeupSrc_TypeDef;
-
+typedef pm_sleep_mode_e SleepMode_TypeDef;
+typedef pm_sleep_wakeup_src_e SleepWakeupSrc_TypeDef;
 
 typedef int (*suspend_handler_t)(void);
 typedef void (*check_32k_clk_handler_t)(void);
 typedef unsigned int (*pm_get_32k_clk_handler_t)(void);
-typedef int (*cpu_pm_handler_t)(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeup_src, unsigned int  wakeup_tick);
+typedef int (*cpu_pm_handler_t)(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src,
+                                unsigned int wakeup_tick);
 typedef unsigned int (*pm_tim_recover_handler_t)(unsigned int);
 
-extern 	cpu_pm_handler_t  		 	cpu_sleep_wakeup;
-extern  suspend_handler_t 		 	func_before_suspend;
-extern  check_32k_clk_handler_t  	pm_check_32k_clk_stable;
-extern  pm_get_32k_clk_handler_t 	pm_get_32k_tick;
-extern  pm_tim_recover_handler_t 	pm_tim_recover;
+extern cpu_pm_handler_t cpu_sleep_wakeup;
+extern suspend_handler_t func_before_suspend;
+extern check_32k_clk_handler_t pm_check_32k_clk_stable;
+extern pm_get_32k_clk_handler_t pm_get_32k_tick;
+extern pm_tim_recover_handler_t pm_tim_recover;
 
 /**
  * @brief	gpio wakeup level definition
  */
-typedef enum{
-	Level_Low=0,
-	Level_High =1,
-}pm_gpio_wakeup_Level_e;
-
+typedef enum {
+    Level_Low = 0,
+    Level_High = 1,
+} pm_gpio_wakeup_Level_e;
 
 /**
  * @brief   deepsleep wakeup by external xtal
  */
-typedef struct{
-	unsigned char ext_cap_en;    //24xtal  cap
-	unsigned char pad32k_en;
-	unsigned char pm_enter_en;
-	unsigned char rsvd;
-}misc_para_t;
+typedef struct {
+    unsigned char ext_cap_en;  // 24xtal  cap
+    unsigned char pad32k_en;
+    unsigned char pm_enter_en;
+    unsigned char rsvd;
+} misc_para_t;
 
-extern  _attribute_aligned_(4) misc_para_t 				blt_miscParam;
+extern _attribute_aligned_(4) misc_para_t blt_miscParam;
 
-#define SYS_NEED_REINIT_EXT32K			    BIT(1)
-#define WAKEUP_STATUS_TIMER_CORE     	    ( WAKEUP_STATUS_TIMER | WAKEUP_STATUS_CORE)
-#define WAKEUP_STATUS_TIMER_PAD		        ( WAKEUP_STATUS_TIMER | WAKEUP_STATUS_PAD)
+#define SYS_NEED_REINIT_EXT32K   BIT(1)
+#define WAKEUP_STATUS_TIMER_CORE (WAKEUP_STATUS_TIMER | WAKEUP_STATUS_CORE)
+#define WAKEUP_STATUS_TIMER_PAD  (WAKEUP_STATUS_TIMER | WAKEUP_STATUS_PAD)
 
-
-
-void bls_pm_registerFuncBeforeSuspend (suspend_handler_t func );
+void bls_pm_registerFuncBeforeSuspend(suspend_handler_t func);
 
 /**
  * @brief analog register below can store infomation when MCU in deepsleep mode
@@ -121,46 +83,46 @@ void bls_pm_registerFuncBeforeSuspend (suspend_handler_t func );
  * 	      when MCU wakeup from deepsleep, read the information by by calling analog_read function
  * 	      Reset these analog registers only by power cycle
  */
-#define DEEP_ANA_REG0                       0x39 //initial value =0x00
-#define DEEP_ANA_REG1                       0x3a //initial value =0x00
-#define DEEP_ANA_REG2                       0x3b //initial value =0x00
-#define DEEP_ANA_REG3                      	0x3c //initial value =0x00
-#define DEEP_ANA_REG4                       0x3d //initial value =0x00
-#define DEEP_ANA_REG5                       0x3e //initial value =0x00
-#define DEEP_ANA_REG6                       0x3f //initial value =0x0f
+#define DEEP_ANA_REG0 0x39  // initial value =0x00
+#define DEEP_ANA_REG1 0x3a  // initial value =0x00
+#define DEEP_ANA_REG2 0x3b  // initial value =0x00
+#define DEEP_ANA_REG3 0x3c  // initial value =0x00
+#define DEEP_ANA_REG4 0x3d  // initial value =0x00
+#define DEEP_ANA_REG5 0x3e  // initial value =0x00
+#define DEEP_ANA_REG6 0x3f  // initial value =0x0f
 
 /**
  * @brief these analog register can store data in deepsleep mode or deepsleep with SRAM retention mode.
  * 	      Reset these analog registers by watchdog, chip reset, RESET Pin, power cycle
  */
 
-#define DEEP_ANA_REG7                       0x38 //initial value =0xff
+#define DEEP_ANA_REG7 0x38  // initial value =0xff
 
-//ana3e system used, user can not use
-#define SYS_DEEP_ANA_REG 					PM_ANA_REG_POWER_ON_CLR_BUF0
-
+// ana3e system used, user can not use
+#define SYS_DEEP_ANA_REG PM_ANA_REG_POWER_ON_CLR_BUF0
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode,
+ *             deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.
  * @return     indicate whether the cpu is wake up successful.
  */
-int  cpu_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeup_src, unsigned int  wakeup_tick);
+int cpu_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src, unsigned int wakeup_tick);
 
 /**
- * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g. suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
+ * @brief      This function serves to set the working mode of MCU based on 32k crystal,e.g.
+ *             suspend mode, deepsleep mode, deepsleep with SRAM retention mode and shutdown mode.
  * @param[in]  sleep_mode - sleep mode type select.
  * @param[in]  wakeup_src - wake up source select.
  * @param[in]  wakeup_tick - the time of short sleep, which means MCU can sleep for less than 5 minutes.
  * @return     indicate whether the cpu is wake up successful.
  */
-int  cpu_sleep_wakeup_32k_xtal(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeup_src, unsigned int  wakeup_tick);
-
+int cpu_sleep_wakeup_32k_xtal(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src,
+                              unsigned int wakeup_tick);
 
 void pm_sleep_start(void);
-
 
 /**
  * @brief   This function serves to reboot chip.
@@ -200,10 +162,10 @@ unsigned int clock_get_digital_32k_tick(void);
  */
 static inline void blc_pm_select_internal_32k_crystal(void)
 {
-	cpu_sleep_wakeup 	 	= cpu_sleep_wakeup_32k_rc;
-	pm_tim_recover  	 	= pm_tim_recover_32k_rc;
+    cpu_sleep_wakeup = cpu_sleep_wakeup_32k_rc;
+    pm_tim_recover = pm_tim_recover_32k_rc;
 
-	blt_miscParam.pm_enter_en 	= 1; // allow enter pm, 32k rc does not need to wait for 32k clk to be stable
+    blt_miscParam.pm_enter_en = 1;  // allow enter pm, 32k rc does not need to wait for 32k clk to be stable
 }
 
 extern void check_32k_clk_stable(void);
@@ -215,15 +177,12 @@ extern void check_32k_clk_stable(void);
  */
 static inline void blc_pm_select_external_32k_crystal(void)
 {
-	cpu_sleep_wakeup 	 	= cpu_sleep_wakeup_32k_xtal;
-	pm_check_32k_clk_stable = check_32k_clk_stable;
-	pm_tim_recover		 	= pm_tim_recover_32k_xtal;
-	pm_get_32k_tick 		= get_32k_tick;
-	blt_miscParam.pad32k_en 	= 1; // set '1': 32k clk src use external 32k crystal
+    cpu_sleep_wakeup = cpu_sleep_wakeup_32k_xtal;
+    pm_check_32k_clk_stable = check_32k_clk_stable;
+    pm_tim_recover = pm_tim_recover_32k_xtal;
+    pm_get_32k_tick = get_32k_tick;
+    blt_miscParam.pad32k_en = 1;  // set '1': 32k clk src use external 32k crystal
 }
-
-
-
 
 /**
  * @brief      This function servers to wake up the cpu from sleep mode.
@@ -232,7 +191,8 @@ static inline void blc_pm_select_external_32k_crystal(void)
  * @param[in]  wakeup_tick - the time of sleep,unit is 31.25us,1ms = 32.
  * @return     indicate whether the cpu is wake up successful.
  */
-int cpu_long_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_TypeDef wakeup_src, unsigned int  wakeup_tick);
+int cpu_long_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode, SleepWakeupSrc_TypeDef wakeup_src,
+                                 unsigned int wakeup_tick);
 
 /**
  * @brief      This function serves to determine whether mcu is waked up from deep retention.
@@ -241,7 +201,7 @@ int cpu_long_sleep_wakeup_32k_rc(SleepMode_TypeDef sleep_mode,  SleepWakeupSrc_T
  */
 static inline int pm_is_MCU_deepRetentionWakeup(void)
 {
-	return (g_pm_status_info.mcu_status & MCU_STATUS_DEEPRET_BACK);
+    return (g_pm_status_info.mcu_status & MCU_STATUS_DEEPRET_BACK);
 }
 
 /**
@@ -251,7 +211,7 @@ static inline int pm_is_MCU_deepRetentionWakeup(void)
  */
 static inline int pm_is_deepPadWakeup(void)
 {
-	return g_pm_status_info.is_pad_wakeup;
+    return g_pm_status_info.is_pad_wakeup;
 }
 
 /**
@@ -261,33 +221,30 @@ static inline int pm_is_deepPadWakeup(void)
  */
 static inline int pm_get_mcu_status(void)
 {
-	return g_pm_status_info.mcu_status;
+    return g_pm_status_info.mcu_status;
 }
 
-#define cpu_set_gpio_wakeup				pm_set_gpio_wakeup
-
+#define cpu_set_gpio_wakeup pm_set_gpio_wakeup
 
 static inline unsigned int pm_get_latest_offset_cal_time(void)
 {
-	return pmcd.offset_cal_tick;
+    return pmcd.offset_cal_tick;
 }
 
 /**********************************  Internal APIs (not for user)***************************************************/
-extern  unsigned char 		    tl_24mrc_cal;
-extern 	unsigned int 			g_pm_tick_32k_calib;
-extern  unsigned int 			g_pm_tick_cur;
-extern  unsigned int 			g_pm_tick_32k_cur;
-extern  unsigned char       	g_pm_long_suspend;
-extern  unsigned int 			g_pm_multi_addr;
+extern unsigned char tl_24mrc_cal;
+extern unsigned int g_pm_tick_32k_calib;
+extern unsigned int g_pm_tick_cur;
+extern unsigned int g_pm_tick_32k_cur;
+extern unsigned char g_pm_long_suspend;
+extern unsigned int g_pm_multi_addr;
 
-extern	unsigned int 			g_sleep_32k_rc_cnt;
-extern	unsigned int 			g_sleep_stimer_tick;
+extern unsigned int g_sleep_32k_rc_cnt;
+extern unsigned int g_sleep_stimer_tick;
 
-extern unsigned int	ota_program_bootAddr;
-extern unsigned int	ota_program_offset;
+extern unsigned int ota_program_bootAddr;
+extern unsigned int ota_program_offset;
 
-
-#define PM_MIN_SLEEP_US			1500  //eagle
-
+#define PM_MIN_SLEEP_US 1500  // eagle
 
 #endif /* DRIVERS_B91_DRIVER_EXT_EXT_PM_H_ */

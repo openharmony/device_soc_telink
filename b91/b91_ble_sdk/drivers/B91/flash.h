@@ -1,114 +1,84 @@
-/********************************************************************************************************
- * @file	flash.h
+/******************************************************************************
+ * Copyright (c) 2022 Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
+ * All rights reserved.
  *
- * @brief	This is the header file for B91
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * @author	Driver Group
- * @date	2019
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * @par     Copyright (c) 2019, Telink Semiconductor (Shanghai) Co., Ltd. ("TELINK")
- *          All rights reserved.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
- *          Redistribution and use in source and binary forms, with or without
- *          modification, are permitted provided that the following conditions are met:
- *
- *              1. Redistributions of source code must retain the above copyright
- *              notice, this list of conditions and the following disclaimer.
- *
- *              2. Unless for usage inside a TELINK integrated circuit, redistributions
- *              in binary form must reproduce the above copyright notice, this list of
- *              conditions and the following disclaimer in the documentation and/or other
- *              materials provided with the distribution.
- *
- *              3. Neither the name of TELINK, nor the names of its contributors may be
- *              used to endorse or promote products derived from this software without
- *              specific prior written permission.
- *
- *              4. This software, with or without modification, must only be used with a
- *              TELINK integrated circuit. All other usages are subject to written permission
- *              from TELINK and different commercial license may apply.
- *
- *              5. Licensee shall be solely responsible for any claim to the extent arising out of or
- *              relating to such deletion(s), modification(s) or alteration(s).
- *
- *          THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- *          ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- *          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- *          DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDER BE LIABLE FOR ANY
- *          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- *          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- *          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- *          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- *          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- *          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *******************************************************************************************************/
+ *****************************************************************************/
 #pragma once
 
-#include "mspi.h"
 #include "compiler.h"
-
+#include "mspi.h"
 
 #define PAGE_SIZE 256
 
 /**
  * @brief     flash command definition
  */
-typedef enum
-{
-	FLASH_WRITE_STATUS_CMD		=	0x01,
-	FLASH_WRITE_CMD				=	0x02,
-	FLASH_READ_CMD				=	0x03,
+typedef enum {
+    FLASH_WRITE_STATUS_CMD = 0x01,
+    FLASH_WRITE_CMD = 0x02,
+    FLASH_READ_CMD = 0x03,
 
-	FLASH_WRITE_DISABLE_CMD 	= 	0x04,
-	FLASH_READ_STATUS_CMD		=	0x05,
-	FLASH_WRITE_ENABLE_CMD 		= 	0x06,
+    FLASH_WRITE_DISABLE_CMD = 0x04,
+    FLASH_READ_STATUS_CMD = 0x05,
+    FLASH_WRITE_ENABLE_CMD = 0x06,
 
-	FLASH_CHIP_ERASE_CMD		=	0x60,   //or 0xc7
+    FLASH_CHIP_ERASE_CMD = 0x60,  // or 0xc7
 
-	FLASH_PES_CMD				=	0x75,
-	FLASH_PER_CMD				=	0x7A,
-	FLASH_QUAD_PAGE_PROGRAM_CMD	=	0x32,
-	FLASH_READ_DEVICE_ID_CMD	=	0x90,
+    FLASH_PES_CMD = 0x75,
+    FLASH_PER_CMD = 0x7A,
+    FLASH_QUAD_PAGE_PROGRAM_CMD = 0x32,
+    FLASH_READ_DEVICE_ID_CMD = 0x90,
 
-	FLASH_FAST_READ_CMD			=	0x0B,
-	FLASH_X2READ_CMD			=	0xBB,
-	FLASH_DREAD_CMD				=	0x3B,
-	FLASH_X4READ_CMD			=	0xEB,
-	FLASH_QREAD_CMD				=	0x6B,
+    FLASH_FAST_READ_CMD = 0x0B,
+    FLASH_X2READ_CMD = 0xBB,
+    FLASH_DREAD_CMD = 0x3B,
+    FLASH_X4READ_CMD = 0xEB,
+    FLASH_QREAD_CMD = 0x6B,
 
-	FLASH_SECT_ERASE_CMD		=	0x20,   //sector size = 4KBytes
-	FLASH_32KBLK_ERASE_CMD		=	0x52,
-	FLASH_64KBLK_ERASE_CMD		=	0xD8,
-	FLASH_GD_PUYA_READ_UID_CMD	=	0x4B,	//Flash Type = GD/PUYA
-	FLASH_XTX_READ_UID_CMD		=	0x5A,	//Flash Type = XTX
-	FLASH_PAGE_ERASE_CMD		=	0x81,   //caution: only P25Q40L support this function
+    FLASH_SECT_ERASE_CMD = 0x20,  // sector size = 4KBytes
+    FLASH_32KBLK_ERASE_CMD = 0x52,
+    FLASH_64KBLK_ERASE_CMD = 0xD8,
+    FLASH_GD_PUYA_READ_UID_CMD = 0x4B,  // Flash Type = GD/PUYA
+    FLASH_XTX_READ_UID_CMD = 0x5A,      // Flash Type = XTX
+    FLASH_PAGE_ERASE_CMD = 0x81,        // caution: only P25Q40L support this function
 
-	FLASH_POWER_DOWN			=	0xB9,
-	FLASH_POWER_DOWN_RELEASE	=	0xAB,
-	FLASH_GET_JEDEC_ID			=	0x9F,
-	FLASH_READ_STATUS_1_CMD		=	0x35,
+    FLASH_POWER_DOWN = 0xB9,
+    FLASH_POWER_DOWN_RELEASE = 0xAB,
+    FLASH_GET_JEDEC_ID = 0x9F,
+    FLASH_READ_STATUS_1_CMD = 0x35,
 
-	FLASH_VOLATILE_SR_WRITE_CMD	=	0x50,
-	FLASH_SET_BURST_WITH_WRAP_CMD	=	0x77,
-	FLASH_ENABLE_SO_TO_OUTPUT_CMD	=	0x70,
-	FLASH_READ_DEVICE_ID_DUAL_CME	=	0x92,
-	RLASH_READ_DEVICE_ID_QUAD_CMD	=	0x94,
-	FLASH_ERASE_SECURITY_REGISTERS_CMD	=	0x44,
-	FLASH_PROGRAM_SECURITY_REGISTERS_CMD	=	0x42,
-	FLASH_READ_SECURITY_REGISTERS_CMD	=	0x48,
-	FLASH_ENABLE_RESET_CMD	=	0x99,
+    FLASH_VOLATILE_SR_WRITE_CMD = 0x50,
+    FLASH_SET_BURST_WITH_WRAP_CMD = 0x77,
+    FLASH_ENABLE_SO_TO_OUTPUT_CMD = 0x70,
+    FLASH_READ_DEVICE_ID_DUAL_CME = 0x92,
+    RLASH_READ_DEVICE_ID_QUAD_CMD = 0x94,
+    FLASH_ERASE_SECURITY_REGISTERS_CMD = 0x44,
+    FLASH_PROGRAM_SECURITY_REGISTERS_CMD = 0x42,
+    FLASH_READ_SECURITY_REGISTERS_CMD = 0x48,
+    FLASH_ENABLE_RESET_CMD = 0x99,
 
-	FLASH_ENABLE_RESET	=	0x66,
-	FLASH_DISABLE_SO_TO_OUTPUT	=	0x80,
-}flash_command_e;
+    FLASH_ENABLE_RESET = 0x66,
+    FLASH_DISABLE_SO_TO_OUTPUT = 0x80,
+} flash_command_e;
 
 /**
  * @brief     flash type definition
  */
-typedef enum{
-	FLASH_TYPE_PUYA	= 0,
-}flash_type_e;
+typedef enum {
+    FLASH_TYPE_PUYA = 0,
+} flash_type_e;
 
 /**
  * @brief     	This function serves to erase a page(256 bytes).
@@ -219,7 +189,7 @@ _attribute_text_sec_ void flash_read_uid(unsigned char idcmd, unsigned char *buf
  * @param[out]	flash_uid	- Flash Unique ID
  * @return		0:error 1:ok
  */
-_attribute_text_sec_ int flash_read_mid_uid_with_check( unsigned int *flash_mid ,unsigned char *flash_uid);
+_attribute_text_sec_ int flash_read_mid_uid_with_check(unsigned int *flash_mid, unsigned char *flash_uid);
 
 /**
  * @brief 		This function serves to set the protection area of the flash.
@@ -237,7 +207,8 @@ _attribute_text_sec_ void flash_lock(flash_type_e type, unsigned short data);
 _attribute_text_sec_ void flash_unlock(flash_type_e type);
 
 /**
- * @brief 		This function serves to set priority threshold. when the interrupt priority > Threshold flash process will disturb by interrupt.
+ * @brief 		This function serves to set priority threshold.
+ *              When the interrupt priority > Threshold flash process will disturb by interrupt.
  * @param[in]   preempt_en	- 1 can disturb by interrupt, 0 can disturb by interrupt.
  * @param[in]	threshold	- priority Threshold.
  * @return    	none.
@@ -245,11 +216,11 @@ _attribute_text_sec_ void flash_unlock(flash_type_e type);
 _attribute_text_sec_ void flash_plic_preempt_config(unsigned char preempt_en, unsigned char threshold);
 
 /**
- * @brief		This function serves to set flash write command.This function interface is only used internally by flash,
+ * @brief		This function serves to set flash write command.
+ *              This function interface is only used internally by flash,
  * 				and is currently included in the H file for compatibility with other SDKs. When using this interface,
  * 				please ensure that you understand the precautions of flash before using it.
  * @param[in]	cmd	- set command.
  * @return		none.
  */
 _attribute_ram_code_sec_noinline_ void flash_send_cmd(unsigned char cmd);
-
