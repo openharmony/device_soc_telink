@@ -85,11 +85,11 @@ void uart_dma_init(uart_driver_data_t *driver_data)
     unsigned char bwpc;
 
     uart_cal_div_and_bwpc(driver_data->baudrate, sys_clk.pclk * HZ_IN_MHZ, &div, &bwpc);
-    uart_init(driver_data->port->num, div, bwpc, parity_from_uattr(driver_data->uattr),
-                                                stopbit_from_uattr(driver_data->uattr));
+    uart_init(driver_data->port->num, div, bwpc,
+              parity_from_uattr(driver_data->uattr),
+              stopbit_from_uattr(driver_data->uattr));
     uart_set_dma_rx_timeout(driver_data->port->num, bwpc, MAX_BITS_PER_BYTE, UART_BW_MUL1);
     uart_set_tx_dma_config(driver_data->port->num, DMA2);
     dma_clr_irq_mask(DMA2, TC_MASK|ABT_MASK|ERR_MASK);
     uart_clr_tx_done(driver_data->port->num);
 }
-

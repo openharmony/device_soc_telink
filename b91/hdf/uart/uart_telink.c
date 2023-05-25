@@ -233,6 +233,19 @@ static uint8_t parity_from_str(const char *str)
 }
 
 
+static int32_t get_port_config(const struct DeviceResourceNode *node, const char *str, uint32_t *dst)
+{
+    struct DeviceResourceIface *iface = DeviceResourceGetIfaceInstance(HDF_CONFIG_SOURCE);
+
+    if (iface->GetUint32(node, str, dst, HDF_FAILURE) != HDF_SUCCESS) {
+        HDF_LOGE("%s: Failed to get port config", __func__);
+        return HDF_FAILURE;
+    }
+
+    return HDF_SUCCESS;
+}
+
+
 static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourceNode *node)
 {
     struct DeviceResourceIface *iface = DeviceResourceGetIfaceInstance(HDF_CONFIG_SOURCE);
@@ -242,22 +255,11 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         return HDF_FAILURE;
     }
 
-    if (iface->GetUint32(node, "port", &port->num, HDF_FAILURE) != HDF_SUCCESS) {
-        HDF_LOGE("%s: Failed to read port number", __func__);
-        return HDF_FAILURE;
-    }
+    int32_t ret = get_port_config(node, "port", &port->num);
+    ret |= get_port_config(node, "regPbase", &port->addr);
+    ret |= get_port_config(node, "irqNum", &port->interrupt);
 
     uart_driver_data_t *driver_data = port->driver_data;
-
-    if (iface->GetUint32(node, "regPbase", &port->addr, HDF_FAILURE) != HDF_SUCCESS) {
-        HDF_LOGE("%s: Failed to read register base address", __func__);
-        return HDF_FAILURE;
-    }
-
-    if (iface->GetUint32(node, "irqNum", &port->interrupt, HDF_FAILURE) != HDF_SUCCESS) {
-        HDF_LOGE("%s: Failed to read uart interrupt number", __func__);
-        return HDF_FAILURE;
-    }
 
     if (iface->GetUint32(node, "baudrate", &driver_data->baudrate, HDF_FAILURE) != HDF_SUCCESS) {
         HDF_LOGE("%s: Failed to read baudrate", __func__);
@@ -297,7 +299,7 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
     }
     driver_data->uattr.parity = parity_from_str(tmp);
 
-    return HDF_SUCCESS;
+    return (ret == HDF_SUCCESS) ? HDF_SUCCESS : HDF_FAILURE;
 }
 
 
