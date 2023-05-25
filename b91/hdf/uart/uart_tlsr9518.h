@@ -25,25 +25,21 @@
 
 
 struct _uart_port;
-typedef struct _uart_driver_data
-{
+typedef struct _uart_driver_data {
     uint32_t baudrate;
     struct UartAttribute uattr;
     uart_tx_pin_e tx;
     uart_rx_pin_e rx;
     struct _uart_port *port;
-
 } uart_driver_data_t;
 
 
-typedef struct _uart_port
-{
+typedef struct _uart_port {
     uint32_t num;
     uint32_t enable;
     uint32_t interrupt;
     uint32_t addr;
     uart_driver_data_t *driver_data;
-
 } uart_port_t;
 
 

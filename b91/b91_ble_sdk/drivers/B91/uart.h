@@ -122,17 +122,17 @@ typedef enum {
 /**
  *  @brief  Define UART TX pin : UART0(PA3 PB2 PD2), UART1(PC6 PD6 PE0)
  */
-typedef enum{
-	UART0_TX_PA3 = GPIO_PA3,
-	UART0_TX_PB2 = GPIO_PB2,
-	UART0_TX_PD2 = GPIO_PD2,
+typedef enum {
+    UART0_TX_PA3 = GPIO_PA3,
+    UART0_TX_PB2 = GPIO_PB2,
+    UART0_TX_PD2 = GPIO_PD2,
 
-	UART1_TX_PC6 = GPIO_PC6,
-	UART1_TX_PD6 = GPIO_PD6,
-	UART1_TX_PE0 = GPIO_PE0,
+    UART1_TX_PC6 = GPIO_PC6,
+    UART1_TX_PD6 = GPIO_PD6,
+    UART1_TX_PE0 = GPIO_PE0,
 
-	UART_TX_ENUM_SIZE
-}uart_tx_pin_e;
+    UART_TX_ENUM_SIZE
+} uart_tx_pin_e;
 
 /**
  *  @brief  Define UART RX pin : UART0(PA4 PB3 PD3), UART1(PC7 PD7 PE2)
@@ -142,12 +142,12 @@ typedef enum {
     UART0_RX_PB3 = GPIO_PB3,
     UART0_RX_PD3 = GPIO_PD3,
 
-	UART1_RX_PC7 = GPIO_PC7,
-	UART1_RX_PD7 = GPIO_PD7,
-	UART1_RX_PE2 = GPIO_PE2,
+    UART1_RX_PC7 = GPIO_PC7,
+    UART1_RX_PD7 = GPIO_PD7,
+    UART1_RX_PE2 = GPIO_PE2,
 
-	UART_RX_ENUM_SIZE
-}uart_rx_pin_e;
+    UART_RX_ENUM_SIZE
+} uart_rx_pin_e;
 
 /**
  *  @brief  Define UART IRQ MASK.The enumeration variable is just a index,

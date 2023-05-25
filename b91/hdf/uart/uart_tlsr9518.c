@@ -16,19 +16,19 @@
  *
  *****************************************************************************/
 
-#include "uart_tlsr9518.h"
-#include "hdf_log_adapter_debug.h"
 #include <B91/clock.h>
+#include "hdf_log_adapter_debug.h"
+#include "uart_tlsr9518.h"
 
 #define HZ_IN_MHZ (1000 * 1000)
+#define MAX_BITS_PER_BYTE 12
 
 
 uart_parity_e parity_from_uattr(struct UartAttribute uattr)
 {
     uart_parity_e parity;
 
-    switch (uattr.parity)
-    {
+    switch (uattr.parity) {
         case UART_ATTR_PARITY_NONE:
             parity = UART_PARITY_NONE;
             break;
@@ -54,8 +54,7 @@ uart_stop_bit_e stopbit_from_uattr(struct UartAttribute uattr)
 {
     uart_stop_bit_e stopbit;
 
-    switch (uattr.stopBits)
-    {
+    switch (uattr.stopBits) {
         case UART_ATTR_STOPBIT_1:
             stopbit = UART_STOP_BIT_ONE;
             break;
@@ -86,8 +85,9 @@ void uart_dma_init(uart_driver_data_t *driver_data)
     unsigned char bwpc;
 
     uart_cal_div_and_bwpc(driver_data->baudrate, sys_clk.pclk * HZ_IN_MHZ, &div, &bwpc);
-    uart_init(driver_data->port->num, div, bwpc, parity_from_uattr(driver_data->uattr), stopbit_from_uattr(driver_data->uattr));
-    uart_set_dma_rx_timeout(driver_data->port->num, bwpc, 12, UART_BW_MUL1);
+    uart_init(driver_data->port->num, div, bwpc, parity_from_uattr(driver_data->uattr),
+                                                stopbit_from_uattr(driver_data->uattr));
+    uart_set_dma_rx_timeout(driver_data->port->num, bwpc, MAX_BITS_PER_BYTE, UART_BW_MUL1);
     uart_set_tx_dma_config(driver_data->port->num, DMA2);
     dma_clr_irq_mask(DMA2, TC_MASK|ABT_MASK|ERR_MASK);
     uart_clr_tx_done(driver_data->port->num);

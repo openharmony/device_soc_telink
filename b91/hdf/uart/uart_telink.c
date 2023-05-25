@@ -17,12 +17,12 @@
  *****************************************************************************/
 
 #include <string.h>
+#include <B91/dma.h>
 #include "hdf_device_desc.h"
 #include "device_resource_if.h"
 #include "hdf_log.h"
 #include "uart/uart_core.h"
 #include "osal_mem.h"
-#include <B91/dma.h>
 #include "uart_tlsr9518.h"
 #include "hdf_log_adapter_debug.h" // workaround for log print
 
@@ -78,8 +78,7 @@ static int32_t uart_device_attach(struct UartHost *host, struct HdfDeviceObject 
     driver_data->port = port;
 
     int32_t ret = get_config_from_hcs(port, device->property);
-
-    if (ret != HDF_SUCCESS || port->addr == 0) {
+    if (ret != HDF_SUCCESS) {
         OsalMemFree(driver_data);
         OsalMemFree(port);
         return HDF_FAILURE;
@@ -119,7 +118,6 @@ static int32_t uart_device_init(struct HdfDeviceObject *device)
     }
 
     ret = uart_device_attach(host, device);
-
     if (ret != HDF_SUCCESS) {
         HDF_LOGE("%s: attach failed", __func__);
         return HDF_FAILURE;
@@ -248,7 +246,6 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         HDF_LOGE("%s: Failed to read port number", __func__);
         return HDF_FAILURE;
     }
-    HDF_LOGD("%s: port->num = %u", __func__, port->num);
 
     uart_driver_data_t *driver_data = port->driver_data;
 
@@ -256,19 +253,16 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         HDF_LOGE("%s: Failed to read register base address", __func__);
         return HDF_FAILURE;
     }
-    HDF_LOGD("%s: port->addr = 0x%x", __func__, port->addr);
 
     if (iface->GetUint32(node, "irqNum", &port->interrupt, HDF_FAILURE) != HDF_SUCCESS) {
         HDF_LOGE("%s: Failed to read uart interrupt number", __func__);
         return HDF_FAILURE;
     }
-    HDF_LOGD("%s: port->interrupt = %u", __func__, port->interrupt);
 
     if (iface->GetUint32(node, "baudrate", &driver_data->baudrate, HDF_FAILURE) != HDF_SUCCESS) {
         HDF_LOGE("%s: Failed to read baudrate", __func__);
         return HDF_FAILURE;
     }
-    HDF_LOGD("%s: driver_data->baudrate = %u", __func__, driver_data->baudrate);
 
     char *tmp;
     if (iface->GetString(node, "tx_pin", &tmp, "HDF_FAILURE") != HDF_SUCCESS) {
@@ -276,7 +270,6 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         return HDF_FAILURE;
     }
     driver_data->tx = tx_pin_from_str(tmp);
-    HDF_LOGD("%s: driver_data->tx = %u", __func__, driver_data->tx);
     if (driver_data->tx >= UART_TX_ENUM_SIZE) {
         HDF_LOGE("%s: Tx pin config is illegal", __func__);
         return HDF_FAILURE;
@@ -287,7 +280,6 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         return HDF_FAILURE;
     }
     driver_data->rx = rx_pin_from_str(tmp);
-    HDF_LOGD("%s: driver_data->rx = %u", __func__, driver_data->rx);
     if (driver_data->rx >= UART_RX_ENUM_SIZE) {
         HDF_LOGE("%s: Rx pin config is illegal", __func__);
         return HDF_FAILURE;
@@ -298,14 +290,12 @@ static int32_t get_config_from_hcs(uart_port_t *port, const struct DeviceResourc
         return HDF_FAILURE;
     }
     driver_data->uattr.stopBits = stop_bit_from_str(tmp);
-    HDF_LOGD("%s: driver_data->uattr.stopBits = %u", __func__, driver_data->uattr.stopBits);
 
     if (iface->GetString(node, "parity", &tmp, "HDF_FAILURE") != HDF_SUCCESS) {
         HDF_LOGE("%s: Failed to read parity", __func__);
         return HDF_FAILURE;
     }
     driver_data->uattr.parity = parity_from_str(tmp);
-    HDF_LOGD("%s: driver_data->uattr.parity = %u", __func__, driver_data->uattr.parity);
 
     return HDF_SUCCESS;
 }
@@ -431,5 +421,3 @@ static int32_t UartHostDevSetTransMode(struct UartHost *host, enum UartTransMode
     HDF_LOGD("%s: not implemented yet", __func__);
     return HDF_FAILURE;
 }
-
-
