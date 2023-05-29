@@ -16,7 +16,11 @@
 import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
 
 hdf_driver("b91_hdf") {
-  sources = [ "gpio_telink.c" ]
+  sources = [
+    "gpio_telink.c",
+    "uart/uart_telink.c",
+    "uart/uart_tlsr9518.c",
+  ]
 
   configs += [ "../:B91_config" ]
 }
