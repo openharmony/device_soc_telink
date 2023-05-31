@@ -97,6 +97,11 @@ _attribute_ram_code_ static UINT32 B91Suspend(VOID)
     if ((mcompare - mtick) < (MTICKS_MIN_SLEEP + MTICKS_RESERVE_TIME)) {
         return 0;
     }
+
+    while (uart_tx_is_busy(UART0) || uart_tx_is_busy(UART1)) {
+        LOS_Msleep(1);
+    }
+
     UINT32 intSave = LOS_IntLock();
     mcompare = GetMtimeCompare();
     mtick = GetMtime();
