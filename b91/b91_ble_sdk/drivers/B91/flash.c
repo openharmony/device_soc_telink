@@ -294,7 +294,6 @@ _attribute_text_sec_ void flash_erase_chip(void)
     __asm__("csrsi 	mmisc_ctl,8");  // enable BTB
 }
 
-#if (!RAMCODE_OPTIMIZE_UNUSED_FLASH_API_NOT_IMPLEMENT)
 /**
  * @brief     	This function serves to erase a page(256 bytes).
  * @param[in] 	addr	- the start address of the page needs to erase.
@@ -333,43 +332,6 @@ _attribute_text_sec_ void flash_erase_page(unsigned int addr)
 }
 
 /**
- * @brief 		This function serves to erase a block(32k).
- * @param[in]   addr	- the start address of the block needs to erase.
- * @return 		none.
- */
-_attribute_ram_code_sec_noinline_ void flash_erase_32kblock_ram(unsigned int addr)
-{
-#if SUPPORT_PFT_ARCH
-    unsigned int r = core_interrupt_disable();
-    reg_irq_threshold = 1;
-    core_restore_interrupt(r);
-#else
-    unsigned int r = core_interrupt_disable();
-#endif
-
-    mspi_stop_xip();
-    flash_send_cmd(FLASH_WRITE_ENABLE_CMD);
-    flash_send_cmd(FLASH_32KBLK_ERASE_CMD);
-    flash_send_addr(addr);
-    mspi_high();
-    flash_wait_done();
-    CLOCK_DLY_5_CYC;
-#if SUPPORT_PFT_ARCH
-    r = core_interrupt_disable();
-    reg_irq_threshold = 0;
-    core_restore_interrupt(r);
-#else
-    core_restore_interrupt(r);  // ???irq_restore(r);
-#endif
-}
-_attribute_text_sec_ void flash_erase_32kblock(unsigned int addr)
-{
-    __asm__("csrci 	mmisc_ctl,8");  // disable BTB
-    flash_erase_32kblock_ram(addr);
-    __asm__("csrsi 	mmisc_ctl,8");  // enable BTB
-}
-
-/**
  * @brief 		This function serves to erase a block(64k).
  * @param[in]   addr	- the start address of the block needs to erase.
  * @return 		none.
@@ -403,6 +365,44 @@ _attribute_text_sec_ void flash_erase_64kblock(unsigned int addr)
 {
     __asm__("csrci 	mmisc_ctl,8");  // disable BTB
     flash_erase_64kblock_ram(addr);
+    __asm__("csrsi 	mmisc_ctl,8");  // enable BTB
+}
+
+#if (!RAMCODE_OPTIMIZE_UNUSED_FLASH_API_NOT_IMPLEMENT)
+/**
+ * @brief 		This function serves to erase a block(32k).
+ * @param[in]   addr	- the start address of the block needs to erase.
+ * @return 		none.
+ */
+_attribute_ram_code_sec_noinline_ void flash_erase_32kblock_ram(unsigned int addr)
+{
+#if SUPPORT_PFT_ARCH
+    unsigned int r = core_interrupt_disable();
+    reg_irq_threshold = 1;
+    core_restore_interrupt(r);
+#else
+    unsigned int r = core_interrupt_disable();
+#endif
+
+    mspi_stop_xip();
+    flash_send_cmd(FLASH_WRITE_ENABLE_CMD);
+    flash_send_cmd(FLASH_32KBLK_ERASE_CMD);
+    flash_send_addr(addr);
+    mspi_high();
+    flash_wait_done();
+    CLOCK_DLY_5_CYC;
+#if SUPPORT_PFT_ARCH
+    r = core_interrupt_disable();
+    reg_irq_threshold = 0;
+    core_restore_interrupt(r);
+#else
+    core_restore_interrupt(r);  // ???irq_restore(r);
+#endif
+}
+_attribute_text_sec_ void flash_erase_32kblock(unsigned int addr)
+{
+    __asm__("csrci 	mmisc_ctl,8");  // disable BTB
+    flash_erase_32kblock_ram(addr);
     __asm__("csrsi 	mmisc_ctl,8");  // enable BTB
 }
 
