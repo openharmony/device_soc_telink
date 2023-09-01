@@ -266,6 +266,8 @@ _attribute_text_sec_ void flash_read_page(unsigned long addr, unsigned long len,
  */
 _attribute_ram_code_sec_noinline_ void flash_erase_chip_ram(void)
 {
+    LOS_SysTickTimerGet()->lock();
+    LOS_TaskLock();
 #if SUPPORT_PFT_ARCH
     unsigned int r = core_interrupt_disable();
     reg_irq_threshold = 1;
@@ -286,6 +288,8 @@ _attribute_ram_code_sec_noinline_ void flash_erase_chip_ram(void)
 #else
     core_restore_interrupt(r);
 #endif
+    LOS_SysTickTimerGet()->unlock();
+    LOS_TaskUnlock();
 }
 _attribute_text_sec_ void flash_erase_chip(void)
 {
