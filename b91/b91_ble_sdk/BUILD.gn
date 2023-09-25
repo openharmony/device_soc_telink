@@ -38,6 +38,11 @@ static_library("b91_ble_sdk") {
 
   libs = [ "proj_lib/liblt_9518_liteos.a" ]
 
+  include_dirs = [
+    #"//kernel/liteos_m/arch/include",
+    #"//kernel/liteos_m/kernel/include",
+  ]
+
   configs += [ "..:B91_config" ]
 }
 
