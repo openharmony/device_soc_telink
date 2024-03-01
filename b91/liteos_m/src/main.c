@@ -108,6 +108,7 @@ STATIC VOID LittlefsInit(VOID)
 
 VOID HardwareInit(VOID)
 {
+    gpio_shutdown(GPIO_ALL);
     SystemInit();
 }
 
