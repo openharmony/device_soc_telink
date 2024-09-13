@@ -28,6 +28,7 @@ kernel_module("platform_main") {
     "src/riscv_irq.c",
     "src/system.c",
     "src/system_b91.c",
+    "src/fs.c",
   ]
 
   deps = [
